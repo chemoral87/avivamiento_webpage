@@ -67,7 +67,11 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'node-server',
-    port: 3002  // Puerto para producción
+    port: 3002,
+    moduleSideEffects: ['vue-bundle-renderer'],
+    rollupConfig: {
+      external: []
+    }
   },
 
   devServer: {

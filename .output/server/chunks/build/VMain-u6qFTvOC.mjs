@@ -50,9 +50,10 @@ function useLayout() {
   };
 }
 function useLayoutItem(options) {
+  var _a;
   const layout = inject(VuetifyLayoutKey);
   if (!layout) throw new Error("[Vuetify] Could not find injected layout");
-  const id = options.id ?? `layout-item-${useId()}`;
+  const id = (_a = options.id) != null ? _a : `layout-item-${useId()}`;
   const vm = getCurrentInstance("useLayoutItem");
   provide(VuetifyLayoutItemKey, {
     id
@@ -116,8 +117,9 @@ function createLayout(props) {
     contentRect: layoutRect
   } = useResizeObserver();
   const computedOverlaps = computed(() => {
+    var _a;
     const map = /* @__PURE__ */ new Map();
-    const overlaps = props.overlaps ?? [];
+    const overlaps = (_a = props.overlaps) != null ? _a : [];
     for (const overlap of overlaps.filter((item) => item.includes(":"))) {
       const [top, bottom] = overlap.split(":");
       if (!registered.value.includes(top) || !registered.value.includes(bottom)) continue;
@@ -141,7 +143,10 @@ function createLayout(props) {
     const uniquePriorities = [...new Set([...priorities.values()].map((p) => p.value))].sort((a, b) => a - b);
     const layout = [];
     for (const p of uniquePriorities) {
-      const items2 = registered.value.filter((id) => priorities.get(id)?.value === p);
+      const items2 = registered.value.filter((id) => {
+        var _a;
+        return ((_a = priorities.get(id)) == null ? void 0 : _a.value) === p;
+      });
       layout.push(...items2);
     }
     return generateLayers(layout, positions, layoutSizes, activeItems);
@@ -203,17 +208,18 @@ function createLayout(props) {
       layoutSizes.set(id, layoutSize);
       activeItems.set(id, active);
       disableTransitions && disabledTransitions.set(id, disableTransitions);
-      const instances = findChildrenWithProvide(VuetifyLayoutItemKey, rootVm?.vnode);
+      const instances = findChildrenWithProvide(VuetifyLayoutItemKey, rootVm == null ? void 0 : rootVm.vnode);
       const instanceIndex = instances.indexOf(vm);
       if (instanceIndex > -1) registered.value.splice(instanceIndex, 0, id);
       else registered.value.push(id);
       const index = computed(() => items.value.findIndex((i) => i.id === id));
       const zIndex = computed(() => rootZIndex.value + layers.value.length * 2 - index.value * 2);
       const layoutItemStyles = computed(() => {
+        var _a;
         const isHorizontal = position.value === "left" || position.value === "right";
         const isOppositeHorizontal = position.value === "right";
         const isOppositeVertical = position.value === "bottom";
-        const size = elementSize.value ?? layoutSize.value;
+        const size = (_a = elementSize.value) != null ? _a : layoutSize.value;
         const unit = size === 0 ? "%" : "px";
         const styles = {
           [position.value]: 0,
@@ -307,13 +313,16 @@ const VApp = genericComponent()({
     const {
       rtlClasses
     } = useRtl();
-    useRender(() => createElementVNode("div", {
-      "ref": layoutRef,
-      "class": normalizeClass(["v-application", theme.themeClasses.value, layoutClasses.value, rtlClasses.value, props.class]),
-      "style": normalizeStyle([props.style])
-    }, [createElementVNode("div", {
-      "class": "v-application__wrap"
-    }, [slots.default?.()])]));
+    useRender(() => {
+      var _a;
+      return createElementVNode("div", {
+        "ref": layoutRef,
+        "class": normalizeClass(["v-application", theme.themeClasses.value, layoutClasses.value, rtlClasses.value, props.class]),
+        "style": normalizeStyle([props.style])
+      }, [createElementVNode("div", {
+        "class": "v-application__wrap"
+      }, [(_a = slots.default) == null ? void 0 : _a.call(slots)])]);
+    });
     return {
       getLayoutItem,
       items,
@@ -386,17 +395,20 @@ const VResponsive = genericComponent()({
     const {
       dimensionStyles
     } = useDimension(props);
-    useRender(() => createElementVNode("div", {
-      "class": normalizeClass(["v-responsive", {
-        "v-responsive--inline": props.inline
-      }, props.class]),
-      "style": normalizeStyle([dimensionStyles.value, props.style])
-    }, [createElementVNode("div", {
-      "class": "v-responsive__sizer",
-      "style": normalizeStyle(aspectStyles.value)
-    }, null), slots.additional?.(), slots.default && createElementVNode("div", {
-      "class": normalizeClass(["v-responsive__content", props.contentClass])
-    }, [slots.default()])]));
+    useRender(() => {
+      var _a;
+      return createElementVNode("div", {
+        "class": normalizeClass(["v-responsive", {
+          "v-responsive--inline": props.inline
+        }, props.class]),
+        "style": normalizeStyle([dimensionStyles.value, props.style])
+      }, [createElementVNode("div", {
+        "class": "v-responsive__sizer",
+        "style": normalizeStyle(aspectStyles.value)
+      }, null), (_a = slots.additional) == null ? void 0 : _a.call(slots), slots.default && createElementVNode("div", {
+        "class": normalizeClass(["v-responsive__content", props.contentClass])
+      }, [slots.default()])]);
+    });
     return {};
   }
 });
@@ -534,7 +546,8 @@ function mounted(el, binding) {
   return;
 }
 function unmounted(el, binding) {
-  const observe = el._observe?.[binding.instance.$.uid];
+  var _a;
+  const observe = (_a = el._observe) == null ? void 0 : _a[binding.instance.$.uid];
   if (!observe) return;
   observe.observer.unobserve(el);
   delete el._observe[binding.instance.$.uid];
@@ -642,10 +655,12 @@ const VImg = genericComponent()({
       }
       if (!normalisedSrc.value.src) return;
       nextTick(() => {
-        emit("loadstart", image.value?.currentSrc || normalisedSrc.value.src);
+        var _a;
+        emit("loadstart", ((_a = image.value) == null ? void 0 : _a.currentSrc) || normalisedSrc.value.src);
         setTimeout(() => {
+          var _a2;
           if (vm.isUnmounted) return;
-          if (image.value?.complete) {
+          if ((_a2 = image.value) == null ? void 0 : _a2.complete) {
             if (!image.value.naturalWidth) {
               onError();
             }
@@ -660,16 +675,18 @@ const VImg = genericComponent()({
       });
     }
     function onLoad() {
+      var _a;
       if (vm.isUnmounted) return;
       getSrc();
       pollForSize(image.value);
       state.value = "loaded";
-      emit("load", image.value?.currentSrc || normalisedSrc.value.src);
+      emit("load", ((_a = image.value) == null ? void 0 : _a.currentSrc) || normalisedSrc.value.src);
     }
     function onError() {
+      var _a;
       if (vm.isUnmounted) return;
       state.value = "error";
-      emit("error", image.value?.currentSrc || normalisedSrc.value.src);
+      emit("error", ((_a = image.value) == null ? void 0 : _a.currentSrc) || normalisedSrc.value.src);
     }
     function getSrc() {
       const img = image.value;
@@ -702,6 +719,7 @@ const VImg = genericComponent()({
       "v-img__img--contain": !props.cover
     }));
     const __image = () => {
+      var _a;
       if (!normalisedSrc.value.src || state.value === "idle") return null;
       const img = createElementVNode("img", {
         "class": normalizeClass(["v-img__img", containClasses.value]),
@@ -719,7 +737,7 @@ const VImg = genericComponent()({
         "onLoad": onLoad,
         "onError": onError
       }, null);
-      const sources = slots.sources?.();
+      const sources = (_a = slots.sources) == null ? void 0 : _a.call(slots);
       return createVNode(MaybeTransition, {
         "transition": props.transition,
         "appear": true
@@ -861,9 +879,12 @@ const VMain = genericComponent()({
       }, props.class]),
       "style": normalizeStyle([mainStyles.value, ssrBootStyles.value, dimensionStyles.value, props.style])
     }, {
-      default: () => [props.scrollable ? createElementVNode("div", {
-        "class": "v-main__scroller"
-      }, [slots.default?.()]) : slots.default?.()]
+      default: () => {
+        var _a, _b;
+        return [props.scrollable ? createElementVNode("div", {
+          "class": "v-main__scroller"
+        }, [(_a = slots.default) == null ? void 0 : _a.call(slots)]) : (_b = slots.default) == null ? void 0 : _b.call(slots)];
+      }
     }));
     return {};
   }

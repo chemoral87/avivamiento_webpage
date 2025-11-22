@@ -41,11 +41,11 @@ function calculateUpdatedTarget(_ref) {
 }
 function getScrollSize(isHorizontal, element) {
   const key = isHorizontal ? "scrollWidth" : "scrollHeight";
-  return element?.[key] || 0;
+  return (element == null ? void 0 : element[key]) || 0;
 }
 function getClientSize(isHorizontal, element) {
   const key = isHorizontal ? "clientWidth" : "clientHeight";
-  return element?.[key] || 0;
+  return (element == null ? void 0 : element[key]) || 0;
 }
 function getScrollPosition(isHorizontal, rtl, element) {
   if (!element) {
@@ -63,11 +63,11 @@ function getScrollPosition(isHorizontal, rtl, element) {
 }
 function getOffsetSize(isHorizontal, element) {
   const key = isHorizontal ? "offsetWidth" : "offsetHeight";
-  return element?.[key] || 0;
+  return (element == null ? void 0 : element[key]) || 0;
 }
 function getOffsetPosition(isHorizontal, element) {
   const key = isHorizontal ? "offsetLeft" : "offsetTop";
-  return element?.[key] || 0;
+  return (element == null ? void 0 : element[key]) || 0;
 }
 const VSlideGroupSymbol = Symbol.for("vuetify:v-slide-group");
 const makeVSlideGroupProps = propsFactory({
@@ -186,7 +186,8 @@ const VSlideGroup = genericComponent()({
     }
     let ignoreFocusEvent = false;
     function onFocus(e) {
-      if (!ignoreFocusEvent && !isFocused.value && !(e.relatedTarget && contentRef.el?.contains(e.relatedTarget))) focus();
+      var _a;
+      if (!ignoreFocusEvent && !isFocused.value && !(e.relatedTarget && ((_a = contentRef.el) == null ? void 0 : _a.contains(e.relatedTarget)))) focus();
       ignoreFocusEvent = false;
     }
     function onFocusAffixes() {
@@ -221,8 +222,8 @@ const VSlideGroup = genericComponent()({
       if (!el) return void 0;
       let sibling = el;
       do {
-        sibling = sibling?.[location === "next" ? "nextElementSibling" : "previousElementSibling"];
-      } while (sibling?.hasAttribute("disabled"));
+        sibling = sibling == null ? void 0 : sibling[location === "next" ? "nextElementSibling" : "previousElementSibling"];
+      } while (sibling == null ? void 0 : sibling.hasAttribute("disabled"));
       return sibling;
     }
     function focus(location) {
@@ -239,10 +240,10 @@ const VSlideGroup = genericComponent()({
         if (!el) return focus("last");
       } else if (location === "first") {
         el = contentRef.el.firstElementChild;
-        if (el?.hasAttribute("disabled")) el = getSiblingElement(el, "next");
+        if (el == null ? void 0 : el.hasAttribute("disabled")) el = getSiblingElement(el, "next");
       } else if (location === "last") {
         el = contentRef.el.lastElementChild;
-        if (el?.hasAttribute("disabled")) el = getSiblingElement(el, "prev");
+        if (el == null ? void 0 : el.hasAttribute("disabled")) el = getSiblingElement(el, "prev");
       }
       if (el) {
         el.focus({
@@ -310,40 +311,43 @@ const VSlideGroup = genericComponent()({
       "tabindex": isFocused.value || group.selected.value.length ? -1 : 0,
       "onFocus": onFocus
     }, {
-      default: () => [hasAffixes.value && createElementVNode("div", {
-        "key": "prev",
-        "class": normalizeClass(["v-slide-group__prev", {
-          "v-slide-group__prev--disabled": !hasPrev.value
-        }]),
-        "onMousedown": onFocusAffixes,
-        "onClick": () => hasPrev.value && scrollTo("prev")
-      }, [slots.prev?.(slotProps.value) ?? createVNode(VFadeTransition, null, {
-        default: () => [createVNode(VIcon, {
-          "icon": isRtl.value ? props.nextIcon : props.prevIcon
-        }, null)]
-      })]), createElementVNode("div", {
-        "key": "container",
-        "ref": containerRef,
-        "class": normalizeClass(["v-slide-group__container", props.contentClass]),
-        "onScroll": onScroll
-      }, [createElementVNode("div", {
-        "ref": contentRef,
-        "class": "v-slide-group__content",
-        "onFocusin": onFocusin,
-        "onFocusout": onFocusout,
-        "onKeydown": onKeydown
-      }, [slots.default?.(slotProps.value)])]), hasAffixes.value && createElementVNode("div", {
-        "key": "next",
-        "class": normalizeClass(["v-slide-group__next", {
-          "v-slide-group__next--disabled": !hasNext.value
-        }]),
-        "onMousedown": onFocusAffixes,
-        "onClick": () => hasNext.value && scrollTo("next")
-      }, [slots.next?.(slotProps.value) ?? createVNode(VFadeTransition, null, {
-        default: () => [createVNode(VIcon, {
-          "icon": isRtl.value ? props.prevIcon : props.nextIcon
-        }, null)]
-      })])]
+      default: () => {
+        var _a, _b, _c, _d, _e;
+        return [hasAffixes.value && createElementVNode("div", {
+          "key": "prev",
+          "class": normalizeClass(["v-slide-group__prev", {
+            "v-slide-group__prev--disabled": !hasPrev.value
+          }]),
+          "onMousedown": onFocusAffixes,
+          "onClick": () => hasPrev.value && scrollTo("prev")
+        }, [(_b = (_a = slots.prev) == null ? void 0 : _a.call(slots, slotProps.value)) != null ? _b : createVNode(VFadeTransition, null, {
+          default: () => [createVNode(VIcon, {
+            "icon": isRtl.value ? props.nextIcon : props.prevIcon
+          }, null)]
+        })]), createElementVNode("div", {
+          "key": "container",
+          "ref": containerRef,
+          "class": normalizeClass(["v-slide-group__container", props.contentClass]),
+          "onScroll": onScroll
+        }, [createElementVNode("div", {
+          "ref": contentRef,
+          "class": "v-slide-group__content",
+          "onFocusin": onFocusin,
+          "onFocusout": onFocusout,
+          "onKeydown": onKeydown
+        }, [(_c = slots.default) == null ? void 0 : _c.call(slots, slotProps.value)])]), hasAffixes.value && createElementVNode("div", {
+          "key": "next",
+          "class": normalizeClass(["v-slide-group__next", {
+            "v-slide-group__next--disabled": !hasNext.value
+          }]),
+          "onMousedown": onFocusAffixes,
+          "onClick": () => hasNext.value && scrollTo("next")
+        }, [(_e = (_d = slots.next) == null ? void 0 : _d.call(slots, slotProps.value)) != null ? _e : createVNode(VFadeTransition, null, {
+          default: () => [createVNode(VIcon, {
+            "icon": isRtl.value ? props.prevIcon : props.nextIcon
+          }, null)]
+        })])];
+      }
     }));
     return {
       selected: group.selected,
@@ -414,13 +418,16 @@ genericComponent()({
         }, themeClasses.value, props.class],
         "style": props.style
       }), {
-        default: () => [slots.default?.({
-          isSelected,
-          select,
-          next,
-          prev,
-          selected: selected.value
-        })]
+        default: () => {
+          var _a;
+          return [(_a = slots.default) == null ? void 0 : _a.call(slots, {
+            isSelected,
+            select,
+            next,
+            prev,
+            selected: selected.value
+          })];
+        }
       });
     });
     return {};
@@ -541,11 +548,11 @@ const VChip = genericComponent()({
     }));
     watch(isActive, (val) => {
       if (val) {
-        group?.register();
-        slideGroup?.register();
+        group == null ? void 0 : group.register();
+        slideGroup == null ? void 0 : slideGroup.register();
       } else {
-        group?.unregister();
-        slideGroup?.unregister();
+        group == null ? void 0 : group.unregister();
+        slideGroup == null ? void 0 : slideGroup.unregister();
       }
     });
     const {
@@ -553,17 +560,19 @@ const VChip = genericComponent()({
       colorStyles,
       variantClasses
     } = useVariant(() => {
+      var _a;
       const showColor = !group || group.isSelected.value;
       return {
-        color: showColor ? props.color ?? props.baseColor : props.baseColor,
+        color: showColor ? (_a = props.color) != null ? _a : props.baseColor : props.baseColor,
         variant: props.variant
       };
     });
     function onClick(e) {
+      var _a;
       emit("click", e);
       if (!isClickable.value) return;
-      link.navigate?.(e);
-      group?.toggle();
+      (_a = link.navigate) == null ? void 0 : _a.call(link, e);
+      group == null ? void 0 : group.toggle();
     }
     function onKeyDown(e) {
       if (e.key === "Enter" || e.key === " ") {
@@ -572,6 +581,7 @@ const VChip = genericComponent()({
       }
     }
     return () => {
+      var _a;
       const Tag = link.isLink.value ? "a" : props.tag;
       const hasAppendMedia = !!(props.appendIcon || props.appendAvatar);
       const hasAppend = !!(hasAppendMedia || slots.append);
@@ -586,8 +596,8 @@ const VChip = genericComponent()({
           "v-chip--link": isClickable.value,
           "v-chip--filter": hasFilter,
           "v-chip--pill": props.pill,
-          [`${props.activeClass}`]: props.activeClass && link.isActive?.value
-        }, themeClasses.value, borderClasses.value, colorClasses.value, densityClasses.value, elevationClasses.value, roundedClasses.value, sizeClasses.value, variantClasses.value, group?.selectedClass.value, props.class],
+          [`${props.activeClass}`]: props.activeClass && ((_a = link.isActive) == null ? void 0 : _a.value)
+        }, themeClasses.value, borderClasses.value, colorClasses.value, densityClasses.value, elevationClasses.value, roundedClasses.value, sizeClasses.value, variantClasses.value, group == null ? void 0 : group.selectedClass.value, props.class],
         "style": [colorStyles.value, props.style],
         "disabled": props.disabled || void 0,
         "draggable": props.draggable,
@@ -595,99 +605,102 @@ const VChip = genericComponent()({
         "onClick": onClick,
         "onKeydown": isClickable.value && !isLink.value && onKeyDown
       }), {
-        default: () => [genOverlays(isClickable.value, "v-chip"), hasFilter && createVNode(VExpandXTransition, {
-          "key": "filter"
-        }, {
-          default: () => [withDirectives(createElementVNode("div", {
-            "class": "v-chip__filter"
-          }, [!slots.filter ? createVNode(VIcon, {
-            "key": "filter-icon",
-            "icon": props.filterIcon
-          }, null) : createVNode(VDefaultsProvider, {
-            "key": "filter-defaults",
-            "disabled": !props.filterIcon,
+        default: () => {
+          var _a2, _b;
+          return [genOverlays(isClickable.value, "v-chip"), hasFilter && createVNode(VExpandXTransition, {
+            "key": "filter"
+          }, {
+            default: () => [withDirectives(createElementVNode("div", {
+              "class": "v-chip__filter"
+            }, [!slots.filter ? createVNode(VIcon, {
+              "key": "filter-icon",
+              "icon": props.filterIcon
+            }, null) : createVNode(VDefaultsProvider, {
+              "key": "filter-defaults",
+              "disabled": !props.filterIcon,
+              "defaults": {
+                VIcon: {
+                  icon: props.filterIcon
+                }
+              }
+            }, slots.filter)]), [[vShow, group.isSelected.value]])]
+          }), hasPrepend && createElementVNode("div", {
+            "key": "prepend",
+            "class": "v-chip__prepend"
+          }, [!slots.prepend ? createElementVNode(Fragment, null, [props.prependIcon && createVNode(VIcon, {
+            "key": "prepend-icon",
+            "icon": props.prependIcon,
+            "start": true
+          }, null), props.prependAvatar && createVNode(VAvatar, {
+            "key": "prepend-avatar",
+            "image": props.prependAvatar,
+            "start": true
+          }, null)]) : createVNode(VDefaultsProvider, {
+            "key": "prepend-defaults",
+            "disabled": !hasPrependMedia,
             "defaults": {
+              VAvatar: {
+                image: props.prependAvatar,
+                start: true
+              },
               VIcon: {
-                icon: props.filterIcon
+                icon: props.prependIcon,
+                start: true
               }
             }
-          }, slots.filter)]), [[vShow, group.isSelected.value]])]
-        }), hasPrepend && createElementVNode("div", {
-          "key": "prepend",
-          "class": "v-chip__prepend"
-        }, [!slots.prepend ? createElementVNode(Fragment, null, [props.prependIcon && createVNode(VIcon, {
-          "key": "prepend-icon",
-          "icon": props.prependIcon,
-          "start": true
-        }, null), props.prependAvatar && createVNode(VAvatar, {
-          "key": "prepend-avatar",
-          "image": props.prependAvatar,
-          "start": true
-        }, null)]) : createVNode(VDefaultsProvider, {
-          "key": "prepend-defaults",
-          "disabled": !hasPrependMedia,
-          "defaults": {
-            VAvatar: {
-              image: props.prependAvatar,
-              start: true
-            },
-            VIcon: {
-              icon: props.prependIcon,
-              start: true
+          }, slots.prepend)]), createElementVNode("div", {
+            "class": "v-chip__content",
+            "data-no-activator": ""
+          }, [(_b = (_a2 = slots.default) == null ? void 0 : _a2.call(slots, {
+            isSelected: group == null ? void 0 : group.isSelected.value,
+            selectedClass: group == null ? void 0 : group.selectedClass.value,
+            select: group == null ? void 0 : group.select,
+            toggle: group == null ? void 0 : group.toggle,
+            value: group == null ? void 0 : group.value.value,
+            disabled: props.disabled
+          })) != null ? _b : toDisplayString(props.text)]), hasAppend && createElementVNode("div", {
+            "key": "append",
+            "class": "v-chip__append"
+          }, [!slots.append ? createElementVNode(Fragment, null, [props.appendIcon && createVNode(VIcon, {
+            "key": "append-icon",
+            "end": true,
+            "icon": props.appendIcon
+          }, null), props.appendAvatar && createVNode(VAvatar, {
+            "key": "append-avatar",
+            "end": true,
+            "image": props.appendAvatar
+          }, null)]) : createVNode(VDefaultsProvider, {
+            "key": "append-defaults",
+            "disabled": !hasAppendMedia,
+            "defaults": {
+              VAvatar: {
+                end: true,
+                image: props.appendAvatar
+              },
+              VIcon: {
+                end: true,
+                icon: props.appendIcon
+              }
             }
-          }
-        }, slots.prepend)]), createElementVNode("div", {
-          "class": "v-chip__content",
-          "data-no-activator": ""
-        }, [slots.default?.({
-          isSelected: group?.isSelected.value,
-          selectedClass: group?.selectedClass.value,
-          select: group?.select,
-          toggle: group?.toggle,
-          value: group?.value.value,
-          disabled: props.disabled
-        }) ?? toDisplayString(props.text)]), hasAppend && createElementVNode("div", {
-          "key": "append",
-          "class": "v-chip__append"
-        }, [!slots.append ? createElementVNode(Fragment, null, [props.appendIcon && createVNode(VIcon, {
-          "key": "append-icon",
-          "end": true,
-          "icon": props.appendIcon
-        }, null), props.appendAvatar && createVNode(VAvatar, {
-          "key": "append-avatar",
-          "end": true,
-          "image": props.appendAvatar
-        }, null)]) : createVNode(VDefaultsProvider, {
-          "key": "append-defaults",
-          "disabled": !hasAppendMedia,
-          "defaults": {
-            VAvatar: {
-              end: true,
-              image: props.appendAvatar
-            },
-            VIcon: {
-              end: true,
-              icon: props.appendIcon
+          }, slots.append)]), hasClose && createElementVNode("button", mergeProps({
+            "key": "close",
+            "class": "v-chip__close",
+            "type": "button",
+            "data-testid": "close-chip"
+          }, closeProps.value), [!slots.close ? createVNode(VIcon, {
+            "key": "close-icon",
+            "icon": props.closeIcon,
+            "size": "x-small"
+          }, null) : createVNode(VDefaultsProvider, {
+            "key": "close-defaults",
+            "defaults": {
+              VIcon: {
+                icon: props.closeIcon,
+                size: "x-small"
+              }
             }
-          }
-        }, slots.append)]), hasClose && createElementVNode("button", mergeProps({
-          "key": "close",
-          "class": "v-chip__close",
-          "type": "button",
-          "data-testid": "close-chip"
-        }, closeProps.value), [!slots.close ? createVNode(VIcon, {
-          "key": "close-icon",
-          "icon": props.closeIcon,
-          "size": "x-small"
-        }, null) : createVNode(VDefaultsProvider, {
-          "key": "close-defaults",
-          "defaults": {
-            VIcon: {
-              icon: props.closeIcon,
-              size: "x-small"
-            }
-          }
-        }, slots.close)])]
+          }, slots.close)])];
+        }
       }), [[Ripple, isClickable.value && props.ripple, null]]);
     };
   }
@@ -709,7 +722,7 @@ const _sfc_main = {
       meta: [
         {
           name: "description",
-          content: "Descubre los próximos eventos y actividades especiales de la Iglesia Avivamiento Monterrey."
+          content: "Descubre los pr\xF3ximos eventos y actividades especiales de la Iglesia Avivamiento Monterrey."
         }
       ]
     });
@@ -787,10 +800,10 @@ const _sfc_main = {
                         }, {
                           default: withCtx((_4, _push5, _parent5, _scopeId4) => {
                             if (_push5) {
-                              _push5(` Ubicación `);
+                              _push5(` Ubicaci\xF3n `);
                             } else {
                               return [
-                                createTextVNode(" Ubicación ")
+                                createTextVNode(" Ubicaci\xF3n ")
                               ];
                             }
                           }),
@@ -1031,7 +1044,7 @@ const _sfc_main = {
                               style: { "text-transform": "none", "color": "white", "cursor": "pointer" }
                             }, {
                               default: withCtx(() => [
-                                createTextVNode(" Ubicación ")
+                                createTextVNode(" Ubicaci\xF3n ")
                               ]),
                               _: 1
                             }, 8, ["onClick"]),
@@ -1186,7 +1199,7 @@ const _sfc_main = {
                             style: { "text-transform": "none", "color": "white", "cursor": "pointer" }
                           }, {
                             default: withCtx(() => [
-                              createTextVNode(" Ubicación ")
+                              createTextVNode(" Ubicaci\xF3n ")
                             ]),
                             _: 1
                           }, 8, ["onClick"]),
@@ -1383,10 +1396,10 @@ const _sfc_main = {
                               _push5(ssrRenderComponent(VListItemTitle, null, {
                                 default: withCtx((_5, _push6, _parent6, _scopeId5) => {
                                   if (_push6) {
-                                    _push6(`Ubicación`);
+                                    _push6(`Ubicaci\xF3n`);
                                   } else {
                                     return [
-                                      createTextVNode("Ubicación")
+                                      createTextVNode("Ubicaci\xF3n")
                                     ];
                                   }
                                 }),
@@ -1396,7 +1409,7 @@ const _sfc_main = {
                               return [
                                 createVNode(VListItemTitle, null, {
                                   default: withCtx(() => [
-                                    createTextVNode("Ubicación")
+                                    createTextVNode("Ubicaci\xF3n")
                                   ]),
                                   _: 1
                                 })
@@ -1705,7 +1718,7 @@ const _sfc_main = {
                             default: withCtx(() => [
                               createVNode(VListItemTitle, null, {
                                 default: withCtx(() => [
-                                  createTextVNode("Ubicación")
+                                  createTextVNode("Ubicaci\xF3n")
                                 ]),
                                 _: 1
                               })
@@ -1866,7 +1879,7 @@ const _sfc_main = {
                           default: withCtx(() => [
                             createVNode(VListItemTitle, null, {
                               default: withCtx(() => [
-                                createTextVNode("Ubicación")
+                                createTextVNode("Ubicaci\xF3n")
                               ]),
                               _: 1
                             })
@@ -2031,10 +2044,10 @@ const _sfc_main = {
                                                 }, {
                                                   default: withCtx((_8, _push9, _parent9, _scopeId8) => {
                                                     if (_push9) {
-                                                      _push9(` PRÓXIMAMENTE `);
+                                                      _push9(` PR\xD3XIMAMENTE `);
                                                     } else {
                                                       return [
-                                                        createTextVNode(" PRÓXIMAMENTE ")
+                                                        createTextVNode(" PR\xD3XIMAMENTE ")
                                                       ];
                                                     }
                                                   }),
@@ -2051,7 +2064,7 @@ const _sfc_main = {
                                                       style: { "width": "fit-content" }
                                                     }, {
                                                       default: withCtx(() => [
-                                                        createTextVNode(" PRÓXIMAMENTE ")
+                                                        createTextVNode(" PR\xD3XIMAMENTE ")
                                                       ]),
                                                       _: 1
                                                     })
@@ -2080,7 +2093,7 @@ const _sfc_main = {
                                                   }),
                                                   _: 1
                                                 }, _parent8, _scopeId7));
-                                                _push8(`<span class="text-body-2" style="${ssrRenderStyle({ "color": "#666" })}" data-v-3beb16af${_scopeId7}>Diciembre 2025</span></div><h3 class="text-h5 font-weight-regular mb-3" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-3beb16af${_scopeId7}> Fiesta Navideña </h3><p class="text-body-2 mb-4" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-3beb16af${_scopeId7}> Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. </p><div class="d-flex align-center" data-v-3beb16af${_scopeId7}>`);
+                                                _push8(`<span class="text-body-2" style="${ssrRenderStyle({ "color": "#666" })}" data-v-3beb16af${_scopeId7}>Diciembre 2025</span></div><h3 class="text-h5 font-weight-regular mb-3" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-3beb16af${_scopeId7}> Fiesta Navide\xF1a </h3><p class="text-body-2 mb-4" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-3beb16af${_scopeId7}> Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. </p><div class="d-flex align-center" data-v-3beb16af${_scopeId7}>`);
                                                 _push8(ssrRenderComponent(VIcon, {
                                                   size: "small",
                                                   color: "#666",
@@ -2118,11 +2131,11 @@ const _sfc_main = {
                                                   createVNode("h3", {
                                                     class: "text-h5 font-weight-regular mb-3",
                                                     style: { "color": "#041845" }
-                                                  }, " Fiesta Navideña "),
+                                                  }, " Fiesta Navide\xF1a "),
                                                   createVNode("p", {
                                                     class: "text-body-2 mb-4",
                                                     style: { "color": "#555", "line-height": "1.8" }
-                                                  }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                                  }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                                   createVNode("div", { class: "d-flex align-center" }, [
                                                     createVNode(VIcon, {
                                                       size: "small",
@@ -2161,7 +2174,7 @@ const _sfc_main = {
                                                     style: { "width": "fit-content" }
                                                   }, {
                                                     default: withCtx(() => [
-                                                      createTextVNode(" PRÓXIMAMENTE ")
+                                                      createTextVNode(" PR\xD3XIMAMENTE ")
                                                     ]),
                                                     _: 1
                                                   })
@@ -2189,11 +2202,11 @@ const _sfc_main = {
                                                 createVNode("h3", {
                                                   class: "text-h5 font-weight-regular mb-3",
                                                   style: { "color": "#041845" }
-                                                }, " Fiesta Navideña "),
+                                                }, " Fiesta Navide\xF1a "),
                                                 createVNode("p", {
                                                   class: "text-body-2 mb-4",
                                                   style: { "color": "#555", "line-height": "1.8" }
-                                                }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                                }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                                 createVNode("div", { class: "d-flex align-center" }, [
                                                   createVNode(VIcon, {
                                                     size: "small",
@@ -2241,7 +2254,7 @@ const _sfc_main = {
                                                   style: { "width": "fit-content" }
                                                 }, {
                                                   default: withCtx(() => [
-                                                    createTextVNode(" PRÓXIMAMENTE ")
+                                                    createTextVNode(" PR\xD3XIMAMENTE ")
                                                   ]),
                                                   _: 1
                                                 })
@@ -2269,11 +2282,11 @@ const _sfc_main = {
                                               createVNode("h3", {
                                                 class: "text-h5 font-weight-regular mb-3",
                                                 style: { "color": "#041845" }
-                                              }, " Fiesta Navideña "),
+                                              }, " Fiesta Navide\xF1a "),
                                               createVNode("p", {
                                                 class: "text-body-2 mb-4",
                                                 style: { "color": "#555", "line-height": "1.8" }
-                                              }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                              }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                               createVNode("div", { class: "d-flex align-center" }, [
                                                 createVNode(VIcon, {
                                                   size: "small",
@@ -2332,10 +2345,10 @@ const _sfc_main = {
                                                 }, {
                                                   default: withCtx((_8, _push9, _parent9, _scopeId8) => {
                                                     if (_push9) {
-                                                      _push9(` PRÓXIMAMENTE `);
+                                                      _push9(` PR\xD3XIMAMENTE `);
                                                     } else {
                                                       return [
-                                                        createTextVNode(" PRÓXIMAMENTE ")
+                                                        createTextVNode(" PR\xD3XIMAMENTE ")
                                                       ];
                                                     }
                                                   }),
@@ -2352,7 +2365,7 @@ const _sfc_main = {
                                                       style: { "width": "fit-content" }
                                                     }, {
                                                       default: withCtx(() => [
-                                                        createTextVNode(" PRÓXIMAMENTE ")
+                                                        createTextVNode(" PR\xD3XIMAMENTE ")
                                                       ]),
                                                       _: 1
                                                     })
@@ -2381,7 +2394,7 @@ const _sfc_main = {
                                                   }),
                                                   _: 1
                                                 }, _parent8, _scopeId7));
-                                                _push8(`<span class="text-body-2" style="${ssrRenderStyle({ "color": "#666" })}" data-v-3beb16af${_scopeId7}>Diciembre 2025</span></div><h3 class="text-h5 font-weight-regular mb-3" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-3beb16af${_scopeId7}> Obra Navideña </h3><p class="text-body-2 mb-4" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-3beb16af${_scopeId7}> Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. </p><div class="d-flex align-center" data-v-3beb16af${_scopeId7}>`);
+                                                _push8(`<span class="text-body-2" style="${ssrRenderStyle({ "color": "#666" })}" data-v-3beb16af${_scopeId7}>Diciembre 2025</span></div><h3 class="text-h5 font-weight-regular mb-3" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-3beb16af${_scopeId7}> Obra Navide\xF1a </h3><p class="text-body-2 mb-4" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-3beb16af${_scopeId7}> Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. </p><div class="d-flex align-center" data-v-3beb16af${_scopeId7}>`);
                                                 _push8(ssrRenderComponent(VIcon, {
                                                   size: "small",
                                                   color: "#666",
@@ -2419,11 +2432,11 @@ const _sfc_main = {
                                                   createVNode("h3", {
                                                     class: "text-h5 font-weight-regular mb-3",
                                                     style: { "color": "#041845" }
-                                                  }, " Obra Navideña "),
+                                                  }, " Obra Navide\xF1a "),
                                                   createVNode("p", {
                                                     class: "text-body-2 mb-4",
                                                     style: { "color": "#555", "line-height": "1.8" }
-                                                  }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                                  }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                                   createVNode("div", { class: "d-flex align-center" }, [
                                                     createVNode(VIcon, {
                                                       size: "small",
@@ -2462,7 +2475,7 @@ const _sfc_main = {
                                                     style: { "width": "fit-content" }
                                                   }, {
                                                     default: withCtx(() => [
-                                                      createTextVNode(" PRÓXIMAMENTE ")
+                                                      createTextVNode(" PR\xD3XIMAMENTE ")
                                                     ]),
                                                     _: 1
                                                   })
@@ -2490,11 +2503,11 @@ const _sfc_main = {
                                                 createVNode("h3", {
                                                   class: "text-h5 font-weight-regular mb-3",
                                                   style: { "color": "#041845" }
-                                                }, " Obra Navideña "),
+                                                }, " Obra Navide\xF1a "),
                                                 createVNode("p", {
                                                   class: "text-body-2 mb-4",
                                                   style: { "color": "#555", "line-height": "1.8" }
-                                                }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                                }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                                 createVNode("div", { class: "d-flex align-center" }, [
                                                   createVNode(VIcon, {
                                                     size: "small",
@@ -2542,7 +2555,7 @@ const _sfc_main = {
                                                   style: { "width": "fit-content" }
                                                 }, {
                                                   default: withCtx(() => [
-                                                    createTextVNode(" PRÓXIMAMENTE ")
+                                                    createTextVNode(" PR\xD3XIMAMENTE ")
                                                   ]),
                                                   _: 1
                                                 })
@@ -2570,11 +2583,11 @@ const _sfc_main = {
                                               createVNode("h3", {
                                                 class: "text-h5 font-weight-regular mb-3",
                                                 style: { "color": "#041845" }
-                                              }, " Obra Navideña "),
+                                              }, " Obra Navide\xF1a "),
                                               createVNode("p", {
                                                 class: "text-body-2 mb-4",
                                                 style: { "color": "#555", "line-height": "1.8" }
-                                              }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                              }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                               createVNode("div", { class: "d-flex align-center" }, [
                                                 createVNode(VIcon, {
                                                   size: "small",
@@ -2631,7 +2644,7 @@ const _sfc_main = {
                                                 style: { "width": "fit-content" }
                                               }, {
                                                 default: withCtx(() => [
-                                                  createTextVNode(" PRÓXIMAMENTE ")
+                                                  createTextVNode(" PR\xD3XIMAMENTE ")
                                                 ]),
                                                 _: 1
                                               })
@@ -2659,11 +2672,11 @@ const _sfc_main = {
                                             createVNode("h3", {
                                               class: "text-h5 font-weight-regular mb-3",
                                               style: { "color": "#041845" }
-                                            }, " Fiesta Navideña "),
+                                            }, " Fiesta Navide\xF1a "),
                                             createVNode("p", {
                                               class: "text-body-2 mb-4",
                                               style: { "color": "#555", "line-height": "1.8" }
-                                            }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                            }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                             createVNode("div", { class: "d-flex align-center" }, [
                                               createVNode(VIcon, {
                                                 size: "small",
@@ -2716,7 +2729,7 @@ const _sfc_main = {
                                                 style: { "width": "fit-content" }
                                               }, {
                                                 default: withCtx(() => [
-                                                  createTextVNode(" PRÓXIMAMENTE ")
+                                                  createTextVNode(" PR\xD3XIMAMENTE ")
                                                 ]),
                                                 _: 1
                                               })
@@ -2744,11 +2757,11 @@ const _sfc_main = {
                                             createVNode("h3", {
                                               class: "text-h5 font-weight-regular mb-3",
                                               style: { "color": "#041845" }
-                                            }, " Obra Navideña "),
+                                            }, " Obra Navide\xF1a "),
                                             createVNode("p", {
                                               class: "text-body-2 mb-4",
                                               style: { "color": "#555", "line-height": "1.8" }
-                                            }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                            }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                             createVNode("div", { class: "d-flex align-center" }, [
                                               createVNode(VIcon, {
                                                 size: "small",
@@ -2810,7 +2823,7 @@ const _sfc_main = {
                                               style: { "width": "fit-content" }
                                             }, {
                                               default: withCtx(() => [
-                                                createTextVNode(" PRÓXIMAMENTE ")
+                                                createTextVNode(" PR\xD3XIMAMENTE ")
                                               ]),
                                               _: 1
                                             })
@@ -2838,11 +2851,11 @@ const _sfc_main = {
                                           createVNode("h3", {
                                             class: "text-h5 font-weight-regular mb-3",
                                             style: { "color": "#041845" }
-                                          }, " Fiesta Navideña "),
+                                          }, " Fiesta Navide\xF1a "),
                                           createVNode("p", {
                                             class: "text-body-2 mb-4",
                                             style: { "color": "#555", "line-height": "1.8" }
-                                          }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                          }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                           createVNode("div", { class: "d-flex align-center" }, [
                                             createVNode(VIcon, {
                                               size: "small",
@@ -2895,7 +2908,7 @@ const _sfc_main = {
                                               style: { "width": "fit-content" }
                                             }, {
                                               default: withCtx(() => [
-                                                createTextVNode(" PRÓXIMAMENTE ")
+                                                createTextVNode(" PR\xD3XIMAMENTE ")
                                               ]),
                                               _: 1
                                             })
@@ -2923,11 +2936,11 @@ const _sfc_main = {
                                           createVNode("h3", {
                                             class: "text-h5 font-weight-regular mb-3",
                                             style: { "color": "#041845" }
-                                          }, " Obra Navideña "),
+                                          }, " Obra Navide\xF1a "),
                                           createVNode("p", {
                                             class: "text-body-2 mb-4",
                                             style: { "color": "#555", "line-height": "1.8" }
-                                          }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                          }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                           createVNode("div", { class: "d-flex align-center" }, [
                                             createVNode(VIcon, {
                                               size: "small",
@@ -2994,7 +3007,7 @@ const _sfc_main = {
                                             style: { "width": "fit-content" }
                                           }, {
                                             default: withCtx(() => [
-                                              createTextVNode(" PRÓXIMAMENTE ")
+                                              createTextVNode(" PR\xD3XIMAMENTE ")
                                             ]),
                                             _: 1
                                           })
@@ -3022,11 +3035,11 @@ const _sfc_main = {
                                         createVNode("h3", {
                                           class: "text-h5 font-weight-regular mb-3",
                                           style: { "color": "#041845" }
-                                        }, " Fiesta Navideña "),
+                                        }, " Fiesta Navide\xF1a "),
                                         createVNode("p", {
                                           class: "text-body-2 mb-4",
                                           style: { "color": "#555", "line-height": "1.8" }
-                                        }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                        }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                         createVNode("div", { class: "d-flex align-center" }, [
                                           createVNode(VIcon, {
                                             size: "small",
@@ -3079,7 +3092,7 @@ const _sfc_main = {
                                             style: { "width": "fit-content" }
                                           }, {
                                             default: withCtx(() => [
-                                              createTextVNode(" PRÓXIMAMENTE ")
+                                              createTextVNode(" PR\xD3XIMAMENTE ")
                                             ]),
                                             _: 1
                                           })
@@ -3107,11 +3120,11 @@ const _sfc_main = {
                                         createVNode("h3", {
                                           class: "text-h5 font-weight-regular mb-3",
                                           style: { "color": "#041845" }
-                                        }, " Obra Navideña "),
+                                        }, " Obra Navide\xF1a "),
                                         createVNode("p", {
                                           class: "text-body-2 mb-4",
                                           style: { "color": "#555", "line-height": "1.8" }
-                                        }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                        }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                         createVNode("div", { class: "d-flex align-center" }, [
                                           createVNode(VIcon, {
                                             size: "small",
@@ -3199,7 +3212,7 @@ const _sfc_main = {
                           style: { "text-transform": "none", "color": "white", "cursor": "pointer" }
                         }, {
                           default: withCtx(() => [
-                            createTextVNode(" Ubicación ")
+                            createTextVNode(" Ubicaci\xF3n ")
                           ]),
                           _: 1
                         }, 8, ["onClick"]),
@@ -3356,7 +3369,7 @@ const _sfc_main = {
                         default: withCtx(() => [
                           createVNode(VListItemTitle, null, {
                             default: withCtx(() => [
-                              createTextVNode("Ubicación")
+                              createTextVNode("Ubicaci\xF3n")
                             ]),
                             _: 1
                           })
@@ -3512,7 +3525,7 @@ const _sfc_main = {
                                           style: { "width": "fit-content" }
                                         }, {
                                           default: withCtx(() => [
-                                            createTextVNode(" PRÓXIMAMENTE ")
+                                            createTextVNode(" PR\xD3XIMAMENTE ")
                                           ]),
                                           _: 1
                                         })
@@ -3540,11 +3553,11 @@ const _sfc_main = {
                                       createVNode("h3", {
                                         class: "text-h5 font-weight-regular mb-3",
                                         style: { "color": "#041845" }
-                                      }, " Fiesta Navideña "),
+                                      }, " Fiesta Navide\xF1a "),
                                       createVNode("p", {
                                         class: "text-body-2 mb-4",
                                         style: { "color": "#555", "line-height": "1.8" }
-                                      }, " Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia. "),
+                                      }, " Celebra con nosotros la Navidad en una noche llena de alegr\xEDa, convivencia familiar y actividades especiales para toda la familia. "),
                                       createVNode("div", { class: "d-flex align-center" }, [
                                         createVNode(VIcon, {
                                           size: "small",
@@ -3597,7 +3610,7 @@ const _sfc_main = {
                                           style: { "width": "fit-content" }
                                         }, {
                                           default: withCtx(() => [
-                                            createTextVNode(" PRÓXIMAMENTE ")
+                                            createTextVNode(" PR\xD3XIMAMENTE ")
                                           ]),
                                           _: 1
                                         })
@@ -3625,11 +3638,11 @@ const _sfc_main = {
                                       createVNode("h3", {
                                         class: "text-h5 font-weight-regular mb-3",
                                         style: { "color": "#041845" }
-                                      }, " Obra Navideña "),
+                                      }, " Obra Navide\xF1a "),
                                       createVNode("p", {
                                         class: "text-body-2 mb-4",
                                         style: { "color": "#555", "line-height": "1.8" }
-                                      }, " Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. "),
+                                      }, " Disfruta de una presentaci\xF3n especial donde celebramos el verdadero significado de la Navidad a trav\xE9s de una obra teatral. "),
                                       createVNode("div", { class: "d-flex align-center" }, [
                                         createVNode(VIcon, {
                                           size: "small",

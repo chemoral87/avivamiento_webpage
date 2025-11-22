@@ -125,7 +125,7 @@ const _sfc_main = {
       meta: [
         {
           name: "description",
-          content: "Iglesia Avivamiento Monterrey liderada por los Pastores Adrian Aguirre y Sara Aguirre. Una iglesia cristiana comprometida con la comunidad de Monterrey, Nuevo León."
+          content: "Iglesia Avivamiento Monterrey liderada por los Pastores Adrian Aguirre y Sara Aguirre. Una iglesia cristiana comprometida con la comunidad de Monterrey, Nuevo Le\xF3n."
         },
         {
           name: "keywords",
@@ -210,10 +210,10 @@ const _sfc_main = {
                         }, {
                           default: withCtx((_4, _push5, _parent5, _scopeId4) => {
                             if (_push5) {
-                              _push5(` Ubicación `);
+                              _push5(` Ubicaci\xF3n `);
                             } else {
                               return [
-                                createTextVNode(" Ubicación ")
+                                createTextVNode(" Ubicaci\xF3n ")
                               ];
                             }
                           }),
@@ -455,7 +455,7 @@ const _sfc_main = {
                               style: { "text-transform": "none", "color": "white", "cursor": "pointer" }
                             }, {
                               default: withCtx(() => [
-                                createTextVNode(" Ubicación ")
+                                createTextVNode(" Ubicaci\xF3n ")
                               ]),
                               _: 1
                             }, 8, ["onClick"]),
@@ -611,7 +611,7 @@ const _sfc_main = {
                             style: { "text-transform": "none", "color": "white", "cursor": "pointer" }
                           }, {
                             default: withCtx(() => [
-                              createTextVNode(" Ubicación ")
+                              createTextVNode(" Ubicaci\xF3n ")
                             ]),
                             _: 1
                           }, 8, ["onClick"]),
@@ -815,10 +815,10 @@ const _sfc_main = {
                               _push5(ssrRenderComponent(VListItemTitle, null, {
                                 default: withCtx((_5, _push6, _parent6, _scopeId5) => {
                                   if (_push6) {
-                                    _push6(`Ubicación`);
+                                    _push6(`Ubicaci\xF3n`);
                                   } else {
                                     return [
-                                      createTextVNode("Ubicación")
+                                      createTextVNode("Ubicaci\xF3n")
                                     ];
                                   }
                                 }),
@@ -828,7 +828,7 @@ const _sfc_main = {
                               return [
                                 createVNode(VListItemTitle, null, {
                                   default: withCtx(() => [
-                                    createTextVNode("Ubicación")
+                                    createTextVNode("Ubicaci\xF3n")
                                   ]),
                                   _: 1
                                 })
@@ -1146,7 +1146,7 @@ const _sfc_main = {
                             default: withCtx(() => [
                               createVNode(VListItemTitle, null, {
                                 default: withCtx(() => [
-                                  createTextVNode("Ubicación")
+                                  createTextVNode("Ubicaci\xF3n")
                                 ]),
                                 _: 1
                               })
@@ -1316,7 +1316,7 @@ const _sfc_main = {
                           default: withCtx(() => [
                             createVNode(VListItemTitle, null, {
                               default: withCtx(() => [
-                                createTextVNode("Ubicación")
+                                createTextVNode("Ubicaci\xF3n")
                               ]),
                               _: 1
                             })
@@ -1555,7 +1555,7 @@ const _sfc_main = {
                                             }),
                                             _: 1
                                           }, _parent7, _scopeId6));
-                                          _push7(`<h3 class="text-h5 font-weight-regular" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId6}>Adrian Aguirre</h3><p class="text-body-2 text-grey mb-2" style="${ssrRenderStyle({ "text-transform": "uppercase", "letter-spacing": "1px" })}" data-v-4934762d${_scopeId6}>Pastor Principal</p><p class="text-body-1" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-4934762d${_scopeId6}> Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. </p>`);
+                                          _push7(`<h3 class="text-h5 font-weight-regular" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId6}>Adrian Aguirre</h3><p class="text-body-2 text-grey mb-2" style="${ssrRenderStyle({ "text-transform": "uppercase", "letter-spacing": "1px" })}" data-v-4934762d${_scopeId6}>Pastor Principal</p><p class="text-body-1" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-4934762d${_scopeId6}> Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. </p>`);
                                         } else {
                                           return [
                                             createVNode(VAvatar, {
@@ -1578,7 +1578,7 @@ const _sfc_main = {
                                             createVNode("p", {
                                               class: "text-body-1",
                                               style: { "color": "#555", "line-height": "1.8" }
-                                            }, " Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. ")
+                                            }, " Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. ")
                                           ];
                                         }
                                       }),
@@ -1612,7 +1612,7 @@ const _sfc_main = {
                                           createVNode("p", {
                                             class: "text-body-1",
                                             style: { "color": "#555", "line-height": "1.8" }
-                                          }, " Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. ")
+                                          }, " Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. ")
                                         ]),
                                         _: 1
                                       })
@@ -1649,7 +1649,7 @@ const _sfc_main = {
                                             }),
                                             _: 1
                                           }, _parent7, _scopeId6));
-                                          _push7(`<h3 class="text-h5 font-weight-regular" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId6}>Sara Aguirre</h3><p class="text-body-2 text-grey mb-2" style="${ssrRenderStyle({ "text-transform": "uppercase", "letter-spacing": "1px" })}" data-v-4934762d${_scopeId6}>Co-Pastora</p><p class="text-body-1" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-4934762d${_scopeId6}> Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. </p>`);
+                                          _push7(`<h3 class="text-h5 font-weight-regular" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId6}>Sara Aguirre</h3><p class="text-body-2 text-grey mb-2" style="${ssrRenderStyle({ "text-transform": "uppercase", "letter-spacing": "1px" })}" data-v-4934762d${_scopeId6}>Co-Pastora</p><p class="text-body-1" style="${ssrRenderStyle({ "color": "#555", "line-height": "1.8" })}" data-v-4934762d${_scopeId6}> Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. </p>`);
                                         } else {
                                           return [
                                             createVNode(VAvatar, {
@@ -1672,7 +1672,7 @@ const _sfc_main = {
                                             createVNode("p", {
                                               class: "text-body-1",
                                               style: { "color": "#555", "line-height": "1.8" }
-                                            }, " Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. ")
+                                            }, " Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. ")
                                           ];
                                         }
                                       }),
@@ -1706,7 +1706,7 @@ const _sfc_main = {
                                           createVNode("p", {
                                             class: "text-body-1",
                                             style: { "color": "#555", "line-height": "1.8" }
-                                          }, " Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. ")
+                                          }, " Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. ")
                                         ]),
                                         _: 1
                                       })
@@ -1748,7 +1748,7 @@ const _sfc_main = {
                                         createVNode("p", {
                                           class: "text-body-1",
                                           style: { "color": "#555", "line-height": "1.8" }
-                                        }, " Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. ")
+                                        }, " Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. ")
                                       ]),
                                       _: 1
                                     })
@@ -1786,7 +1786,7 @@ const _sfc_main = {
                                         createVNode("p", {
                                           class: "text-body-1",
                                           style: { "color": "#555", "line-height": "1.8" }
-                                        }, " Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. ")
+                                        }, " Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. ")
                                       ]),
                                       _: 1
                                     })
@@ -1854,7 +1854,7 @@ const _sfc_main = {
                                       createVNode("p", {
                                         class: "text-body-1",
                                         style: { "color": "#555", "line-height": "1.8" }
-                                      }, " Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. ")
+                                      }, " Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. ")
                                     ]),
                                     _: 1
                                   })
@@ -1892,7 +1892,7 @@ const _sfc_main = {
                                       createVNode("p", {
                                         class: "text-body-1",
                                         style: { "color": "#555", "line-height": "1.8" }
-                                      }, " Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. ")
+                                      }, " Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. ")
                                     ]),
                                     _: 1
                                   })
@@ -1982,7 +1982,7 @@ const _sfc_main = {
                                           }, {
                                             default: withCtx((_7, _push8, _parent8, _scopeId7) => {
                                               if (_push8) {
-                                                _push8(`<h3 class="text-h5 font-weight-light mb-4" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId7}>Domingo</h3><p class="text-h6 mb-2" style="${ssrRenderStyle({ "color": "#555" })}" data-v-4934762d${_scopeId7}>11:00 AM</p><p class="text-body-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId7}>Reunión General</p>`);
+                                                _push8(`<h3 class="text-h5 font-weight-light mb-4" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId7}>Domingo</h3><p class="text-h6 mb-2" style="${ssrRenderStyle({ "color": "#555" })}" data-v-4934762d${_scopeId7}>11:00 AM</p><p class="text-body-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId7}>Reuni\xF3n General</p>`);
                                               } else {
                                                 return [
                                                   createVNode("h3", {
@@ -1996,7 +1996,7 @@ const _sfc_main = {
                                                   createVNode("p", {
                                                     class: "text-body-2",
                                                     style: { "color": "#888" }
-                                                  }, "Reunión General")
+                                                  }, "Reuni\xF3n General")
                                                 ];
                                               }
                                             }),
@@ -2021,7 +2021,7 @@ const _sfc_main = {
                                                 createVNode("p", {
                                                   class: "text-body-2",
                                                   style: { "color": "#888" }
-                                                }, "Reunión General")
+                                                }, "Reuni\xF3n General")
                                               ]),
                                               _: 1
                                             })
@@ -2043,13 +2043,13 @@ const _sfc_main = {
                                           }, {
                                             default: withCtx((_7, _push8, _parent8, _scopeId7) => {
                                               if (_push8) {
-                                                _push8(`<h3 class="text-h5 font-weight-light mb-4" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId7}>Miércoles</h3><p class="text-h6 mb-2" style="${ssrRenderStyle({ "color": "#555" })}" data-v-4934762d${_scopeId7}>8:00 PM</p><p class="text-body-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId7}>Reunión General</p>`);
+                                                _push8(`<h3 class="text-h5 font-weight-light mb-4" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId7}>Mi\xE9rcoles</h3><p class="text-h6 mb-2" style="${ssrRenderStyle({ "color": "#555" })}" data-v-4934762d${_scopeId7}>8:00 PM</p><p class="text-body-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId7}>Reuni\xF3n General</p>`);
                                               } else {
                                                 return [
                                                   createVNode("h3", {
                                                     class: "text-h5 font-weight-light mb-4",
                                                     style: { "color": "#041845" }
-                                                  }, "Miércoles"),
+                                                  }, "Mi\xE9rcoles"),
                                                   createVNode("p", {
                                                     class: "text-h6 mb-2",
                                                     style: { "color": "#555" }
@@ -2057,7 +2057,7 @@ const _sfc_main = {
                                                   createVNode("p", {
                                                     class: "text-body-2",
                                                     style: { "color": "#888" }
-                                                  }, "Reunión General")
+                                                  }, "Reuni\xF3n General")
                                                 ];
                                               }
                                             }),
@@ -2074,7 +2074,7 @@ const _sfc_main = {
                                                 createVNode("h3", {
                                                   class: "text-h5 font-weight-light mb-4",
                                                   style: { "color": "#041845" }
-                                                }, "Miércoles"),
+                                                }, "Mi\xE9rcoles"),
                                                 createVNode("p", {
                                                   class: "text-h6 mb-2",
                                                   style: { "color": "#555" }
@@ -2082,7 +2082,7 @@ const _sfc_main = {
                                                 createVNode("p", {
                                                   class: "text-body-2",
                                                   style: { "color": "#888" }
-                                                }, "Reunión General")
+                                                }, "Reuni\xF3n General")
                                               ]),
                                               _: 1
                                             })
@@ -2115,7 +2115,7 @@ const _sfc_main = {
                                               createVNode("p", {
                                                 class: "text-body-2",
                                                 style: { "color": "#888" }
-                                              }, "Reunión General")
+                                              }, "Reuni\xF3n General")
                                             ]),
                                             _: 1
                                           })
@@ -2136,7 +2136,7 @@ const _sfc_main = {
                                               createVNode("h3", {
                                                 class: "text-h5 font-weight-light mb-4",
                                                 style: { "color": "#041845" }
-                                              }, "Miércoles"),
+                                              }, "Mi\xE9rcoles"),
                                               createVNode("p", {
                                                 class: "text-h6 mb-2",
                                                 style: { "color": "#555" }
@@ -2144,7 +2144,7 @@ const _sfc_main = {
                                               createVNode("p", {
                                                 class: "text-body-2",
                                                 style: { "color": "#888" }
-                                              }, "Reunión General")
+                                              }, "Reuni\xF3n General")
                                             ]),
                                             _: 1
                                           })
@@ -2203,7 +2203,7 @@ const _sfc_main = {
                                             createVNode("p", {
                                               class: "text-body-2",
                                               style: { "color": "#888" }
-                                            }, "Reunión General")
+                                            }, "Reuni\xF3n General")
                                           ]),
                                           _: 1
                                         })
@@ -2224,7 +2224,7 @@ const _sfc_main = {
                                             createVNode("h3", {
                                               class: "text-h5 font-weight-light mb-4",
                                               style: { "color": "#041845" }
-                                            }, "Miércoles"),
+                                            }, "Mi\xE9rcoles"),
                                             createVNode("p", {
                                               class: "text-h6 mb-2",
                                               style: { "color": "#555" }
@@ -2232,7 +2232,7 @@ const _sfc_main = {
                                             createVNode("p", {
                                               class: "text-body-2",
                                               style: { "color": "#888" }
-                                            }, "Reunión General")
+                                            }, "Reuni\xF3n General")
                                           ]),
                                           _: 1
                                         })
@@ -2296,7 +2296,7 @@ const _sfc_main = {
                                           createVNode("p", {
                                             class: "text-body-2",
                                             style: { "color": "#888" }
-                                          }, "Reunión General")
+                                          }, "Reuni\xF3n General")
                                         ]),
                                         _: 1
                                       })
@@ -2317,7 +2317,7 @@ const _sfc_main = {
                                           createVNode("h3", {
                                             class: "text-h5 font-weight-light mb-4",
                                             style: { "color": "#041845" }
-                                          }, "Miércoles"),
+                                          }, "Mi\xE9rcoles"),
                                           createVNode("p", {
                                             class: "text-h6 mb-2",
                                             style: { "color": "#555" }
@@ -2325,7 +2325,7 @@ const _sfc_main = {
                                           createVNode("p", {
                                             class: "text-body-2",
                                             style: { "color": "#888" }
-                                          }, "Reunión General")
+                                          }, "Reuni\xF3n General")
                                         ]),
                                         _: 1
                                       })
@@ -2358,17 +2358,17 @@ const _sfc_main = {
                               }, {
                                 default: withCtx((_5, _push6, _parent6, _scopeId5) => {
                                   if (_push6) {
-                                    _push6(`<p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#666", "letter-spacing": "2px" })}" data-v-4934762d${_scopeId5}>ENCÚENTRANOS</p><h2 class="text-h3 font-weight-light" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}>Ubicación</h2>`);
+                                    _push6(`<p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#666", "letter-spacing": "2px" })}" data-v-4934762d${_scopeId5}>ENC\xDAENTRANOS</p><h2 class="text-h3 font-weight-light" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}>Ubicaci\xF3n</h2>`);
                                   } else {
                                     return [
                                       createVNode("p", {
                                         class: "text-overline mb-2",
                                         style: { "color": "#666", "letter-spacing": "2px" }
-                                      }, "ENCÚENTRANOS"),
+                                      }, "ENC\xDAENTRANOS"),
                                       createVNode("h2", {
                                         class: "text-h3 font-weight-light",
                                         style: { "color": "#041845" }
-                                      }, "Ubicación")
+                                      }, "Ubicaci\xF3n")
                                     ];
                                   }
                                 }),
@@ -2384,11 +2384,11 @@ const _sfc_main = {
                                     createVNode("p", {
                                       class: "text-overline mb-2",
                                       style: { "color": "#666", "letter-spacing": "2px" }
-                                    }, "ENCÚENTRANOS"),
+                                    }, "ENC\xDAENTRANOS"),
                                     createVNode("h2", {
                                       class: "text-h3 font-weight-light",
                                       style: { "color": "#041845" }
-                                    }, "Ubicación")
+                                    }, "Ubicaci\xF3n")
                                   ]),
                                   _: 1
                                 })
@@ -2406,7 +2406,7 @@ const _sfc_main = {
                               }, {
                                 default: withCtx((_5, _push6, _parent6, _scopeId5) => {
                                   if (_push6) {
-                                    _push6(`<div class="pa-4" data-v-4934762d${_scopeId5}><h3 class="text-h5 font-weight-light mb-1" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}>Iglesia Avivamiento Monterrey</h3><div class="mb-6" data-v-4934762d${_scopeId5}><p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId5}>DIRECCIÓN</p><p class="text-body-1" style="${ssrRenderStyle({ "color": "#555" })}" data-v-4934762d${_scopeId5}> Av. Santo Domingo #215, Col. Mezquital, Apodaca, México </p></div><div class="mb-6" data-v-4934762d${_scopeId5}><p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId5}>TELÉFONO</p><p class="text-body-1" data-v-4934762d${_scopeId5}><a href="tel:+528111651800" class="text-decoration-none" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}> +52 (81) 1165-1800 </a></p></div><div class="mb-8" data-v-4934762d${_scopeId5}><p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId5}>EMAIL</p><p class="text-body-1" data-v-4934762d${_scopeId5}><a href="mailto:info@avivamientomty.com" class="text-decoration-none" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}> elavivamientomonterrey@hotmail.com </a></p></div>`);
+                                    _push6(`<div class="pa-4" data-v-4934762d${_scopeId5}><h3 class="text-h5 font-weight-light mb-1" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}>Iglesia Avivamiento Monterrey</h3><div class="mb-6" data-v-4934762d${_scopeId5}><p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId5}>DIRECCI\xD3N</p><p class="text-body-1" style="${ssrRenderStyle({ "color": "#555" })}" data-v-4934762d${_scopeId5}> Av. Santo Domingo #215, Col. Mezquital, Apodaca, M\xE9xico </p></div><div class="mb-6" data-v-4934762d${_scopeId5}><p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId5}>TEL\xC9FONO</p><p class="text-body-1" data-v-4934762d${_scopeId5}><a href="tel:+528111651800" class="text-decoration-none" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}> +52 (81) 1165-1800 </a></p></div><div class="mb-8" data-v-4934762d${_scopeId5}><p class="text-overline mb-2" style="${ssrRenderStyle({ "color": "#888" })}" data-v-4934762d${_scopeId5}>EMAIL</p><p class="text-body-1" data-v-4934762d${_scopeId5}><a href="mailto:info@avivamientomty.com" class="text-decoration-none" style="${ssrRenderStyle({ "color": "#041845" })}" data-v-4934762d${_scopeId5}> elavivamientomonterrey@hotmail.com </a></p></div>`);
                                     _push6(ssrRenderComponent(VBtn, {
                                       href: "https://maps.app.goo.gl/g7wBuXmhKL114A657",
                                       target: "_blank",
@@ -2440,17 +2440,17 @@ const _sfc_main = {
                                           createVNode("p", {
                                             class: "text-overline mb-2",
                                             style: { "color": "#888" }
-                                          }, "DIRECCIÓN"),
+                                          }, "DIRECCI\xD3N"),
                                           createVNode("p", {
                                             class: "text-body-1",
                                             style: { "color": "#555" }
-                                          }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, México ")
+                                          }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, M\xE9xico ")
                                         ]),
                                         createVNode("div", { class: "mb-6" }, [
                                           createVNode("p", {
                                             class: "text-overline mb-2",
                                             style: { "color": "#888" }
-                                          }, "TELÉFONO"),
+                                          }, "TEL\xC9FONO"),
                                           createVNode("p", { class: "text-body-1" }, [
                                             createVNode("a", {
                                               href: "tel:+528111651800",
@@ -2564,17 +2564,17 @@ const _sfc_main = {
                                         createVNode("p", {
                                           class: "text-overline mb-2",
                                           style: { "color": "#888" }
-                                        }, "DIRECCIÓN"),
+                                        }, "DIRECCI\xD3N"),
                                         createVNode("p", {
                                           class: "text-body-1",
                                           style: { "color": "#555" }
-                                        }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, México ")
+                                        }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, M\xE9xico ")
                                       ]),
                                       createVNode("div", { class: "mb-6" }, [
                                         createVNode("p", {
                                           class: "text-overline mb-2",
                                           style: { "color": "#888" }
-                                        }, "TELÉFONO"),
+                                        }, "TEL\xC9FONO"),
                                         createVNode("p", { class: "text-body-1" }, [
                                           createVNode("a", {
                                             href: "tel:+528111651800",
@@ -2658,11 +2658,11 @@ const _sfc_main = {
                                   createVNode("p", {
                                     class: "text-overline mb-2",
                                     style: { "color": "#666", "letter-spacing": "2px" }
-                                  }, "ENCÚENTRANOS"),
+                                  }, "ENC\xDAENTRANOS"),
                                   createVNode("h2", {
                                     class: "text-h3 font-weight-light",
                                     style: { "color": "#041845" }
-                                  }, "Ubicación")
+                                  }, "Ubicaci\xF3n")
                                 ]),
                                 _: 1
                               })
@@ -2685,17 +2685,17 @@ const _sfc_main = {
                                       createVNode("p", {
                                         class: "text-overline mb-2",
                                         style: { "color": "#888" }
-                                      }, "DIRECCIÓN"),
+                                      }, "DIRECCI\xD3N"),
                                       createVNode("p", {
                                         class: "text-body-1",
                                         style: { "color": "#555" }
-                                      }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, México ")
+                                      }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, M\xE9xico ")
                                     ]),
                                     createVNode("div", { class: "mb-6" }, [
                                       createVNode("p", {
                                         class: "text-overline mb-2",
                                         style: { "color": "#888" }
-                                      }, "TELÉFONO"),
+                                      }, "TEL\xC9FONO"),
                                       createVNode("p", { class: "text-body-1" }, [
                                         createVNode("a", {
                                           href: "tel:+528111651800",
@@ -2791,7 +2791,7 @@ const _sfc_main = {
                                     }, {
                                       default: withCtx((_6, _push7, _parent7, _scopeId6) => {
                                         if (_push7) {
-                                          _push7(`<p class="text-overline mb-4" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" })}" data-v-4934762d${_scopeId6}>BIENVENIDOS</p><h2 class="text-h3 font-weight-light mb-6" style="${ssrRenderStyle({ "color": "white" })}" data-v-4934762d${_scopeId6}> Únete a Nuestra Comunidad </h2><p class="text-h6 font-weight-light mb-8" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.8)" })}" data-v-4934762d${_scopeId6}> Te invitamos a ser parte de nuestra familia en Cristo </p><div class="d-flex flex-wrap justify-center gap-4" data-v-4934762d${_scopeId6}>`);
+                                          _push7(`<p class="text-overline mb-4" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" })}" data-v-4934762d${_scopeId6}>BIENVENIDOS</p><h2 class="text-h3 font-weight-light mb-6" style="${ssrRenderStyle({ "color": "white" })}" data-v-4934762d${_scopeId6}> \xDAnete a Nuestra Comunidad </h2><p class="text-h6 font-weight-light mb-8" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.8)" })}" data-v-4934762d${_scopeId6}> Te invitamos a ser parte de nuestra familia en Cristo </p><div class="d-flex flex-wrap justify-center gap-4" data-v-4934762d${_scopeId6}>`);
                                           _push7(ssrRenderComponent(VBtn, {
                                             onClick: ($event) => scrollToSection("horarios"),
                                             variant: "outlined",
@@ -2821,10 +2821,10 @@ const _sfc_main = {
                                           }, {
                                             default: withCtx((_7, _push8, _parent8, _scopeId7) => {
                                               if (_push8) {
-                                                _push8(` Cómo Llegar `);
+                                                _push8(` C\xF3mo Llegar `);
                                               } else {
                                                 return [
-                                                  createTextVNode(" Cómo Llegar ")
+                                                  createTextVNode(" C\xF3mo Llegar ")
                                                 ];
                                               }
                                             }),
@@ -2840,7 +2840,7 @@ const _sfc_main = {
                                             createVNode("h2", {
                                               class: "text-h3 font-weight-light mb-6",
                                               style: { "color": "white" }
-                                            }, " Únete a Nuestra Comunidad "),
+                                            }, " \xDAnete a Nuestra Comunidad "),
                                             createVNode("p", {
                                               class: "text-h6 font-weight-light mb-8",
                                               style: { "color": "rgba(255,255,255,0.8)" }
@@ -2868,7 +2868,7 @@ const _sfc_main = {
                                                 class: "px-8"
                                               }, {
                                                 default: withCtx(() => [
-                                                  createTextVNode(" Cómo Llegar ")
+                                                  createTextVNode(" C\xF3mo Llegar ")
                                                 ]),
                                                 _: 1
                                               }, 8, ["onClick"])
@@ -2893,7 +2893,7 @@ const _sfc_main = {
                                           createVNode("h2", {
                                             class: "text-h3 font-weight-light mb-6",
                                             style: { "color": "white" }
-                                          }, " Únete a Nuestra Comunidad "),
+                                          }, " \xDAnete a Nuestra Comunidad "),
                                           createVNode("p", {
                                             class: "text-h6 font-weight-light mb-8",
                                             style: { "color": "rgba(255,255,255,0.8)" }
@@ -2921,7 +2921,7 @@ const _sfc_main = {
                                               class: "px-8"
                                             }, {
                                               default: withCtx(() => [
-                                                createTextVNode(" Cómo Llegar ")
+                                                createTextVNode(" C\xF3mo Llegar ")
                                               ]),
                                               _: 1
                                             }, 8, ["onClick"])
@@ -2951,7 +2951,7 @@ const _sfc_main = {
                                         createVNode("h2", {
                                           class: "text-h3 font-weight-light mb-6",
                                           style: { "color": "white" }
-                                        }, " Únete a Nuestra Comunidad "),
+                                        }, " \xDAnete a Nuestra Comunidad "),
                                         createVNode("p", {
                                           class: "text-h6 font-weight-light mb-8",
                                           style: { "color": "rgba(255,255,255,0.8)" }
@@ -2979,7 +2979,7 @@ const _sfc_main = {
                                             class: "px-8"
                                           }, {
                                             default: withCtx(() => [
-                                              createTextVNode(" Cómo Llegar ")
+                                              createTextVNode(" C\xF3mo Llegar ")
                                             ]),
                                             _: 1
                                           }, 8, ["onClick"])
@@ -3014,7 +3014,7 @@ const _sfc_main = {
                                       createVNode("h2", {
                                         class: "text-h3 font-weight-light mb-6",
                                         style: { "color": "white" }
-                                      }, " Únete a Nuestra Comunidad "),
+                                      }, " \xDAnete a Nuestra Comunidad "),
                                       createVNode("p", {
                                         class: "text-h6 font-weight-light mb-8",
                                         style: { "color": "rgba(255,255,255,0.8)" }
@@ -3042,7 +3042,7 @@ const _sfc_main = {
                                           class: "px-8"
                                         }, {
                                           default: withCtx(() => [
-                                            createTextVNode(" Cómo Llegar ")
+                                            createTextVNode(" C\xF3mo Llegar ")
                                           ]),
                                           _: 1
                                         }, 8, ["onClick"])
@@ -3134,7 +3134,7 @@ const _sfc_main = {
                                     createVNode("p", {
                                       class: "text-body-1",
                                       style: { "color": "#555", "line-height": "1.8" }
-                                    }, " Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. ")
+                                    }, " Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. ")
                                   ]),
                                   _: 1
                                 })
@@ -3172,7 +3172,7 @@ const _sfc_main = {
                                     createVNode("p", {
                                       class: "text-body-1",
                                       style: { "color": "#555", "line-height": "1.8" }
-                                    }, " Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. ")
+                                    }, " Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. ")
                                   ]),
                                   _: 1
                                 })
@@ -3239,7 +3239,7 @@ const _sfc_main = {
                                         createVNode("p", {
                                           class: "text-body-2",
                                           style: { "color": "#888" }
-                                        }, "Reunión General")
+                                        }, "Reuni\xF3n General")
                                       ]),
                                       _: 1
                                     })
@@ -3260,7 +3260,7 @@ const _sfc_main = {
                                         createVNode("h3", {
                                           class: "text-h5 font-weight-light mb-4",
                                           style: { "color": "#041845" }
-                                        }, "Miércoles"),
+                                        }, "Mi\xE9rcoles"),
                                         createVNode("p", {
                                           class: "text-h6 mb-2",
                                           style: { "color": "#555" }
@@ -3268,7 +3268,7 @@ const _sfc_main = {
                                         createVNode("p", {
                                           class: "text-body-2",
                                           style: { "color": "#888" }
-                                        }, "Reunión General")
+                                        }, "Reuni\xF3n General")
                                       ]),
                                       _: 1
                                     })
@@ -3299,11 +3299,11 @@ const _sfc_main = {
                                 createVNode("p", {
                                   class: "text-overline mb-2",
                                   style: { "color": "#666", "letter-spacing": "2px" }
-                                }, "ENCÚENTRANOS"),
+                                }, "ENC\xDAENTRANOS"),
                                 createVNode("h2", {
                                   class: "text-h3 font-weight-light",
                                   style: { "color": "#041845" }
-                                }, "Ubicación")
+                                }, "Ubicaci\xF3n")
                               ]),
                               _: 1
                             })
@@ -3326,17 +3326,17 @@ const _sfc_main = {
                                     createVNode("p", {
                                       class: "text-overline mb-2",
                                       style: { "color": "#888" }
-                                    }, "DIRECCIÓN"),
+                                    }, "DIRECCI\xD3N"),
                                     createVNode("p", {
                                       class: "text-body-1",
                                       style: { "color": "#555" }
-                                    }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, México ")
+                                    }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, M\xE9xico ")
                                   ]),
                                   createVNode("div", { class: "mb-6" }, [
                                     createVNode("p", {
                                       class: "text-overline mb-2",
                                       style: { "color": "#888" }
-                                    }, "TELÉFONO"),
+                                    }, "TEL\xC9FONO"),
                                     createVNode("p", { class: "text-body-1" }, [
                                       createVNode("a", {
                                         href: "tel:+528111651800",
@@ -3433,7 +3433,7 @@ const _sfc_main = {
                                     createVNode("h2", {
                                       class: "text-h3 font-weight-light mb-6",
                                       style: { "color": "white" }
-                                    }, " Únete a Nuestra Comunidad "),
+                                    }, " \xDAnete a Nuestra Comunidad "),
                                     createVNode("p", {
                                       class: "text-h6 font-weight-light mb-8",
                                       style: { "color": "rgba(255,255,255,0.8)" }
@@ -3461,7 +3461,7 @@ const _sfc_main = {
                                         class: "px-8"
                                       }, {
                                         default: withCtx(() => [
-                                          createTextVNode(" Cómo Llegar ")
+                                          createTextVNode(" C\xF3mo Llegar ")
                                         ]),
                                         _: 1
                                       }, 8, ["onClick"])
@@ -3529,7 +3529,7 @@ const _sfc_main = {
                               }, {
                                 default: withCtx((_5, _push6, _parent6, _scopeId5) => {
                                   if (_push6) {
-                                    _push6(`<h3 class="text-overline mb-4" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" })}" data-v-4934762d${_scopeId5}>SÍGUENOS</h3><div class="d-flex justify-center" data-v-4934762d${_scopeId5}>`);
+                                    _push6(`<h3 class="text-overline mb-4" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" })}" data-v-4934762d${_scopeId5}>S\xCDGUENOS</h3><div class="d-flex justify-center" data-v-4934762d${_scopeId5}>`);
                                     _push6(ssrRenderComponent(VBtn, {
                                       icon: "",
                                       variant: "text",
@@ -3676,7 +3676,7 @@ const _sfc_main = {
                                       createVNode("h3", {
                                         class: "text-overline mb-4",
                                         style: { "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" }
-                                      }, "SÍGUENOS"),
+                                      }, "S\xCDGUENOS"),
                                       createVNode("div", { class: "d-flex justify-center" }, [
                                         createVNode(VBtn, {
                                           icon: "",
@@ -3815,7 +3815,7 @@ const _sfc_main = {
                                     createVNode("h3", {
                                       class: "text-overline mb-4",
                                       style: { "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" }
-                                    }, "SÍGUENOS"),
+                                    }, "S\xCDGUENOS"),
                                     createVNode("div", { class: "d-flex justify-center" }, [
                                       createVNode(VBtn, {
                                         icon: "",
@@ -3932,13 +3932,13 @@ const _sfc_main = {
                               }, {
                                 default: withCtx((_5, _push6, _parent6, _scopeId5) => {
                                   if (_push6) {
-                                    _push6(`<p class="text-body-2" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.5)" })}" data-v-4934762d${_scopeId5}> © ${ssrInterpolate((/* @__PURE__ */ new Date()).getFullYear())} Avivamiento Monterrey - Todos los derechos reservados </p>`);
+                                    _push6(`<p class="text-body-2" style="${ssrRenderStyle({ "color": "rgba(255,255,255,0.5)" })}" data-v-4934762d${_scopeId5}> \xA9 ${ssrInterpolate((/* @__PURE__ */ new Date()).getFullYear())} Avivamiento Monterrey - Todos los derechos reservados </p>`);
                                   } else {
                                     return [
                                       createVNode("p", {
                                         class: "text-body-2",
                                         style: { "color": "rgba(255,255,255,0.5)" }
-                                      }, " © " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
+                                      }, " \xA9 " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
                                     ];
                                   }
                                 }),
@@ -3954,7 +3954,7 @@ const _sfc_main = {
                                     createVNode("p", {
                                       class: "text-body-2",
                                       style: { "color": "rgba(255,255,255,0.5)" }
-                                    }, " © " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
+                                    }, " \xA9 " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
                                   ]),
                                   _: 1
                                 })
@@ -3997,7 +3997,7 @@ const _sfc_main = {
                                   createVNode("h3", {
                                     class: "text-overline mb-4",
                                     style: { "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" }
-                                  }, "SÍGUENOS"),
+                                  }, "S\xCDGUENOS"),
                                   createVNode("div", { class: "d-flex justify-center" }, [
                                     createVNode(VBtn, {
                                       icon: "",
@@ -4113,7 +4113,7 @@ const _sfc_main = {
                                   createVNode("p", {
                                     class: "text-body-2",
                                     style: { "color": "rgba(255,255,255,0.5)" }
-                                  }, " © " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
+                                  }, " \xA9 " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
                                 ]),
                                 _: 1
                               })
@@ -4161,7 +4161,7 @@ const _sfc_main = {
                                 createVNode("h3", {
                                   class: "text-overline mb-4",
                                   style: { "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" }
-                                }, "SÍGUENOS"),
+                                }, "S\xCDGUENOS"),
                                 createVNode("div", { class: "d-flex justify-center" }, [
                                   createVNode(VBtn, {
                                     icon: "",
@@ -4277,7 +4277,7 @@ const _sfc_main = {
                                 createVNode("p", {
                                   class: "text-body-2",
                                   style: { "color": "rgba(255,255,255,0.5)" }
-                                }, " © " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
+                                }, " \xA9 " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
                               ]),
                               _: 1
                             })
@@ -4346,7 +4346,7 @@ const _sfc_main = {
                           style: { "text-transform": "none", "color": "white", "cursor": "pointer" }
                         }, {
                           default: withCtx(() => [
-                            createTextVNode(" Ubicación ")
+                            createTextVNode(" Ubicaci\xF3n ")
                           ]),
                           _: 1
                         }, 8, ["onClick"]),
@@ -4510,7 +4510,7 @@ const _sfc_main = {
                         default: withCtx(() => [
                           createVNode(VListItemTitle, null, {
                             default: withCtx(() => [
-                              createTextVNode("Ubicación")
+                              createTextVNode("Ubicaci\xF3n")
                             ]),
                             _: 1
                           })
@@ -4709,7 +4709,7 @@ const _sfc_main = {
                                   createVNode("p", {
                                     class: "text-body-1",
                                     style: { "color": "#555", "line-height": "1.8" }
-                                  }, " Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. ")
+                                  }, " Sirviendo con pasi\xF3n y dedicaci\xF3n en el ministerio, guiando a la congregaci\xF3n con amor y sabidur\xEDa. ")
                                 ]),
                                 _: 1
                               })
@@ -4747,7 +4747,7 @@ const _sfc_main = {
                                   createVNode("p", {
                                     class: "text-body-1",
                                     style: { "color": "#555", "line-height": "1.8" }
-                                  }, " Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. ")
+                                  }, " Comprometida con el cuidado y edificaci\xF3n de las familias, ministrando con gracia y compasi\xF3n. ")
                                 ]),
                                 _: 1
                               })
@@ -4814,7 +4814,7 @@ const _sfc_main = {
                                       createVNode("p", {
                                         class: "text-body-2",
                                         style: { "color": "#888" }
-                                      }, "Reunión General")
+                                      }, "Reuni\xF3n General")
                                     ]),
                                     _: 1
                                   })
@@ -4835,7 +4835,7 @@ const _sfc_main = {
                                       createVNode("h3", {
                                         class: "text-h5 font-weight-light mb-4",
                                         style: { "color": "#041845" }
-                                      }, "Miércoles"),
+                                      }, "Mi\xE9rcoles"),
                                       createVNode("p", {
                                         class: "text-h6 mb-2",
                                         style: { "color": "#555" }
@@ -4843,7 +4843,7 @@ const _sfc_main = {
                                       createVNode("p", {
                                         class: "text-body-2",
                                         style: { "color": "#888" }
-                                      }, "Reunión General")
+                                      }, "Reuni\xF3n General")
                                     ]),
                                     _: 1
                                   })
@@ -4874,11 +4874,11 @@ const _sfc_main = {
                               createVNode("p", {
                                 class: "text-overline mb-2",
                                 style: { "color": "#666", "letter-spacing": "2px" }
-                              }, "ENCÚENTRANOS"),
+                              }, "ENC\xDAENTRANOS"),
                               createVNode("h2", {
                                 class: "text-h3 font-weight-light",
                                 style: { "color": "#041845" }
-                              }, "Ubicación")
+                              }, "Ubicaci\xF3n")
                             ]),
                             _: 1
                           })
@@ -4901,17 +4901,17 @@ const _sfc_main = {
                                   createVNode("p", {
                                     class: "text-overline mb-2",
                                     style: { "color": "#888" }
-                                  }, "DIRECCIÓN"),
+                                  }, "DIRECCI\xD3N"),
                                   createVNode("p", {
                                     class: "text-body-1",
                                     style: { "color": "#555" }
-                                  }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, México ")
+                                  }, " Av. Santo Domingo #215, Col. Mezquital, Apodaca, M\xE9xico ")
                                 ]),
                                 createVNode("div", { class: "mb-6" }, [
                                   createVNode("p", {
                                     class: "text-overline mb-2",
                                     style: { "color": "#888" }
-                                  }, "TELÉFONO"),
+                                  }, "TEL\xC9FONO"),
                                   createVNode("p", { class: "text-body-1" }, [
                                     createVNode("a", {
                                       href: "tel:+528111651800",
@@ -5008,7 +5008,7 @@ const _sfc_main = {
                                   createVNode("h2", {
                                     class: "text-h3 font-weight-light mb-6",
                                     style: { "color": "white" }
-                                  }, " Únete a Nuestra Comunidad "),
+                                  }, " \xDAnete a Nuestra Comunidad "),
                                   createVNode("p", {
                                     class: "text-h6 font-weight-light mb-8",
                                     style: { "color": "rgba(255,255,255,0.8)" }
@@ -5036,7 +5036,7 @@ const _sfc_main = {
                                       class: "px-8"
                                     }, {
                                       default: withCtx(() => [
-                                        createTextVNode(" Cómo Llegar ")
+                                        createTextVNode(" C\xF3mo Llegar ")
                                       ]),
                                       _: 1
                                     }, 8, ["onClick"])
@@ -5095,7 +5095,7 @@ const _sfc_main = {
                               createVNode("h3", {
                                 class: "text-overline mb-4",
                                 style: { "color": "rgba(255,255,255,0.7)", "letter-spacing": "2px" }
-                              }, "SÍGUENOS"),
+                              }, "S\xCDGUENOS"),
                               createVNode("div", { class: "d-flex justify-center" }, [
                                 createVNode(VBtn, {
                                   icon: "",
@@ -5211,7 +5211,7 @@ const _sfc_main = {
                               createVNode("p", {
                                 class: "text-body-2",
                                 style: { "color": "rgba(255,255,255,0.5)" }
-                              }, " © " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
+                              }, " \xA9 " + toDisplayString((/* @__PURE__ */ new Date()).getFullYear()) + " Avivamiento Monterrey - Todos los derechos reservados ", 1)
                             ]),
                             _: 1
                           })

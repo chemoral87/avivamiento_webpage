@@ -24,7 +24,7 @@ function createSimpleFunctional(klass) {
   let tag = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "div";
   let name = arguments.length > 2 ? arguments[2] : void 0;
   return genericComponent()({
-    name: name ?? capitalize(camelize(klass.replace(/__/g, "-"))),
+    name: name != null ? name : capitalize(camelize(klass.replace(/__/g, "-"))),
     props: {
       tag: {
         type: String,
@@ -37,10 +37,11 @@ function createSimpleFunctional(klass) {
         slots
       } = _ref;
       return () => {
+        var _a;
         return h(props.tag, {
           class: [klass, props.class],
           style: props.style
-        }, slots.default?.());
+        }, (_a = slots.default) == null ? void 0 : _a.call(slots));
       };
     }
   });
@@ -57,10 +58,11 @@ function updateRecursionCache(a, b, cache, result) {
   }
 }
 function findCachedComparison(a, b, cache) {
+  var _a, _b;
   if (!cache || isPrimitive(a) || isPrimitive(b)) return null;
-  const r1 = cache.get(a)?.get(b);
+  const r1 = (_a = cache.get(a)) == null ? void 0 : _a.get(b);
   if (typeof r1 === "boolean") return r1;
-  const r2 = cache.get(b)?.get(a);
+  const r2 = (_b = cache.get(b)) == null ? void 0 : _b.get(a);
   if (typeof r2 === "boolean") return r2;
   return null;
 }
@@ -145,9 +147,12 @@ const VToolbarTitle = genericComponent()({
         "class": normalizeClass(["v-toolbar-title", props.class]),
         "style": normalizeStyle(props.style)
       }, {
-        default: () => [hasText && createElementVNode("div", {
-          "class": "v-toolbar-title__placeholder"
-        }, [slots.text ? slots.text() : props.text, slots.default?.()])]
+        default: () => {
+          var _a;
+          return [hasText && createElementVNode("div", {
+            "class": "v-toolbar-title__placeholder"
+          }, [slots.text ? slots.text() : props.text, (_a = slots.default) == null ? void 0 : _a.call(slots)])];
+        }
       });
     });
     return {};
@@ -204,7 +209,7 @@ function createCssTransition(name, origin, mode) {
           }
         },
         onAfterLeave(el) {
-          if (props.leaveAbsolute && el?._transitionInitialStyles) {
+          if (props.leaveAbsolute && (el == null ? void 0 : el._transitionInitialStyles)) {
             const {
               position,
               top,
@@ -368,7 +373,10 @@ const VDefaultsProvider = genericComponent(false)({
       scoped,
       disabled
     });
-    return () => slots.default?.();
+    return () => {
+      var _a;
+      return (_a = slots.default) == null ? void 0 : _a.call(slots);
+    };
   }
 });
 const makeBorderProps = propsFactory({
@@ -449,6 +457,7 @@ const VToolbar = genericComponent()({
   name: "VToolbar",
   props: makeVToolbarProps(),
   setup(props, _ref) {
+    var _a;
     let {
       slots
     } = _ref;
@@ -471,7 +480,7 @@ const VToolbar = genericComponent()({
     const {
       rtlClasses
     } = useRtl();
-    const isExtended = shallowRef(props.extended === null ? !!slots.extension?.() : props.extended);
+    const isExtended = shallowRef(props.extended === null ? !!((_a = slots.extension) == null ? void 0 : _a.call(slots)) : props.extended);
     const contentHeight = computed(() => parseInt(Number(props.height) + (props.density === "prominent" ? Number(props.height) : 0) - (props.density === "comfortable" ? 8 : 0) - (props.density === "compact" ? 16 : 0), 10));
     const extensionHeight = computed(() => isExtended.value ? parseInt(Number(props.extensionHeight) + (props.density === "prominent" ? Number(props.extensionHeight) : 0) - (props.density === "comfortable" ? 4 : 0) - (props.density === "compact" ? 8 : 0), 10) : 0);
     provideDefaults({
@@ -480,9 +489,10 @@ const VToolbar = genericComponent()({
       }
     });
     useRender(() => {
+      var _a2;
       const hasTitle = !!(props.title || slots.title);
       const hasImage = !!(slots.image || props.image);
-      const extension = slots.extension?.();
+      const extension = (_a2 = slots.extension) == null ? void 0 : _a2.call(slots);
       isExtended.value = props.extended === null ? !!extension : props.extended;
       return createVNode(props.tag, {
         "class": normalizeClass(["v-toolbar", {
@@ -517,21 +527,24 @@ const VToolbar = genericComponent()({
             }
           }
         }, {
-          default: () => [createElementVNode("div", {
-            "class": "v-toolbar__content",
-            "style": {
-              height: convertToUnit(contentHeight.value)
-            }
-          }, [slots.prepend && createElementVNode("div", {
-            "class": "v-toolbar__prepend"
-          }, [slots.prepend?.()]), hasTitle && createVNode(VToolbarTitle, {
-            "key": "title",
-            "text": props.title
-          }, {
-            text: slots.title
-          }), slots.default?.(), slots.append && createElementVNode("div", {
-            "class": "v-toolbar__append"
-          }, [slots.append?.()])])]
+          default: () => {
+            var _a3, _b, _c;
+            return [createElementVNode("div", {
+              "class": "v-toolbar__content",
+              "style": {
+                height: convertToUnit(contentHeight.value)
+              }
+            }, [slots.prepend && createElementVNode("div", {
+              "class": "v-toolbar__prepend"
+            }, [(_a3 = slots.prepend) == null ? void 0 : _a3.call(slots)]), hasTitle && createVNode(VToolbarTitle, {
+              "key": "title",
+              "text": props.title
+            }, {
+              text: slots.title
+            }), (_b = slots.default) == null ? void 0 : _b.call(slots), slots.append && createElementVNode("div", {
+              "class": "v-toolbar__append"
+            }, [(_c = slots.append) == null ? void 0 : _c.call(slots)])])];
+          }
         }), createVNode(VDefaultsProvider, {
           "defaults": {
             VTabs: {
@@ -651,7 +664,8 @@ const VAppBar = genericComponent()({
     const vToolbarRef = ref();
     const isActive = useProxiedModel(props, "modelValue");
     const scrollBehavior = computed(() => {
-      const behavior = new Set(props.scrollBehavior?.split(" ") ?? []);
+      var _a, _b;
+      const behavior = new Set((_b = (_a = props.scrollBehavior) == null ? void 0 : _a.split(" ")) != null ? _b : []);
       return {
         hide: behavior.has("hide"),
         fullyHide: behavior.has("fully-hide"),
@@ -680,9 +694,10 @@ const VAppBar = genericComponent()({
     const isFlat = computed(() => props.flat || scrollBehavior.value.fullyHide && !isActive.value || scrollBehavior.value.elevate && (scrollBehavior.value.inverted ? currentScroll.value > 0 : currentScroll.value === 0));
     const opacity = computed(() => scrollBehavior.value.fadeImage ? scrollBehavior.value.inverted ? 1 - scrollRatio.value : scrollRatio.value : void 0);
     const height = computed(() => {
+      var _a, _b, _c, _d;
       if (scrollBehavior.value.hide && scrollBehavior.value.inverted) return 0;
-      const height2 = vToolbarRef.value?.contentHeight ?? 0;
-      const extensionHeight = vToolbarRef.value?.extensionHeight ?? 0;
+      const height2 = (_b = (_a = vToolbarRef.value) == null ? void 0 : _a.contentHeight) != null ? _b : 0;
+      const extensionHeight = (_d = (_c = vToolbarRef.value) == null ? void 0 : _c.extensionHeight) != null ? _d : 0;
       if (!canHide.value) return height2 + extensionHeight;
       return currentScroll.value < scrollThreshold.value || scrollBehavior.value.fullyHide ? height2 + extensionHeight : height2;
     });
@@ -885,14 +900,14 @@ function useGroupItem(props, injectKey) {
   const value = toRef(() => props.value);
   const disabled = computed(() => !!(group.disabled.value || props.disabled));
   function register() {
-    group?.register({
+    group == null ? void 0 : group.register({
       id,
       value,
       disabled
     }, vm);
   }
   function unregister() {
-    group?.unregister(id);
+    group == null ? void 0 : group.unregister(id);
   }
   register();
   const isSelected = computed(() => {
@@ -940,7 +955,7 @@ function useGroup(props, injectKey) {
   function register(item, vm) {
     const unwrapped = item;
     const key = Symbol.for(`${injectKey.description}:id`);
-    const children = findChildrenWithProvide(key, groupVm?.vnode);
+    const children = findChildrenWithProvide(key, groupVm == null ? void 0 : groupVm.vnode);
     const index = children.indexOf(vm);
     if (unref(unwrapped.value) === void 0) {
       unwrapped.value = index;
@@ -965,12 +980,12 @@ function useGroup(props, injectKey) {
   }
   function select(id, value) {
     const item = items.find((item2) => item2.id === id);
-    if (value && item?.disabled) return;
+    if (value && (item == null ? void 0 : item.disabled)) return;
     if (props.multiple) {
       const internalValue = selected.value.slice();
       const index = internalValue.findIndex((v) => v === id);
       const isSelected = ~index;
-      value = value ?? !isSelected;
+      value = value != null ? value : !isSelected;
       if (isSelected && props.mandatory && internalValue.length <= 1) return;
       if (!isSelected && props.max != null && internalValue.length + 1 > props.max) return;
       if (index < 0 && value) internalValue.push(id);
@@ -980,7 +995,7 @@ function useGroup(props, injectKey) {
       const isSelected = selected.value.includes(id);
       if (props.mandatory && isSelected) return;
       if (!isSelected && !value) return;
-      selected.value = value ?? !isSelected ? [id] : [];
+      selected.value = (value != null ? value : !isSelected) ? [id] : [];
     }
   }
   function step(offset) {
@@ -1027,9 +1042,9 @@ function getIds(items, modelValue) {
   modelValue.forEach((value) => {
     const item = items.find((item2) => deepEqual(value, item2.value));
     const itemByIndex = items[value];
-    if (item?.value !== void 0) {
+    if ((item == null ? void 0 : item.value) !== void 0) {
       ids.push(item.id);
-    } else if (itemByIndex?.useIndexAsValue) {
+    } else if (itemByIndex == null ? void 0 : itemByIndex.useIndexAsValue) {
       ids.push(itemByIndex.id);
     }
   });
@@ -1075,13 +1090,16 @@ genericComponent()({
       }, btnGroupProps, {
         "style": props.style
       }), {
-        default: () => [slots.default?.({
-          isSelected,
-          next,
-          prev,
-          select,
-          selected
-        })]
+        default: () => {
+          var _a;
+          return [(_a = slots.default) == null ? void 0 : _a.call(slots, {
+            isSelected,
+            next,
+            prev,
+            select,
+            selected
+          })];
+        }
       });
     });
     return {
@@ -1155,9 +1173,10 @@ const VIcon = genericComponent()({
       textColorStyles
     } = useTextColor(() => props.color);
     useRender(() => {
-      const slotValue = slots.default?.();
+      var _a, _b;
+      const slotValue = (_a = slots.default) == null ? void 0 : _a.call(slots);
       if (slotValue) {
-        slotIcon.value = flattenFragments(slotValue).filter((node) => node.type === Text && node.children && typeof node.children === "string")[0]?.children;
+        slotIcon.value = (_b = flattenFragments(slotValue).filter((node) => node.type === Text && node.children && typeof node.children === "string")[0]) == null ? void 0 : _b.children;
       }
       const hasClick = !!(attrs.onClick || attrs.onClickOnce);
       return createVNode(iconData.value.component, {
@@ -1635,15 +1654,16 @@ function useLoader(props) {
   };
 }
 function LoaderSlot(props, _ref) {
+  var _a;
   let {
     slots
   } = _ref;
   return createElementVNode("div", {
     "class": normalizeClass(`${props.name}__loader`)
-  }, [slots.default?.({
+  }, [((_a = slots.default) == null ? void 0 : _a.call(slots, {
     color: props.color,
     isActive: props.active
-  }) || createVNode(VProgressLinear, {
+  })) || createVNode(VProgressLinear, {
     "absolute": props.absolute,
     "active": props.active,
     "color": props.color,
@@ -1657,7 +1677,7 @@ const makePositionProps = propsFactory({
     type: String,
     validator: (
       /* istanbul ignore next */
-      (v) => positionValues.includes(v)
+      ((v) => positionValues.includes(v))
     )
   }
 }, "position");
@@ -1672,16 +1692,21 @@ function usePosition(props) {
 }
 function useRoute() {
   const vm = getCurrentInstance("useRoute");
-  return computed(() => vm?.proxy?.$route);
+  return computed(() => {
+    var _a;
+    return (_a = vm == null ? void 0 : vm.proxy) == null ? void 0 : _a.$route;
+  });
 }
 function useRouter() {
-  return getCurrentInstance("useRouter")?.proxy?.$router;
+  var _a, _b;
+  return (_b = (_a = getCurrentInstance("useRouter")) == null ? void 0 : _a.proxy) == null ? void 0 : _b.$router;
 }
 function useLink(props, attrs) {
+  var _a, _b;
   const RouterLink = resolveDynamicComponent("RouterLink");
   const isLink = toRef(() => !!(props.href || props.to));
   const isClickable = computed(() => {
-    return isLink?.value || hasEvent(attrs, "click") || hasEvent(props, "click");
+    return (isLink == null ? void 0 : isLink.value) || hasEvent(attrs, "click") || hasEvent(props, "click");
   });
   if (typeof RouterLink === "string" || !("useLink" in RouterLink)) {
     const href2 = toRef(() => props.href);
@@ -1702,20 +1727,24 @@ function useLink(props, attrs) {
   const link = computed(() => props.to ? routerLink : void 0);
   const route = useRoute();
   const isActive = computed(() => {
+    var _a2, _b2, _c, _d, _e;
     if (!link.value) return false;
-    if (!props.exact) return link.value.isActive?.value ?? false;
-    if (!route.value) return link.value.isExactActive?.value ?? false;
-    return link.value.isExactActive?.value && deepEqual(link.value.route.value.query, route.value.query);
+    if (!props.exact) return (_b2 = (_a2 = link.value.isActive) == null ? void 0 : _a2.value) != null ? _b2 : false;
+    if (!route.value) return (_d = (_c = link.value.isExactActive) == null ? void 0 : _c.value) != null ? _d : false;
+    return ((_e = link.value.isExactActive) == null ? void 0 : _e.value) && deepEqual(link.value.route.value.query, route.value.query);
   });
-  const href = computed(() => props.to ? link.value?.route.value.href : props.href);
+  const href = computed(() => {
+    var _a2;
+    return props.to ? (_a2 = link.value) == null ? void 0 : _a2.route.value.href : props.href;
+  });
   const isRouterLink = toRef(() => !!props.to);
   return {
     isLink,
     isRouterLink,
     isClickable,
     isActive,
-    route: link.value?.route,
-    navigate: link.value?.navigate,
+    route: (_a = link.value) == null ? void 0 : _a.route,
+    navigate: (_b = link.value) == null ? void 0 : _b.navigate,
     href,
     linkProps: reactive({
       href,
@@ -1732,7 +1761,10 @@ const makeRouterProps = propsFactory({
   exact: Boolean
 }, "router");
 function useSelectLink(link, select) {
-  watch(() => link.isActive?.value, (isActive) => {
+  watch(() => {
+    var _a;
+    return (_a = link.isActive) == null ? void 0 : _a.value;
+  }, (isActive) => {
     if (link.isLink.value && isActive != null && select) {
       nextTick(() => {
         select(isActive);
@@ -1755,6 +1787,7 @@ function isKeyboardEvent(e) {
   return e.constructor.name === "KeyboardEvent";
 }
 const calculate = function(e, el) {
+  var _a;
   let value = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
   let localX = 0;
   let localY = 0;
@@ -1766,7 +1799,7 @@ const calculate = function(e, el) {
   }
   let radius = 0;
   let scale = 0.3;
-  if (el._ripple?.circle) {
+  if ((_a = el._ripple) == null ? void 0 : _a.circle) {
     scale = 0.15;
     radius = el.clientWidth / 2;
     radius = value.center ? radius : radius + Math.sqrt((localX - radius) ** 2 + (localY - radius) ** 2) / 4;
@@ -1789,8 +1822,9 @@ const calculate = function(e, el) {
 const ripples = {
   /* eslint-disable max-statements */
   show(e, el) {
+    var _a;
     let value = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-    if (!el?._ripple?.enabled) {
+    if (!((_a = el == null ? void 0 : el._ripple) == null ? void 0 : _a.enabled)) {
       return;
     }
     const container = (void 0).createElement("span");
@@ -1831,7 +1865,8 @@ const ripples = {
     });
   },
   hide(el) {
-    if (!el?._ripple?.enabled) return;
+    var _a;
+    if (!((_a = el == null ? void 0 : el._ripple) == null ? void 0 : _a.enabled)) return;
     const ripples2 = el.getElementsByClassName("v-ripple__animation");
     if (ripples2.length === 0) return;
     const animation = Array.from(ripples2).findLast((ripple) => !ripple.dataset.isHiding);
@@ -1843,12 +1878,13 @@ const ripples = {
       animation.classList.remove("v-ripple__animation--in");
       animation.classList.add("v-ripple__animation--out");
       setTimeout(() => {
+        var _a2;
         const ripples3 = el.getElementsByClassName("v-ripple__animation");
         if (ripples3.length === 1 && el.dataset.previousPosition) {
           el.style.position = el.dataset.previousPosition;
           delete el.dataset.previousPosition;
         }
-        if (animation.parentNode?.parentNode === el) el.removeChild(animation.parentNode);
+        if (((_a2 = animation.parentNode) == null ? void 0 : _a2.parentNode) === el) el.removeChild(animation.parentNode);
       }, 300);
     }, delay);
   }
@@ -1859,7 +1895,7 @@ function isRippleEnabled(value) {
 function rippleShow(e) {
   const value = {};
   const element = e.currentTarget;
-  if (!element?._ripple || element._ripple.touched || e[stopSymbol]) return;
+  if (!(element == null ? void 0 : element._ripple) || element._ripple.touched || e[stopSymbol]) return;
   e[stopSymbol] = true;
   if (isTouchEvent(e)) {
     element._ripple.touched = true;
@@ -1877,7 +1913,8 @@ function rippleShow(e) {
       ripples.show(e, element, value);
     };
     element._ripple.showTimer = (void 0).setTimeout(() => {
-      if (element?._ripple?.showTimerCommit) {
+      var _a;
+      if ((_a = element == null ? void 0 : element._ripple) == null ? void 0 : _a.showTimerCommit) {
         element._ripple.showTimerCommit();
         element._ripple.showTimerCommit = null;
       }
@@ -1891,7 +1928,7 @@ function rippleStop(e) {
 }
 function rippleHide(e) {
   const element = e.currentTarget;
-  if (!element?._ripple) return;
+  if (!(element == null ? void 0 : element._ripple)) return;
   (void 0).clearTimeout(element._ripple.showTimer);
   if (e.type === "touchend" && element._ripple.showTimerCommit) {
     element._ripple.showTimerCommit();
@@ -1910,7 +1947,7 @@ function rippleHide(e) {
 }
 function rippleCancelShow(e) {
   const element = e.currentTarget;
-  if (!element?._ripple) return;
+  if (!(element == null ? void 0 : element._ripple)) return;
   if (element._ripple.showTimerCommit) {
     element._ripple.showTimerCommit = null;
   }
@@ -1934,6 +1971,7 @@ function focusRippleHide(e) {
   }
 }
 function updateRipple(el, binding, wasEnabled) {
+  var _a, _b;
   const {
     value,
     modifiers
@@ -1942,7 +1980,7 @@ function updateRipple(el, binding, wasEnabled) {
   if (!enabled) {
     ripples.hide(el);
   }
-  el._ripple = el._ripple ?? {};
+  el._ripple = (_a = el._ripple) != null ? _a : {};
   el._ripple.enabled = enabled;
   el._ripple.centered = modifiers.center;
   el._ripple.circle = modifiers.circle;
@@ -1950,7 +1988,7 @@ function updateRipple(el, binding, wasEnabled) {
   if (bindingValue.class) {
     el._ripple.class = bindingValue.class;
   }
-  const allowedKeys = bindingValue.keys ?? ["Enter", "Space"];
+  const allowedKeys = (_b = bindingValue.keys) != null ? _b : ["Enter", "Space"];
   el._ripple.keyDownHandler = (e) => keyboardRippleShow(e, allowedKeys);
   if (enabled && !wasEnabled) {
     if (modifiers.stop) {
@@ -1984,6 +2022,7 @@ function updateRipple(el, binding, wasEnabled) {
   }
 }
 function removeListeners(el) {
+  var _a;
   el.removeEventListener("mousedown", rippleShow);
   el.removeEventListener("touchstart", rippleShow);
   el.removeEventListener("touchend", rippleHide);
@@ -1991,7 +2030,7 @@ function removeListeners(el) {
   el.removeEventListener("touchcancel", rippleHide);
   el.removeEventListener("mouseup", rippleHide);
   el.removeEventListener("mouseleave", rippleHide);
-  if (el._ripple?.keyDownHandler) {
+  if ((_a = el._ripple) == null ? void 0 : _a.keyDownHandler) {
     el.removeEventListener("keydown", el._ripple.keyDownHandler);
   }
   el.removeEventListener("keyup", keyboardRippleHide);
@@ -2110,19 +2149,24 @@ const VBtn = genericComponent()({
     const group = useGroupItem(props, props.symbol, false);
     const link = useLink(props, attrs);
     const isActive = computed(() => {
+      var _a;
       if (props.active !== void 0) {
         return props.active;
       }
       if (link.isRouterLink.value) {
-        return link.isActive?.value;
+        return (_a = link.isActive) == null ? void 0 : _a.value;
       }
-      return group?.isSelected.value;
+      return group == null ? void 0 : group.isSelected.value;
     });
-    const color = toRef(() => isActive.value ? props.activeColor ?? props.color : props.color);
+    const color = toRef(() => {
+      var _a;
+      return isActive.value ? (_a = props.activeColor) != null ? _a : props.color : props.color;
+    });
     const variantProps = computed(() => {
-      const showColor = group?.isSelected.value && (!link.isLink.value || link.isActive?.value) || !group || link.isActive?.value;
+      var _a, _b, _c;
+      const showColor = (group == null ? void 0 : group.isSelected.value) && (!link.isLink.value || ((_a = link.isActive) == null ? void 0 : _a.value)) || !group || ((_b = link.isActive) == null ? void 0 : _b.value);
       return {
-        color: showColor ? color.value ?? props.baseColor : props.baseColor,
+        color: showColor ? (_c = color.value) != null ? _c : props.baseColor : props.baseColor,
         variant: props.variant
       };
     });
@@ -2131,7 +2175,7 @@ const VBtn = genericComponent()({
       colorStyles,
       variantClasses
     } = useVariant(variantProps);
-    const isDisabled = computed(() => group?.disabled.value || props.disabled);
+    const isDisabled = computed(() => (group == null ? void 0 : group.disabled.value) || props.disabled);
     const isElevated = toRef(() => {
       return props.variant === "elevated" && !(props.disabled || props.flat || props.border);
     });
@@ -2140,14 +2184,15 @@ const VBtn = genericComponent()({
       return Object(props.value) === props.value ? JSON.stringify(props.value, null, 0) : props.value;
     });
     function onClick(e) {
+      var _a;
       if (isDisabled.value || link.isLink.value && (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0 || attrs.target === "_blank")) return;
       if (link.isRouterLink.value) {
-        link.navigate?.(e);
+        (_a = link.navigate) == null ? void 0 : _a.call(link, e);
       } else {
-        group?.toggle();
+        group == null ? void 0 : group.toggle();
       }
     }
-    useSelectLink(link, group?.select);
+    useSelectLink(link, group == null ? void 0 : group.select);
     useRender(() => {
       const Tag = link.isLink.value ? "a" : props.tag;
       const hasPrepend = !!(props.prependIcon || slots.prepend);
@@ -2155,7 +2200,7 @@ const VBtn = genericComponent()({
       const hasIcon = !!(props.icon && props.icon !== true);
       return withDirectives(createVNode(Tag, mergeProps(link.linkProps, {
         "type": Tag === "a" ? void 0 : "button",
-        "class": ["v-btn", group?.selectedClass.value, {
+        "class": ["v-btn", group == null ? void 0 : group.selectedClass.value, {
           "v-btn--active": isActive.value,
           "v-btn--block": props.block,
           "v-btn--disabled": isDisabled.value,
@@ -2174,58 +2219,64 @@ const VBtn = genericComponent()({
         "onClick": onClick,
         "value": valueAttr.value
       }), {
-        default: () => [genOverlays(true, "v-btn"), !props.icon && hasPrepend && createElementVNode("span", {
-          "key": "prepend",
-          "class": "v-btn__prepend"
-        }, [!slots.prepend ? createVNode(VIcon, {
-          "key": "prepend-icon",
-          "icon": props.prependIcon
-        }, null) : createVNode(VDefaultsProvider, {
-          "key": "prepend-defaults",
-          "disabled": !props.prependIcon,
-          "defaults": {
-            VIcon: {
-              icon: props.prependIcon
+        default: () => {
+          var _a, _b;
+          return [genOverlays(true, "v-btn"), !props.icon && hasPrepend && createElementVNode("span", {
+            "key": "prepend",
+            "class": "v-btn__prepend"
+          }, [!slots.prepend ? createVNode(VIcon, {
+            "key": "prepend-icon",
+            "icon": props.prependIcon
+          }, null) : createVNode(VDefaultsProvider, {
+            "key": "prepend-defaults",
+            "disabled": !props.prependIcon,
+            "defaults": {
+              VIcon: {
+                icon: props.prependIcon
+              }
             }
-          }
-        }, slots.prepend)]), createElementVNode("span", {
-          "class": "v-btn__content",
-          "data-no-activator": ""
-        }, [!slots.default && hasIcon ? createVNode(VIcon, {
-          "key": "content-icon",
-          "icon": props.icon
-        }, null) : createVNode(VDefaultsProvider, {
-          "key": "content-defaults",
-          "disabled": !hasIcon,
-          "defaults": {
-            VIcon: {
-              icon: props.icon
+          }, slots.prepend)]), createElementVNode("span", {
+            "class": "v-btn__content",
+            "data-no-activator": ""
+          }, [!slots.default && hasIcon ? createVNode(VIcon, {
+            "key": "content-icon",
+            "icon": props.icon
+          }, null) : createVNode(VDefaultsProvider, {
+            "key": "content-defaults",
+            "disabled": !hasIcon,
+            "defaults": {
+              VIcon: {
+                icon: props.icon
+              }
             }
-          }
-        }, {
-          default: () => [slots.default?.() ?? toDisplayString(props.text)]
-        })]), !props.icon && hasAppend && createElementVNode("span", {
-          "key": "append",
-          "class": "v-btn__append"
-        }, [!slots.append ? createVNode(VIcon, {
-          "key": "append-icon",
-          "icon": props.appendIcon
-        }, null) : createVNode(VDefaultsProvider, {
-          "key": "append-defaults",
-          "disabled": !props.appendIcon,
-          "defaults": {
-            VIcon: {
-              icon: props.appendIcon
+          }, {
+            default: () => {
+              var _a2, _b2;
+              return [(_b2 = (_a2 = slots.default) == null ? void 0 : _a2.call(slots)) != null ? _b2 : toDisplayString(props.text)];
             }
-          }
-        }, slots.append)]), !!props.loading && createElementVNode("span", {
-          "key": "loader",
-          "class": "v-btn__loader"
-        }, [slots.loader?.() ?? createVNode(VProgressCircular, {
-          "color": typeof props.loading === "boolean" ? void 0 : props.loading,
-          "indeterminate": true,
-          "width": "2"
-        }, null)])]
+          })]), !props.icon && hasAppend && createElementVNode("span", {
+            "key": "append",
+            "class": "v-btn__append"
+          }, [!slots.append ? createVNode(VIcon, {
+            "key": "append-icon",
+            "icon": props.appendIcon
+          }, null) : createVNode(VDefaultsProvider, {
+            "key": "append-defaults",
+            "disabled": !props.appendIcon,
+            "defaults": {
+              VIcon: {
+                icon: props.appendIcon
+              }
+            }
+          }, slots.append)]), !!props.loading && createElementVNode("span", {
+            "key": "loader",
+            "class": "v-btn__loader"
+          }, [(_b = (_a = slots.loader) == null ? void 0 : _a.call(slots)) != null ? _b : createVNode(VProgressCircular, {
+            "color": typeof props.loading === "boolean" ? void 0 : props.loading,
+            "indeterminate": true,
+            "width": "2"
+          }, null)])];
+        }
       }), [[Ripple, !isDisabled.value && props.ripple, "", {
         center: !!props.icon
       }]]);
@@ -2394,65 +2445,74 @@ const VCardItem = genericComponent()({
         "class": normalizeClass(["v-card-item", props.class]),
         "style": normalizeStyle(props.style)
       }, {
-        default: () => [hasPrepend && createElementVNode("div", {
-          "key": "prepend",
-          "class": "v-card-item__prepend"
-        }, [!slots.prepend ? createElementVNode(Fragment, null, [props.prependAvatar && createVNode(VAvatar, {
-          "key": "prepend-avatar",
-          "density": props.density,
-          "image": props.prependAvatar
-        }, null), props.prependIcon && createVNode(VIcon, {
-          "key": "prepend-icon",
-          "density": props.density,
-          "icon": props.prependIcon
-        }, null)]) : createVNode(VDefaultsProvider, {
-          "key": "prepend-defaults",
-          "disabled": !hasPrependMedia,
-          "defaults": {
-            VAvatar: {
-              density: props.density,
-              image: props.prependAvatar
-            },
-            VIcon: {
-              density: props.density,
-              icon: props.prependIcon
+        default: () => {
+          var _a;
+          return [hasPrepend && createElementVNode("div", {
+            "key": "prepend",
+            "class": "v-card-item__prepend"
+          }, [!slots.prepend ? createElementVNode(Fragment, null, [props.prependAvatar && createVNode(VAvatar, {
+            "key": "prepend-avatar",
+            "density": props.density,
+            "image": props.prependAvatar
+          }, null), props.prependIcon && createVNode(VIcon, {
+            "key": "prepend-icon",
+            "density": props.density,
+            "icon": props.prependIcon
+          }, null)]) : createVNode(VDefaultsProvider, {
+            "key": "prepend-defaults",
+            "disabled": !hasPrependMedia,
+            "defaults": {
+              VAvatar: {
+                density: props.density,
+                image: props.prependAvatar
+              },
+              VIcon: {
+                density: props.density,
+                icon: props.prependIcon
+              }
             }
-          }
-        }, slots.prepend)]), createElementVNode("div", {
-          "class": "v-card-item__content"
-        }, [hasTitle && createVNode(VCardTitle, {
-          "key": "title"
-        }, {
-          default: () => [slots.title?.() ?? toDisplayString(props.title)]
-        }), hasSubtitle && createVNode(VCardSubtitle, {
-          "key": "subtitle"
-        }, {
-          default: () => [slots.subtitle?.() ?? toDisplayString(props.subtitle)]
-        }), slots.default?.()]), hasAppend && createElementVNode("div", {
-          "key": "append",
-          "class": "v-card-item__append"
-        }, [!slots.append ? createElementVNode(Fragment, null, [props.appendIcon && createVNode(VIcon, {
-          "key": "append-icon",
-          "density": props.density,
-          "icon": props.appendIcon
-        }, null), props.appendAvatar && createVNode(VAvatar, {
-          "key": "append-avatar",
-          "density": props.density,
-          "image": props.appendAvatar
-        }, null)]) : createVNode(VDefaultsProvider, {
-          "key": "append-defaults",
-          "disabled": !hasAppendMedia,
-          "defaults": {
-            VAvatar: {
-              density: props.density,
-              image: props.appendAvatar
-            },
-            VIcon: {
-              density: props.density,
-              icon: props.appendIcon
+          }, slots.prepend)]), createElementVNode("div", {
+            "class": "v-card-item__content"
+          }, [hasTitle && createVNode(VCardTitle, {
+            "key": "title"
+          }, {
+            default: () => {
+              var _a2, _b;
+              return [(_b = (_a2 = slots.title) == null ? void 0 : _a2.call(slots)) != null ? _b : toDisplayString(props.title)];
             }
-          }
-        }, slots.append)])]
+          }), hasSubtitle && createVNode(VCardSubtitle, {
+            "key": "subtitle"
+          }, {
+            default: () => {
+              var _a2, _b;
+              return [(_b = (_a2 = slots.subtitle) == null ? void 0 : _a2.call(slots)) != null ? _b : toDisplayString(props.subtitle)];
+            }
+          }), (_a = slots.default) == null ? void 0 : _a.call(slots)]), hasAppend && createElementVNode("div", {
+            "key": "append",
+            "class": "v-card-item__append"
+          }, [!slots.append ? createElementVNode(Fragment, null, [props.appendIcon && createVNode(VIcon, {
+            "key": "append-icon",
+            "density": props.density,
+            "icon": props.appendIcon
+          }, null), props.appendAvatar && createVNode(VAvatar, {
+            "key": "append-avatar",
+            "density": props.density,
+            "image": props.appendAvatar
+          }, null)]) : createVNode(VDefaultsProvider, {
+            "key": "append-defaults",
+            "disabled": !hasAppendMedia,
+            "defaults": {
+              VAvatar: {
+                density: props.density,
+                image: props.appendAvatar
+              },
+              VIcon: {
+                density: props.density,
+                icon: props.appendIcon
+              }
+            }
+          }, slots.append)])];
+        }
       });
     });
     return {};
@@ -2597,49 +2657,55 @@ const VCard = genericComponent()({
         "onClick": isClickable && link.navigate,
         "tabindex": props.disabled ? -1 : void 0
       }), {
-        default: () => [hasImage && createElementVNode("div", {
-          "key": "image",
-          "class": "v-card__image"
-        }, [!slots.image ? createVNode(VImg, {
-          "key": "image-img",
-          "cover": true,
-          "src": props.image
-        }, null) : createVNode(VDefaultsProvider, {
-          "key": "image-defaults",
-          "disabled": !props.image,
-          "defaults": {
-            VImg: {
-              cover: true,
-              src: props.image
+        default: () => {
+          var _a;
+          return [hasImage && createElementVNode("div", {
+            "key": "image",
+            "class": "v-card__image"
+          }, [!slots.image ? createVNode(VImg, {
+            "key": "image-img",
+            "cover": true,
+            "src": props.image
+          }, null) : createVNode(VDefaultsProvider, {
+            "key": "image-defaults",
+            "disabled": !props.image,
+            "defaults": {
+              VImg: {
+                cover: true,
+                src: props.image
+              }
             }
-          }
-        }, slots.image)]), createVNode(LoaderSlot, {
-          "name": "v-card",
-          "active": !!props.loading,
-          "color": loadingColor.value
-        }, {
-          default: slots.loader
-        }), hasCardItem && createVNode(VCardItem, {
-          "key": "item",
-          "prependAvatar": props.prependAvatar,
-          "prependIcon": props.prependIcon,
-          "title": props.title,
-          "subtitle": props.subtitle,
-          "appendAvatar": props.appendAvatar,
-          "appendIcon": props.appendIcon
-        }, {
-          default: slots.item,
-          prepend: slots.prepend,
-          title: slots.title,
-          subtitle: slots.subtitle,
-          append: slots.append
-        }), hasText && createVNode(VCardText, {
-          "key": "text"
-        }, {
-          default: () => [slots.text?.() ?? props.text]
-        }), slots.default?.(), slots.actions && createVNode(VCardActions, null, {
-          default: slots.actions
-        }), genOverlays(isClickable, "v-card")]
+          }, slots.image)]), createVNode(LoaderSlot, {
+            "name": "v-card",
+            "active": !!props.loading,
+            "color": loadingColor.value
+          }, {
+            default: slots.loader
+          }), hasCardItem && createVNode(VCardItem, {
+            "key": "item",
+            "prependAvatar": props.prependAvatar,
+            "prependIcon": props.prependIcon,
+            "title": props.title,
+            "subtitle": props.subtitle,
+            "appendAvatar": props.appendAvatar,
+            "appendIcon": props.appendIcon
+          }, {
+            default: slots.item,
+            prepend: slots.prepend,
+            title: slots.title,
+            subtitle: slots.subtitle,
+            append: slots.append
+          }), hasText && createVNode(VCardText, {
+            "key": "text"
+          }, {
+            default: () => {
+              var _a2, _b;
+              return [(_b = (_a2 = slots.text) == null ? void 0 : _a2.call(slots)) != null ? _b : props.text];
+            }
+          }), (_a = slots.default) == null ? void 0 : _a.call(slots), slots.actions && createVNode(VCardActions, null, {
+            default: slots.actions
+          }), genOverlays(isClickable, "v-card")];
+        }
       }), [[Ripple, isClickable && props.ripple]]);
     });
     return {};
@@ -2842,10 +2908,13 @@ const VCol = genericComponent()({
       });
       return classList;
     });
-    return () => h(props.tag, {
-      class: [classes.value, props.class],
-      style: props.style
-    }, slots.default?.());
+    return () => {
+      var _a;
+      return h(props.tag, {
+        class: [classes.value, props.class],
+        style: props.style
+      }, (_a = slots.default) == null ? void 0 : _a.call(slots));
+    };
   }
 });
 const ALIGNMENT = ["start", "end", "center"];
@@ -2950,10 +3019,13 @@ const VRow = genericComponent()({
       });
       return classList;
     });
-    return () => h(props.tag, {
-      class: ["v-row", classes.value, props.class],
-      style: props.style
-    }, slots.default?.());
+    return () => {
+      var _a;
+      return h(props.tag, {
+        class: ["v-row", classes.value, props.class],
+        style: props.style
+      }, (_a = slots.default) == null ? void 0 : _a.call(slots));
+    };
   }
 });
 const VSpacer = createSimpleFunctional("v-spacer", "div", "VSpacer");
@@ -3229,7 +3301,7 @@ const independentSingleSelectStrategy = (mandatory) => {
       });
     },
     in: (v, children, parents, disabled) => {
-      if (v?.length) {
+      if (v == null ? void 0 : v.length) {
         return parentStrategy.in(v.slice(0, 1), children, parents, disabled);
       }
       return /* @__PURE__ */ new Map();
@@ -3518,12 +3590,13 @@ const useNested = (props) => {
         itemsUpdatePropagation();
       },
       unregister: (id) => {
+        var _a;
         nodeIds.delete(id);
         children.value.delete(id);
         disabled.value.delete(id);
         const parent = parents.value.get(id);
         if (parent) {
-          const list = children.value.get(parent) ?? [];
+          const list = (_a = children.value.get(parent)) != null ? _a : [];
           children.value.set(parent, list.filter((child) => child !== id));
         }
         parents.value.delete(id);
@@ -3668,7 +3741,10 @@ const VListGroupActivator = defineComponent({
       slots
     } = _ref;
     useNestedGroupActivator();
-    return () => slots.default?.();
+    return () => {
+      var _a;
+      return (_a = slots.default) == null ? void 0 : _a.call(slots);
+    };
   }
 });
 const makeVListGroupProps = propsFactory({
@@ -3707,13 +3783,17 @@ const VListGroup = genericComponent()({
       open,
       id: _id
     } = useNestedItem(() => props.value, () => props.disabled, true);
-    const id = computed(() => `v-list-group--id-${String(props.rawId ?? _id.value)}`);
+    const id = computed(() => {
+      var _a;
+      return `v-list-group--id-${String((_a = props.rawId) != null ? _a : _id.value)}`;
+    });
     const list = useList();
     const {
       isBooted
     } = useSsrBoot();
     function onClick(e) {
-      if (["INPUT", "TEXTAREA"].includes(e.target?.tagName)) return;
+      var _a;
+      if (["INPUT", "TEXTAREA"].includes((_a = e.target) == null ? void 0 : _a.tagName)) return;
       open(!isOpen.value, e);
     }
     const activatorProps = computed(() => ({
@@ -3735,7 +3815,7 @@ const VListGroup = genericComponent()({
     }));
     useRender(() => createVNode(props.tag, {
       "class": normalizeClass(["v-list-group", {
-        "v-list-group--prepend": list?.hasPrepend.value,
+        "v-list-group--prepend": list == null ? void 0 : list.hasPrepend.value,
         "v-list-group--fluid": props.fluid,
         "v-list-group--subgroup": props.subgroup,
         "v-list-group--open": isOpen.value
@@ -3757,11 +3837,14 @@ const VListGroup = genericComponent()({
         },
         "disabled": !isBooted.value
       }, {
-        default: () => [withDirectives(createElementVNode("div", {
-          "class": "v-list-group__items",
-          "role": "group",
-          "aria-labelledby": id.value
-        }, [slots.default?.()]), [[vShow, isOpen.value]])]
+        default: () => {
+          var _a;
+          return [withDirectives(createElementVNode("div", {
+            "class": "v-list-group__items",
+            "role": "group",
+            "aria-labelledby": id.value
+          }, [(_a = slots.default) == null ? void 0 : _a.call(slots)]), [[vShow, isOpen.value]])];
+        }
       })]
     }));
     return {
@@ -3871,7 +3954,10 @@ const VListItem = genericComponent()({
       id: uid
     } = useNestedItem(id, () => props.disabled, false);
     const list = useList();
-    const isActive = computed(() => props.active !== false && (props.active || link.isActive?.value || (root.activatable.value ? isActivated.value : isSelected.value)));
+    const isActive = computed(() => {
+      var _a;
+      return props.active !== false && (props.active || ((_a = link.isActive) == null ? void 0 : _a.value) || (root.activatable.value ? isActivated.value : isSelected.value));
+    });
     const isLink = toRef(() => props.link !== false && link.isLink.value);
     const isSelectable = computed(() => !!list && (root.selectable.value || root.activatable.value || props.value != null));
     const isClickable = computed(() => !props.disabled && props.link !== false && (props.link || link.isClickable.value || isSelectable.value));
@@ -3881,12 +3967,21 @@ const VListItem = genericComponent()({
       return root.activatable.value ? isActivated.value : root.selectable.value ? isSelected.value : isActive.value;
     });
     const roundedProps = toRef(() => props.rounded || props.nav);
-    const color = toRef(() => props.color ?? props.activeColor);
-    const variantProps = toRef(() => ({
-      color: isActive.value ? color.value ?? props.baseColor : props.baseColor,
-      variant: props.variant
-    }));
-    watch(() => link.isActive?.value, (val) => {
+    const color = toRef(() => {
+      var _a;
+      return (_a = props.color) != null ? _a : props.activeColor;
+    });
+    const variantProps = toRef(() => {
+      var _a;
+      return {
+        color: isActive.value ? (_a = color.value) != null ? _a : props.baseColor : props.baseColor,
+        variant: props.variant
+      };
+    });
+    watch(() => {
+      var _a;
+      return (_a = link.isActive) == null ? void 0 : _a.value;
+    }, (val) => {
       if (!val) return;
       handleActiveLink();
     });
@@ -3920,7 +4015,7 @@ const VListItem = genericComponent()({
       roundedClasses
     } = useRounded(roundedProps);
     const lineClasses = toRef(() => props.lines ? `v-list-item--${props.lines}-line` : void 0);
-    const rippleOptions = toRef(() => props.ripple !== void 0 && !!props.ripple && list?.filterable ? {
+    const rippleOptions = toRef(() => props.ripple !== void 0 && !!props.ripple && (list == null ? void 0 : list.filterable) ? {
       keys: ["Enter"]
     } : props.ripple);
     const slotProps = computed(() => ({
@@ -3931,10 +4026,11 @@ const VListItem = genericComponent()({
       isIndeterminate: isIndeterminate.value
     }));
     function onClick(e) {
+      var _a, _b;
       emit("click", e);
-      if (["INPUT", "TEXTAREA"].includes(e.target?.tagName)) return;
+      if (["INPUT", "TEXTAREA"].includes((_a = e.target) == null ? void 0 : _a.tagName)) return;
       if (!isClickable.value) return;
-      link.navigate?.(e);
+      (_b = link.navigate) == null ? void 0 : _b.call(link, e);
       if (isGroupActivator) return;
       if (root.activatable.value) {
         activate(!isActivated.value, e);
@@ -3947,7 +4043,7 @@ const VListItem = genericComponent()({
     function onKeyDown(e) {
       const target = e.target;
       if (["INPUT", "TEXTAREA"].includes(target.tagName)) return;
-      if (e.key === "Enter" || e.key === " " && !list?.filterable) {
+      if (e.key === "Enter" || e.key === " " && !(list == null ? void 0 : list.filterable)) {
         e.preventDefault();
         e.stopPropagation();
         e.target.dispatchEvent(new MouseEvent("click", e));
@@ -3961,7 +4057,7 @@ const VListItem = genericComponent()({
       const hasAppend = !!(hasAppendMedia || slots.append);
       const hasPrependMedia = !!(props.prependAvatar || props.prependIcon);
       const hasPrepend = !!(hasPrependMedia || slots.prepend);
-      list?.updateHasPrepend(hasPrepend);
+      list == null ? void 0 : list.updateHasPrepend(hasPrepend);
       if (props.activeColor) {
         deprecate("active-color", ["color", "base-color"]);
       }
@@ -3971,7 +4067,7 @@ const VListItem = genericComponent()({
           "v-list-item--disabled": props.disabled,
           "v-list-item--link": isClickable.value,
           "v-list-item--nav": props.nav,
-          "v-list-item--prepend": !hasPrepend && list?.hasPrepend.value,
+          "v-list-item--prepend": !hasPrepend && (list == null ? void 0 : list.hasPrepend.value),
           "v-list-item--slim": props.slim,
           [`${props.activeClass}`]: props.activeClass && isActive.value
         }, themeClasses.value, borderClasses.value, colorClasses.value, densityClasses.value, elevationClasses.value, lineClasses.value, roundedClasses.value, variantClasses.value, props.class],
@@ -3982,84 +4078,99 @@ const VListItem = genericComponent()({
         "onClick": onClick,
         "onKeydown": isClickable.value && !isLink.value && onKeyDown
       }), {
-        default: () => [genOverlays(isClickable.value || isActive.value, "v-list-item"), hasPrepend && createElementVNode("div", {
-          "key": "prepend",
-          "class": "v-list-item__prepend"
-        }, [!slots.prepend ? createElementVNode(Fragment, null, [props.prependAvatar && createVNode(VAvatar, {
-          "key": "prepend-avatar",
-          "density": props.density,
-          "image": props.prependAvatar
-        }, null), props.prependIcon && createVNode(VIcon, {
-          "key": "prepend-icon",
-          "density": props.density,
-          "icon": props.prependIcon
-        }, null)]) : createVNode(VDefaultsProvider, {
-          "key": "prepend-defaults",
-          "disabled": !hasPrependMedia,
-          "defaults": {
-            VAvatar: {
-              density: props.density,
-              image: props.prependAvatar
-            },
-            VIcon: {
-              density: props.density,
-              icon: props.prependIcon
-            },
-            VListItemAction: {
-              start: true
+        default: () => {
+          var _a;
+          return [genOverlays(isClickable.value || isActive.value, "v-list-item"), hasPrepend && createElementVNode("div", {
+            "key": "prepend",
+            "class": "v-list-item__prepend"
+          }, [!slots.prepend ? createElementVNode(Fragment, null, [props.prependAvatar && createVNode(VAvatar, {
+            "key": "prepend-avatar",
+            "density": props.density,
+            "image": props.prependAvatar
+          }, null), props.prependIcon && createVNode(VIcon, {
+            "key": "prepend-icon",
+            "density": props.density,
+            "icon": props.prependIcon
+          }, null)]) : createVNode(VDefaultsProvider, {
+            "key": "prepend-defaults",
+            "disabled": !hasPrependMedia,
+            "defaults": {
+              VAvatar: {
+                density: props.density,
+                image: props.prependAvatar
+              },
+              VIcon: {
+                density: props.density,
+                icon: props.prependIcon
+              },
+              VListItemAction: {
+                start: true
+              }
             }
-          }
-        }, {
-          default: () => [slots.prepend?.(slotProps.value)]
-        }), createElementVNode("div", {
-          "class": "v-list-item__spacer"
-        }, null)]), createElementVNode("div", {
-          "class": "v-list-item__content",
-          "data-no-activator": ""
-        }, [hasTitle && createVNode(VListItemTitle, {
-          "key": "title"
-        }, {
-          default: () => [slots.title?.({
-            title: props.title
-          }) ?? toDisplayString(props.title)]
-        }), hasSubtitle && createVNode(VListItemSubtitle, {
-          "key": "subtitle"
-        }, {
-          default: () => [slots.subtitle?.({
-            subtitle: props.subtitle
-          }) ?? toDisplayString(props.subtitle)]
-        }), slots.default?.(slotProps.value)]), hasAppend && createElementVNode("div", {
-          "key": "append",
-          "class": "v-list-item__append"
-        }, [!slots.append ? createElementVNode(Fragment, null, [props.appendIcon && createVNode(VIcon, {
-          "key": "append-icon",
-          "density": props.density,
-          "icon": props.appendIcon
-        }, null), props.appendAvatar && createVNode(VAvatar, {
-          "key": "append-avatar",
-          "density": props.density,
-          "image": props.appendAvatar
-        }, null)]) : createVNode(VDefaultsProvider, {
-          "key": "append-defaults",
-          "disabled": !hasAppendMedia,
-          "defaults": {
-            VAvatar: {
-              density: props.density,
-              image: props.appendAvatar
-            },
-            VIcon: {
-              density: props.density,
-              icon: props.appendIcon
-            },
-            VListItemAction: {
-              end: true
+          }, {
+            default: () => {
+              var _a2;
+              return [(_a2 = slots.prepend) == null ? void 0 : _a2.call(slots, slotProps.value)];
             }
-          }
-        }, {
-          default: () => [slots.append?.(slotProps.value)]
-        }), createElementVNode("div", {
-          "class": "v-list-item__spacer"
-        }, null)])]
+          }), createElementVNode("div", {
+            "class": "v-list-item__spacer"
+          }, null)]), createElementVNode("div", {
+            "class": "v-list-item__content",
+            "data-no-activator": ""
+          }, [hasTitle && createVNode(VListItemTitle, {
+            "key": "title"
+          }, {
+            default: () => {
+              var _a2, _b;
+              return [(_b = (_a2 = slots.title) == null ? void 0 : _a2.call(slots, {
+                title: props.title
+              })) != null ? _b : toDisplayString(props.title)];
+            }
+          }), hasSubtitle && createVNode(VListItemSubtitle, {
+            "key": "subtitle"
+          }, {
+            default: () => {
+              var _a2, _b;
+              return [(_b = (_a2 = slots.subtitle) == null ? void 0 : _a2.call(slots, {
+                subtitle: props.subtitle
+              })) != null ? _b : toDisplayString(props.subtitle)];
+            }
+          }), (_a = slots.default) == null ? void 0 : _a.call(slots, slotProps.value)]), hasAppend && createElementVNode("div", {
+            "key": "append",
+            "class": "v-list-item__append"
+          }, [!slots.append ? createElementVNode(Fragment, null, [props.appendIcon && createVNode(VIcon, {
+            "key": "append-icon",
+            "density": props.density,
+            "icon": props.appendIcon
+          }, null), props.appendAvatar && createVNode(VAvatar, {
+            "key": "append-avatar",
+            "density": props.density,
+            "image": props.appendAvatar
+          }, null)]) : createVNode(VDefaultsProvider, {
+            "key": "append-defaults",
+            "disabled": !hasAppendMedia,
+            "defaults": {
+              VAvatar: {
+                density: props.density,
+                image: props.appendAvatar
+              },
+              VIcon: {
+                density: props.density,
+                icon: props.appendIcon
+              },
+              VListItemAction: {
+                end: true
+              }
+            }
+          }, {
+            default: () => {
+              var _a2;
+              return [(_a2 = slots.append) == null ? void 0 : _a2.call(slots, slotProps.value)];
+            }
+          }), createElementVNode("div", {
+            "class": "v-list-item__spacer"
+          }, null)])];
+        }
       }), [[Ripple, isClickable.value && rippleOptions.value]]);
     });
     return {
@@ -4105,9 +4216,12 @@ const VListSubheader = genericComponent()({
           textColorStyles
         }, props.style])
       }, {
-        default: () => [hasText && createElementVNode("div", {
-          "class": "v-list-subheader__text"
-        }, [slots.default?.() ?? props.title])]
+        default: () => {
+          var _a, _b;
+          return [hasText && createElementVNode("div", {
+            "class": "v-list-subheader__text"
+          }, [(_b = (_a = slots.default) == null ? void 0 : _a.call(slots)) != null ? _b : props.title])];
+        }
       });
     });
     return {};
@@ -4125,67 +4239,83 @@ const VListChildren = genericComponent()({
       slots
     } = _ref;
     createList();
-    return () => slots.default?.() ?? props.items?.map((_ref2) => {
-      let {
-        children,
-        props: itemProps,
-        type,
-        raw: item
-      } = _ref2;
-      if (type === "divider") {
-        return slots.divider?.({
+    return () => {
+      var _a, _b, _c;
+      return (_c = (_a = slots.default) == null ? void 0 : _a.call(slots)) != null ? _c : (_b = props.items) == null ? void 0 : _b.map((_ref2) => {
+        var _a2, _b2, _c2, _d;
+        let {
+          children,
+          props: itemProps,
+          type,
+          raw: item
+        } = _ref2;
+        if (type === "divider") {
+          return (_b2 = (_a2 = slots.divider) == null ? void 0 : _a2.call(slots, {
+            props: itemProps
+          })) != null ? _b2 : createVNode(VDivider, itemProps, null);
+        }
+        if (type === "subheader") {
+          return (_d = (_c2 = slots.subheader) == null ? void 0 : _c2.call(slots, {
+            props: itemProps
+          })) != null ? _d : createVNode(VListSubheader, itemProps, null);
+        }
+        const slotsWithItem = {
+          subtitle: slots.subtitle ? (slotProps) => {
+            var _a3;
+            return (_a3 = slots.subtitle) == null ? void 0 : _a3.call(slots, {
+              ...slotProps,
+              item
+            });
+          } : void 0,
+          prepend: slots.prepend ? (slotProps) => {
+            var _a3;
+            return (_a3 = slots.prepend) == null ? void 0 : _a3.call(slots, {
+              ...slotProps,
+              item
+            });
+          } : void 0,
+          append: slots.append ? (slotProps) => {
+            var _a3;
+            return (_a3 = slots.append) == null ? void 0 : _a3.call(slots, {
+              ...slotProps,
+              item
+            });
+          } : void 0,
+          title: slots.title ? (slotProps) => {
+            var _a3;
+            return (_a3 = slots.title) == null ? void 0 : _a3.call(slots, {
+              ...slotProps,
+              item
+            });
+          } : void 0
+        };
+        const listGroupProps = VListGroup.filterProps(itemProps);
+        return children ? createVNode(VListGroup, mergeProps(listGroupProps, {
+          "value": props.returnObject ? item : itemProps == null ? void 0 : itemProps.value,
+          "rawId": itemProps == null ? void 0 : itemProps.value
+        }), {
+          activator: (_ref3) => {
+            let {
+              props: activatorProps
+            } = _ref3;
+            const listItemProps = mergeProps(itemProps, activatorProps, {
+              value: props.returnObject ? item : itemProps.value
+            });
+            return slots.header ? slots.header({
+              props: listItemProps
+            }) : createVNode(VListItem, listItemProps, slotsWithItem);
+          },
+          default: () => createVNode(VListChildren, {
+            "items": children,
+            "returnObject": props.returnObject
+          }, slots)
+        }) : slots.item ? slots.item({
           props: itemProps
-        }) ?? createVNode(VDivider, itemProps, null);
-      }
-      if (type === "subheader") {
-        return slots.subheader?.({
-          props: itemProps
-        }) ?? createVNode(VListSubheader, itemProps, null);
-      }
-      const slotsWithItem = {
-        subtitle: slots.subtitle ? (slotProps) => slots.subtitle?.({
-          ...slotProps,
-          item
-        }) : void 0,
-        prepend: slots.prepend ? (slotProps) => slots.prepend?.({
-          ...slotProps,
-          item
-        }) : void 0,
-        append: slots.append ? (slotProps) => slots.append?.({
-          ...slotProps,
-          item
-        }) : void 0,
-        title: slots.title ? (slotProps) => slots.title?.({
-          ...slotProps,
-          item
-        }) : void 0
-      };
-      const listGroupProps = VListGroup.filterProps(itemProps);
-      return children ? createVNode(VListGroup, mergeProps(listGroupProps, {
-        "value": props.returnObject ? item : itemProps?.value,
-        "rawId": itemProps?.value
-      }), {
-        activator: (_ref3) => {
-          let {
-            props: activatorProps
-          } = _ref3;
-          const listItemProps = mergeProps(itemProps, activatorProps, {
-            value: props.returnObject ? item : itemProps.value
-          });
-          return slots.header ? slots.header({
-            props: listItemProps
-          }) : createVNode(VListItem, listItemProps, slotsWithItem);
-        },
-        default: () => createVNode(VListChildren, {
-          "items": children,
-          "returnObject": props.returnObject
-        }, slots)
-      }) : slots.item ? slots.item({
-        props: itemProps
-      }) : createVNode(VListItem, mergeProps(itemProps, {
-        "value": props.returnObject ? item : itemProps.value
-      }), slotsWithItem);
-    });
+        }) : createVNode(VListItem, mergeProps(itemProps, {
+          "value": props.returnObject ? item : itemProps.value
+        }), slotsWithItem);
+      });
+    };
   }
 });
 const makeItemsProps = propsFactory({
@@ -4374,7 +4504,8 @@ const VList = genericComponent()({
       isFocused.value = false;
     }
     function onFocus(e) {
-      if (!isFocused.value && !(e.relatedTarget && contentRef.value?.contains(e.relatedTarget))) focus();
+      var _a;
+      if (!isFocused.value && !(e.relatedTarget && ((_a = contentRef.value) == null ? void 0 : _a.contains(e.relatedTarget)))) focus();
     }
     function onKeydown(e) {
       const target = e.target;
@@ -4477,15 +4608,18 @@ function useTouch(_ref) {
     } : void 0;
   });
   useToggleScope(isDragging, () => {
-    const transform2 = el.value?.style.transform ?? null;
-    const transition = el.value?.style.transition ?? null;
+    var _a, _b, _c, _d;
+    const transform2 = (_b = (_a = el.value) == null ? void 0 : _a.style.transform) != null ? _b : null;
+    const transition = (_d = (_c = el.value) == null ? void 0 : _c.style.transition) != null ? _d : null;
     watchEffect(() => {
-      el.value?.style.setProperty("transform", dragStyles.value?.transform || "none");
-      el.value?.style.setProperty("transition", dragStyles.value?.transition || null);
+      var _a2, _b2, _c2, _d2;
+      (_b2 = el.value) == null ? void 0 : _b2.style.setProperty("transform", ((_a2 = dragStyles.value) == null ? void 0 : _a2.transform) || "none");
+      (_d2 = el.value) == null ? void 0 : _d2.style.setProperty("transition", ((_c2 = dragStyles.value) == null ? void 0 : _c2.transition) || null);
     });
     onScopeDispose(() => {
-      el.value?.style.setProperty("transform", transform2);
-      el.value?.style.setProperty("transition", transition);
+      var _a2, _b2;
+      (_a2 = el.value) == null ? void 0 : _a2.style.setProperty("transform", transform2);
+      (_b2 = el.value) == null ? void 0 : _b2.style.setProperty("transition", transition);
     });
   });
   return {
@@ -4505,12 +4639,13 @@ function useDelay(props, cb) {
   let clearDelay = () => {
   };
   function runDelay(isOpening, options) {
-    clearDelay?.();
+    var _a;
+    clearDelay == null ? void 0 : clearDelay();
     const delay = isOpening ? props.openDelay : props.closeDelay;
-    const normalizedDelay = Math.max(options?.minDelay ?? 0, Number(delay ?? 0));
+    const normalizedDelay = Math.max((_a = options == null ? void 0 : options.minDelay) != null ? _a : 0, Number(delay != null ? delay : 0));
     return new Promise((resolve) => {
       clearDelay = defer(normalizedDelay, () => {
-        cb?.(isOpening);
+        cb == null ? void 0 : cb(isOpening);
         resolve(isOpening);
       });
     });
@@ -4733,33 +4868,36 @@ const VNavigationDrawer = genericComponent()({
         }, themeClasses.value, backgroundColorClasses.value, borderClasses.value, displayClasses.value, elevationClasses.value, roundedClasses.value, props.class],
         "style": [backgroundColorStyles.value, layoutItemStyles.value, ssrBootStyles.value, stickyStyles.value, props.style]
       }, scopeId, attrs), {
-        default: () => [hasImage && createElementVNode("div", {
-          "key": "image",
-          "class": "v-navigation-drawer__img"
-        }, [!slots.image ? createVNode(VImg, {
-          "key": "image-img",
-          "alt": "",
-          "cover": true,
-          "height": "inherit",
-          "src": props.image
-        }, null) : createVNode(VDefaultsProvider, {
-          "key": "image-defaults",
-          "disabled": !props.image,
-          "defaults": {
-            VImg: {
-              alt: "",
-              cover: true,
-              height: "inherit",
-              src: props.image
+        default: () => {
+          var _a, _b, _c;
+          return [hasImage && createElementVNode("div", {
+            "key": "image",
+            "class": "v-navigation-drawer__img"
+          }, [!slots.image ? createVNode(VImg, {
+            "key": "image-img",
+            "alt": "",
+            "cover": true,
+            "height": "inherit",
+            "src": props.image
+          }, null) : createVNode(VDefaultsProvider, {
+            "key": "image-defaults",
+            "disabled": !props.image,
+            "defaults": {
+              VImg: {
+                alt: "",
+                cover: true,
+                height: "inherit",
+                src: props.image
+              }
             }
-          }
-        }, slots.image)]), slots.prepend && createElementVNode("div", {
-          "class": "v-navigation-drawer__prepend"
-        }, [slots.prepend?.()]), createElementVNode("div", {
-          "class": "v-navigation-drawer__content"
-        }, [slots.default?.()]), slots.append && createElementVNode("div", {
-          "class": "v-navigation-drawer__append"
-        }, [slots.append?.()])]
+          }, slots.image)]), slots.prepend && createElementVNode("div", {
+            "class": "v-navigation-drawer__prepend"
+          }, [(_a = slots.prepend) == null ? void 0 : _a.call(slots)]), createElementVNode("div", {
+            "class": "v-navigation-drawer__content"
+          }, [(_b = slots.default) == null ? void 0 : _b.call(slots)]), slots.append && createElementVNode("div", {
+            "class": "v-navigation-drawer__append"
+          }, [(_c = slots.append) == null ? void 0 : _c.call(slots)])];
+        }
       }), createVNode(Transition, {
         "name": "fade-transition"
       }, {
