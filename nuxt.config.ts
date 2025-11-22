@@ -64,4 +64,14 @@ export default defineNuxtConfig({
       ]
     }
   },
+
+  nitro: {
+    devServer: {
+      port: 3002
+    }
+  },
+
+  devServer: {
+    port: 3002
+  }
 })
