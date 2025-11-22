@@ -14,35 +14,38 @@
           AV MTY
         </v-toolbar-title>
         <v-spacer></v-spacer>
+        
+        <!-- Desktop Menu -->
+        <div class="d-none d-sm-flex align-center">
         <v-btn 
-          href="/" 
+          :to="'/land'" 
           variant="text"
-          class="mx-2 text-body-1"
+          class="mx-0 text-body-1"
           style="text-transform: none; color: white;"
         >
           Inicio
         </v-btn>
         <v-btn 
-          href="/#horarios" 
+          @click="goToPage('/land#horarios')" 
           variant="text"
-          class="mx-2 text-body-1"
-          style="text-transform: none; color: white;"
+          class="mx-0 text-body-1"
+          style="text-transform: none; color: white; cursor: pointer;"
         >
           Horarios
         </v-btn>
         <v-btn 
-          href="/#ubicacion" 
+          @click="goToPage('/land#ubicacion')" 
           variant="text"
           class="mx-0 text-body-1"
-          style="text-transform: none; color: white;"
+          style="text-transform: none; color: white; cursor: pointer;"
         >
           Ubicación
         </v-btn>
         <v-btn 
-          href="/#contacto" 
+          @click="goToPage('/land#contacto')" 
           variant="text"
           class="mx-0 text-body-1"
-          style="text-transform: none; color: white;"
+          style="text-transform: none; color: white; cursor: pointer;"
         >
           Contacto
         </v-btn>
@@ -52,7 +55,7 @@
           variant="text" 
           href="https://www.facebook.com/IglesiaAvivamientoMonterrey" 
           target="_blank"
-          size="default"
+      
           style="color: white;"
         >
           <v-icon size="24">mdi-facebook</v-icon>
@@ -62,7 +65,7 @@
           variant="text" 
           href="https://www.instagram.com/avivamientomonterrey/" 
           target="_blank"
-          size="default"
+   
           style="color: white;"
         >
           <v-icon size="24">mdi-instagram</v-icon>
@@ -72,7 +75,7 @@
           variant="text" 
           href="https://www.tiktok.com/@avivamientomonterrey" 
           target="_blank"
-          size="default"
+       
           style="color: white;"
         >
           <v-icon size="24">mdi-music-note</v-icon>
@@ -82,13 +85,101 @@
           variant="text" 
           href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1" 
           target="_blank"
-          size="default"
+      
           style="color: white;"
         >
           <v-icon size="24">mdi-spotify</v-icon>
         </v-btn>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <v-btn 
+          icon 
+          variant="text"
+          class="d-sm-none"
+          style="color: white;"
+          @click="drawer = !drawer"
+        >
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
       </v-container>
     </v-app-bar>
+
+    <!-- Mobile Navigation Drawer -->
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+      location="right"
+      style="background-color: #041845;"
+    >
+      <v-list style="background-color: #041845;">
+        <v-list-item
+          :to="'/land'"
+          style="color: white;"
+        >
+          <v-list-item-title>Inicio</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          @click="goToSection('/land#horarios')"
+          style="color: white; cursor: pointer;"
+        >
+          <v-list-item-title>Horarios</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          @click="goToSection('/land#ubicacion')"
+          style="color: white; cursor: pointer;"
+        >
+          <v-list-item-title>Ubicación</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          @click="goToSection('/land#contacto')"
+          style="color: white; cursor: pointer;"
+        >
+          <v-list-item-title>Contacto</v-list-item-title>
+        </v-list-item>
+        <v-divider class="my-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
+        <v-list-item
+          href="https://www.facebook.com/IglesiaAvivamientoMonterrey"
+          target="_blank"
+          style="color: white;"
+        >
+          <template v-slot:prepend>
+            <v-icon>mdi-facebook</v-icon>
+          </template>
+          <v-list-item-title>Facebook</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          href="https://www.instagram.com/avivamientomonterrey/"
+          target="_blank"
+          style="color: white;"
+        >
+          <template v-slot:prepend>
+            <v-icon>mdi-instagram</v-icon>
+          </template>
+          <v-list-item-title>Instagram</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          href="https://www.tiktok.com/@avivamientomonterrey"
+          target="_blank"
+          style="color: white;"
+        >
+          <template v-slot:prepend>
+            <v-icon>mdi-music-note</v-icon>
+          </template>
+          <v-list-item-title>TikTok</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1"
+          target="_blank"
+          style="color: white;"
+        >
+          <template v-slot:prepend>
+            <v-icon>mdi-spotify</v-icon>
+          </template>
+          <v-list-item-title>Spotify</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-main class="bg-grey-lighten-4">
       <v-container class="py-16">
@@ -165,6 +256,19 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
+const drawer = ref(false)
+
+const goToPage = (path) => {
+  navigateTo(path)
+}
+
+const goToSection = (path) => {
+  drawer.value = false
+  navigateTo(path)
+}
+
 useHead({
   title: 'Calendario de Eventos - Avivamiento Monterrey',
   meta: [
