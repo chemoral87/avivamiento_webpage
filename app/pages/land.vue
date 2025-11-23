@@ -515,15 +515,71 @@ onUnmounted(() => {
 })
 
 useHead({
-  title: 'Avivamiento Monterrey - Pastores Adrian Aguirre y Sara Aguirre',
+  title: 'Pastor Adrian Aguirre y Pastora Sara Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca',
   meta: [
     {
       name: 'description',
-      content: 'Iglesia Avivamiento Monterrey liderada por los Pastores Adrian Aguirre y Sara Aguirre. Una iglesia cristiana comprometida con la comunidad de Monterrey, Nuevo León.'
+      content: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM y reuniones de oración miércoles 8:00 PM. ¡Te esperamos!'
     },
     {
       name: 'keywords',
-      content: 'Avivamiento Monterrey, Adrian Aguirre, Sara Aguirre, iglesia Monterrey, iglesia cristiana Monterrey, pastor Adrian Aguirre, pastora Sara Aguirre, cultos Monterrey'
+      content: 'Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León'
+    },
+    { property: 'og:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
+    { property: 'og:description', content: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre y Pastora Sara Aguirre' },
+    { property: 'og:url', content: 'https://avivamientomonterrey.com/land' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://avivamientomonterrey.com/land' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Church',
+            name: 'Iglesia Avivamiento Monterrey',
+            description: 'Iglesia cristiana evangélica dirigida por el Pastor Adrian Aguirre y la Pastora Sara Aguirre',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Av. Santo Domingo #215, Col. Mezquital',
+              addressLocality: 'Apodaca',
+              addressRegion: 'Nuevo León',
+              postalCode: '66648',
+              addressCountry: 'MX'
+            },
+            telephone: '+52-81-1165-1800',
+            email: 'elavivamientomonterrey@hotmail.com',
+            url: 'https://avivamientomonterrey.com',
+            sameAs: [
+              'https://www.facebook.com/IglesiaAvivamientoMonterrey',
+              'https://www.instagram.com/avivamientomonterrey/',
+              'https://www.tiktok.com/@avivamientomonterrey',
+              'https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1'
+            ]
+          },
+          {
+            '@type': 'Person',
+            name: 'Adrian Aguirre',
+            jobTitle: 'Pastor Principal',
+            worksFor: {
+              '@type': 'Church',
+              name: 'Iglesia Avivamiento Monterrey'
+            }
+          },
+          {
+            '@type': 'Person',
+            name: 'Sara Aguirre',
+            jobTitle: 'Pastora',
+            worksFor: {
+              '@type': 'Church',
+              name: 'Iglesia Avivamiento Monterrey'
+            }
+          }
+        ]
+      })
     }
   ]
 })

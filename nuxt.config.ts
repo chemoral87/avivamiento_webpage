@@ -38,7 +38,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Avivamiento Monterrey - Pastores Adrian y Sara Aguirre',
+      title: 'Pastor Adrian Aguirre y Pastora Sara Aguirre | Avivamiento Monterrey',
       htmlAttrs: {
         lang: 'es'
       },
@@ -47,20 +47,36 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { 
           name: 'description', 
-          content: 'Iglesia Avivamiento Monterrey - Pastores Adrian Aguirre y Sara Aguirre. Te invitamos a formar parte de nuestra familia cristiana en Monterrey.' 
+          content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre y la Pastora Sara Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey, Nuevo León. Cultos dominicales y reuniones de oración.' 
         },
         { 
           name: 'keywords', 
-          content: 'Avivamiento Monterrey, Adrian Aguirre, Sara Aguirre, iglesia Monterrey, iglesia cristiana, pastor Adrian Aguirre, pastora Sara Aguirre' 
+          content: 'Adrian Aguirre, Pastor Adrian Aguirre, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Monterrey, iglesia Apodaca, iglesia cristiana Monterrey, cultos cristianos Monterrey, pastor Monterrey, iglesia evangélica Monterrey' 
         },
-        { name: 'author', content: 'Avivamiento Monterrey' },
-        { property: 'og:title', content: 'Avivamiento Monterrey - Pastores Adrian y Sara Aguirre' },
-        { property: 'og:description', content: 'Iglesia Avivamiento Monterrey - Pastores Adrian Aguirre y Sara Aguirre' },
+        { name: 'author', content: 'Iglesia Avivamiento Monterrey' },
+        { name: 'robots', content: 'index, follow' },
+        { name: 'googlebot', content: 'index, follow' },
+        
+        // Open Graph
+        { property: 'og:site_name', content: 'Avivamiento Monterrey' },
+        { property: 'og:title', content: 'Pastor Adrian Aguirre y Pastora Sara Aguirre | Avivamiento Monterrey' },
+        { property: 'og:description', content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre y la Pastora Sara Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey.' },
         { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://avivamientomonterrey.com' },
+        { property: 'og:locale', content: 'es_MX' },
+        
+        // Twitter
         { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
+        { name: 'twitter:description', content: 'Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre y Pastora Sara Aguirre' },
+        
+        // Geo tags
+        { name: 'geo.region', content: 'MX-NLE' },
+        { name: 'geo.placename', content: 'Apodaca, Monterrey' },
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ]
     }
   },
