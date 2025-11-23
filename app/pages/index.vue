@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-main>
+ 
       <v-img
-        src="/images/main.jpg"
-        :height="isMobile ? '45vh' : '100vh'"
+        :src="isMobile ? '/images/main_mobile.jpg' : '/images/main.jpg'"
         cover
       ></v-img>
     </v-main>

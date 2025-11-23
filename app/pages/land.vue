@@ -23,7 +23,7 @@
         <v-btn 
           href="/calendar" 
           variant="text"
-          class="mx-0 text-body-1"
+          class="mx-0 px-3  text-body-1"
           style="text-transform: none; color: white;"
         >
           Eventos
@@ -31,7 +31,7 @@
         <v-btn 
           @click="scrollToSection('horarios')" 
           variant="text"
-          class="mx-0 text-body-1"
+          class="mx-0 px-3 text-body-1"
           style="text-transform: none; color: white; cursor: pointer;"
         >
           Horarios
@@ -39,7 +39,7 @@
         <v-btn 
           @click="scrollToSection('ubicacion')" 
           variant="text"
-          class="mx-0 text-body-1"
+          class="mx-0 px-3 text-body-1"
           style="text-transform: none; color: white; cursor: pointer;"
         >
           Ubicación
@@ -47,12 +47,12 @@
         <v-btn 
           @click="scrollToSection('contacto')" 
           variant="text"
-          class="mx-0 text-body-1"
+          class="mx-0 px-3 text-body-1"
           style="text-transform: none; color: white; cursor: pointer;"
         >
           Contacto
         </v-btn>
-        <v-divider vertical class="mx-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
+        <v-divider vertical class="mx-2" style="border-color: rgba(255,255,255,0.3);"></v-divider>
         <v-btn 
           icon 
           variant="text" 
