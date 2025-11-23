@@ -515,18 +515,18 @@ onUnmounted(() => {
 })
 
 useHead({
-  title: 'Pastor Adrian Aguirre y Pastora Sara Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca',
+  title: 'Pastor Adrian Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca',
   meta: [
     {
       name: 'description',
-      content: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM y reuniones de oración miércoles 8:00 PM. ¡Te esperamos!'
+      content: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM. ¡Te esperamos!'
     },
     {
       name: 'keywords',
       content: 'Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León'
     },
     { property: 'og:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
-    { property: 'og:description', content: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre y Pastora Sara Aguirre' },
+    { property: 'og:description', content: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre' },
     { property: 'og:url', content: 'https://avivamientomonterrey.com/land' }
   ],
   link: [
@@ -541,7 +541,7 @@ useHead({
           {
             '@type': 'Church',
             name: 'Iglesia Avivamiento Monterrey',
-            description: 'Iglesia cristiana evangélica dirigida por el Pastor Adrian Aguirre y la Pastora Sara Aguirre',
+            description: 'Iglesia cristiana evangélica dirigida por el Pastor Adrian Aguirre',
             address: {
               '@type': 'PostalAddress',
               streetAddress: 'Av. Santo Domingo #215, Col. Mezquital',
