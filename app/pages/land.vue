@@ -29,6 +29,14 @@
           Eventos
         </v-btn>
         <v-btn 
+          href="/ministerios" 
+          variant="text"
+          class="mx-0 px-3  text-body-1"
+          style="text-transform: none; color: white;"
+        >
+          Ministerios
+        </v-btn>
+        <v-btn 
           @click="scrollToSection('horarios')" 
           variant="text"
           class="mx-0 px-3 text-body-1"
@@ -43,14 +51,6 @@
           style="text-transform: none; color: white; cursor: pointer;"
         >
           Ubicación
-        </v-btn>
-        <v-btn 
-          @click="scrollToSection('contacto')" 
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white; cursor: pointer;"
-        >
-          Contacto
         </v-btn>
         <v-divider vertical class="mx-2" style="border-color: rgba(255,255,255,0.3);"></v-divider>
         <v-btn 
@@ -123,6 +123,12 @@
           <v-list-item-title>Eventos</v-list-item-title>
         </v-list-item>
         <v-list-item
+          href="/ministerios"
+          style="color: white;"
+        >
+          <v-list-item-title>Ministerios</v-list-item-title>
+        </v-list-item>
+        <v-list-item
           @click="drawer = false; scrollToSection('horarios')"
           style="color: white; cursor: pointer;"
         >
@@ -133,12 +139,6 @@
           style="color: white; cursor: pointer;"
         >
           <v-list-item-title>Ubicación</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          @click="drawer = false; scrollToSection('contacto')"
-          style="color: white; cursor: pointer;"
-        >
-          <v-list-item-title>Contacto</v-list-item-title>
         </v-list-item>
         <v-divider class="my-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
         <v-list-item

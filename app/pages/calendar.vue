@@ -26,6 +26,14 @@
           Inicio
         </v-btn>
         <v-btn 
+          href="/ministerios" 
+          variant="text"
+          class="mx-0 px-3 text-body-1"
+          style="text-transform: none; color: white;"
+        >
+          Ministerios
+        </v-btn>
+        <v-btn 
           @click="goToPage('/land#horarios')" 
           variant="text"
           class="mx-0 px-3 text-body-1"
@@ -40,14 +48,6 @@
           style="text-transform: none; color: white; cursor: pointer;"
         >
           Ubicación
-        </v-btn>
-        <v-btn 
-          @click="goToPage('/land#contacto')" 
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white; cursor: pointer;"
-        >
-          Contacto
         </v-btn>
         <v-divider vertical class="mx-2" style="border-color: rgba(255,255,255,0.3);"></v-divider>
         <v-btn 
@@ -120,6 +120,12 @@
           <v-list-item-title>Inicio</v-list-item-title>
         </v-list-item>
         <v-list-item
+          href="/ministerios"
+          style="color: white;"
+        >
+          <v-list-item-title>Ministerios</v-list-item-title>
+        </v-list-item>
+        <v-list-item
           @click="goToSection('/land#horarios')"
           style="color: white; cursor: pointer;"
         >
@@ -130,12 +136,6 @@
           style="color: white; cursor: pointer;"
         >
           <v-list-item-title>Ubicación</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          @click="goToSection('/land#contacto')"
-          style="color: white; cursor: pointer;"
-        >
-          <v-list-item-title>Contacto</v-list-item-title>
         </v-list-item>
         <v-divider class="my-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
         <v-list-item
@@ -209,9 +209,42 @@
                 <p class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
                   Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia.
                 </p>
-                <div class="d-flex align-center">
+                <div class="d-flex align-center mb-4">
                   <v-icon size="small" color="#666" class="mr-2">mdi-clock-outline</v-icon>
                   <span class="text-body-2" style="color: #666;">Por confirmar</span>
+                </div>
+                <v-divider class="mb-4"></v-divider>
+                <div class="d-flex justify-space-between align-center">
+                  <span class="text-body-2 font-weight-medium" style="color: #041845;">Compartir:</span>
+                  <div>
+                    <v-btn
+                      icon
+                      size="small"
+                      variant="text"
+                      @click="shareOnWhatsApp('Fiesta Navideña', 'Celebra con nosotros la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
+                      style="color: #25D366;"
+                    >
+                      <v-icon>mdi-whatsapp</v-icon>
+                    </v-btn>
+                    <v-btn
+                      icon
+                      size="small"
+                      variant="text"
+                      @click="shareOnFacebook('Fiesta Navideña')"
+                      style="color: #1877F2;"
+                    >
+                      <v-icon>mdi-facebook</v-icon>
+                    </v-btn>
+                    <v-btn
+                      icon
+                      size="small"
+                      variant="text"
+                      @click="shareGeneric('Fiesta Navideña', 'Celebra con nosotros la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
+                      style="color: #041845;"
+                    >
+                      <v-icon>mdi-share-variant</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
               </v-card-text>
             </v-card>
@@ -242,9 +275,42 @@
                 <p class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
                   Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral.
                 </p>
-                <div class="d-flex align-center">
+                <div class="d-flex align-center mb-4">
                   <v-icon size="small" color="#666" class="mr-2">mdi-clock-outline</v-icon>
                   <span class="text-body-2" style="color: #666;">Por confirmar</span>
+                </div>
+                <v-divider class="mb-4"></v-divider>
+                <div class="d-flex justify-space-between align-center">
+                  <span class="text-body-2 font-weight-medium" style="color: #041845;">Compartir:</span>
+                  <div>
+                    <v-btn
+                      icon
+                      size="small"
+                      variant="text"
+                      @click="shareOnWhatsApp('Obra Navideña', 'Disfruta de una obra teatral especial celebrando el verdadero significado de la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
+                      style="color: #25D366;"
+                    >
+                      <v-icon>mdi-whatsapp</v-icon>
+                    </v-btn>
+                    <v-btn
+                      icon
+                      size="small"
+                      variant="text"
+                      @click="shareOnFacebook('Obra Navideña')"
+                      style="color: #1877F2;"
+                    >
+                      <v-icon>mdi-facebook</v-icon>
+                    </v-btn>
+                    <v-btn
+                      icon
+                      size="small"
+                      variant="text"
+                      @click="shareGeneric('Obra Navideña', 'Disfruta de una obra teatral especial celebrando el verdadero significado de la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
+                      style="color: #041845;"
+                    >
+                      <v-icon>mdi-share-variant</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
               </v-card-text>
             </v-card>
@@ -267,6 +333,33 @@ const goToPage = (path) => {
 const goToSection = (path) => {
   drawer.value = false
   navigateTo(path)
+}
+
+const shareOnWhatsApp = (eventName, description) => {
+  const url = encodeURIComponent('https://avivamientomonterrey.com/calendar')
+  const text = encodeURIComponent(`${eventName} - ${description}\n\nMás información:`)
+  window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
+}
+
+const shareOnFacebook = (eventName) => {
+  const url = encodeURIComponent('https://avivamientomonterrey.com/calendar')
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
+}
+
+const shareGeneric = (eventName, description) => {
+  if (navigator.share) {
+    navigator.share({
+      title: eventName,
+      text: description,
+      url: 'https://avivamientomonterrey.com/calendar'
+    }).catch((error) => console.log('Error sharing:', error))
+  } else {
+    // Fallback: copiar al portapapeles
+    const text = `${eventName} - ${description}\n\nhttps://avivamientomonterrey.com/calendar`
+    navigator.clipboard.writeText(text).then(() => {
+      alert('¡Enlace copiado al portapapeles!')
+    })
+  }
 }
 
 useHead({
