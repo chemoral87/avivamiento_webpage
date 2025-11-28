@@ -273,7 +273,7 @@
                   Obra Navideña
                 </h3>
                 <p class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
-                  Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral.
+                  Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. Para ti.
                 </p>
                 <div class="d-flex align-center mb-4">
                   <v-icon size="small" color="#666" class="mr-2">mdi-clock-outline</v-icon>
