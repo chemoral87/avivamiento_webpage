@@ -55,7 +55,7 @@ export default defineNuxtConfig({
       noExternal: ['vuetify'],
     },
     build: {
-      // Minificación: 'esbuild' es más seguro con Vuetify
+      // Minificación: esbuild con configuración moderada
       minify: 'esbuild',
       cssMinify: 'esbuild',
       
@@ -90,11 +90,16 @@ export default defineNuxtConfig({
       
       // Optimizaciones adicionales
       assetsInlineLimit: 4096, // Inline assets < 4kb como base64
-      cssCodeSplit: true, // Separar CSS por ruta/componente
+      cssCodeSplit: true, // Separar CSS por ruta/componente (un CSS por página)
       reportCompressedSize: false, // Build más rápido
       
       // Chunk size warnings
       chunkSizeWarningLimit: 1000,
+      
+      // Code splitting agresivo por página
+      modulePreload: {
+        polyfill: false, // Desactivar polyfill de modulePreload
+      },
     },
     
     // Optimización con esbuild
@@ -102,16 +107,16 @@ export default defineNuxtConfig({
       // Eliminar console.log y debugger en producción
       drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
       
-      // Minificación moderada para evitar problemas con Vuetify
-      minifyIdentifiers: false, // Desactivado para Vuetify
-      minifySyntax: process.env.NODE_ENV === 'production',
-      minifyWhitespace: process.env.NODE_ENV === 'production',
+      // Minificación básica compatible con tree-shaking manual
+      minifyIdentifiers: false, // Desactivado para importación manual
+      minifySyntax: true,
+      minifyWhitespace: true,
       
       // Configuración para producción
       ...(process.env.NODE_ENV === 'production' ? {
-        legalComments: 'none', // Eliminar todos los comentarios
-        treeShaking: true, // Tree shaking agresivo
-        keepNames: true, // Mantener nombres para Vuetify
+        legalComments: 'none',
+        treeShaking: true, // Activado con importación manual
+        keepNames: true,
       } : {}),
     },
     
@@ -180,12 +185,15 @@ export default defineNuxtConfig({
   // ============================================
   router: {
     options: {
-      // Prefetch de links automático
+      // Prefetch solo cuando el usuario hace hover (no automático)
       linkPrefetchedClass: 'nuxt-link-prefetched',
       
       // Opciones de scroll behavior
       scrollBehaviorType: 'smooth',
-    }
+    },
+    
+    // Prefetch selectivo
+    prefetchLinks: false, // Desactivar prefetch automático para reducir carga inicial
   },
 
   // ============================================
@@ -201,11 +209,42 @@ export default defineNuxtConfig({
     // View Transitions API (navegación suave entre páginas)
     viewTransition: true,
     
-    // Component Islands (opcional - para componentes con interactividad selectiva)
-    // componentIslands: true,
+    // Component Islands para cargar componentes bajo demanda
+    componentIslands: true,
     
-    // Render JSON payloads inline
-    // renderJsonPayloads: true,
+    // Render JSON payloads inline para reducir requests
+    renderJsonPayloads: true,
+    
+    // Local layer aliases para mejor tree-shaking
+    localLayerAliases: true,
+  },
+  
+  // ============================================
+  // ROUTE RULES - Configuración por página
+  // ============================================
+  routeRules: {
+    // Página principal - prerender y cache
+    '/': { 
+      prerender: true,
+      headers: {
+        'cache-control': 'public, max-age=3600, s-maxage=3600'
+      }
+    },
+    // Página land - prerender
+    '/land': { 
+      prerender: true,
+      headers: {
+        'cache-control': 'public, max-age=3600, s-maxage=3600'
+      }
+    },
+    // Calendario - SSR bajo demanda
+    '/calendar': { 
+      swr: 3600, // Stale-while-revalidate
+    },
+    // Ministerios - SSR bajo demanda
+    '/ministerios': { 
+      swr: 3600,
+    },
   },
 
   // ============================================
@@ -217,7 +256,10 @@ export default defineNuxtConfig({
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // @ts-expect-error
-        config.plugins.push(vuetify({ autoImport: true }))
+        config.plugins.push(vuetify({ 
+          autoImport: false, // Desactivar autoImport para tree-shaking manual
+          styles: { configFile: 'src/settings.scss' }
+        }))
       })
     },
   ],
@@ -242,9 +284,9 @@ export default defineNuxtConfig({
   // CSS GLOBAL Y CONFIGURACIÓN
   // ============================================
   css: [
-    'vuetify/styles',
+    // NO cargar vuetify/styles completo - solo lo necesario
     '@mdi/font/css/materialdesignicons.css',
-    // Agrega aquí tus archivos CSS/SCSS globales
+    // Agrega aquí tus archivos CSS/SCSS globales personalizados
     // '~/assets/styles/main.scss',
   ],
 
