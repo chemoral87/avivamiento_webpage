@@ -66,14 +66,15 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/image',
-    // Vuetify con configuración simplificada
+    // Vuetify con configuración de estilos personalizados
     async (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         config.plugins?.push(
           vuetify({
             autoImport: true,
-            // Desactivar completamente el archivo de configuración
-            styles: 'expose', // Cambia esto a 'expose' o 'none'
+            styles: {
+              configFile: 'assets/styles/vuetify-settings.scss'
+            },
           })
         )
       })
