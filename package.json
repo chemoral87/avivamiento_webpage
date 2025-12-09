@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=4096 nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -19,7 +19,9 @@
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@nuxt/image": "^2.0.0",
+    "cross-env": "^10.1.0",
     "cssnano": "^7.1.2",
+    "postcss": "^8.5.6",
     "sass": "^1.95.0",
     "terser": "^5.44.1",
     "vite-plugin-vuetify": "^2.0.4"

@@ -1,0 +1,427 @@
+<!DOCTYPE html><html  lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script type="importmap">{"imports":{"#entry":"/_nuxt/entry-CkXEAVPc.js"}}</script><title>Pastor Adrian Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><style id="vuetify-theme-stylesheet">:root {
+      --v-theme-background: 255,255,255;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255,255,255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255,255,255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-light: 238,238,238;
+      --v-theme-surface-light-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66,66,66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238,238,238;
+      --v-theme-primary: 4,24,69;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 31,85,146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 66,66,66;
+      --v-theme-secondary-overlay-multiplier: 2;
+      --v-theme-secondary-darken-1: 1,135,134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 255,82,82;
+      --v-theme-error-overlay-multiplier: 1;
+      --v-theme-info: 33,150,243;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 76,175,80;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 251,140,0;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-accent: 130,177,255;
+      --v-theme-accent-overlay-multiplier: 1;
+      --v-theme-on-background: 0,0,0;
+      --v-theme-on-surface: 0,0,0;
+      --v-theme-on-surface-bright: 0,0,0;
+      --v-theme-on-surface-light: 0,0,0;
+      --v-theme-on-primary: 255,255,255;
+      --v-theme-on-primary-darken-1: 255,255,255;
+      --v-theme-on-secondary: 255,255,255;
+      --v-theme-on-secondary-darken-1: 255,255,255;
+      --v-theme-on-error: 255,255,255;
+      --v-theme-on-info: 255,255,255;
+      --v-theme-on-success: 255,255,255;
+      --v-theme-on-warning: 255,255,255;
+      --v-theme-on-accent: 0,0,0;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 238, 238, 238;
+      --v-theme-on-kbd: 0, 0, 0;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+    .v-theme--light {
+      color-scheme: normal;
+      --v-theme-background: 255,255,255;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255,255,255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255,255,255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-light: 238,238,238;
+      --v-theme-surface-light-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66,66,66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238,238,238;
+      --v-theme-primary: 4,24,69;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 31,85,146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 66,66,66;
+      --v-theme-secondary-overlay-multiplier: 2;
+      --v-theme-secondary-darken-1: 1,135,134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 255,82,82;
+      --v-theme-error-overlay-multiplier: 1;
+      --v-theme-info: 33,150,243;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 76,175,80;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 251,140,0;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-accent: 130,177,255;
+      --v-theme-accent-overlay-multiplier: 1;
+      --v-theme-on-background: 0,0,0;
+      --v-theme-on-surface: 0,0,0;
+      --v-theme-on-surface-bright: 0,0,0;
+      --v-theme-on-surface-light: 0,0,0;
+      --v-theme-on-primary: 255,255,255;
+      --v-theme-on-primary-darken-1: 255,255,255;
+      --v-theme-on-secondary: 255,255,255;
+      --v-theme-on-secondary-darken-1: 255,255,255;
+      --v-theme-on-error: 255,255,255;
+      --v-theme-on-info: 255,255,255;
+      --v-theme-on-success: 255,255,255;
+      --v-theme-on-warning: 255,255,255;
+      --v-theme-on-accent: 0,0,0;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 238, 238, 238;
+      --v-theme-on-kbd: 0, 0, 0;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+    .v-theme--dark {
+      color-scheme: dark;
+      --v-theme-background: 18,18,18;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 33,33,33;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 204,191,214;
+      --v-theme-surface-bright-overlay-multiplier: 2;
+      --v-theme-surface-light: 66,66,66;
+      --v-theme-surface-light-overlay-multiplier: 1;
+      --v-theme-surface-variant: 200,200,200;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 0,0,0;
+      --v-theme-primary: 33,150,243;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 39,124,193;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 84,182,178;
+      --v-theme-secondary-overlay-multiplier: 2;
+      --v-theme-secondary-darken-1: 72,169,166;
+      --v-theme-secondary-darken-1-overlay-multiplier: 2;
+      --v-theme-error: 207,102,121;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33,150,243;
+      --v-theme-info-overlay-multiplier: 2;
+      --v-theme-success: 76,175,80;
+      --v-theme-success-overlay-multiplier: 2;
+      --v-theme-warning: 251,140,0;
+      --v-theme-warning-overlay-multiplier: 2;
+      --v-theme-on-background: 255,255,255;
+      --v-theme-on-surface: 255,255,255;
+      --v-theme-on-surface-bright: 0,0,0;
+      --v-theme-on-surface-light: 255,255,255;
+      --v-theme-on-primary: 255,255,255;
+      --v-theme-on-primary-darken-1: 255,255,255;
+      --v-theme-on-secondary: 255,255,255;
+      --v-theme-on-secondary-darken-1: 255,255,255;
+      --v-theme-on-error: 255,255,255;
+      --v-theme-on-info: 255,255,255;
+      --v-theme-on-success: 255,255,255;
+      --v-theme-on-warning: 255,255,255;
+      --v-border-color: 255, 255, 255;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 1;
+      --v-medium-emphasis-opacity: 0.7;
+      --v-disabled-opacity: 0.5;
+      --v-idle-opacity: 0.1;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.16;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 66, 66, 66;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 52, 52, 52;
+      --v-theme-on-code: 204, 204, 204;
+    }
+    .bg-background {
+      --v-theme-overlay-multiplier: var(--v-theme-background-overlay-multiplier);
+      background-color: rgb(var(--v-theme-background)) !important;
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+    .bg-surface {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface)) !important;
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+    .bg-surface-bright {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-bright-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-bright)) !important;
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+    .bg-surface-light {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-light-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-light)) !important;
+      color: rgb(var(--v-theme-on-surface-light)) !important;
+    }
+    .bg-surface-variant {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-variant-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-variant)) !important;
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+    .bg-primary {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary)) !important;
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+    .bg-primary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+    .bg-secondary {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary)) !important;
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+    .bg-secondary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+    .bg-error {
+      --v-theme-overlay-multiplier: var(--v-theme-error-overlay-multiplier);
+      background-color: rgb(var(--v-theme-error)) !important;
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+    .bg-info {
+      --v-theme-overlay-multiplier: var(--v-theme-info-overlay-multiplier);
+      background-color: rgb(var(--v-theme-info)) !important;
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+    .bg-success {
+      --v-theme-overlay-multiplier: var(--v-theme-success-overlay-multiplier);
+      background-color: rgb(var(--v-theme-success)) !important;
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+    .bg-warning {
+      --v-theme-overlay-multiplier: var(--v-theme-warning-overlay-multiplier);
+      background-color: rgb(var(--v-theme-warning)) !important;
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+    .bg-accent {
+      --v-theme-overlay-multiplier: var(--v-theme-accent-overlay-multiplier);
+      background-color: rgb(var(--v-theme-accent)) !important;
+      color: rgb(var(--v-theme-on-accent)) !important;
+    }
+    .text-background {
+      color: rgb(var(--v-theme-background)) !important;
+    }
+    .border-background {
+      --v-border-color: var(--v-theme-background);
+    }
+    .text-surface {
+      color: rgb(var(--v-theme-surface)) !important;
+    }
+    .border-surface {
+      --v-border-color: var(--v-theme-surface);
+    }
+    .text-surface-bright {
+      color: rgb(var(--v-theme-surface-bright)) !important;
+    }
+    .border-surface-bright {
+      --v-border-color: var(--v-theme-surface-bright);
+    }
+    .text-surface-light {
+      color: rgb(var(--v-theme-surface-light)) !important;
+    }
+    .border-surface-light {
+      --v-border-color: var(--v-theme-surface-light);
+    }
+    .text-surface-variant {
+      color: rgb(var(--v-theme-surface-variant)) !important;
+    }
+    .border-surface-variant {
+      --v-border-color: var(--v-theme-surface-variant);
+    }
+    .on-surface-variant {
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+    .text-primary {
+      color: rgb(var(--v-theme-primary)) !important;
+    }
+    .border-primary {
+      --v-border-color: var(--v-theme-primary);
+    }
+    .text-primary-darken-1 {
+      color: rgb(var(--v-theme-primary-darken-1)) !important;
+    }
+    .border-primary-darken-1 {
+      --v-border-color: var(--v-theme-primary-darken-1);
+    }
+    .text-secondary {
+      color: rgb(var(--v-theme-secondary)) !important;
+    }
+    .border-secondary {
+      --v-border-color: var(--v-theme-secondary);
+    }
+    .text-secondary-darken-1 {
+      color: rgb(var(--v-theme-secondary-darken-1)) !important;
+    }
+    .border-secondary-darken-1 {
+      --v-border-color: var(--v-theme-secondary-darken-1);
+    }
+    .text-error {
+      color: rgb(var(--v-theme-error)) !important;
+    }
+    .border-error {
+      --v-border-color: var(--v-theme-error);
+    }
+    .text-info {
+      color: rgb(var(--v-theme-info)) !important;
+    }
+    .border-info {
+      --v-border-color: var(--v-theme-info);
+    }
+    .text-success {
+      color: rgb(var(--v-theme-success)) !important;
+    }
+    .border-success {
+      --v-border-color: var(--v-theme-success);
+    }
+    .text-warning {
+      color: rgb(var(--v-theme-warning)) !important;
+    }
+    .border-warning {
+      --v-border-color: var(--v-theme-warning);
+    }
+    .text-accent {
+      color: rgb(var(--v-theme-accent)) !important;
+    }
+    .border-accent {
+      --v-border-color: var(--v-theme-accent);
+    }
+    .on-background {
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+    .on-surface {
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+    .on-surface-bright {
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+    .on-surface-light {
+      color: rgb(var(--v-theme-on-surface-light)) !important;
+    }
+    .on-primary {
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+    .on-primary-darken-1 {
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+    .on-secondary {
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+    .on-secondary-darken-1 {
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+    .on-error {
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+    .on-info {
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+    .on-success {
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+    .on-warning {
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+    .on-accent {
+      color: rgb(var(--v-theme-on-accent)) !important;
+    }
+</style><style>.hero-section[data-v-06eb54a1] {
+  position: relative;
+}
+.navbar-transition[data-v-06eb54a1] {
+  transition: background-color .3s ease, box-shadow .3s ease;
+}
+.v-app-bar.bg-transparent[data-v-06eb54a1],
+.v-app-bar.bg-transparent .v-toolbar__content[data-v-06eb54a1] {
+  background-color: transparent !important;
+}
+.v-card[data-v-06eb54a1] {
+  transition: transform .3s ease-in-out;
+}
+.v-card[data-v-06eb54a1]:hover {
+  transform: translateY(-8px);
+}
+a[data-v-06eb54a1] {
+  color: inherit;
+}
+a[data-v-06eb54a1]:hover {
+  color: #1976d2;
+}
+.whatsapp-fab[data-v-06eb54a1] {
+  animation: whatsapp-fab-in-06eb54a1 .5s;
+  border-radius: 50%;
+  font-size: 2.5rem;
+  height: 72px;
+  min-height: 72px;
+  min-width: 72px;
+  width: 72px;
+}
+@media (max-width: 600px) {
+  .whatsapp-fab[data-v-06eb54a1] {
+    height: 54px !important;
+    min-height: 54px !important;
+    min-width: 54px !important;
+    width: 54px !important;
+  }
+  .whatsapp-fab .v-icon[data-v-06eb54a1] {
+    font-size: 32px !important;
+  }
+}
+@keyframes whatsapp-fab-in-06eb54a1 {
+  0% {
+    opacity: 0;
+    transform: scale(.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry-DJP8-MDn.css" crossorigin><link rel="stylesheet" href="/_nuxt/mdi-Dq9mAK89.css" crossorigin><link rel="stylesheet" href="/_nuxt/VMain-CRl-igu5.css" crossorigin><link rel="stylesheet" href="/_nuxt/VNavigationDrawer-B36IQtKq.css" crossorigin><link rel="modulepreload" crossorigin href="/land/_payload.js?55060800-37a3-4e28-99ce-2148ab6dda6d"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/entry-CkXEAVPc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/land-B_KIrLPw.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/virtual_public-BLMmCeMb.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/VMain-Btee5bK8.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/VNavigationDrawer-Do11v0BV.js"><link rel="preload" as="fetch" fetchpriority="low" crossorigin="anonymous" href="/_nuxt/builds/meta/55060800-37a3-4e28-99ce-2148ab6dda6d.json"><link rel="dns-prefetch" href="https://www.google-analytics.com"><meta name="description" content="Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM. ¡Te esperamos!"><meta name="keywords" content="Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León"><meta name="author" content="Iglesia Avivamiento Monterrey"><meta name="robots" content="index, follow"><meta name="googlebot" content="index, follow"><meta name="format-detection" content="telephone=no"><meta property="og:site_name" content="Avivamiento Monterrey"><meta property="og:title" content="Pastor Adrian Aguirre | Avivamiento Monterrey"><meta property="og:description" content="Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre"><meta property="og:type" content="website"><meta property="og:url" content="https://avivamientomonterrey.com/land"><meta property="og:locale" content="es_MX"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pastor Adrian Aguirre | Avivamiento Monterrey"><meta name="twitter:description" content="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"><meta name="geo.region" content="MX-NLE"><meta name="geo.placename" content="Apodaca, Monterrey"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="canonical" href="https://avivamientomonterrey.com/land"><script type="application/ld+json" children="{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@graph&quot;:[{&quot;@type&quot;:&quot;Church&quot;,&quot;name&quot;:&quot;Iglesia Avivamiento Monterrey&quot;,&quot;description&quot;:&quot;Iglesia cristiana evangélica dirigida por el Pastor Adrian Aguirre&quot;,&quot;address&quot;:{&quot;@type&quot;:&quot;PostalAddress&quot;,&quot;streetAddress&quot;:&quot;Av. Santo Domingo #215, Col. Mezquital&quot;,&quot;addressLocality&quot;:&quot;Apodaca&quot;,&quot;addressRegion&quot;:&quot;Nuevo León&quot;,&quot;postalCode&quot;:&quot;66648&quot;,&quot;addressCountry&quot;:&quot;MX&quot;},&quot;telephone&quot;:&quot;+52-81-1165-1800&quot;,&quot;email&quot;:&quot;elavivamientomonterrey@hotmail.com&quot;,&quot;url&quot;:&quot;https://avivamientomonterrey.com&quot;,&quot;sameAs&quot;:[&quot;https://www.facebook.com/IglesiaAvivamientoMonterrey&quot;,&quot;https://www.instagram.com/avivamientomonterrey/&quot;,&quot;https://www.tiktok.com/@avivamientomonterrey&quot;,&quot;https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1&quot;]},{&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;Adrian Aguirre&quot;,&quot;jobTitle&quot;:&quot;Pastor Principal&quot;,&quot;worksFor&quot;:{&quot;@type&quot;:&quot;Church&quot;,&quot;name&quot;:&quot;Iglesia Avivamiento Monterrey&quot;}},{&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;Sara Aguirre&quot;,&quot;jobTitle&quot;:&quot;Pastora&quot;,&quot;worksFor&quot;:{&quot;@type&quot;:&quot;Church&quot;,&quot;name&quot;:&quot;Iglesia Avivamiento Monterrey&quot;}}]}"></script></head><body><div id="__nuxt"><div class="v-application v-theme--light v-layout v-layout--full-height v-locale--is-ltr" style="" data-v-06eb54a1><div class="v-application__wrap"><!--[--><header class="v-toolbar v-toolbar--flat v-toolbar--density-default bg-transparent elevation-0 v-theme--light v-locale--is-ltr v-app-bar navbar-transition" style="top:0;z-index:1004;transform:translateY(0%);position:fixed;transition:none !important;" app data-v-06eb54a1><!----><!--[--><div class="v-toolbar__content" style="height:70px;"><!----><!----><!--[--><div class="v-container v-locale--is-ltr d-flex align-center" style="" data-v-06eb54a1><div class="v-toolbar-title text-h6 font-weight-bold" style="color:white;" data-v-06eb54a1><div class="v-toolbar-title__placeholder"><!----><!--[--> AV MTY <!--]--></div></div><div class="v-spacer" style="" data-v-06eb54a1></div><div class="d-none d-sm-flex align-center" data-v-06eb54a1><a href="/calendar" class="v-btn v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-0 px-3 text-body-1" style="text-transform:none;color:white;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Eventos <!--]--><!--]--></span><!----><!----></a><a href="/ministerios" class="v-btn v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-0 px-3 text-body-1" style="text-transform:none;color:white;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Ministerios <!--]--><!--]--></span><!----><!----></a><button type="button" class="v-btn v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-0 px-3 text-body-1" style="text-transform:none;color:white;cursor:pointer;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Horarios <!--]--><!--]--></span><!----><!----></button><button type="button" class="v-btn v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-0 px-3 text-body-1" style="text-transform:none;color:white;cursor:pointer;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Ubicación <!--]--><!--]--></span><!----><!----></button><hr class="v-divider v-divider--vertical v-theme--light mx-2" style="border-color:rgba(255,255,255,0.3);" aria-orientation="vertical" role="separator" data-v-06eb54a1><a href="https://www.facebook.com/IglesiaAvivamientoMonterrey" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text" style="color:white;" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-facebook mdi v-icon notranslate v-theme--light" style="font-size:24px;height:24px;width:24px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><a href="https://www.instagram.com/avivamientomonterrey/" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text" style="color:white;" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-instagram mdi v-icon notranslate v-theme--light" style="font-size:24px;height:24px;width:24px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><a href="https://www.tiktok.com/@avivamientomonterrey" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text" style="color:white;" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-music-note mdi v-icon notranslate v-theme--light" style="font-size:24px;height:24px;width:24px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><a href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text" style="color:white;" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-spotify mdi v-icon notranslate v-theme--light" style="font-size:24px;height:24px;width:24px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a></div><button type="button" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text d-sm-none" style="color:white;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-menu mdi v-icon notranslate v-theme--light v-icon--size-default" style="" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></button></div><!--]--><!----></div><!--]--><!--[--><!----><!--]--></header><!--[--><nav class="v-navigation-drawer v-navigation-drawer--right v-navigation-drawer--temporary v-theme--light v-navigation-drawer--mobile" style="right:0;z-index:1004;transform:translateX(256px);position:fixed;transition:none !important;background-color:#041845;" data-v-06eb54a1><!----><!----><div class="v-navigation-drawer__content"><!--[--><div class="v-list v-theme--light bg-transparent v-list--density-default v-list--one-line" style="background-color:#041845;" tabindex="0" role="list" data-v-06eb54a1><!--[--><a href="/calendar" tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;" role="link" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><!----><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Eventos</div><!--]--></div><!----></a><a href="/ministerios" tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;" role="link" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><!----><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Ministerios</div><!--]--></div><!----></a><div tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;cursor:pointer;" role="listitem" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><!----><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Horarios</div><!--]--></div><!----></div><div tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;cursor:pointer;" role="listitem" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><!----><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Ubicación</div><!--]--></div><!----></div><hr class="v-divider v-theme--light my-4" style="border-color:rgba(255,255,255,0.3);" aria-orientation="horizontal" role="separator" data-v-06eb54a1><a href="https://www.facebook.com/IglesiaAvivamientoMonterrey" tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;" role="link" target="_blank" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><div class="v-list-item__prepend"><!--[--><!--[--><i class="mdi-facebook mdi v-icon notranslate v-theme--light v-icon--size-default" style="" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Facebook</div><!--]--></div><!----></a><a href="https://www.instagram.com/avivamientomonterrey/" tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;" role="link" target="_blank" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><div class="v-list-item__prepend"><!--[--><!--[--><i class="mdi-instagram mdi v-icon notranslate v-theme--light v-icon--size-default" style="" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Instagram</div><!--]--></div><!----></a><a href="https://www.tiktok.com/@avivamientomonterrey" tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;" role="link" target="_blank" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><div class="v-list-item__prepend"><!--[--><!--[--><i class="mdi-music-note mdi v-icon notranslate v-theme--light v-icon--size-default" style="" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>TikTok</div><!--]--></div><!----></a><a href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1" tabindex="-2" class="v-list-item v-list-item--link v-theme--light v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" style="color:white;" role="link" target="_blank" data-v-06eb54a1><!--[--><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><!--]--><div class="v-list-item__prepend"><!--[--><!--[--><i class="mdi-spotify mdi v-icon notranslate v-theme--light v-icon--size-default" style="" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator><!----><!----><!--[--><div class="v-list-item-title" style="" data-v-06eb54a1>Spotify</div><!--]--></div><!----></a><!--]--></div><!--]--></div><!----></nav><!----><!--]--><main class="v-main pa-0" style="--v-layout-left:0px;--v-layout-right:0px;--v-layout-top:0px;--v-layout-bottom:0px;transition:none !important;" data-v-06eb54a1><!--[--><div class="v-container v-container--fluid v-locale--is-ltr hero-section pa-0" style="margin-top:-70px;" data-v-06eb54a1><div class="v-responsive v-img v-img--booting" style="height:65vh;" data-v-06eb54a1><div class="v-responsive__sizer" style=""></div><!--[--><!--[--><!----><!----><!----><!----><!----><!--]--><!--]--><!----></div></div><div class="v-container v-locale--is-ltr py-4" style="" data-v-06eb54a1><div class="v-row" style="" data-v-06eb54a1><div class="v-col v-col-12 text-center mb-1" style="" data-v-06eb54a1><p class="text-overline mb-2" style="color:#666;letter-spacing:2px;" data-v-06eb54a1>LIDERAZGO</p><h2 class="text-h3 font-weight-light" style="color:#041845;" data-v-06eb54a1>Nuestros Pastores</h2></div></div><div class="v-row justify-center" style="" data-v-06eb54a1><div class="v-col-md-5 v-col-12" style="" data-v-06eb54a1><div class="v-card v-theme--light v-card--density-default elevation-0 v-card--variant-elevated text-center pa-4" style="border:1px solid #e0e0e0;" data-v-06eb54a1><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top:0;height:0;--v-progress-linear-height:2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background" style="opacity:NaN;"></div><div class="v-progress-linear__buffer" style="opacity:NaN;width:0%;"></div><div class="v-progress-linear__indeterminate"><!--[--><div class="v-progress-linear__indeterminate long" style=""></div><div class="v-progress-linear__indeterminate short" style=""></div><!--]--></div><!----></div></div><!----><!----><!--[--><div class="v-avatar v-theme--light v-avatar--density-default v-avatar--variant-flat mb-2" style="width:180px;height:180px;" data-v-06eb54a1><!--[--><!--[--><div class="v-responsive v-img v-img--booting" style="" data-v-06eb54a1><div class="v-responsive__sizer" style=""></div><!--[--><!--[--><!----><!----><!----><!----><!----><!--]--><!--]--><!----></div><!--]--><!--]--><!--[--><!----><span class="v-avatar__underlay"></span><!--]--></div><h3 class="text-h5 font-weight-regular" style="color:#041845;" data-v-06eb54a1>Adrian Aguirre</h3><p class="text-body-2 text-grey mb-2" style="text-transform:uppercase;letter-spacing:1px;" data-v-06eb54a1>Pastor Principal</p><p class="text-body-1" style="color:#555;line-height:1.8;" data-v-06eb54a1> Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría. </p><!--]--><!----><!--[--><!----><span class="v-card__underlay"></span><!--]--></div></div><div class="v-col-md-5 v-col-12" style="" data-v-06eb54a1><div class="v-card v-theme--light v-card--density-default elevation-0 v-card--variant-elevated text-center pa-4" style="border:1px solid #e0e0e0;" data-v-06eb54a1><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top:0;height:0;--v-progress-linear-height:2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background" style="opacity:NaN;"></div><div class="v-progress-linear__buffer" style="opacity:NaN;width:0%;"></div><div class="v-progress-linear__indeterminate"><!--[--><div class="v-progress-linear__indeterminate long" style=""></div><div class="v-progress-linear__indeterminate short" style=""></div><!--]--></div><!----></div></div><!----><!----><!--[--><div class="v-avatar v-theme--light v-avatar--density-default v-avatar--variant-flat mb-2" style="width:180px;height:180px;" data-v-06eb54a1><!--[--><!--[--><div class="v-responsive v-img v-img--booting" style="" data-v-06eb54a1><div class="v-responsive__sizer" style=""></div><!--[--><!--[--><!----><!----><!----><!----><!----><!--]--><!--]--><!----></div><!--]--><!--]--><!--[--><!----><span class="v-avatar__underlay"></span><!--]--></div><h3 class="text-h5 font-weight-regular" style="color:#041845;" data-v-06eb54a1>Sara Aguirre</h3><p class="text-body-2 text-grey mb-2" style="text-transform:uppercase;letter-spacing:1px;" data-v-06eb54a1>Co-Pastora</p><p class="text-body-1" style="color:#555;line-height:1.8;" data-v-06eb54a1> Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión. </p><!--]--><!----><!--[--><!----><span class="v-card__underlay"></span><!--]--></div></div></div></div><div class="v-container v-container--fluid v-locale--is-ltr py-4" style="background-color:#f8f9fa;" id="horarios" data-v-06eb54a1><div class="v-container v-locale--is-ltr" style="" data-v-06eb54a1><div class="v-row" style="" data-v-06eb54a1><div class="v-col v-col-12 text-center" style="" data-v-06eb54a1><p class="text-overline mb-2" style="color:#666;letter-spacing:2px;" data-v-06eb54a1>REUNIONES</p><h2 class="text-h3 font-weight-light" style="color:#041845;" data-v-06eb54a1>Horarios de Culto</h2></div></div><div class="v-row justify-center" style="" data-v-06eb54a1><div class="v-col-md-6 v-col-12" style="" data-v-06eb54a1><div class="v-card v-theme--light v-card--density-default elevation-0 v-card--variant-elevated text-center pa-3" style="background-color:white;border:1px solid #e0e0e0;" data-v-06eb54a1><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top:0;height:0;--v-progress-linear-height:2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background" style="opacity:NaN;"></div><div class="v-progress-linear__buffer" style="opacity:NaN;width:0%;"></div><div class="v-progress-linear__indeterminate"><!--[--><div class="v-progress-linear__indeterminate long" style=""></div><div class="v-progress-linear__indeterminate short" style=""></div><!--]--></div><!----></div></div><!----><!----><!--[--><h3 class="text-h5 font-weight-light mb-4" style="color:#041845;" data-v-06eb54a1>Domingo</h3><p class="text-h6 mb-2" style="color:#555;" data-v-06eb54a1>11:00 AM</p><p class="text-body-2" style="color:#888;" data-v-06eb54a1>Reunión General</p><!--]--><!----><!--[--><!----><span class="v-card__underlay"></span><!--]--></div></div><div class="v-col-md-6 v-col-12" style="" data-v-06eb54a1><div class="v-card v-theme--light v-card--density-default elevation-0 v-card--variant-elevated text-center pa-3" style="background-color:white;border:1px solid #e0e0e0;" data-v-06eb54a1><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top:0;height:0;--v-progress-linear-height:2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background" style="opacity:NaN;"></div><div class="v-progress-linear__buffer" style="opacity:NaN;width:0%;"></div><div class="v-progress-linear__indeterminate"><!--[--><div class="v-progress-linear__indeterminate long" style=""></div><div class="v-progress-linear__indeterminate short" style=""></div><!--]--></div><!----></div></div><!----><!----><!--[--><h3 class="text-h5 font-weight-light mb-4" style="color:#041845;" data-v-06eb54a1>Miércoles</h3><p class="text-h6 mb-2" style="color:#555;" data-v-06eb54a1>8:00 PM</p><p class="text-body-2" style="color:#888;" data-v-06eb54a1>Reunión General</p><!--]--><!----><!--[--><!----><span class="v-card__underlay"></span><!--]--></div></div></div></div></div><div class="v-container v-locale--is-ltr py-4" style="" id="ubicacion" data-v-06eb54a1><div class="v-row" style="" data-v-06eb54a1><div class="v-col v-col-12 text-center" style="" data-v-06eb54a1><p class="text-overline mb-2" style="color:#666;letter-spacing:2px;" data-v-06eb54a1>ENCÚENTRANOS</p><h2 class="text-h3 font-weight-light" style="color:#041845;" data-v-06eb54a1>Ubicación</h2></div></div><div class="v-row" style="" data-v-06eb54a1><div class="v-col-md-5 v-col-12" style="" data-v-06eb54a1><div class="pa-4" data-v-06eb54a1><h3 class="text-h5 font-weight-light mb-1" style="color:#041845;" data-v-06eb54a1>Iglesia Avivamiento Monterrey</h3><div class="mb-6" data-v-06eb54a1><p class="text-overline mb-2" style="color:#888;" data-v-06eb54a1>DIRECCIÓN</p><p class="text-body-1" style="color:#555;" data-v-06eb54a1> Av. Santo Domingo #215, Col. Mezquital, Apodaca, México </p></div><div class="mb-6" data-v-06eb54a1><p class="text-overline mb-2" style="color:#888;" data-v-06eb54a1>TELÉFONO</p><p class="text-body-1" data-v-06eb54a1><a href="tel:+528111651800" class="text-decoration-none" style="color:#041845;" data-v-06eb54a1> +52 (81) 1165-1800 </a></p></div><div class="mb-8" data-v-06eb54a1><p class="text-overline mb-2" style="color:#888;" data-v-06eb54a1>EMAIL</p><p class="text-body-1" data-v-06eb54a1><a href="mailto:info@avivamientomty.com" class="text-decoration-none" style="color:#041845;" data-v-06eb54a1> elavivamientomonterrey@hotmail.com </a></p></div><a href="https://maps.app.goo.gl/g7wBuXmhKL114A657" class="v-btn v-btn--block v-theme--light v-btn--density-default v-btn--size-large v-btn--variant-flat mt-4" style="background-color:#041845;color:#fff;caret-color:#fff;text-transform:none;" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Abrir en Google Maps <!--]--><!--]--></span><!----><!----></a></div></div><div class="v-col-md-7 v-col-12" style="" data-v-06eb54a1><div class="v-card v-theme--light v-card--density-default elevation-0 v-card--variant-elevated" style="height:100%;border:1px solid #e0e0e0;" data-v-06eb54a1><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top:0;height:0;--v-progress-linear-height:2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background" style="opacity:NaN;"></div><div class="v-progress-linear__buffer" style="opacity:NaN;width:0%;"></div><div class="v-progress-linear__indeterminate"><!--[--><div class="v-progress-linear__indeterminate long" style=""></div><div class="v-progress-linear__indeterminate short" style=""></div><!--]--></div><!----></div></div><!----><!----><!--[--><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.758495!2d-100.26967182250972!3d25.746658632809236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662eb6f3a8a27ad%3A0xccd96829e38e7212!2sAVIVAMIENTO%20MONTERREY!5e0!3m2!1ses!2smx!4v1763651018410!5m2!1ses!2smx" width="100%" height="100%" style="border:0;min-height:500px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-v-06eb54a1></iframe><!--]--><!----><!--[--><!----><span class="v-card__underlay"></span><!--]--></div></div></div></div><div class="v-container v-container--fluid v-locale--is-ltr py-4" style="background-color:#041845;" id="contacto" data-v-06eb54a1><div class="v-container v-locale--is-ltr" style="" data-v-06eb54a1><div class="v-row justify-center" style="" data-v-06eb54a1><div class="v-col-md-8 v-col-12 text-center" style="" data-v-06eb54a1><p class="text-overline mb-4" style="color:rgba(255,255,255,0.7);letter-spacing:2px;" data-v-06eb54a1>BIENVENIDOS</p><h2 class="text-h3 font-weight-light mb-6" style="color:white;" data-v-06eb54a1> Únete a Nuestra Comunidad </h2><p class="text-h6 font-weight-light mb-8" style="color:rgba(255,255,255,0.8);" data-v-06eb54a1> Te invitamos a ser parte de nuestra familia en Cristo </p><div class="d-flex flex-wrap justify-center gap-4" data-v-06eb54a1><button type="button" class="v-btn v-theme--light text-white v-btn--density-default v-btn--size-x-large v-btn--variant-outlined px-8" style="text-transform:none;cursor:pointer;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Ver Horarios <!--]--><!--]--></span><!----><!----></button><button type="button" class="v-btn v-theme--light bg-white v-btn--density-default v-btn--size-x-large v-btn--variant-flat px-8" style="text-transform:none;color:#041845;cursor:pointer;" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--> Cómo Llegar <!--]--><!--]--></span><!----><!----></button></div></div></div></div></div><!--]--></main><footer class="v-footer v-theme--light py-4" style="height:auto;background-color:#1a1a1a;color:white;" data-v-06eb54a1><div class="v-container v-locale--is-ltr" style="" data-v-06eb54a1><div class="v-row" style="" data-v-06eb54a1><div class="v-col-md-4 v-col-12 text-center text-md-left mb-6 mb-md-0" style="" data-v-06eb54a1><h3 class="text-h5 font-weight-light mb-4" style="color:white;" data-v-06eb54a1>Avivamiento Monterrey</h3><p class="text-body-2" style="color:rgba(255,255,255,0.7);line-height:1.8;" data-v-06eb54a1> Una iglesia cristiana comprometida<br data-v-06eb54a1> con la comunidad de Monterrey </p></div><div class="v-col-md-4 v-col-12 text-center mb-6 mb-md-0" style="" data-v-06eb54a1><h3 class="text-overline mb-4" style="color:rgba(255,255,255,0.7);letter-spacing:2px;" data-v-06eb54a1>SÍGUENOS</h3><div class="d-flex justify-center" data-v-06eb54a1><a href="https://www.facebook.com/IglesiaAvivamientoMonterrey" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-2" style="color:rgba(255,255,255,0.7);" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-facebook mdi v-icon notranslate v-theme--light" style="font-size:28px;height:28px;width:28px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><a href="https://www.instagram.com/avivamientomonterrey/" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-2" style="color:rgba(255,255,255,0.7);" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-instagram mdi v-icon notranslate v-theme--light" style="font-size:28px;height:28px;width:28px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><a href="https://www.tiktok.com/@avivamientomonterrey" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-2" style="color:rgba(255,255,255,0.7);" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-music-note mdi v-icon notranslate v-theme--light" style="font-size:28px;height:28px;width:28px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><a href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text mx-2" style="color:rgba(255,255,255,0.7);" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-spotify mdi v-icon notranslate v-theme--light" style="font-size:28px;height:28px;width:28px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a></div></div><div class="v-col-md-4 v-col-12 text-center text-md-right" style="" data-v-06eb54a1><h3 class="text-overline mb-4" style="color:rgba(255,255,255,0.7);letter-spacing:2px;" data-v-06eb54a1>CONTACTO</h3><p class="text-body-2 mb-2" style="color:rgba(255,255,255,0.7);" data-v-06eb54a1> +52 (81) 1165-1800 </p><p class="text-body-2" style="color:rgba(255,255,255,0.7);" data-v-06eb54a1> info@avivamientomty.com </p></div></div><hr class="v-divider v-theme--light my-6" style="border-color:rgba(255,255,255,0.1);" aria-orientation="horizontal" role="separator" data-v-06eb54a1><div class="v-row" style="" data-v-06eb54a1><div class="v-col v-col-12 text-center" style="" data-v-06eb54a1><p class="text-body-2" style="color:rgba(255,255,255,0.5);" data-v-06eb54a1> © 2025 Avivamiento Monterrey - Todos los derechos reservados </p></div></div></div></footer><a href="https://wa.me/528111651800?text=Hola!%20Quiero%20más%20información%20sobre%20Avivamiento%20Monterrey" class="v-btn v-btn--elevated v-btn--icon v-theme--light bg-green v-btn--density-default v-btn--size-default v-btn--variant-elevated whatsapp-fab" style="position:fixed;bottom:32px;right:32px;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);width:72px;height:72px;min-width:72px;min-height:72px;border-radius:50%;" target="_blank" data-v-06eb54a1><!--[--><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!--]--><!----><span class="v-btn__content" data-no-activator><!--[--><!--[--><i class="mdi-whatsapp mdi v-icon notranslate v-theme--light" style="font-size:48px;height:48px;width:48px;" aria-hidden="true" data-v-06eb54a1></i><!--]--><!--]--></span><!----><!----></a><!--]--></div></div></div><div id="teleports"></div><script type="module">import p from "/land/_payload.js?55060800-37a3-4e28-99ce-2148ab6dda6d";window.__NUXT__={...p,...({state:{},once:new Set([]),_errors:{},serverRendered:true,path:"\u002Fland",prerenderedAt:1765264172009,config:{public:{},app:{baseURL:"\u002F",buildId:"55060800-37a3-4e28-99ce-2148ab6dda6d",buildAssetsDir:"\u002F_nuxt\u002F",cdnURL:""}}})}</script><script type="module" src="/_nuxt/entry-CkXEAVPc.js" crossorigin></script></body></html>

@@ -1,14 +1,1 @@
-const interopDefault = r => r.default || r || [];
-const styles = {
-  "pages/land.vue": () => import('./land-styles.BWeaiajW.mjs').then(interopDefault),
-  "pages/calendar.vue": () => import('./calendar-styles.DTZAzh6x.mjs').then(interopDefault),
-  "pages/calendar.vue?vue&type=style&index=0&scoped=3beb16af&lang.css": () => import('./calendar-styles.DTZAzh6x.mjs').then(interopDefault),
-  "../node_modules/nuxt/dist/app/components/error-500.vue": () => import('./error-500-styles.Dw-4YpQp.mjs').then(interopDefault),
-  "../node_modules/nuxt/dist/app/components/error-404.vue": () => import('./error-404-styles.SO9LtFGn.mjs').then(interopDefault),
-  "pages/land.vue?vue&type=style&index=0&scoped=4934762d&lang.css": () => import('./land-styles.BWeaiajW.mjs').then(interopDefault),
-  "../node_modules/nuxt/dist/app/components/error-500.vue?vue&type=style&index=0&scoped=8851f357&lang.css": () => import('./error-500-styles.Dw-4YpQp.mjs').then(interopDefault),
-  "../node_modules/nuxt/dist/app/components/error-404.vue?vue&type=style&index=0&scoped=cd31e6b7&lang.css": () => import('./error-404-styles.SO9LtFGn.mjs').then(interopDefault)
-};
-
-export { styles as default };
-//# sourceMappingURL=styles.mjs.map
+const interopDefault=e=>e.default||e||[],e={"pages/land.vue":()=>import("./land-styles-Cw_R2MB1.mjs").then(interopDefault),"pages/ministerios.vue":()=>import("./ministerios-styles-BE-MDS56.mjs").then(interopDefault),"pages/calendar.vue":()=>import("./calendar-styles-CwVqA-T9.mjs").then(interopDefault),"../node_modules/nuxt/dist/app/components/error-404.vue":()=>import("./error-404-styles-BPU7890c.mjs").then(interopDefault),"../node_modules/nuxt/dist/app/components/error-500.vue":()=>import("./error-500-styles-KM0QiyZb.mjs").then(interopDefault),"pages/ministerios.vue?vue&type=style&index=0&scoped=94dc161e&lang.css":()=>import("./ministerios-styles-BE-MDS56.mjs").then(interopDefault),"pages/calendar.vue?vue&type=style&index=0&scoped=f05696aa&lang.css":()=>import("./calendar-styles-CwVqA-T9.mjs").then(interopDefault),"pages/land.vue?vue&type=style&index=0&scoped=06eb54a1&lang.css":()=>import("./land-styles-Cw_R2MB1.mjs").then(interopDefault),"../node_modules/nuxt/dist/app/components/error-500.vue?vue&type=style&index=0&scoped=8851f357&lang.css":()=>import("./error-500-styles-KM0QiyZb.mjs").then(interopDefault),"../node_modules/nuxt/dist/app/components/error-404.vue?vue&type=style&index=0&scoped=cd31e6b7&lang.css":()=>import("./error-404-styles-BPU7890c.mjs").then(interopDefault)};export{e as default};

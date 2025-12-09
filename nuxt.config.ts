@@ -90,6 +90,32 @@ export default defineNuxtConfig({
       },
     },
     
+    // Plugin para minificar CSS con cssnano
+    plugins: process.env.NODE_ENV === 'production' ? [
+      {
+        name: 'css-minifier',
+        async generateBundle(options, bundle) {
+          const cssnano = (await import('cssnano')).default;
+          const postcss = (await import('postcss')).default;
+          
+          for (const [fileName, chunk] of Object.entries(bundle)) {
+            if (fileName.endsWith('.css') && 'source' in chunk) {
+              const result = await postcss([
+                cssnano({
+                  preset: ['default', {
+                    discardComments: { removeAll: true },
+                    normalizeWhitespace: true,
+                  }]
+                })
+              ]).process(chunk.source, { from: undefined });
+              
+              chunk.source = result.css;
+            }
+          }
+        }
+      }
+    ] : [],
+    
     ssr: {
       noExternal: ['vuetify'],
     },
@@ -101,7 +127,7 @@ export default defineNuxtConfig({
     
     build: {
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
-      cssMinify: process.env.NODE_ENV === 'production' ? 'lightningcss' : false,
+      // Forzar minificación CSS via plugin personalizado
       target: 'es2020',
       
       // Configuración de Terser para producción
@@ -165,9 +191,9 @@ export default defineNuxtConfig({
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1000,
       
-      // Configuración CSS
+      // Configuración CSS - minificación via cssnano en postcss
       cssTarget: 'chrome61',
-      cssMinify: true,
+      // cssMinify: true, // Deshabilitado, se usa cssnano
     },
     
     esbuild: {
@@ -233,7 +259,7 @@ export default defineNuxtConfig({
   //   '@mdi/font/css/materialdesignicons.css',
   // ],
 
-  // PurgeCSS con postcss para eliminar CSS no usado
+  // PurgeCSS con postcss para eliminar CSS no usado + cssnano para minificar
   postcss: {
     plugins: {
       autoprefixer: {},
@@ -267,6 +293,22 @@ export default defineNuxtConfig({
           },
           defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
         },
+        cssnano: {
+          preset: ['default', {
+            discardComments: { removeAll: true },
+            normalizeWhitespace: true,
+            minifyFontValues: true,
+            minifySelectors: true,
+            mergeLonghand: true,
+            mergeRules: true,
+            colormin: true,
+            reduceIdents: false,
+            zindex: false,
+            minifyGradients: true,
+            normalizeUrl: true,
+            svgo: true,
+          }]
+        }
       } : {})
     },
   },
