@@ -55,36 +55,9 @@ export default defineNuxtConfig({
       noExternal: ['vuetify'],
     },
     build: {
-      // Minificación: 'terser' para máxima compresión en producción
-      minify: process.env.NODE_ENV === 'production' ? 'terser' : 'esbuild',
+      // Minificación: 'esbuild' es más seguro con Vuetify
+      minify: 'esbuild',
       cssMinify: 'esbuild',
-      
-      // Configuración de Terser para producción
-      terserOptions: process.env.NODE_ENV === 'production' ? {
-        compress: {
-          drop_console: true, // Eliminar console.log
-          drop_debugger: true, // Eliminar debugger
-          pure_funcs: ['console.log', 'console.info', 'console.debug'], // Eliminar funciones específicas
-          passes: 2, // Múltiples pasadas para mejor compresión
-          collapse_vars: true, // Colapsar variables
-          reduce_vars: true, // Reducir variables
-          join_vars: true, // Unir declaraciones de variables
-          sequences: true, // Unir secuencias con comas
-        },
-        mangle: {
-          safari10: true, // Compatibilidad con Safari 10+
-          keep_classnames: true, // No renombrar clases
-          keep_fnames: true, // No renombrar funciones
-        },
-        format: {
-          comments: false, // Eliminar todos los comentarios
-          beautify: false, // No embellecer código
-          indent_level: 0, // Sin indentación
-          max_line_len: false, // Sin límite de longitud de línea
-          semicolons: true, // Usar punto y coma
-          preserve_annotations: false, // No preservar anotaciones
-        },
-      } : {},
       
       // Target ES moderno para código más pequeño
       target: 'es2020',
@@ -129,10 +102,23 @@ export default defineNuxtConfig({
       // Eliminar console.log y debugger en producción
       drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
       
-      // Minificación de identificadores
-      minifyIdentifiers: true,
-      minifySyntax: true,
-      minifyWhitespace: true,
+      // Minificación agresiva en producción
+      minifyIdentifiers: process.env.NODE_ENV === 'production',
+      minifySyntax: process.env.NODE_ENV === 'production',
+      minifyWhitespace: process.env.NODE_ENV === 'production',
+      
+      // Configuración para producción
+      ...(process.env.NODE_ENV === 'production' ? {
+        legalComments: 'none', // Eliminar todos los comentarios
+        treeShaking: true, // Tree shaking agresivo
+        format: 'esm', // Formato ESM
+        platform: 'browser', // Plataforma browser
+        target: 'es2020', // Target moderno
+        charset: 'utf8', // Charset UTF-8
+        // Compresión máxima
+        mangleProps: false, // No mangling de propiedades (protege Vuetify)
+        keepNames: false, // No mantener nombres (excepto lo necesario)
+      } : {}),
     },
     
     // Optimizaciones de servidor dev (opcional)
