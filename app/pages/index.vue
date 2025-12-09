@@ -3,7 +3,7 @@
     <v-main>
  
       <v-img
-        :src="isMobile ? '/images/main_mobile.jpg' : '/images/main.jpg'"
+        :src="isMobile ? '/images/main_mobile.webp' : '/images/main.webp'"
         cover
       ></v-img>
     </v-main>

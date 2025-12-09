@@ -4461,12 +4461,12 @@ const assets = {
     "size": 24,
     "path": "../public/robots.txt"
   },
-  "/images/main.jpg": {
+  "/images/main.webp": {
     "type": "image/jpeg",
     "etag": "\"c2104-MufGl+flAjI0G8gdnLtKMepUJP8\"",
     "mtime": "2025-11-22T18:57:15.704Z",
     "size": 794884,
-    "path": "../public/images/main.jpg"
+    "path": "../public/images/main.webp"
   },
   "/images/pastora_sara.png": {
     "type": "image/png",

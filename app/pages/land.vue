@@ -449,6 +449,18 @@
         </v-row>
       </v-container>
     </v-footer>
+
+    <!-- WhatsApp Floating Button -->
+    <v-btn
+      icon
+      color="green"
+      class="whatsapp-fab"
+      style="position: fixed; bottom: 32px; right: 32px; z-index: 9999; box-shadow: 0 4px 16px rgba(0,0,0,0.2); width: 72px; height: 72px; min-width: 72px; min-height: 72px; border-radius: 50%;"
+      :href="'https://wa.me/528111651800?text=Hola!%20Quiero%20más%20información%20sobre%20Avivamiento%20Monterrey'"
+      target="_blank"
+    >
+      <v-icon size="48">mdi-whatsapp</v-icon>
+    </v-btn>
   </v-app>
 </template>
 
@@ -624,5 +636,31 @@ a {
 
 a:hover {
   color: #1976D2;
+}
+
+.whatsapp-fab {
+  animation: whatsapp-fab-in 0.5s;
+  /* Aumentar el tamaño del ícono y el botón */
+  font-size: 2.5rem;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  min-height: 72px;
+  border-radius: 50%;
+}
+@media (max-width: 600px) {
+  .whatsapp-fab {
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px !important;
+    min-height: 54px !important;
+  }
+  .whatsapp-fab .v-icon {
+    font-size: 32px !important;
+  }
+}
+@keyframes whatsapp-fab-in {
+  from { opacity: 0; transform: scale(0.7);}
+  to { opacity: 1; transform: scale(1);}
 }
 </style>
