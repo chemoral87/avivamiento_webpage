@@ -94,9 +94,14 @@ export default defineNuxtConfig({
       noExternal: ['vuetify'],
     },
     
+    css: {
+      devSourcemap: false,
+      preprocessorOptions: {},
+    },
+    
     build: {
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
-      cssMinify: process.env.NODE_ENV === 'production',
+      cssMinify: process.env.NODE_ENV === 'production' ? 'lightningcss' : false,
       target: 'es2020',
       
       // Configuración de Terser para producción
@@ -159,6 +164,10 @@ export default defineNuxtConfig({
       assetsInlineLimit: 4096,
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1000,
+      
+      // Configuración CSS
+      cssTarget: 'chrome61',
+      cssMinify: true,
     },
     
     esbuild: {
@@ -224,28 +233,40 @@ export default defineNuxtConfig({
   //   '@mdi/font/css/materialdesignicons.css',
   // ],
 
+  // PurgeCSS con postcss para eliminar CSS no usado
   postcss: {
     plugins: {
       autoprefixer: {},
-      // Activar cssnano para producción
       ...(process.env.NODE_ENV === 'production' ? {
-        cssnano: {
-          preset: ['default', {
-            discardComments: { removeAll: true },
-            normalizeWhitespace: true,
-            minifyFontValues: true,
-            minifySelectors: true,
-            mergeLonghand: true,
-            mergeRules: true,
-            colormin: true,
-            reduceIdents: false,
-            zindex: false,
-            discardUnused: false,
-            minifyGradients: true,
-            normalizeUrl: true,
-            svgo: true,
-          }]
-        }
+        '@fullhuman/postcss-purgecss': {
+          content: [
+            './app/**/*.{vue,js,ts}',
+            './pages/**/*.{vue,js,ts}',
+            './components/**/*.{vue,js,ts}',
+            './layouts/**/*.{vue,js,ts}',
+            './plugins/**/*.{js,ts}',
+            './nuxt.config.{js,ts}',
+          ],
+          safelist: {
+            standard: [
+              /^v-/,
+              /^mdi-/,
+              /^bg-/,
+              /^text-/,
+              /^d-/,
+              /^flex-/,
+              /^ma-/, /^mx-/, /^my-/, /^mt-/, /^mb-/, /^ml-/, /^mr-/,
+              /^pa-/, /^px-/, /^py-/, /^pt-/, /^pb-/, /^pl-/, /^pr-/,
+              /^align-/,
+              /^justify-/,
+              /^fill-/,
+              /^elevation-/,
+            ],
+            deep: [/v-.*/, /mdi-.*/],
+            greedy: [/v-.*/, /mdi-.*/],
+          },
+          defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+        },
       } : {})
     },
   },
