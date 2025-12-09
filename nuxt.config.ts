@@ -34,7 +34,22 @@ export default defineNuxtConfig({
     ssr: {
       noExternal: ['vuetify'],
     },
+    build: {
+      cssMinify: 'esbuild',
+      minify: 'esbuild',
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            // Separar vendor chunks para mejor caché
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
+    }
   },
+
 
   app: {
     head: {
@@ -75,13 +90,26 @@ export default defineNuxtConfig({
         { name: 'geo.placename', content: 'Apodaca, Monterrey' },
       ],
       link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ]
     }
   },
 
+   image: {
+    format: ['webp'],
+    quality: 80,
+  },
+
   nitro: {
+    compressPublicAssets: {
+      brotli: true,
+      gzip: true,
+    },
+    minify: true,
     preset: 'node-server',
     port: 3002,
     moduleSideEffects: ['vue-bundle-renderer'],
