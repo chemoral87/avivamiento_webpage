@@ -55,9 +55,25 @@ export default defineNuxtConfig({
       noExternal: ['vuetify'],
     },
     build: {
-      // Minificación: 'esbuild' (rápido) o 'terser' (más agresivo)
-      minify: 'esbuild', // Cambia a 'terser' si quieres máxima compresión
+      // Minificación: 'terser' para máxima compresión en producción
+      minify: process.env.NODE_ENV === 'production' ? 'terser' : 'esbuild',
       cssMinify: 'esbuild',
+      
+      // Configuración de Terser para producción
+      terserOptions: process.env.NODE_ENV === 'production' ? {
+        compress: {
+          drop_console: true, // Eliminar console.log
+          drop_debugger: true, // Eliminar debugger
+          pure_funcs: ['console.log', 'console.info', 'console.debug'], // Eliminar funciones específicas
+          passes: 2, // Múltiples pasadas para mejor compresión
+        },
+        mangle: {
+          safari10: true, // Compatibilidad con Safari 10+
+        },
+        format: {
+          comments: false, // Eliminar todos los comentarios
+        },
+      } : {},
       
       // Target ES moderno para código más pequeño
       target: 'es2020',
@@ -246,19 +262,21 @@ export default defineNuxtConfig({
   // ============================================
   postcss: {
     plugins: {
-      // Autoprefixer viene incluido por defecto
       autoprefixer: {},
-      
-      // Minificación de CSS en producción
       ...(process.env.NODE_ENV === 'production' ? {
         cssnano: {
           preset: ['default', {
             discardComments: {
-              removeAll: true,
+              removeAll: true, // Eliminar TODOS los comentarios
             },
-            normalizeWhitespace: true,
-            minifyFontValues: true,
-            minifySelectors: true,
+            normalizeWhitespace: true, // Eliminar espacios
+            minifyFontValues: true, // Minificar fuentes
+            minifySelectors: true, // Minificar selectores
+            mergeLonghand: true, // Combinar propiedades
+            mergeRules: true, // Combinar reglas duplicadas
+            colormin: true, // Minificar colores
+            reduceIdents: false, // No reducir identifiers (para Vuetify)
+            zindex: false, // No tocar z-index (puede romper Vuetify)
           }]
         }
       } : {})
