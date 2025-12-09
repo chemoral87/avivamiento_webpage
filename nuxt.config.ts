@@ -1,4 +1,4 @@
-// nuxt.config.ts - Configuración completa optimizada para Nuxt 4.2.1
+// nuxt.config.ts - Configuración corregida
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
@@ -12,117 +12,17 @@ export default defineNuxtConfig({
   ssr: true,
 
   // ============================================
-  // OPTIMIZACIONES DE NITRO (Motor de Nuxt)
+  // OPTIMIZACIONES DE NITRO
   // ============================================
   nitro: {
-    // Compresión de assets públicos
     compressPublicAssets: {
       brotli: true,
       gzip: true,
     },
-    // Minificación del servidor
     minify: true,
-    
-    // Configuración del preset y puerto
     preset: 'node-server',
     port: 3002,
-    
-    // Module side effects para SSR
     moduleSideEffects: ['vue-bundle-renderer'],
-    
-    // Rollup config
-    rollupConfig: {
-      external: []
-    },
-    
-    // Prerender rutas estáticas (opcional - descomenta si necesitas)
-    // prerender: {
-    //   routes: ['/'],
-    //   crawlLinks: true,
-    // }
-  },
-
-  // ============================================
-  // OPTIMIZACIONES DE VITE/BUILD
-  // ============================================
-  vite: {
-    vue: {
-      template: {
-        transformAssetUrls,
-      },
-    },
-    ssr: {
-      noExternal: ['vuetify'],
-    },
-    build: {
-      // Minificación: desactivada completamente para Vuetify
-      minify: false,
-      cssMinify: 'esbuild',
-      
-      // Target ES moderno para código más pequeño
-      target: 'es2020',
-      
-      // Configuración de Rollup para chunking optimizado
-      rollupOptions: {
-        output: {
-          // Separar chunks manualmente para mejor caché
-          manualChunks: (id) => {
-            // Vuetify en su propio chunk
-            if (id.includes('vuetify')) {
-              return 'vuetify';
-            }
-            // MDI icons separados
-            if (id.includes('@mdi/font')) {
-              return 'mdi';
-            }
-            // Otros node_modules en vendor
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
-          },
-          
-          // Nombres con hash para cache-busting
-          chunkFileNames: '_nuxt/[name]-[hash].js',
-          entryFileNames: '_nuxt/[name]-[hash].js',
-          assetFileNames: '_nuxt/[name]-[hash].[ext]',
-        }
-      },
-      
-      // Optimizaciones adicionales
-      assetsInlineLimit: 4096, // Inline assets < 4kb como base64
-      cssCodeSplit: true, // Separar CSS por ruta/componente (un CSS por página)
-      reportCompressedSize: false, // Build más rápido
-      
-      // Chunk size warnings
-      chunkSizeWarningLimit: 1000,
-      
-      // Code splitting agresivo por página
-      modulePreload: {
-        polyfill: false, // Desactivar polyfill de modulePreload
-      },
-    },
-    
-    // Optimización con esbuild
-    esbuild: {
-      // Solo eliminar console.log y debugger en producción
-      drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
-      
-      // Desactivar todas las minificaciones para Vuetify
-      minifyIdentifiers: false,
-      minifySyntax: false,
-      minifyWhitespace: false,
-      
-      // Mantener nombres y estructura
-      keepNames: true,
-      treeShaking: false,
-    },
-    
-    // Optimizaciones de servidor dev (opcional)
-    server: {
-      hmr: {
-        overlay: true,
-      },
-    },
   },
 
   // ============================================
@@ -149,21 +49,15 @@ export default defineNuxtConfig({
         { name: 'robots', content: 'index, follow' },
         { name: 'googlebot', content: 'index, follow' },
         { name: 'format-detection', content: 'telephone=no' },
-        
-        // Open Graph
         { property: 'og:site_name', content: 'Avivamiento Monterrey' },
         { property: 'og:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
         { property: 'og:description', content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://avivamientomonterrey.com' },
         { property: 'og:locale', content: 'es_MX' },
-        
-        // Twitter
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
         { name: 'twitter:description', content: 'Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre' },
-        
-        // Geo tags
         { name: 'geo.region', content: 'MX-NLE' },
         { name: 'geo.placename', content: 'Apodaca, Monterrey' },
       ],
@@ -178,87 +72,21 @@ export default defineNuxtConfig({
   },
 
   // ============================================
-  // CONFIGURACIÓN DE ROUTER
-  // ============================================
-  router: {
-    options: {
-      // Prefetch solo cuando el usuario hace hover (no automático)
-      linkPrefetchedClass: 'nuxt-link-prefetched',
-      
-      // Opciones de scroll behavior
-      scrollBehaviorType: 'smooth',
-    },
-    
-    // Prefetch selectivo
-    prefetchLinks: false, // Desactivar prefetch automático para reducir carga inicial
-  },
-
-  // ============================================
-  // FEATURES EXPERIMENTALES DE NUXT 4
-  // ============================================
-  experimental: {
-    // Payload extraction para mejor caché
-    payloadExtraction: true,
-    
-    // Inline route rules
-    inlineRouteRules: true,
-    
-    // View Transitions API (navegación suave entre páginas)
-    viewTransition: true,
-    
-    // Component Islands para cargar componentes bajo demanda
-    componentIslands: true,
-    
-    // Render JSON payloads inline para reducir requests
-    renderJsonPayloads: true,
-    
-    // Local layer aliases para mejor tree-shaking
-    localLayerAliases: true,
-  },
-  
-  // ============================================
-  // ROUTE RULES - Configuración por página
-  // ============================================
-  routeRules: {
-    // Página principal - prerender y cache
-    '/': { 
-      prerender: true,
-      headers: {
-        'cache-control': 'public, max-age=3600, s-maxage=3600'
-      }
-    },
-    // Página land - prerender
-    '/land': { 
-      prerender: true,
-      headers: {
-        'cache-control': 'public, max-age=3600, s-maxage=3600'
-      }
-    },
-    // Calendario - SSR bajo demanda
-    '/calendar': { 
-      swr: 3600, // Stale-while-revalidate
-    },
-    // Ministerios - SSR bajo demanda
-    '/ministerios': { 
-      swr: 3600,
-    },
-  },
-
-  // ============================================
-  // MÓDULOS Y VUETIFY
+  // MÓDULOS Y VUETIFY - CONFIGURACIÓN CORREGIDA
   // ============================================
   modules: [
     '@nuxt/image',
-    // Vuetify se agrega con el hook personalizado
-    (_options, nuxt) => {
+    // Vuetify con configuración simplificada
+    async (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
-        // @ts-expect-error
-        config.plugins.push(vuetify({ 
-          autoImport: true, // Activar autoImport para mejor treeshaking
-          styles: { 
-            configFile: false, // No usar archivo de configuración
-          },
-        }))
+        config.plugins?.push(
+          vuetify({
+            autoImport: true,
+            styles: { 
+              configFile: false,
+            },
+          })
+        )
       })
     },
   ],
@@ -269,26 +97,118 @@ export default defineNuxtConfig({
   },
 
   // ============================================
-  // CONFIGURACIÓN DE @nuxt/image
+  // CONFIGURACIÓN DE VITE CORREGIDA
+  // ============================================
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
+    },
+    
+    // Configuración SSR para Vuetify - CLAVE para solucionar el error
+    ssr: {
+      // Importante: mantener Vuetify en el paquete principal
+      noExternal: ['vuetify'],
+    },
+    
+    // Optimizaciones de build
+    build: {
+      // NO desactivar minify completamente
+      minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
+      cssMinify: process.env.NODE_ENV === 'production',
+      target: 'es2020',
+      rollupOptions: {
+        output: {
+          // Configuración simplificada de chunks
+          manualChunks: (id) => {
+            // Mantener Vuetify en el chunk principal para evitar problemas
+            if (id.includes('node_modules') && !id.includes('vuetify')) {
+              if (id.includes('@mdi/font')) return 'mdi';
+              return 'vendor';
+            }
+          },
+          chunkFileNames: '_nuxt/[name]-[hash].js',
+          entryFileNames: '_nuxt/[name]-[hash].js',
+          assetFileNames: '_nuxt/[name]-[hash].[ext]',
+        }
+      },
+      assetsInlineLimit: 4096,
+      cssCodeSplit: true,
+      chunkSizeWarningLimit: 1000,
+    },
+    
+    // Configuración de esbuild corregida
+    esbuild: {
+      drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+      // Mantener configuraciones por defecto para Vuetify
+      keepNames: true,
+      minifyIdentifiers: process.env.NODE_ENV === 'production',
+      minifySyntax: process.env.NODE_ENV === 'production',
+      minifyWhitespace: process.env.NODE_ENV === 'production',
+    },
+    
+    // Optimizaciones de dependencias
+    optimizeDeps: {
+      include: ['vuetify'],
+      exclude: ['@mdi/font'],
+    },
+  },
+
+  // ============================================
+  // EXPERIMENTALES
+  // ============================================
+  experimental: {
+    payloadExtraction: true,
+    inlineRouteRules: true,
+    viewTransition: true,
+    componentIslands: true,
+    renderJsonPayloads: true,
+    localLayerAliases: true,
+  },
+  
+  // ============================================
+  // ROUTE RULES
+  // ============================================
+  routeRules: {
+    '/': { 
+      prerender: true,
+      headers: {
+        'cache-control': 'public, max-age=3600, s-maxage=3600'
+      }
+    },
+    '/land': { 
+      prerender: true,
+      headers: {
+        'cache-control': 'public, max-age=3600, s-maxage=3600'
+      }
+    },
+    '/calendar': { 
+      swr: 3600,
+    },
+    '/ministerios': { 
+      swr: 3600,
+    },
+  },
+
+  // ============================================
+  // CONFIGURACIÓN DE IMAGE
   // ============================================
   image: {
-    // Formatos modernos optimizados
     format: ['webp'],
-    
-    // Calidad de compresión
     quality: 80,
   },
 
   // ============================================
-  // CSS GLOBAL Y CONFIGURACIÓN
+  // CSS GLOBAL
   // ============================================
   css: [
-    'vuetify/styles',
+    'vuetify/lib/styles/main.css',
     '@mdi/font/css/materialdesignicons.css',
   ],
 
   // ============================================
-  // POSTCSS (para CSS optimization)
+  // POSTCSS
   // ============================================
   postcss: {
     plugins: {
@@ -297,23 +217,16 @@ export default defineNuxtConfig({
         cssnano: {
           preset: ['default', {
             discardComments: {
-              removeAll: true, // Eliminar TODOS los comentarios
+              removeAll: true,
             },
-            normalizeWhitespace: true, // Eliminar espacios y saltos de línea
-            minifyFontValues: true, // Minificar fuentes
-            minifySelectors: true, // Minificar selectores
-            mergeLonghand: true, // Combinar propiedades
-            mergeRules: true, // Combinar reglas duplicadas
-            colormin: true, // Minificar colores
-            reduceIdents: false, // No reducir identifiers (para Vuetify)
-            zindex: false, // No tocar z-index (puede romper Vuetify)
-            // Opciones adicionales para máxima compresión
-            discardUnused: true, // Eliminar código no usado
-            minifyGradients: true, // Minificar gradientes
-            normalizeUrl: true, // Normalizar URLs
-            normalizeRepeatStyle: true, // Normalizar repeat styles
-            normalizePositions: true, // Normalizar posiciones
-            svgo: true, // Optimizar SVGs inline
+            normalizeWhitespace: true,
+            minifyFontValues: true,
+            minifySelectors: true,
+            mergeLonghand: true,
+            mergeRules: true,
+            colormin: true,
+            reduceIdents: false,
+            zindex: false,
           }]
         }
       } : {})
@@ -321,57 +234,31 @@ export default defineNuxtConfig({
   },
 
   // ============================================
-  // VUETIFY CONFIGURATION (desactivado - usando hooks)
-  // ============================================
-  // Si usas el módulo @nuxtjs/vuetify en lugar del hook, descomenta esto:
-  // vuetify: {
-  //   moduleOptions: {
-  //     treeshaking: true,
-  //     styles: {
-  //       configFile: 'assets/settings.scss',
-  //     },
-  //   },
-  // },
-
-  // ============================================
   // TYPESCRIPT
   // ============================================
   typescript: {
     strict: false,
-    typeCheck: false, // Desactivar para builds más rápidos
+    typeCheck: false,
     shim: false,
   },
 
   // ============================================
-  // SOURCEMAPS (desactivar en producción)
+  // SOURCEMAPS
   // ============================================
-  sourcemap: {
-    server: false,
-    client: false,
-  },
+  sourcemap: process.env.NODE_ENV === 'development',
 
   // ============================================
   // DEV SERVER
   // ============================================
   devServer: {
-    port: 3002, // Puerto para desarrollo y producción
-    host: '0.0.0.0', // Para acceso desde red local
+    port: 3002,
+    host: '0.0.0.0',
   },
 
   // ============================================
-  // CONFIGURACIONES DE DESARROLLO
+  // DEVTOOLS
   // ============================================
   devtools: {
     enabled: process.env.NODE_ENV === 'development',
-  },
-
-  // ============================================
-  // HOOKS (opcional - para logging o análisis)
-  // ============================================
-  hooks: {
-    // Log del tamaño del build
-    'build:done': () => {
-      console.log('✅ Build completado exitosamente')
-    }
   },
 })
