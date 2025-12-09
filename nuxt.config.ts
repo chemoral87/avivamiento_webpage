@@ -118,16 +118,28 @@ export default defineNuxtConfig({
           if_return: true,
           join_vars: true,
           side_effects: true,
+          sequences: true,
+          collapse_vars: true,
+          reduce_vars: true,
+          toplevel: true,
         },
         mangle: {
           safari10: true,
           keep_classnames: false,
           keep_fnames: false,
+          toplevel: true,
         },
         format: {
           comments: false,
           beautify: false,
           ecma: 2020,
+          ascii_only: false,
+          indent_level: 0,
+          max_line_len: false,
+          semicolons: true,
+          preserve_annotations: false,
+          quote_style: 1,
+          wrap_iife: false,
         },
       } : {},
       
@@ -215,8 +227,26 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       autoprefixer: {},
-      // Desactivar cssnano durante build para reducir uso de memoria
-      // Se puede activar después si es necesario
+      // Activar cssnano para producción
+      ...(process.env.NODE_ENV === 'production' ? {
+        cssnano: {
+          preset: ['default', {
+            discardComments: { removeAll: true },
+            normalizeWhitespace: true,
+            minifyFontValues: true,
+            minifySelectors: true,
+            mergeLonghand: true,
+            mergeRules: true,
+            colormin: true,
+            reduceIdents: false,
+            zindex: false,
+            discardUnused: false,
+            minifyGradients: true,
+            normalizeUrl: true,
+            svgo: true,
+          }]
+        }
+      } : {})
     },
   },
 
