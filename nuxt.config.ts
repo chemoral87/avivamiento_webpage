@@ -102,8 +102,8 @@ export default defineNuxtConfig({
       // Eliminar console.log y debugger en producción
       drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
       
-      // Minificación agresiva en producción
-      minifyIdentifiers: process.env.NODE_ENV === 'production',
+      // Minificación moderada para evitar problemas con Vuetify
+      minifyIdentifiers: false, // Desactivado para Vuetify
       minifySyntax: process.env.NODE_ENV === 'production',
       minifyWhitespace: process.env.NODE_ENV === 'production',
       
@@ -111,13 +111,7 @@ export default defineNuxtConfig({
       ...(process.env.NODE_ENV === 'production' ? {
         legalComments: 'none', // Eliminar todos los comentarios
         treeShaking: true, // Tree shaking agresivo
-        format: 'esm', // Formato ESM
-        platform: 'browser', // Plataforma browser
-        target: 'es2020', // Target moderno
-        charset: 'utf8', // Charset UTF-8
-        // Compresión máxima
-        mangleProps: false, // No mangling de propiedades (protege Vuetify)
-        keepNames: false, // No mantener nombres (excepto lo necesario)
+        keepNames: true, // Mantener nombres para Vuetify
       } : {}),
     },
     
