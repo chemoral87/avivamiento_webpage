@@ -55,8 +55,8 @@ export default defineNuxtConfig({
       noExternal: ['vuetify'],
     },
     build: {
-      // Minificación: esbuild con configuración moderada
-      minify: 'esbuild',
+      // Minificación: desactivada completamente para Vuetify
+      minify: false,
       cssMinify: 'esbuild',
       
       // Target ES moderno para código más pequeño
@@ -104,20 +104,17 @@ export default defineNuxtConfig({
     
     // Optimización con esbuild
     esbuild: {
-      // Eliminar console.log y debugger en producción
+      // Solo eliminar console.log y debugger en producción
       drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
       
-      // Minificación básica compatible con tree-shaking manual
-      minifyIdentifiers: false, // Desactivado para importación manual
-      minifySyntax: true,
-      minifyWhitespace: true,
+      // Desactivar todas las minificaciones para Vuetify
+      minifyIdentifiers: false,
+      minifySyntax: false,
+      minifyWhitespace: false,
       
-      // Configuración para producción
-      ...(process.env.NODE_ENV === 'production' ? {
-        legalComments: 'none',
-        treeShaking: true, // Activado con importación manual
-        keepNames: true,
-      } : {}),
+      // Mantener nombres y estructura
+      keepNames: true,
+      treeShaking: false,
     },
     
     // Optimizaciones de servidor dev (opcional)
@@ -257,8 +254,10 @@ export default defineNuxtConfig({
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // @ts-expect-error
         config.plugins.push(vuetify({ 
-          autoImport: false, // Desactivar autoImport para tree-shaking manual
-          styles: { configFile: 'src/settings.scss' }
+          autoImport: true, // Activar autoImport para mejor treeshaking
+          styles: { 
+            configFile: false, // No usar archivo de configuración
+          },
         }))
       })
     },
@@ -284,10 +283,8 @@ export default defineNuxtConfig({
   // CSS GLOBAL Y CONFIGURACIÓN
   // ============================================
   css: [
-    // NO cargar vuetify/styles completo - solo lo necesario
+    'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',
-    // Agrega aquí tus archivos CSS/SCSS globales personalizados
-    // '~/assets/styles/main.scss',
   ],
 
   // ============================================

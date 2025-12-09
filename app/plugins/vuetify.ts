@@ -1,64 +1,11 @@
 import '@mdi/font/css/materialdesignicons.css'
-// Importar solo los estilos base necesarios
-import 'vuetify/lib/styles/main.sass'
+import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-// Importar solo los componentes que usas
-import { 
-  VApp, 
-  VAppBar, 
-  VMain, 
-  VContainer, 
-  VRow, 
-  VCol, 
-  VBtn, 
-  VIcon, 
-  VImg, 
-  VCard, 
-  VCardText, 
-  VCardTitle,
-  VChip,
-  VNavigationDrawer,
-  VList,
-  VListItem,
-  VListItemTitle,
-  VDivider,
-  VFooter,
-} from 'vuetify/components'
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
-    // Registrar solo los componentes importados
-    components: {
-      VApp,
-      VAppBar,
-      VMain,
-      VContainer,
-      VRow,
-      VCol,
-      VBtn,
-      VIcon,
-      VImg,
-      VCard,
-      VCardText,
-      VCardTitle,
-      VChip,
-      VNavigationDrawer,
-      VList,
-      VListItem,
-      VListItemTitle,
-      VDivider,
-      VFooter,
-    },
-    // Desactivar estilos no utilizados
-    defaults: {
-      VBtn: { 
-        variant: 'text',
-        density: 'default'
-      },
-      VCard: {
-        elevation: 0
-      }
-    },
+    // vite-plugin-vuetify hará el treeshaking automáticamente
+    // No es necesario registrar componentes manualmente
     theme: {
       defaultTheme: 'light',
       themes: {

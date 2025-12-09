@@ -20,7 +20,7 @@
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@nuxt/image": "^2.0.0",
     "cssnano": "^7.1.2",
-    "sass": "^1.82.0",
+    "sass": "^1.95.0",
     "terser": "^5.44.1",
     "vite-plugin-vuetify": "^2.0.4"
   }
