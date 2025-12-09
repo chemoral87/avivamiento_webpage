@@ -256,7 +256,10 @@ export default defineNuxtConfig({
     shim: false,
   },
 
-  sourcemap: process.env.NODE_ENV === 'development',
+  sourcemap: {
+    server: false,
+    client: false,
+  },
 
   devServer: {
     port: 3002,
