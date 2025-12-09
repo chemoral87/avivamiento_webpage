@@ -1,1 +1,0 @@
-const a=[".event-card[data-v-f05696aa] {\n  transition: transform .3s ease-in-out, box-shadow .3s ease-in-out;\n}\n.event-card[data-v-f05696aa]:hover {\n  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);\n  transform: translateY(-8px);\n}"];export{a as default};
