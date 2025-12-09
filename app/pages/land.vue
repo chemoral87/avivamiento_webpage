@@ -188,7 +188,7 @@
       <!-- Hero Section -->
       <v-container fluid class="hero-section pa-0" style="margin-top: -70px;">
         <v-img
-          src="/images/poster2.jpg"
+          src="/images/poster2.webp"
           :height="heroHeight"
           cover
           :position="isMobile ? 'center center' : 'center center'"
@@ -212,7 +212,7 @@
           <v-col cols="12" md="5">
             <v-card elevation="0" class="text-center pa-4" style="border: 1px solid #e0e0e0;">
               <v-avatar size="180" class="mb-2">
-                <v-img src="/images/pastor_adrian.jpg"></v-img>
+                <v-img src="/images/pastor_adrian.webp"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular " style="color: #041845;">Adrian Aguirre</h3>
               <p class="text-body-2 text-grey mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Pastor Principal</p>
@@ -224,7 +224,7 @@
           <v-col cols="12" md="5">
             <v-card elevation="0" class="text-center pa-4" style="border: 1px solid #e0e0e0;">
               <v-avatar size="180" class="mb-2">
-                <v-img src="/images/pastora_sara.png"></v-img>
+                <v-img src="/images/pastora_sara.webp"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular" style="color: #041845;">Sara Aguirre</h3>
               <p class="text-body-2 text-grey  mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Co-Pastora</p>

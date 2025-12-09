@@ -187,7 +187,7 @@
           <v-col cols="12" md="6" lg="5">
             <v-card elevation="0" class="event-card" style="border: 1px solid #e0e0e0; height: 100%;">
               <v-img
-                src="/images/poster2.jpg"
+                src="/images/poster2.webp"
                 height="250"
                 cover
                 gradient="to bottom, rgba(4,24,69,.3), rgba(4,24,69,.7)"
