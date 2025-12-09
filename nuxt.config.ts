@@ -66,12 +66,23 @@ export default defineNuxtConfig({
           drop_debugger: true, // Eliminar debugger
           pure_funcs: ['console.log', 'console.info', 'console.debug'], // Eliminar funciones específicas
           passes: 2, // Múltiples pasadas para mejor compresión
+          collapse_vars: true, // Colapsar variables
+          reduce_vars: true, // Reducir variables
+          join_vars: true, // Unir declaraciones de variables
+          sequences: true, // Unir secuencias con comas
         },
         mangle: {
           safari10: true, // Compatibilidad con Safari 10+
+          keep_classnames: true, // No renombrar clases
+          keep_fnames: true, // No renombrar funciones
         },
         format: {
           comments: false, // Eliminar todos los comentarios
+          beautify: false, // No embellecer código
+          indent_level: 0, // Sin indentación
+          max_line_len: false, // Sin límite de longitud de línea
+          semicolons: true, // Usar punto y coma
+          preserve_annotations: false, // No preservar anotaciones
         },
       } : {},
       
@@ -269,7 +280,7 @@ export default defineNuxtConfig({
             discardComments: {
               removeAll: true, // Eliminar TODOS los comentarios
             },
-            normalizeWhitespace: true, // Eliminar espacios
+            normalizeWhitespace: true, // Eliminar espacios y saltos de línea
             minifyFontValues: true, // Minificar fuentes
             minifySelectors: true, // Minificar selectores
             mergeLonghand: true, // Combinar propiedades
@@ -277,6 +288,13 @@ export default defineNuxtConfig({
             colormin: true, // Minificar colores
             reduceIdents: false, // No reducir identifiers (para Vuetify)
             zindex: false, // No tocar z-index (puede romper Vuetify)
+            // Opciones adicionales para máxima compresión
+            discardUnused: true, // Eliminar código no usado
+            minifyGradients: true, // Minificar gradientes
+            normalizeUrl: true, // Normalizar URLs
+            normalizeRepeatStyle: true, // Normalizar repeat styles
+            normalizePositions: true, // Normalizar posiciones
+            svgo: true, // Optimizar SVGs inline
           }]
         }
       } : {})
