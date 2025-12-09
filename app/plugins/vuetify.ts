@@ -1,27 +1,37 @@
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
+import { createVuetify, type ThemeDefinition } from 'vuetify'
+
+const lightTheme: ThemeDefinition = {
+  dark: false,
+  colors: {
+    primary: '#041845',
+    secondary: '#424242',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FB8C00',
+  },
+}
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
-    // vite-plugin-vuetify hará el treeshaking automáticamente
-    // No es necesario registrar componentes manualmente
-    theme: {
-      defaultTheme: 'light',
-      themes: {
-        light: {
-          colors: {
-            primary: '#041845',
-            secondary: '#424242',
-            accent: '#82B1FF',
-            error: '#FF5252',
-            info: '#2196F3',
-            success: '#4CAF50',
-            warning: '#FB8C00',
-          },
+    ssr: {
+      clientWidth: 1920,
+      clientHeight: 1080,
+    },
+    // En SSR, deshabilitar completamente el theme para evitar CSS inline
+    ...(import.meta.server ? {
+      theme: false as any,
+    } : {
+      theme: {
+        defaultTheme: 'light',
+        themes: {
+          light: lightTheme,
         },
       },
-    },
+    }),
   })
   app.vueApp.use(vuetify)
 })
