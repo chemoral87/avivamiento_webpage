@@ -8,12 +8,8 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  // SSR habilitado
   ssr: true,
 
-  // ============================================
-  // OPTIMIZACIONES DE NITRO
-  // ============================================
   nitro: {
     compressPublicAssets: {
       brotli: true,
@@ -25,9 +21,6 @@ export default defineNuxtConfig({
     moduleSideEffects: ['vue-bundle-renderer'],
   },
 
-  // ============================================
-  // CONFIGURACIÓN DE APP
-  // ============================================
   app: {
     head: {
       title: 'Pastor Adrian Aguirre | Avivamiento Monterrey',
@@ -71,9 +64,6 @@ export default defineNuxtConfig({
     },
   },
 
-  // ============================================
-  // MÓDULOS Y VUETIFY - CONFIGURACIÓN CORREGIDA
-  // ============================================
   modules: [
     '@nuxt/image',
     // Vuetify con configuración simplificada
@@ -82,23 +72,18 @@ export default defineNuxtConfig({
         config.plugins?.push(
           vuetify({
             autoImport: true,
-            styles: { 
-              configFile: false,
-            },
+            // Desactivar completamente el archivo de configuración
+            styles: 'expose', // Cambia esto a 'expose' o 'none'
           })
         )
       })
     },
   ],
 
-  // Transpile Vuetify
   build: {
     transpile: ['vuetify'],
   },
 
-  // ============================================
-  // CONFIGURACIÓN DE VITE CORREGIDA
-  // ============================================
   vite: {
     vue: {
       template: {
@@ -106,23 +91,17 @@ export default defineNuxtConfig({
       },
     },
     
-    // Configuración SSR para Vuetify - CLAVE para solucionar el error
     ssr: {
-      // Importante: mantener Vuetify en el paquete principal
       noExternal: ['vuetify'],
     },
     
-    // Optimizaciones de build
     build: {
-      // NO desactivar minify completamente
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
       cssMinify: process.env.NODE_ENV === 'production',
       target: 'es2020',
       rollupOptions: {
         output: {
-          // Configuración simplificada de chunks
           manualChunks: (id) => {
-            // Mantener Vuetify en el chunk principal para evitar problemas
             if (id.includes('node_modules') && !id.includes('vuetify')) {
               if (id.includes('@mdi/font')) return 'mdi';
               return 'vendor';
@@ -138,26 +117,20 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 1000,
     },
     
-    // Configuración de esbuild corregida
     esbuild: {
       drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
-      // Mantener configuraciones por defecto para Vuetify
       keepNames: true,
       minifyIdentifiers: process.env.NODE_ENV === 'production',
       minifySyntax: process.env.NODE_ENV === 'production',
       minifyWhitespace: process.env.NODE_ENV === 'production',
     },
     
-    // Optimizaciones de dependencias
     optimizeDeps: {
       include: ['vuetify'],
       exclude: ['@mdi/font'],
     },
   },
 
-  // ============================================
-  // EXPERIMENTALES
-  // ============================================
   experimental: {
     payloadExtraction: true,
     inlineRouteRules: true,
@@ -167,9 +140,6 @@ export default defineNuxtConfig({
     localLayerAliases: true,
   },
   
-  // ============================================
-  // ROUTE RULES
-  // ============================================
   routeRules: {
     '/': { 
       prerender: true,
@@ -191,25 +161,24 @@ export default defineNuxtConfig({
     },
   },
 
-  // ============================================
-  // CONFIGURACIÓN DE IMAGE
-  // ============================================
   image: {
     format: ['webp'],
     quality: 80,
   },
 
-  // ============================================
-  // CSS GLOBAL
-  // ============================================
+  // Opción 1: Usar los estilos predeterminados de Vuetify
   css: [
-    'vuetify/lib/styles/main.css',
+    'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',
   ],
 
-  // ============================================
-  // POSTCSS
-  // ============================================
+  // Opción 2: Si necesitas configuraciones personalizadas, crea este archivo
+  // y luego descomenta la línea en css:
+  // css: [
+  //   '@/assets/scss/vuetify.scss',
+  //   '@mdi/font/css/materialdesignicons.css',
+  // ],
+
   postcss: {
     plugins: {
       autoprefixer: {},
@@ -233,31 +202,19 @@ export default defineNuxtConfig({
     },
   },
 
-  // ============================================
-  // TYPESCRIPT
-  // ============================================
   typescript: {
     strict: false,
     typeCheck: false,
     shim: false,
   },
 
-  // ============================================
-  // SOURCEMAPS
-  // ============================================
   sourcemap: process.env.NODE_ENV === 'development',
 
-  // ============================================
-  // DEV SERVER
-  // ============================================
   devServer: {
     port: 3002,
     host: '0.0.0.0',
   },
 
-  // ============================================
-  // DEVTOOLS
-  // ============================================
   devtools: {
     enabled: process.env.NODE_ENV === 'development',
   },
