@@ -134,9 +134,9 @@ export default defineNuxtConfig({
     payloadExtraction: true,
     inlineRouteRules: true,
     viewTransition: true,
-    componentIslands: true,
-    renderJsonPayloads: true,
-    localLayerAliases: true,
+    componentIslands: false, // Desactivado para reducir memoria
+    renderJsonPayloads: false, // Desactivado para reducir memoria
+    localLayerAliases: false, // Desactivado para reducir memoria
   },
   
   routeRules: {
@@ -181,23 +181,8 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       autoprefixer: {},
-      ...(process.env.NODE_ENV === 'production' ? {
-        cssnano: {
-          preset: ['default', {
-            discardComments: {
-              removeAll: true,
-            },
-            normalizeWhitespace: true,
-            minifyFontValues: true,
-            minifySelectors: true,
-            mergeLonghand: true,
-            mergeRules: true,
-            colormin: true,
-            reduceIdents: false,
-            zindex: false,
-          }]
-        }
-      } : {})
+      // Desactivar cssnano durante build para reducir uso de memoria
+      // Se puede activar después si es necesario
     },
   },
 
