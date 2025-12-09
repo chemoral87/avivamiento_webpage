@@ -98,6 +98,39 @@ export default defineNuxtConfig({
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
       cssMinify: process.env.NODE_ENV === 'production',
       target: 'es2020',
+      
+      // Configuración de Terser para producción
+      terserOptions: process.env.NODE_ENV === 'production' ? {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          passes: 2,
+          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+          dead_code: true,
+          conditionals: true,
+          evaluate: true,
+          booleans: true,
+          loops: true,
+          unused: true,
+          hoist_funs: true,
+          keep_fargs: false,
+          hoist_vars: false,
+          if_return: true,
+          join_vars: true,
+          side_effects: true,
+        },
+        mangle: {
+          safari10: true,
+          keep_classnames: false,
+          keep_fnames: false,
+        },
+        format: {
+          comments: false,
+          beautify: false,
+          ecma: 2020,
+        },
+      } : {},
+      
       rollupOptions: {
         output: {
           manualChunks: (id) => {
@@ -117,11 +150,12 @@ export default defineNuxtConfig({
     },
     
     esbuild: {
-      drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
-      keepNames: true,
-      minifyIdentifiers: process.env.NODE_ENV === 'production',
-      minifySyntax: process.env.NODE_ENV === 'production',
-      minifyWhitespace: process.env.NODE_ENV === 'production',
+      // Desactivar esbuild en producción, usar terser
+      drop: process.env.NODE_ENV === 'development' ? [] : ['console', 'debugger'],
+      keepNames: false,
+      minifyIdentifiers: false,
+      minifySyntax: false,
+      minifyWhitespace: false,
     },
     
     optimizeDeps: {
