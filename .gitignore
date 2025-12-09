@@ -11,7 +11,7 @@ node_modules
 # Logs
 logs
 *.log
-
+.output/
 # Misc
 .DS_Store
 .fleet
