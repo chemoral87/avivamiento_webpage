@@ -189,6 +189,7 @@
       <v-container fluid class="hero-section pa-0" style="margin-top: -70px;">
         <v-img
           src="/images/poster2.webp"
+          alt="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
           :height="heroHeight"
           cover
           :position="isMobile ? 'center center' : 'center center'"
@@ -212,7 +213,7 @@
           <v-col cols="12" md="5">
             <v-card elevation="0" class="text-center pa-4" style="border: 1px solid #e0e0e0;">
               <v-avatar size="180" class="mb-2">
-                <v-img src="/images/pastor_adrian.webp"></v-img>
+                <v-img src="/images/pastor_adrian.webp" alt="Pastor Adrian Aguirre"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular " style="color: #041845;">Adrian Aguirre</h3>
               <p class="text-body-2 text-grey mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Pastor Principal</p>
@@ -224,7 +225,7 @@
           <v-col cols="12" md="5">
             <v-card elevation="0" class="text-center pa-4" style="border: 1px solid #e0e0e0;">
               <v-avatar size="180" class="mb-2">
-                <v-img src="/images/pastora_sara.webp"></v-img>
+                <v-img src="/images/pastora_sara.webp" alt="Pastora Sara Aguirre"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular" style="color: #041845;">Sara Aguirre</h3>
               <p class="text-body-2 text-grey  mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Co-Pastora</p>
@@ -458,6 +459,7 @@
       style="position: fixed; bottom: 32px; right: 32px; z-index: 9999; box-shadow: 0 4px 16px rgba(0,0,0,0.2); width: 72px; height: 72px; min-width: 72px; min-height: 72px; border-radius: 50%;"
       :href="'https://wa.me/528111651800?text=Hola!%20Quiero%20más%20información%20sobre%20Avivamiento%20Monterrey'"
       target="_blank"
+      @click="trackWhatsAppClick"
     >
       <v-icon size="48">mdi-whatsapp</v-icon>
     </v-btn>
@@ -582,6 +584,25 @@ const scrollToSection = (sectionId) => {
       behavior: 'smooth'
     })
   }
+}
+
+// Función para rastrear eventos en Google Tag Manager
+const trackEvent = (eventName, eventParams = {}) => {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: eventName,
+      ...eventParams
+    })
+  }
+}
+
+// Rastrear click en WhatsApp
+const trackWhatsAppClick = () => {
+  trackEvent('whatsapp_click', {
+    event_category: 'engagement',
+    event_label: 'WhatsApp Contact Button',
+    value: 1
+  })
 }
 
 // Inicializar scrolled inmediatamente
