@@ -468,6 +468,86 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useDisplay } from 'vuetify'
 
+// SEO Meta tags - debe ejecutarse primero para SSR/prerender
+useHead({
+  title: 'Pastor Adrian Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca',
+  link: [
+    { rel: 'canonical', href: 'https://avivamientomonterrey.com/' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Church',
+            name: 'Iglesia Avivamiento Monterrey',
+            description: 'Iglesia cristiana evangélica dirigida por el Pastor Adrian Aguirre',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Av. Santo Domingo #215, Col. Mezquital',
+              addressLocality: 'Apodaca',
+              addressRegion: 'Nuevo León',
+              postalCode: '66648',
+              addressCountry: 'MX'
+            },
+            telephone: '+52-81-1165-1800',
+            email: 'elavivamientomonterrey@hotmail.com',
+            url: 'https://avivamientomonterrey.com',
+            sameAs: [
+              'https://www.facebook.com/IglesiaAvivamientoMonterrey',
+              'https://www.instagram.com/avivamientomonterrey/',
+              'https://www.tiktok.com/@avivamientomonterrey',
+              'https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1'
+            ],
+            openingHours: ['Su 11:00-13:00', 'We 20:00-22:00'],
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: '25.7729',
+              longitude: '-100.1868'
+            }
+          },
+          {
+            '@type': 'Person',
+            name: 'Adrian Aguirre',
+            jobTitle: 'Pastor Principal',
+            worksFor: {
+              '@type': 'Church',
+              name: 'Iglesia Avivamiento Monterrey'
+            }
+          },
+          {
+            '@type': 'Person',
+            name: 'Sara Aguirre',
+            jobTitle: 'Pastora',
+            worksFor: {
+              '@type': 'Church',
+              name: 'Iglesia Avivamiento Monterrey'
+            }
+          }
+        ]
+      })
+    }
+  ]
+})
+
+// useSeoMeta es más optimizado para SSR que meta en useHead
+useSeoMeta({
+  description: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM. ¡Te esperamos!',
+  keywords: 'Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León',
+  ogTitle: 'Pastor Adrian Aguirre | Avivamiento Monterrey',
+  ogDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',
+  ogUrl: 'https://avivamientomonterrey.com/',
+  ogImage: 'https://avivamientomonterrey.com/images/poster2.webp',
+  ogType: 'website',
+  ogLocale: 'es_MX',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Pastor Adrian Aguirre | Avivamiento Monterrey',
+  twitterDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',
+  twitterImage: 'https://avivamientomonterrey.com/images/poster2.webp'
+})
+
 const drawer = ref(false)
 const scrolled = ref(false)
 const { mobile, width, height } = useDisplay()
@@ -524,76 +604,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
-})
-
-useHead({
-  title: 'Pastor Adrian Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca',
-  meta: [
-    {
-      name: 'description',
-      content: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM. ¡Te esperamos!'
-    },
-    {
-      name: 'keywords',
-      content: 'Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León'
-    },
-    { property: 'og:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
-    { property: 'og:description', content: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre' },
-    { property: 'og:url', content: 'https://avivamientomonterrey.com/land' }
-  ],
-  link: [
-    { rel: 'canonical', href: 'https://avivamientomonterrey.com/land' }
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'Church',
-            name: 'Iglesia Avivamiento Monterrey',
-            description: 'Iglesia cristiana evangélica dirigida por el Pastor Adrian Aguirre',
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: 'Av. Santo Domingo #215, Col. Mezquital',
-              addressLocality: 'Apodaca',
-              addressRegion: 'Nuevo León',
-              postalCode: '66648',
-              addressCountry: 'MX'
-            },
-            telephone: '+52-81-1165-1800',
-            email: 'elavivamientomonterrey@hotmail.com',
-            url: 'https://avivamientomonterrey.com',
-            sameAs: [
-              'https://www.facebook.com/IglesiaAvivamientoMonterrey',
-              'https://www.instagram.com/avivamientomonterrey/',
-              'https://www.tiktok.com/@avivamientomonterrey',
-              'https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1'
-            ]
-          },
-          {
-            '@type': 'Person',
-            name: 'Adrian Aguirre',
-            jobTitle: 'Pastor Principal',
-            worksFor: {
-              '@type': 'Church',
-              name: 'Iglesia Avivamiento Monterrey'
-            }
-          },
-          {
-            '@type': 'Person',
-            name: 'Sara Aguirre',
-            jobTitle: 'Pastora',
-            worksFor: {
-              '@type': 'Church',
-              name: 'Iglesia Avivamiento Monterrey'
-            }
-          }
-        ]
-      })
-    }
-  ]
 })
 </script>
 
