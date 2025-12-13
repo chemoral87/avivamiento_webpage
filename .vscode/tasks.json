@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "rm -rf .nuxt .output node_modules/.vite node_modules/.cache",
       "windows": {
-        "command": "rmdir /s /q .nuxt .output 2>nul & rmdir /s /q node_modules\\.vite node_modules\\.cache 2>nul & echo Cache cleaned"
+        "command": "if exist .nuxt rmdir /s /q .nuxt & if exist .output rmdir /s /q .output & if exist node_modules\\.vite rmdir /s /q node_modules\\.vite & if exist node_modules\\.cache rmdir /s /q node_modules\\.cache & echo Cache cleaned"
       },
       "problemMatcher": [],
       "presentation": {

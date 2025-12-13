@@ -21,20 +21,20 @@ const props = defineProps({
 .logo-image {
   display: block;
   width: auto;
-  height: 35px; /* Default height */
+  height: 39px; /* Default height */
 }
 
 /* Tablet and below (iPad, small laptops) */
 @media (max-width: 768px) {
   .logo-image {
-    height: 32px !important;
+    height: 28px !important;
   }
 }
 
 /* Mobile landscape and small tablets */
 @media (max-width: 600px) {
   .logo-image {
-    height: 28px !important;
+    height: 26px !important;
   }
 }
 

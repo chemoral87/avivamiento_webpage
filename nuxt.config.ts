@@ -92,6 +92,12 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    server: {
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost',
+      },
+    },
     vue: {
       template: {
         transformAssetUrls,

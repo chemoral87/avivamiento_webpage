@@ -48,46 +48,7 @@
           Ubicación
         </v-btn>
         <v-divider vertical class="mx-2" style="border-color: rgba(255,255,255,0.3);"></v-divider>
-        <v-btn 
-          icon 
-          variant="text" 
-          href="https://www.facebook.com/IglesiaAvivamientoMonterrey" 
-          target="_blank"
-          size="default"
-          style="color: white;"
-        >
-          <v-icon size="24">mdi-facebook</v-icon>
-        </v-btn>
-        <v-btn 
-          icon 
-          variant="text" 
-          href="https://www.instagram.com/avivamientomonterrey/" 
-          target="_blank"
-        
-          style="color: white;"
-        >
-          <v-icon size="24">mdi-instagram</v-icon>
-        </v-btn>
-        <v-btn 
-          icon 
-          variant="text" 
-          href="https://www.tiktok.com/@avivamientomonterrey" 
-          target="_blank"
-         
-          style="color: white;"
-        >
-          <v-icon size="24">mdi-music-note</v-icon>
-        </v-btn>
-        <v-btn 
-          icon 
-          variant="text" 
-          href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1" 
-          target="_blank"
-         
-          style="color: white;"
-        >
-          <v-icon size="24">mdi-spotify</v-icon>
-        </v-btn>
+        <SocialMediaLinks variant="desktop" size="default"  />
         </div>
         
         <!-- Mobile Menu Button -->
@@ -136,46 +97,7 @@
           <v-list-item-title>Ubicación</v-list-item-title>
         </v-list-item>
         <v-divider class="my-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
-        <v-list-item
-          href="https://www.facebook.com/IglesiaAvivamientoMonterrey"
-          target="_blank"
-          style="color: white;"
-        >
-          <template v-slot:prepend>
-            <v-icon>mdi-facebook</v-icon>
-          </template>
-          <v-list-item-title>Facebook</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          href="https://www.instagram.com/avivamientomonterrey/"
-          target="_blank"
-          style="color: white;"
-        >
-          <template v-slot:prepend>
-            <v-icon>mdi-instagram</v-icon>
-          </template>
-          <v-list-item-title>Instagram</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          href="https://www.tiktok.com/@avivamientomonterrey"
-          target="_blank"
-          style="color: white;"
-        >
-          <template v-slot:prepend>
-            <v-icon>mdi-music-note</v-icon>
-          </template>
-          <v-list-item-title>TikTok</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1"
-          target="_blank"
-          style="color: white;"
-        >
-          <template v-slot:prepend>
-            <v-icon>mdi-spotify</v-icon>
-          </template>
-          <v-list-item-title>Spotify</v-list-item-title>
-        </v-list-item>
+        <SocialMediaLinks variant="mobile" />
       </v-list>
     </v-navigation-drawer>
 
