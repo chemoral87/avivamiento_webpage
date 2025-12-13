@@ -7,13 +7,7 @@
       height="70"
     >
       <v-container class="d-flex align-center">
-        <v-toolbar-title 
-          class="text-h6 font-weight-bold" 
-          style="color: white;"
-        >
-          AV MTY
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
+        <LogoTitle />
         
         <!-- Desktop Menu -->
         <div class="d-none d-sm-flex align-center">
