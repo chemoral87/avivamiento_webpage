@@ -1,121 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar 
-      app 
-      color="#041845"
-      elevation="1" 
-      height="70"
-    >
-      <v-container class="d-flex align-center">
-        <LogoTitle />
-
-        <!-- Desktop Menu -->
-        <div class="d-none d-sm-flex align-center">
-        <v-btn 
-          :to="'/land'" 
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white;"
-        >
-          Inicio
-        </v-btn>
-        <v-btn 
-          href="/ministerios" 
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white;"
-        >
-          Ministerios
-        </v-btn>
-        <v-btn 
-          @click="goToPage('/land#horarios')" 
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white; cursor: pointer;"
-        >
-          Horarios
-        </v-btn>
-        <v-btn 
-          @click="goToPage('/land#ubicacion')" 
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white; cursor: pointer;"
-        >
-          Ubicación
-        </v-btn>
-        <div class="mx-3"></div>
-        <SocialMediaLinks variant="desktop" size="default"  />
-        <div class="mx-3"></div>
-        <v-btn
-          @click="goToLogin"
-          variant="text"
-          class="mx-0 px-3 text-body-1"
-          style="text-transform: none; color: white;"
-        >
-          <v-icon left class="mr-1">mdi-account </v-icon>
-          Acceso
-        </v-btn>
-        </div>
-        
-        <!-- Mobile Menu Button -->
-        <v-btn 
-          icon 
-          variant="text"
-          class="d-sm-none"
-          style="color: white;"
-          @click="drawer = !drawer"
-        >
-          <v-icon>mdi-menu</v-icon>
-        </v-btn>
-      </v-container>
-    </v-app-bar>
+    <AppNavBar :menu-items="menuItems" @toggle-drawer="drawer = !drawer" />
 
     <!-- Mobile Navigation Drawer -->
-    <v-navigation-drawer
-      v-model="drawer"
-      temporary
-      location="right"
-      style="background-color: #041845;"
-    >
-      <v-list style="background-color: #041845;">
-        <v-list-item
-          :to="'/land'"
-          style="color: white;"
-        >
-          <v-list-item-title>Inicio</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          href="/ministerios"
-          style="color: white;"
-        >
-          <v-list-item-title>Ministerios</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          @click="goToSection('/land#horarios')"
-          style="color: white; cursor: pointer;"
-        >
-          <v-list-item-title>Horarios</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          @click="goToSection('/land#ubicacion')"
-          style="color: white; cursor: pointer;"
-        >
-          <v-list-item-title>Ubicación</v-list-item-title>
-        </v-list-item>
-        <v-divider class="" thickness="3" style="border-color: rgba(255,255,255,1);"></v-divider>
-        <SocialMediaLinks variant="mobile" />
-          <v-divider class="" thickness="3" style="border-color: rgba(255,255,255,1);"></v-divider>
-        <v-list-item
-          @click="goToLogin"
-          style="color: white; cursor: pointer;"
-        >
-          <template v-slot:prepend>
-            <v-icon class="mr-2">mdi-account</v-icon>
-          </template>
-          <v-list-item-title>Acceso</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <MobileNavDrawer v-model="drawer" :menu-items="menuItems" />
 
     <v-main class="bg-grey-lighten-4">
       <v-container class="py-16">
@@ -261,8 +149,16 @@
 import { ref } from 'vue'
 
 const drawer = ref(false)
+const router = useRouter()
 const runtimeConfig = useRuntimeConfig()
 const loginRoute = runtimeConfig.public.loginRoute
+
+const menuItems = [
+  { title: 'Inicio', to: '/' },
+  { title: 'Ministerios', to: '/ministerios' },
+  { title: 'Horarios', onClick: () => goToSection('/#horarios') },
+  { title: 'Ubicación', onClick: () => goToSection('/#ubicacion') },
+]
 
 const goToLogin = () => {
 
@@ -270,12 +166,12 @@ const goToLogin = () => {
 }
 
 const goToPage = (path) => {
-  navigateTo(path)
+  router.push(path)
 }
 
 const goToSection = (path) => {
   drawer.value = false
-  navigateTo(path)
+  router.push(path)
 }
 
 const shareOnWhatsApp = (eventName, description) => {

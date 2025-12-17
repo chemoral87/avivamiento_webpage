@@ -17,21 +17,13 @@ const lightTheme: ThemeDefinition = {
 
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
-    ssr: {
-      clientWidth: 1920,
-      clientHeight: 1080,
-    },
-    // En SSR, deshabilitar completamente el theme para evitar CSS inline
-    ...(import.meta.server ? {
-      theme: false as any,
-    } : {
-      theme: {
-        defaultTheme: 'light',
-        themes: {
-          light: lightTheme,
-        },
+    ssr: true,
+    theme: {
+      defaultTheme: 'light',
+      themes: {
+        light: lightTheme,
       },
-    }),
+    },
   })
   app.vueApp.use(vuetify)
 })

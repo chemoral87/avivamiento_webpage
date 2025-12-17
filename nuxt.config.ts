@@ -252,12 +252,7 @@ export default defineNuxtConfig({
         'cache-control': 'public, max-age=3600, s-maxage=3600'
       }
     },
-    '/land': { 
-      prerender: true,
-      headers: {
-        'cache-control': 'public, max-age=3600, s-maxage=3600'
-      }
-    },
+
     '/calendar': { 
       swr: 3600,
     },
