@@ -91,7 +91,7 @@ avivamiento_webpage/
 Edita el archivo `app.vue` y busca las siguientes secciones:
 
 1. **Teléfono:** Busca `+52 (81) 1234-5678`
-2. **Email:** Busca `info@avivamientomty.com`
+2. **Email:** Busca `elavivamientomonterrey@hotmail.com`
 3. **Dirección:** Actualiza la ubicación en la sección de Google Maps
 
 ### Actualizar Google Maps

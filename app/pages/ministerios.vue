@@ -7,7 +7,7 @@
 
     <v-main class="bg-grey-lighten-4">
       <!-- Header Section -->
-      <v-container class="py-16">
+      <v-container class="py-4">
         <v-row justify="center">
           <v-col cols="12" md="10" lg="8" class="text-center">
             <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">ÚNETE A NOSOTROS</p>

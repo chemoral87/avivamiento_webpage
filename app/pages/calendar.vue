@@ -6,7 +6,13 @@
     <MobileNavDrawer v-model="drawer" :menu-items="menuItems" />
 
     <v-main class="bg-grey-lighten-4">
-      <v-container class="py-16">
+      <v-container class="py-4">
+        <v-row justify="center">
+          <v-col cols="12" md="10" lg="8" class="text-center">
+            <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">ACOMPAÑANOS</p>
+            <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Eventos</h1>
+          </v-col>
+        </v-row>
         <v-row justify="center">
           <v-col cols="12" md="6" lg="5">
             <v-card elevation="0" class="event-card" style="border: 1px solid #e0e0e0; height: 100%;">
