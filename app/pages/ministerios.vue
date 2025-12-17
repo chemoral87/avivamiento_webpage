@@ -51,8 +51,18 @@
           >
             Ubicación
           </v-btn>
-          <v-divider vertical class="mx-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
+          <div class="mx-3"></div>
           <SocialMediaLinks variant="desktop" size="default"  />
+          <div class="mx-3"></div>
+          <v-btn
+            @click="goToLogin"
+            variant="text"
+            class="mx-0 px-3 text-body-1"
+            style="text-transform: none; color: white;"
+          >
+            <v-icon left class="mr-1">mdi-account </v-icon>
+            Acceso
+          </v-btn>
         </div>
         
         <!-- Mobile Menu Button -->
@@ -106,8 +116,17 @@
         >
           <v-list-item-title>Ubicación</v-list-item-title>
         </v-list-item>
-        <v-divider class="my-4" style="border-color: rgba(255,255,255,0.3);"></v-divider>
+        <v-divider class="my-4" thickness="2" style="border-color: rgba(255,255,255,0.6);"></v-divider>
         <SocialMediaLinks variant="mobile" />
+        <v-list-item
+          @click="goToLogin"
+          style="color: white; cursor: pointer;"
+        >
+          <template v-slot:prepend>
+            <v-icon class="mr-2">mdi-account</v-icon>
+          </template>
+          <v-list-item-title>Acceso</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -301,6 +320,12 @@
 import { ref } from 'vue'
 
 const drawer = ref(false)
+const runtimeConfig = useRuntimeConfig()
+const loginRoute = runtimeConfig.public.loginRoute
+
+const goToLogin = () => {
+  window.open(loginRoute, '_self')
+}
 
 const goToPage = (path) => {
   navigateTo(path)
