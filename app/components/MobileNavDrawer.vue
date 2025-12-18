@@ -4,7 +4,7 @@
     @update:model-value="$emit('update:modelValue', $event)"
     temporary
     location="right"
-    style="background-color: #041845;"
+    style="background-color: #041845; max-width: 210px;"
     
   >
     <v-list  style="background-color: #041845;">

@@ -5,7 +5,7 @@
       <v-btn 
         icon 
         variant="text" 
-        href="https://www.facebook.com/IglesiaAvivamientoMonterrey" 
+        :href="SOCIAL_MEDIA.facebook" 
         target="_blank"
         :size="size"
         density="compact"
@@ -17,7 +17,7 @@
       <v-btn 
         icon 
         variant="text" 
-        href="https://www.instagram.com/avivamientomonterrey/" 
+        :href="SOCIAL_MEDIA.instagram" 
         target="_blank"
         :size="size"
         density="compact"
@@ -29,7 +29,7 @@
       <v-btn 
         icon 
         variant="text" 
-        href="https://www.tiktok.com/@avivamientomonterrey" 
+        :href="SOCIAL_MEDIA.tiktok" 
         target="_blank"
         :size="size"
         density="compact"
@@ -41,7 +41,7 @@
       <v-btn 
         icon 
         variant="text" 
-        href="https://www.youtube.com/@AvivamientoMonterreyOficial" 
+        :href="SOCIAL_MEDIA.youtube" 
         target="_blank"
         :size="size"
         density="compact"
@@ -53,7 +53,7 @@
       <v-btn 
         icon 
         variant="text" 
-        href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1" 
+        :href="SOCIAL_MEDIA.spotify" 
         target="_blank"
         :size="size"
         density="compact"
@@ -67,7 +67,7 @@
     <!-- Mobile Social Links (for drawer) -->
     <template v-else-if="variant === 'mobile'">
       <v-list-item
-        href="https://www.facebook.com/IglesiaAvivamientoMonterrey"
+        :href="SOCIAL_MEDIA.facebook"
         target="_blank"
         style="color: white;"
       >
@@ -77,7 +77,7 @@
         <v-list-item-title>Facebook</v-list-item-title>
       </v-list-item>
       <v-list-item
-        href="https://www.instagram.com/avivamientomonterrey/"
+        :href="SOCIAL_MEDIA.instagram"
         target="_blank"
         style="color: white;"
       >
@@ -87,7 +87,7 @@
         <v-list-item-title>Instagram</v-list-item-title>
       </v-list-item>
       <v-list-item
-        href="https://www.tiktok.com/@avivamientomonterrey"
+        :href="SOCIAL_MEDIA.tiktok"
         target="_blank"
         style="color: white;"
       >
@@ -97,7 +97,7 @@
         <v-list-item-title>TikTok</v-list-item-title>
       </v-list-item>
       <v-list-item
-        href="https://www.youtube.com/@AvivamientoMonterreyOficial"
+        :href="SOCIAL_MEDIA.youtube"
         target="_blank"
         style="color: white;"
       >
@@ -107,7 +107,7 @@
         <v-list-item-title>YouTube</v-list-item-title>
       </v-list-item>
       <v-list-item
-        href="https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1"
+        :href="SOCIAL_MEDIA.spotify"
         target="_blank"
         style="color: white;"
       >
@@ -121,6 +121,8 @@
 </template>
 
 <script setup>
+import { SOCIAL_MEDIA } from '~/constants/social-media'
+
 const props = defineProps({
   variant: {
     type: String,
