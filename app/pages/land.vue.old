@@ -135,7 +135,7 @@
           <v-row>
             <v-col cols="12" class="text-center">
               <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">REUNIONES</p>
-              <h2 class="text-h3 font-weight-light " style="color: #041845;">Horarios de Culto</h2>
+              <h2 class="text-h3 font-weight-light " style="color: #041845;">Horarios de Servicio</h2>
             </v-col>
           </v-row>
           <v-row justify="center">

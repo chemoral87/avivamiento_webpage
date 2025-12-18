@@ -12,7 +12,7 @@
       <LogoTitle />
       
       <!-- Desktop Menu -->
-      <div class="d-none d-sm-flex align-center">
+      <div class="d-none d-md-flex align-center">
         <v-btn 
           v-for="(item, index) in menuItems"
           :key="index"
@@ -44,7 +44,7 @@
       <v-btn 
         icon 
         variant="text"
-        class="d-sm-none"
+        class="d-md-none"
         style="color: white;"
         @click="$emit('toggle-drawer')"
       >

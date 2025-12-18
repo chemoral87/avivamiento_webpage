@@ -15,13 +15,13 @@
 
     <v-main class="pa-0">
       <!-- Hero Section -->
-      <v-container fluid class="hero-section pa-0" style="margin-top: -70px;">
+      <v-container fluid class="hero-section pa-0" >
         <v-img
-          src="/images/poster2.webp"
+          src="/images/banner_01.jpg"
           alt="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
           :height="heroHeight"
           cover
-          :position="isMobile ? 'center center' : 'center center'"
+            
         > 
         </v-img>
         <!-- Debug info -->
@@ -31,35 +31,35 @@
       </v-container>
 
       <!-- Pastores Section -->
-      <v-container class="py-4">
+      <v-container fluid class="py-4 parallax-bg">
         <v-row>
           <v-col cols="12" class="text-center mb-1">
             <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">LIDERAZGO</p>
             <h2 class="text-h3 font-weight-light" style="color: #041845;">Nuestros Pastores</h2>
           </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <v-card elevation="0" class="text-center pa-4" style="border: 1px solid #e0e0e0;">
+        <v-row justify="center" id="pastors">
+          <v-col cols="12" sm="5" md="5" class="d-flex">
+            <v-card elevation="0" class="text-center pa-4 h-100 d-flex flex-column align-center" style="border: 1px solid #e0e0e0;">
               <v-avatar size="180" class="mb-2">
                 <v-img src="/images/pastor_adrian.webp" alt="Pastor Adrian Aguirre"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular " style="color: #041845;">Adrian Aguirre</h3>
               <p class="text-body-2 text-grey mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Pastor Principal</p>
-              <p class="text-body-1" style="color: #555; line-height: 1.8;">
-                Sirviendo con pasión y dedicación en el ministerio, guiando a la congregación con amor y sabiduría.
+              <p class="text-body-1" style="color: #555; line-height: 1.2;">
+                Desde joven, el Pastor Adrián Aguirre respondió al llamado de Dios como evangelista. Hoy, con más de dos décadas de ministerio, pastorea junto a su esposa Sara Aguirre la Iglesia Avivamiento Monterrey en Nuevo León, México.
               </p>
             </v-card>
           </v-col>
-          <v-col cols="12" md="5">
-            <v-card elevation="0" class="text-center pa-4" style="border: 1px solid #e0e0e0;">
+          <v-col cols="12" sm="5" md="5" class="d-flex">
+            <v-card elevation="0" class="text-center pa-4 h-100 d-flex flex-column align-center" style="border: 1px solid #e0e0e0;">
               <v-avatar size="180" class="mb-2">
                 <v-img src="/images/pastora_sara.webp" alt="Pastora Sara Aguirre"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular" style="color: #041845;">Sara Aguirre</h3>
-              <p class="text-body-2 text-grey  mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Co-Pastora</p>
-              <p class="text-body-1" style="color: #555; line-height: 1.8;">
-                Comprometida con el cuidado y edificación de las familias, ministrando con gracia y compasión.
+              <p class="text-body-2 text-grey  mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Pastora Principal</p>
+              <p class="text-body-1" style="color: #555; line-height: 1.2;">
+                Bajo su liderazgo, el Espíritu Santo ha traído restauración a familias y salvación a miles de personas, demostrando que el poder del evangelismo sigue encendiendo corazones.
               </p>
             </v-card>
           </v-col>
@@ -72,7 +72,7 @@
           <v-row>
             <v-col cols="12" class="text-center">
               <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">REUNIONES</p>
-              <h2 class="text-h3 font-weight-light " style="color: #041845;">Horarios de Culto</h2>
+              <h2 class="text-h3 font-weight-light " style="color: #041845;">Horarios de Servicio</h2>
             </v-col>
           </v-row>
           <v-row justify="center">
@@ -398,18 +398,20 @@ const scrolled = ref(false)
 const { mobile, width, height } = useDisplay()
 const isMobile = computed(() => mobile.value)
 
-// Altura dinámica basada en la proporción de la pantalla
+// Altura dinámica basada en el ancho de la pantalla
 const heroHeight = computed(() => {
-  if (!isMobile.value) return 'calc(100vh + 70px)'
-  // Calcular aspect ratio (ancho/alto)
-  const aspectRatio = width.value / height.value
-  // 360x880 = 0.41 | 360x800 = 0.45 | 320x568 = 0.56
-  // Mientras más bajo el ratio (más alargada la pantalla), menor altura
-  if (aspectRatio <= 0.43) return '40vh'  // Galaxy Z Flip y similares
-  if (aspectRatio <= 0.5) return '45vh'   // 360x800
-  if (aspectRatio <= 0.7) return '55vh'
-  return '65vh'                           // 320x568 y más cuadradas
+  //if (!isMobile.value) return 'calc(100vh + 70px)'
+  
+  // Definir alturas específicas por breakpoint en píxeles
+  if (width.value <= 320) return '180px'   // Mobile Small - 320px
+  if (width.value <= 375) return '210px'   // Mobile Medium - 375px
+   if (width.value <= 425) return '220px'   // Mobile Large - 425px
+   if (width.value <= 768) return '230px'   // Tablet - 768px
+   if (width.value <= 1024) return '280px'  // Desktop Small - 1024px
+  
+  return '380px'                           // Fallback
 })
+
 
 const handleScroll = () => {
   scrolled.value = window.scrollY > 100
@@ -474,6 +476,41 @@ onUnmounted(() => {
 <style scoped>
 .hero-section {
   position: relative;
+}
+
+.parallax-bg {
+  background-image: url('/images/banner_02.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  min-height: 600px;
+  padding: 40px 0;
+}
+
+.parallax-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 0;
+}
+
+.parallax-bg .v-col {
+  position: relative;
+  z-index: 1;
+}
+
+/* Desactivar parallax en móviles */
+@media (max-width: 768px) {
+  .parallax-bg {
+    background-attachment: scroll;
+    min-height: auto;
+  }
 }
 
 .navbar-transition {

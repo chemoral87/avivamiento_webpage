@@ -58,7 +58,7 @@ npm run preview
 - **Teléfono:** +52 (81) 1234-5678
 - **Email:** info@avivamientomty.com
 
-### Horarios de Culto
+### Horarios de Servicio
 
 - **Domingo:** 10:00 AM - Culto General
 - **Miércoles:** 7:00 PM - Reunión de Oración

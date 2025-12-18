@@ -21,27 +21,42 @@ const props = defineProps({
 .logo-image {
   display: block;
   width: auto;
-  height: 39px; /* Default height */
+  height: 30px; /* Default height */
 }
 
-/* Tablet and below (iPad, small laptops) */
-@media (max-width: 768px) {
+/* Desktop - 1024px and below */
+@media (max-width: 1025px) {
   .logo-image {
     height: 28px !important;
   }
 }
 
-/* Mobile landscape and small tablets */
-@media (max-width: 600px) {
+/* Tablet - 768px and below */
+@media (max-width: 769px) {
   .logo-image {
     height: 26px !important;
   }
 }
 
-/* Small mobile devices */
-@media (max-width: 360px) {
+/* Mobile Large - 426px to 425px */
+@media (max-width: 426px)  {
   .logo-image {
-    height: 26px !important;
+    height: 24px !important;
+  }
+}
+
+/* Mobile Medium - 375px to 321px */
+@media (max-width: 376px)  {
+  .logo-image {
+    height: 22px !important;
+  }
+}
+
+/* Mobile Small - 320px and below */
+@media (max-width: 321px) {
+  .logo-image {
+    height: 20px !important;
   }
 }
 </style>
+
