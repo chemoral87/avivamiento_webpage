@@ -16,7 +16,7 @@
       <!-- Hero Section -->
       <v-container fluid class="hero-section pa-0">
         <v-img
-          src="/images/banner_01.jpg"
+          src="/images/banner_01.webp"
           alt="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
           :height="heroHeight"
           cover
@@ -684,7 +684,7 @@ onUnmounted(() => {
 
 /* Parallax Backgrounds */
 .parallax-bg {
-  background-image: url('/images/banner_02.jpg');
+  background-image: url('/images/banner_02.webp');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -711,7 +711,7 @@ onUnmounted(() => {
 }
 
 .ubicacion-bg {
-  background-image: url('/images/banner_03.jpg');
+  background-image: url('/images/banner_03.webp');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -737,7 +737,7 @@ onUnmounted(() => {
 }
 
 .contacto-bg {
-  background-image: url('/images/banner_04.jpg');
+  background-image: url('/images/banner_04.webp');
   background-attachment: scroll;
   background-position: center;
   background-repeat: no-repeat;
