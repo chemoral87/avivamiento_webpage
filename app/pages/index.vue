@@ -30,35 +30,37 @@
         </div> -->
       </v-container>
 
-      <!-- Pastores Section -->
-      <v-container fluid class="py-4 parallax-bg">
-        <v-row>
-          <v-col cols="12" class="text-center mb-1">
-            <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">LIDERAZGO</p>
-            <h2 class="text-h3 font-weight-light" style="color: #041845;">Nuestros Pastores</h2>
-          </v-col>
-        </v-row>
+      <!-- Parallax Background Section -->
+      <div class="parallax-bg">
+        <!-- Pastores Section -->
+        <v-container fluid class="py-4">
+          <v-row>
+            <v-col cols="12" class="text-center mb-1">
+              <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">LIDERAZGO</p>
+              <h2 class="text-h3 font-weight-light" style="color: #041845;">Nuestros Pastores</h2>
+            </v-col>
+          </v-row>
         <v-row justify="center" id="pastors">
           <v-col cols="12" sm="5" md="5" class="d-flex">
-            <v-card elevation="0" class="text-center pa-4 h-100 d-flex flex-column align-center" style="border: 1px solid #e0e0e0;">
+            <v-card elevation="0" class="text-center pa-4 h-100 d-flex flex-column align-center pastor-card">
               <v-avatar size="180" class="mb-2">
                 <v-img src="/images/pastor_adrian.webp" alt="Pastor Adrian Aguirre"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular " style="color: #041845;">Adrian Aguirre</h3>
               <p class="text-body-2 text-grey mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Pastor Principal</p>
-              <p class="text-body-1" style="color: #555; line-height: 1.2;">
+              <p class="text-body-1 pastor-description">
                 Desde joven, el Pastor Adrián Aguirre respondió al llamado de Dios como evangelista. Hoy, con más de dos décadas de ministerio, pastorea junto a su esposa Sara Aguirre la Iglesia Avivamiento Monterrey en Nuevo León, México.
               </p>
             </v-card>
           </v-col>
           <v-col cols="12" sm="5" md="5" class="d-flex">
-            <v-card elevation="0" class="text-center pa-4 h-100 d-flex flex-column align-center" style="border: 1px solid #e0e0e0;">
+            <v-card elevation="0" class="text-center pa-4 h-100 d-flex flex-column align-center pastor-card">
               <v-avatar size="180" class="mb-2">
                 <v-img src="/images/pastora_sara.webp" alt="Pastora Sara Aguirre"></v-img>
               </v-avatar>
               <h3 class="text-h5 font-weight-regular" style="color: #041845;">Sara Aguirre</h3>
               <p class="text-body-2 text-grey  mb-2" style="text-transform: uppercase; letter-spacing: 1px;">Pastora Principal</p>
-              <p class="text-body-1" style="color: #555; line-height: 1.2;">
+              <p class="text-body-1 pastor-description">
                 Bajo su liderazgo, el Espíritu Santo ha traído restauración a familias y salvación a miles de personas, demostrando que el poder del evangelismo sigue encendiendo corazones.
               </p>
             </v-card>
@@ -67,7 +69,7 @@
       </v-container>
 
       <!-- Horarios Section -->
-      <v-container fluid id="horarios" class="py-4" style="background-color: #f8f9fa;">
+      <v-container fluid id="horarios" class="py-4">
         <v-container>
           <v-row>
             <v-col cols="12" class="text-center">
@@ -94,6 +96,7 @@
           </v-row>
         </v-container>
       </v-container>
+      </div>
 
       <!-- Ubicación y Mapa Section -->
       <v-container id="ubicacion" class="py-4">
@@ -478,6 +481,16 @@ onUnmounted(() => {
   position: relative;
 }
 
+.pastor-card {
+  border: 1px solid #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.pastor-description {
+  color: #333333;
+  line-height: 1.2;
+}
+
 .parallax-bg {
   background-image: url('/images/banner_02.jpg');
   background-attachment: fixed;
@@ -489,16 +502,16 @@ onUnmounted(() => {
   padding: 40px 0;
 }
 
-.parallax-bg::before {
+/* .parallax-bg::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
   z-index: 0;
-}
+} */
 
 .parallax-bg .v-col {
   position: relative;
