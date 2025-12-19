@@ -302,7 +302,7 @@
             <v-row>
               <v-col cols="12" class="text-center">
                 <p class="footer-copyright">
-                  © {{ new Date().getFullYear() }} Avivamiento Monterrey - Todos los derechos reservados v.1.0.4
+                  © {{ new Date().getFullYear() }} Avivamiento Monterrey - Todos los derechos reservados v{{ appVersion }}
                 </p>
               </v-col>
             </v-row>
@@ -318,7 +318,9 @@
 import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 import { useDisplay } from 'vuetify'
 import { SOCIAL_MEDIA } from '~/constants/social-media'
+import packageJson from '~/package.json'
 
+const appVersion = packageJson.version
 const drawer = ref(false)
 const scrolled = ref(false)
 const isReady = ref(false)
