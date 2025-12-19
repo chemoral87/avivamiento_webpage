@@ -33,7 +33,8 @@
         class="parallax-bg"
         :style="{
           backgroundColor: '#d2d9d7',
-          backgroundSize: mobile ? '150% auto' : '100% auto',
+          backgroundSize: mobile ? '150% auto' : '90% auto',
+          backgroundPositionY: mobile ? `${parallaxOffset + 130}px` : 'center'  ,
         }"
       >
         <!-- Pastores Section -->
@@ -324,6 +325,7 @@ const appVersion = packageJson.version
 const drawer = ref(false)
 const scrolled = ref(false)
 const isReady = ref(false)
+const scrollPosition = ref(0)
 const { mobile, width } = useDisplay()
 
 const runtimeConfig = useRuntimeConfig()
@@ -474,9 +476,15 @@ const contactoBgSize = computed(() => {
   }
 })
 
+const parallaxOffset = computed(() => {
+  // Parallax effect: move background slower than scroll
+  return scrollPosition.value * 0.8
+})
+
 // Methods
 const handleScroll = () => {
   scrolled.value = window.scrollY > 100
+  scrollPosition.value = window.scrollY
 }
 
 const scrollToSection = (sectionId) => {
