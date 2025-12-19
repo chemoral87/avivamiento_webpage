@@ -183,7 +183,7 @@
         class="contacto-bg"
         :style="{
       backgroundColor: 'rgba(0, 0, 0, 0.2)',
-          backgroundSize: `100% auto `,
+                  backgroundSize: mobile ? '270% auto' : '100% auto',
         }"
       >
         <v-container fluid id="contacto" class="py-4">
@@ -296,7 +296,7 @@
             <v-row>
               <v-col cols="12" class="text-center">
                 <p class="footer-copyright">
-                  © {{ new Date().getFullYear() }} Avivamiento Monterrey - Todos los derechos reservados v.1.0.3
+                  © {{ new Date().getFullYear() }} Avivamiento Monterrey - Todos los derechos reservados v.1.0.4
                 </p>
               </v-col>
             </v-row>
@@ -808,7 +808,7 @@ onUnmounted(() => {
 }
 
 .contacto-bg {
-  background-color: #000000;
+  background-color: #000000 !important;
   background-image: url('/images/banner_04.webp');
   background-attachment: scroll;
   background-position: top center;
