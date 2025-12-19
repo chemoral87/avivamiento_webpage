@@ -29,13 +29,7 @@
       </v-container>
 
       <!-- Parallax Background Section -->
-      <div 
-        class="parallax-bg"
-        :style="{
-       
-          backgroundSize: mobile ? '120% auto' : '100% auto',
-        }"
-      >
+      <div class="parallax-bg">
         <!-- Pastores Section -->
         <v-container fluid class="py-0">
           <v-row>
@@ -752,14 +746,14 @@ onUnmounted(() => {
 .parallax-bg {
   background-color: #d2d9d7 !important;
   background-image: url('/images/banner_02.webp');
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: center center;
   background-repeat: no-repeat;
-  /* background-size: cover; */
+  background-size: cover;
   position: relative;
-  /* min-height: 600px; */
   padding: 20px 0;
 }
+
 
 .parallax-bg::before {
   content: '';
@@ -778,13 +772,18 @@ onUnmounted(() => {
 }
 
 .ubicacion-bg {
-  
   background-image: url('/images/banner_03.webp');
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: center center;
   background-repeat: no-repeat;
-
+  background-size: cover;
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  .ubicacion-bg {
+    background-attachment: fixed;
+  }
 }
 
 .ubicacion-bg::before {
