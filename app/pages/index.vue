@@ -33,8 +33,8 @@
         class="parallax-bg"
         :style="{
           backgroundColor: '#d2d9d7',
-          backgroundSize: mobile ? '150% auto' : '90% auto',
-          backgroundPositionY: mobile ? `${parallaxOffset + 130}px` : 'center'  ,
+          backgroundSize: parallaxBgSize,
+          backgroundPositionY: parallaxBgPositionY,
         }"
       >
         <!-- Pastores Section -->
@@ -478,12 +478,40 @@ const contactoBgSize = computed(() => {
 
 const parallaxOffset = computed(() => {
   // Parallax effect: move background slower than scroll
-  return scrollPosition.value * 0.8
+  return scrollPosition.value * 0.88
+})
+
+const parallaxBgSize = computed(() => {
+  if (!width.value) return '160% auto'
+  
+  const currentWidth = width.value
+  
+  // Linear interpolation from 150% at 320px to 100% at 800px
+  if (currentWidth <= 320) {
+    return '160% auto'
+  } else if (currentWidth >= 800) {
+    return '100% auto'
+  } else {
+    // Linear interpolation between 320px and 800px
+    const percentage = 150 - ((currentWidth - 320) * 50 / 480)
+    return `${Math.round(percentage)}% auto`
+  }
+})
+
+const parallaxBgPositionY = computed(() => {
+  if (!width.value) return 'center'
+  
+  // Use center for widths >= 800px, parallax offset for smaller screens
+  if (width.value >= 800) {
+    return 'center'
+  } else {
+    return `${parallaxOffset.value}px`
+  }
 })
 
 // Methods
 const handleScroll = () => {
-  scrolled.value = window.scrollY > 100
+  scrolled.value = window.scrollY > 60
   scrollPosition.value = window.scrollY
 }
 
@@ -503,7 +531,7 @@ const scrollToSection = (sectionId) => {
 
 // Lifecycle
 if (typeof window !== 'undefined') {
-  scrolled.value = window.scrollY > 100
+  scrolled.value = window.scrollY > 60
 }
 
 onMounted(async () => {
