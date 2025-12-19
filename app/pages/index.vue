@@ -12,7 +12,7 @@
 
     <MobileNavDrawer v-model="drawer" :menu-items="menuItems" />
 
-    <v-main class="pa-0">
+    <v-main class="pa-0" :class="{ 'content-ready': isReady }">
       <!-- Hero Section -->
       <v-container fluid class="hero-section pa-0">
         <div
@@ -20,7 +20,7 @@
           :style="{ 
             height: heroHeight,
             backgroundSize: `100% ${heroBgHeight}`,
-   
+            '--hero-bg-height': heroBgHeight
           }"
           role="img"
           aria-label="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
@@ -307,12 +307,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 import { useDisplay } from 'vuetify'
 import { SOCIAL_MEDIA } from '~/constants/social-media'
 
 const drawer = ref(false)
 const scrolled = ref(false)
+const isReady = ref(false)
 const { mobile, width } = useDisplay()
 
 const runtimeConfig = useRuntimeConfig()
@@ -414,8 +415,12 @@ const heroHeight = computed(() => {
 })
 
 const heroBgHeight = computed(() => {
+  // Wait until component is ready and width is available
+  if (!isReady.value || !width.value) {
+    return '300px' // Default value during SSR/initial render
+  }
   const height = Math.round((125 / 959) * (width.value - 321) + 145)
-    return `${height}px`
+  return `${height}px`
 })
 
 // Methods
@@ -459,16 +464,29 @@ if (typeof window !== 'undefined') {
   scrolled.value = window.scrollY > 100
 }
 
-onMounted(() => {
-  handleScroll()
-  window.addEventListener('scroll', handleScroll)
+onMounted(async () => {
+  // Wait for next tick to ensure DOM is fully rendered
+  await nextTick()
   
-  if (window.location.hash) {
-    setTimeout(() => {
-      const sectionId = window.location.hash.substring(1)
-      scrollToSection(sectionId)
-    }, 100)
+  // Wait for width to be available before showing content
+  const checkWidth = () => {
+    if (width.value) {
+      isReady.value = true
+      handleScroll()
+      window.addEventListener('scroll', handleScroll)
+      
+      if (window.location.hash) {
+        setTimeout(() => {
+          const sectionId = window.location.hash.substring(1)
+          scrollToSection(sectionId)
+        }, 100)
+      }
+    } else {
+      requestAnimationFrame(checkWidth)
+    }
   }
+  
+  checkWidth()
 })
 
 onUnmounted(() => {
@@ -485,6 +503,8 @@ onUnmounted(() => {
 .hero-banner {
   background-image: url('/images/banner_01.webp');
   background-repeat: no-repeat;
+  transition: background-size 0.2s ease-out;
+  will-change: background-size;
 }
 
 /* Section Headers */
@@ -816,6 +836,15 @@ onUnmounted(() => {
   background: transparent;
   overflow-x: hidden;
   max-width: 100vw;
+}
+
+:deep(.v-main) {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+:deep(.v-main.content-ready) {
+  opacity: 1;
 }
 
 :deep(.v-container) {
