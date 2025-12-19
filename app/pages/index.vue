@@ -15,12 +15,17 @@
     <v-main class="pa-0">
       <!-- Hero Section -->
       <v-container fluid class="hero-section pa-0">
-        <v-img
-          src="/images/banner_01.webp"
-          alt="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
-          :height="heroHeight"
-          cover
-        />
+        <div
+          class="hero-banner"
+          :style="{ 
+            height: heroHeight,
+            backgroundSize: `100% ${heroBgHeight}`,
+   
+          }"
+          role="img"
+          aria-label="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
+        >
+        </div>
       </v-container>
 
       <!-- Parallax Background Section -->
@@ -296,7 +301,7 @@
       target="_blank"
       @click="trackWhatsAppClick"
     >
-      <v-icon size="48">mdi-whatsapp</v-icon>
+      <v-icon >mdi-whatsapp</v-icon>
     </v-btn>
   </v-app>
 </template>
@@ -404,13 +409,13 @@ useSeoMeta({
 const isMobile = computed(() => mobile.value)
 
 const heroHeight = computed(() => {
-  if (width.value <= 320) return '180px'
-  if (width.value <= 375) return '210px'
-  if (width.value <= 425) return '220px'
-  if (width.value <= 768) return '230px'
-  if (width.value <= 1024) return '280px'
-  if (width.value <= 1440) return '380px'
-  return '680px'
+   const height = Math.round((125 / 959) * (width.value - 321) + 145) - 30
+    return `${height}px`
+})
+
+const heroBgHeight = computed(() => {
+  const height = Math.round((125 / 959) * (width.value - 321) + 145)
+    return `${height}px`
 })
 
 // Methods
@@ -477,6 +482,11 @@ onUnmounted(() => {
   position: relative;
 }
 
+.hero-banner {
+  background-image: url('/images/banner_01.webp');
+  background-repeat: no-repeat;
+}
+
 /* Section Headers */
 .section-overline {
   color: #666;
@@ -525,6 +535,8 @@ onUnmounted(() => {
   color: #333;
   font-size: 1rem;
   line-height: 1.2;
+  text-align: justify;
+  text-indent: 2em;
 }
 
 /* Schedule Cards */
@@ -777,6 +789,10 @@ onUnmounted(() => {
   animation: whatsapp-fab-in 0.5s;
 }
 
+.whatsapp-fab :deep(.v-icon) {
+  font-size: 48px;
+}
+
 @keyframes whatsapp-fab-in {
   from {
     opacity: 0;
@@ -820,7 +836,7 @@ onUnmounted(() => {
     min-height: 54px;
   }
   
-  .whatsapp-fab .v-icon {
+  .whatsapp-fab :deep(.v-icon) {
     font-size: 32px;
   }
   

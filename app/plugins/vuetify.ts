@@ -23,8 +23,27 @@ export default defineNuxtPlugin((app) => {
       themes: {
         light: lightTheme,
       },
+      variations: false,
+      cspNonce: undefined,
+    },
+    defaults: {
+      global: {
+        ripple: false,
+      },
+      VSheet: {
+        color: 'white',
+      },
+      VCard: {
+        color: 'white',
+      },
     },
   })
   app.vueApp.use(vuetify)
+  
+  // Force light theme
+  if (typeof window !== 'undefined') {
+    document.documentElement.setAttribute('data-theme', 'light')
+    document.documentElement.style.colorScheme = 'light'
+  }
 })
 
