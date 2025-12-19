@@ -29,7 +29,13 @@
       </v-container>
 
       <!-- Parallax Background Section -->
-      <div class="parallax-bg">
+      <div 
+        class="parallax-bg"
+        :style="{
+       
+          backgroundSize: mobile ? '130% auto' : '100% auto',
+        }"
+      >
         <!-- Pastores Section -->
         <v-container fluid class="py-0">
           <v-row>
@@ -753,7 +759,7 @@ onUnmounted(() => {
 
 /* Parallax Backgrounds */
 .parallax-bg {
-  background-color: #ffffff;
+  background-color: #d2d9d7 !important;
   background-image: url('/images/banner_02.webp');
   background-attachment: fixed;
   background-position: center center;
