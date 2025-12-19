@@ -318,7 +318,7 @@
 import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 import { useDisplay } from 'vuetify'
 import { SOCIAL_MEDIA } from '~/constants/social-media'
-import packageJson from '~/package.json'
+import packageJson from '../../../package.json'
 
 const appVersion = packageJson.version
 const drawer = ref(false)
