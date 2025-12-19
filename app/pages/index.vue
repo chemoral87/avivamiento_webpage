@@ -103,7 +103,14 @@
       </div>
 
       <!-- Ubicación Section -->
-      <v-container id="ubicacion" class="py-4 ubicacion-bg">
+      <v-container 
+        id="ubicacion" 
+        class="py-4 ubicacion-bg"
+        :style="{
+          backgroundColor: '#f0f7f5',
+          backgroundSize: `100% auto`,
+        }"
+      >
         <v-row>
           <v-col cols="12" class="text-center">
             <p class="section-overline">ENCÚENTRANOS</p>
@@ -172,7 +179,13 @@
       </v-container>
 
       <!-- Contacto Section -->
-      <div class="contacto-bg">
+      <div 
+        class="contacto-bg"
+        :style="{
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          backgroundSize: ` auto 100%`,
+        }"
+      >
         <v-container fluid id="contacto" class="py-4">
           <v-container>
             <v-row justify="center">
@@ -283,7 +296,7 @@
             <v-row>
               <v-col cols="12" class="text-center">
                 <p class="footer-copyright">
-                  © {{ new Date().getFullYear() }} Avivamiento Monterrey - Todos los derechos reservados
+                  © {{ new Date().getFullYear() }} Avivamiento Monterrey - Todos los derechos reservados v.1.0.2
                 </p>
               </v-col>
             </v-row>
@@ -410,7 +423,7 @@ useSeoMeta({
 const isMobile = computed(() => mobile.value)
 
 const heroHeight = computed(() => {
-   const height = Math.round((125 / 959) * (width.value - 321) + 145) - 30
+   const height = Math.round((125 / 1159) * (width.value - 321) + 145) - 40
     return `${height}px`
 })
 
@@ -419,6 +432,30 @@ const heroBgHeight = computed(() => {
   if (!isReady.value || !width.value) {
     return '300px' // Default value during SSR/initial render
   }
+  //const height = Math.round((125 / 959) * (width.value - 321) + 145)
+  const height = Math.round((125 / 1159) * (width.value - 321) + 145)
+  return `${height}px`
+})
+
+const contactoHeight = computed(() => {
+
+  if(width.value < 321) {
+    return '500px'
+  }
+
+  const height = Math.round((125 / 959) * (width.value - 321) + 145) - 30
+  return `${height}px`
+})
+
+const contactoBgHeight = computed(() => {
+  // Wait until component is ready and width is available
+  if (!isReady.value || !width.value) {
+    return '300px' // Default value during SSR/initial render
+  }
+if(width.value < 321) {
+    return '500px'
+  }
+
   const height = Math.round((125 / 959) * (width.value - 321) + 145)
   return `${height}px`
 })
@@ -523,7 +560,7 @@ onUnmounted(() => {
 /* Pastor Cards */
 .pastor-card {
   border: 1px solid #e0e0e0;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.5) !important;
   text-align: center;
   padding: 16px;
   height: 100%;
@@ -562,7 +599,7 @@ onUnmounted(() => {
 /* Schedule Cards */
 .schedule-card {
   border: 1px solid #e0e0e0;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6) !important;
   text-align: center;
   padding: 12px;
   transition: transform 0.3s ease-in-out;
@@ -716,9 +753,10 @@ onUnmounted(() => {
 
 /* Parallax Backgrounds */
 .parallax-bg {
+  background-color: #ffffff;
   background-image: url('/images/banner_02.webp');
   background-attachment: fixed;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -743,11 +781,12 @@ onUnmounted(() => {
 }
 
 .ubicacion-bg {
+  
   background-image: url('/images/banner_03.webp');
   background-attachment: fixed;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+
   position: relative;
 }
 
@@ -758,7 +797,7 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, .4);
   z-index: 0;
 }
 
@@ -769,12 +808,14 @@ onUnmounted(() => {
 }
 
 .contacto-bg {
+  background-color: #000000;
   background-image: url('/images/banner_04.webp');
   background-attachment: scroll;
-  background-position: center;
+  background-position: top center;
   background-repeat: no-repeat;
-  background-size: cover;
   position: relative;
+  transition: background-size 0.2s ease-out;
+  will-change: background-size;
 }
 
 .contacto-bg::before {
