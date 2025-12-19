@@ -4,5 +4,5 @@
 # Incrementar versión automáticamente
 npm version patch --no-git-tag-version
 
-# Agregar package.json al commit
-git add package.json
+# Agregar archivos modificados al commit actual
+git add package.json package-lock.json
