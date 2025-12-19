@@ -33,7 +33,7 @@
         class="parallax-bg"
         :style="{
        
-          backgroundSize: mobile ? '130% auto' : '100% auto',
+          backgroundSize: mobile ? '120% auto' : '100% auto',
         }"
       >
         <!-- Pastores Section -->
@@ -188,8 +188,8 @@
       <div 
         class="contacto-bg"
         :style="{
-      backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                  backgroundSize: mobile ? '270% auto' : '100% auto',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          backgroundSize: contactoBgSize,
         }"
       >
         <v-container fluid id="contacto" class="py-4">
@@ -310,18 +310,7 @@
         </v-footer>
       </div>
     </v-main>
-
-    <!-- WhatsApp Floating Button -->
-    <v-btn
-      icon
-      color="green"
-      class="whatsapp-fab"
-      :href="'https://wa.me/528111651800?text=Hola!%20Quiero%20más%20información%20sobre%20Avivamiento%20Monterrey'"
-      target="_blank"
-      @click="trackWhatsAppClick"
-    >
-      <v-icon >mdi-whatsapp</v-icon>
-    </v-btn>
+    <WhatsAppButton />
   </v-app>
 </template>
 
@@ -466,6 +455,23 @@ if(width.value < 321) {
   return `${height}px`
 })
 
+const contactoBgSize = computed(() => {
+  if (!width.value) return '100% auto'
+  
+  const currentWidth = width.value
+  
+  // Gradual transition from 270% at 320px to 100% at 600px
+  if (currentWidth <= 320) {
+    return '270% auto'
+  } else if (currentWidth >= 600) {
+    return '100% auto'
+  } else {
+    // Linear interpolation between 320px and 600px
+    const percentage = 270 - ((currentWidth - 320) * 170 / 280)
+    return `${Math.round(percentage)}% auto`
+  }
+})
+
 // Methods
 const handleScroll = () => {
   scrolled.value = window.scrollY > 100
@@ -483,23 +489,6 @@ const scrollToSection = (sectionId) => {
       behavior: 'smooth'
     })
   }
-}
-
-const trackEvent = (eventName, eventParams = {}) => {
-  if (typeof window !== 'undefined' && window.dataLayer) {
-    window.dataLayer.push({
-      event: eventName,
-      ...eventParams
-    })
-  }
-}
-
-const trackWhatsAppClick = () => {
-  trackEvent('whatsapp_click', {
-    event_category: 'engagement',
-    event_label: 'WhatsApp Contact Button',
-    value: 1
-  })
 }
 
 // Lifecycle
@@ -764,9 +753,9 @@ onUnmounted(() => {
   background-attachment: fixed;
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+  /* background-size: cover; */
   position: relative;
-  min-height: 600px;
+  /* min-height: 600px; */
   padding: 20px 0;
 }
 
@@ -839,36 +828,6 @@ onUnmounted(() => {
 .contacto-bg .v-footer {
   position: relative;
   z-index: 1;
-}
-
-/* WhatsApp FAB */
-.whatsapp-fab {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 9999;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  width: 72px;
-  height: 72px;
-  min-width: 72px;
-  min-height: 72px;
-  border-radius: 50%;
-  animation: whatsapp-fab-in 0.5s;
-}
-
-.whatsapp-fab :deep(.v-icon) {
-  font-size: 48px;
-}
-
-@keyframes whatsapp-fab-in {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 /* Navbar Transition */

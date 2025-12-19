@@ -204,9 +204,20 @@ export default defineNuxtConfig({
               return 'vendor';
             }
           },
-          chunkFileNames: '_nuxt/[name]-[hash].js',
-          entryFileNames: '_nuxt/[name]-[hash].js',
-          assetFileNames: '_nuxt/[name]-[hash].[ext]',
+          chunkFileNames: (chunkInfo) => {
+            const timestamp = Date.now();
+            return `_nuxt/${chunkInfo.name}-${timestamp}-[hash].js`;
+          },
+          entryFileNames: (chunkInfo) => {
+            const timestamp = Date.now();
+            return `_nuxt/${chunkInfo.name}-${timestamp}-[hash].js`;
+          },
+          assetFileNames: (assetInfo) => {
+            const timestamp = Date.now();
+            const ext = assetInfo.name?.split('.').pop() || 'asset';
+            const name = assetInfo.name?.replace(/\.[^.]+$/, '') || 'asset';
+            return `_nuxt/${name}-${timestamp}-[hash].${ext}`;
+          },
         }
       },
       assetsInlineLimit: 4096,
