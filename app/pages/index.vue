@@ -481,6 +481,21 @@ const parallaxOffset = computed(() => {
   return scrollPosition.value * 0.88
 })
 
+// Smoothed parallax values (use requestAnimationFrame + lerp)
+const parallaxTarget = ref(0)
+const parallaxCurrent = ref(0)
+let parallaxRaf = null
+
+const updateParallaxTarget = () => {
+  parallaxTarget.value = scrollPosition.value * 0.88
+}
+
+const animateParallax = () => {
+  // Lerp towards target (adjust 0.12 for more/less smoothing)
+  parallaxCurrent.value += (parallaxTarget.value - parallaxCurrent.value) * 0.12
+  parallaxRaf = requestAnimationFrame(animateParallax)
+}
+
 const parallaxBgSize = computed(() => {
   if (!width.value) return '160% auto'
   
@@ -500,12 +515,13 @@ const parallaxBgSize = computed(() => {
 
 const parallaxBgPositionY = computed(() => {
   if (!width.value) return 'center'
-  
-  // Use center for widths >= 800px, parallax offset for smaller screens
+
+  // Use center for widths >= 800px
   if (width.value >= 800) {
     return 'center'
   } else {
-    return `${parallaxOffset.value}px`
+    // Return the smoothed current value
+    return `${Math.round(parallaxCurrent.value)}px`
   }
 })
 
@@ -513,6 +529,8 @@ const parallaxBgPositionY = computed(() => {
 const handleScroll = () => {
   scrolled.value = window.scrollY > 60
   scrollPosition.value = window.scrollY
+  // Update parallax target for smoothing
+  updateParallaxTarget()
 }
 
 const scrollToSection = (sectionId) => {
@@ -544,6 +562,9 @@ onMounted(async () => {
       isReady.value = true
       handleScroll()
       window.addEventListener('scroll', handleScroll)
+      // start parallax animation loop
+      updateParallaxTarget()
+      parallaxRaf = requestAnimationFrame(animateParallax)
       
       if (window.location.hash) {
         setTimeout(() => {
@@ -561,6 +582,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  if (parallaxRaf) cancelAnimationFrame(parallaxRaf)
 })
 </script>
 
@@ -575,6 +597,10 @@ onUnmounted(() => {
   background-repeat: no-repeat;
   transition: background-size 0.2s ease-out;
   will-change: background-size;
+}
+
+.parallax-bg {
+  will-change: background-position;
 }
 
 /* Section Headers */
