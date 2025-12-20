@@ -50,10 +50,10 @@
             <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
-                  <v-img src="/images/pastor_adrian.webp" alt="Pastor Adrian Aguirre" />
+                  <v-img src="/images/adrian.webp" alt="Pastor Adrian Aguirre" />
                 </v-avatar>
                 <h3 class="pastor-name">Adrian Aguirre</h3>
-                <p class="pastor-role">Pastor Principal</p>
+                <p class="pastor-role">Pastor</p>
                 <p class="pastor-description">
                   Desde joven, el Pastor Adrián Aguirre respondió al llamado de Dios como evangelista. 
                   Hoy, con más de dos décadas de ministerio, pastorea junto a su esposa Sara Aguirre 
@@ -65,10 +65,10 @@
             <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
-                  <v-img src="/images/pastora_sara.webp" alt="Pastora Sara Aguirre" />
+                  <v-img src="/images/sara.webp" alt="Pastora Sara Aguirre" />
                 </v-avatar>
                 <h3 class="pastor-name">Sara Aguirre</h3>
-                <p class="pastor-role">Pastora Principal</p>
+                <p class="pastor-role">Pastora</p>
                 <p class="pastor-description">
                   Bajo su liderazgo, el Espíritu Santo ha traído restauración a familias y salvación 
                   a miles de personas, demostrando que el poder del evangelismo sigue encendiendo corazones.
@@ -605,6 +605,17 @@ onUnmounted(() => {
 
 .pastor-card:hover {
   transform: translateY(-8px);
+}
+
+.pastor-card :deep(.v-avatar) {
+  background-color: transparent !important;
+}
+
+.pastor-card :deep(.v-img__img) {
+  object-fit: contain !important;
+  /* box-shadow: 10px 80px 220px rgba(0, 0, 0, 0.18);
+  border-radius: 50%; */
+  display: block;
 }
 
 .pastor-name {
