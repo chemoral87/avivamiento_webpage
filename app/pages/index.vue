@@ -169,17 +169,17 @@
             </div>
           </v-col>
           
-          <v-col cols="12" sm="6" md="6">
+          <v-col cols="11" sm="6" md="6">
             <v-card elevation="0" height="65%" class="map-card">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.758495!2d-100.26967182250972!3d25.746658632809236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662eb6f3a8a27ad%3A0xccd96829e38e7212!2sAVIVAMIENTO%20MONTERREY!5e0!3m2!1ses!2smx!4v1763651018410!5m2!1ses!2smx"
-                width="100%"
-                height="100%"
-                class="map-iframe"
-                allowfullscreen
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              />
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d898.4396237!2d-100.26967182250972!3d25.746658632809236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662eb6f3a8a27ad%3A0xccd96829e38e7212!2sAVIVAMIENTO%20MONTERREY!5e0!3m2!1ses!2smx!4v1763651018410!5m2!1ses!2smx&z=14"
+  width="100%"
+  height="100%"
+  class="map-iframe"
+  allowfullscreen
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"
+/>
             </v-card>
           </v-col>
         </v-row>
