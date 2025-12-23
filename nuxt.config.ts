@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  ssr: true,
+  ssr: false,
 
   runtimeConfig: {
     public: {
