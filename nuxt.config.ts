@@ -13,6 +13,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       loginRoute: process.env.NUXT_PUBLIC_LOGIN_ROUTE || '/login',
+      // Expose API_URL to the client/runtime. Prefer NUXT_PUBLIC_API_URL, fallback to API_URL
+      API_URL:  process.env.API_URL || '',
+      ORG_ID: process.env.ORG_ID || '',
     },
   },
 

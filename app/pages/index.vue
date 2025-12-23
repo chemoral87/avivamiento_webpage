@@ -333,6 +333,7 @@ const loginRoute = runtimeConfig.public.loginRoute
 
 const menuItems = [
   { title: 'Eventos', to: '/calendar' },
+  { title: 'Testimonios', to: '/testimonios' },
   { title: 'Ministerios', to: '/ministerios' },
   { title: 'Horarios', onClick: () => scrollToSection('horarios') },
   { title: 'Ubicación', onClick: () => scrollToSection('ubicacion') },

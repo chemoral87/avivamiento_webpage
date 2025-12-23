@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <AppNavBar :menu-items="menuItems" @toggle-drawer="drawer = !drawer" />
-
     <!-- Mobile Navigation Drawer -->
     <MobileNavDrawer v-model="drawer" :menu-items="menuItems" />
 
@@ -202,6 +201,8 @@ const loginRoute = runtimeConfig.public.loginRoute
 const menuItems = [
   { title: 'Inicio', to: '/' },
   { title: 'Eventos', to: '/calendar' },
+  { title: 'Testimonios', to: '/testimonios' },
+
   { title: 'Horarios', onClick: () => goToSection('/#horarios') },
   { title: 'Ubicación', onClick: () => goToSection('/#ubicacion') },
 ]
