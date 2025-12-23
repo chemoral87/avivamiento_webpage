@@ -86,7 +86,9 @@ export default defineNuxtConfig({
         config.plugins?.push(
           vuetify({
             autoImport: true,
-            styles: true,
+            styles: {
+              configFile: 'assets/styles/vuetify-settings.scss',
+            },
           })
         )
       })
@@ -134,6 +136,9 @@ export default defineNuxtConfig({
     css: {
       devSourcemap: false,
       preprocessorOptions: {},
+      postcss: {
+        plugins: []
+      }
     },
     
     build: {
@@ -256,126 +261,27 @@ export default defineNuxtConfig({
     quality: 80,
   },
 
-  // FIXED PURGECSS CONFIGURATION
+  // POSTCSS CONFIGURATION - Optimized for Vuetify
   postcss: {
     plugins: {
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? {
-        '@fullhuman/postcss-purgecss': {
-          content: [
-            './app/**/*.{vue,js,ts}',
-            './pages/**/*.{vue,js,ts}',
-            './components/**/*.{vue,js,ts}',
-            './layouts/**/*.{vue,js,ts}',
-            './plugins/**/*.{js,ts}',
-            './nuxt.config.{js,ts}',
-          ],
-          safelist: {
-            standard: [
-              // Core Vuetify
-              /^v-/,
-              /^theme--/,
-              /^application/,
-              
-              // v-select specific classes - CRITICAL
-              /^v-select/,
-              /^v-field/,
-              /^v-input/,
-              /^v-label/,
-              /^v-menu/,
-              /^v-list/,
-              /^v-list-item/,
-              /^v-overlay/,
-              /^v-chip/,
-              /^v-text-field/,
-              /^v-combobox/,
-              /^v-autocomplete/,
-              
-              // Icons
-              /^mdi-/,
-              
-              // Utilities
-              /^bg-/,
-              /^text-/,
-              /^d-/,
-              /^flex-/,
-              /^ma-/, /^mx-/, /^my-/, /^mt-/, /^mb-/, /^ml-/, /^mr-/,
-              /^pa-/, /^px-/, /^py-/, /^pt-/, /^pb-/, /^pl-/, /^pr-/,
-              /^align-/,
-              /^justify-/,
-              /^fill-/,
-              /^elevation-/,
-              /^rounded/,
-              /^opacity/,
-              /^cursor/,
-              
-              // Common components
-              /^v-btn/,
-              /^v-icon/,
-              /^v-card/,
-              /^v-container/,
-              /^v-row/,
-              /^v-col/,
-              /^v-sheet/,
-              /^v-main/,
-              /^v-app/,
-              /^v-dialog/,
-              /^v-toolbar/,
-              /^v-app-bar/,
-              /^v-navigation-drawer/,
-              /^v-footer/,
-              /^v-divider/,
-              /^v-spacer/,
-              /^v-img/,
-              /^v-avatar/,
-              /^v-badge/,
-              /^v-tooltip/,
-              /^v-snackbar/,
-              /^v-alert/,
-              /^v-progress/,
-              /^v-form/,
-              /^v-table/,
-              /^v-data-table/,
-              /^v-pagination/,
-              /^v-tabs/,
-              /^v-window/,
-              /^v-expansion/,
-              /^v-checkbox/,
-              /^v-radio/,
-              /^v-switch/,
-              /^v-slider/,
-              /^v-textarea/,
-            ],
-            deep: [
-              /^v-.*/,
-              /^mdi-.*/,
-              /^theme--.*/,
-            ],
-            greedy: [
-              /^v-.*/,
-              /^mdi-.*/,
-            ],
-          },
-          defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-          // IMPORTANT: Don't be too aggressive
-          rejected: false,
-        },
         cssnano: {
           preset: ['default', {
             discardComments: { removeAll: true },
             normalizeWhitespace: true,
             minifyFontValues: true,
-            minifySelectors: true,
+            minifySelectors: false, // CRITICAL: Don't minify selectors for Vuetify
             mergeLonghand: true,
-            mergeRules: true,
+            mergeRules: false, // CRITICAL: Don't merge rules for Vuetify
             colormin: true,
-            // IMPORTANT: Don't reduce these
             reduceIdents: false,
             zindex: false,
-            discardUnused: false, // Keep this false for Vuetify
+            discardUnused: false,
             minifyGradients: true,
             normalizeUrl: true,
             svgo: true,
+            discardOverridden: false, // CRITICAL: Keep all Vuetify overrides
           }]
         }
       } : {})
