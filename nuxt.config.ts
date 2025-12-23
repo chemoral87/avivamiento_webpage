@@ -64,18 +64,12 @@ export default defineNuxtConfig({
     },
   },
 
+  // FIXED: Correct module configuration
   modules: [
     '@nuxt/image',
-    // Fixed Vuetify module setup - removed invalid configFile option
-    (_options, nuxt) => {
+    async (options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
-        config.plugins = config.plugins || []
-        config.plugins.push(
-          vuetify({
-            autoImport: true,
-            styles: true, // Just use boolean, not object with configFile
-          })
-        )
+        config.plugins?.push(vuetify({ autoImport: true }))
       })
     },
   ],
@@ -109,77 +103,84 @@ export default defineNuxtConfig({
       },
     },
     
+    // FIXED: Critical fix for Vuetify and SSR
     ssr: {
-      noExternal: ['vuetify', 'vuetify/**'],
+      noExternal: ['vuetify', /\.css$/, /\?vue/],
     },
     
     css: {
       preprocessorOptions: {
         sass: {
-          // Fixed SASS configuration for Vuetify
-          additionalData: '@use "sass:math";',
-          // Silence Vuetify's Sass deprecation warnings (removed obsolete 'mixed-decls')
-          silenceDeprecations: ['if-function', 'color-functions', 'global-builtin', 'import'],
+          additionalData: `
+            @use "sass:math";
+            @use "sass:color";
+            @use "sass:selector";
+          `,
+          silenceDeprecations: ['if-function', 'color-functions', 'global-builtin', 'import', 'mixed-decls'],
         }
       },
     },
     
     build: {
-      minify: false, // TEMPORARILY DISABLED to test if minification is causing the error
+      minify: 'terser',
       target: 'es2020',
       
-      // FIXED: Much safer Terser options to prevent "before initialization" errors
+      // FIXED: Safer Terser options to avoid "before initialization" errors
       terserOptions: process.env.NODE_ENV === 'production' ? {
         compress: {
           drop_console: true,
           drop_debugger: true,
-          passes: 1, // Reduced from 2 to prevent over-optimization
-          // Only enable the safest optimizations
+          // Disable problematic optimizations
+          hoist_vars: false,  // This was causing the camelize error
+          hoist_funs: false,  // This was causing the camelize error
+          reduce_vars: false, // This was causing the camelize error
+          // Keep only safe optimizations
           dead_code: true,
           conditionals: true,
           booleans: true,
-          // Removed: unused, hoist_funs, hoist_vars - these cause initialization errors
+          unused: false,      // Disable unused removal during build
         },
         mangle: {
           safari10: true,
-          // Keep default safe mangling, no custom options
         },
         format: {
           comments: false,
-          ecma: 2020,
         },
-      } : {},
+      } : false,
       
-      // FIXED: Simplified rollup output configuration
       rollupOptions: {
         output: {
+          // FIXED: Better chunking strategy for Vuetify
           manualChunks: (id) => {
-            if (id.includes('node_modules')) {
-              if (id.includes('vuetify')) return 'vuetify'
-              return 'vendor'
-            }
+            if (id.includes('node_modules/vuetify')) return 'vuetify'
+            if (id.includes('node_modules')) return 'vendor'
+            if (id.includes('/plugins/') || id.includes('/composables/')) return 'app-core'
           },
+          // Ensure modules are loaded in correct order
+          chunkFileNames: 'chunks/[name]-[hash].js',
+          entryFileNames: 'entries/[name]-[hash].js',
         }
       },
-      
-      assetsInlineLimit: 4096,
-      cssCodeSplit: true,
-      chunkSizeWarningLimit: 1000,
-    },
-    
-    // FIXED: Less aggressive esbuild options
-    esbuild: {
-      drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
     },
     
     optimizeDeps: {
-      include: ['vuetify', '@mdi/font'],
+      // FIXED: Explicitly include Vuetify dependencies
+      include: [
+        'vuetify',
+        'vuetify/lib/components',
+        'vuetify/lib/directives',
+        'vuetify/lib/styles/main.sass',
+        '@mdi/font/css/materialdesignicons.css',
+      ],
+      exclude: [],
     },
   },
 
   experimental: {
     payloadExtraction: true,
     viewTransition: true,
+    // FIXED: Enable async context to help with module ordering
+    asyncContext: true,
   },
   
   routeRules: {
@@ -199,20 +200,9 @@ export default defineNuxtConfig({
     quality: 80,
   },
 
-  // FIXED: Single CSS minification strategy
   postcss: {
     plugins: {
       autoprefixer: {},
-      ...(process.env.NODE_ENV === 'production' ? {
-        cssnano: {
-          preset: ['default', {
-            // Safe preset that works with Vuetify
-            discardComments: { removeAll: true },
-            normalizeWhitespace: true,
-            // Removed all aggressive Vuetify-breaking options
-          }]
-        }
-      } : {})
     },
   },
 
@@ -221,10 +211,8 @@ export default defineNuxtConfig({
     typeCheck: false,
   },
 
-  sourcemap: {
-    server: false,
-    client: false,
-  },
+  // FIXED: Disable sourcemaps in production to avoid bundling issues
+  sourcemap: process.env.NODE_ENV === 'development',
 
   devServer: {
     port: 3002,
