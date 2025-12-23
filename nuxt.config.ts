@@ -1,4 +1,4 @@
-// nuxt.config.ts - Configuración corregida
+// nuxt.config.ts - Production-ready configuration
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
@@ -26,7 +26,6 @@ export default defineNuxtConfig({
     minify: true,
     preset: 'node-server',
     port: 3002,
-    moduleSideEffects: ['vue-bundle-renderer'],
   },
 
   app: {
@@ -40,42 +39,28 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { 
           name: 'description', 
-          content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey, Nuevo León. Cultos dominicales y reuniones de oración.' 
+          content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey, Nuevo León.' 
         },
         { 
           name: 'keywords', 
-          content: 'Adrian Aguirre, Pastor Adrian Aguirre, Avivamiento Monterrey, iglesia Monterrey, iglesia Apodaca, iglesia cristiana Monterrey, cultos cristianos Monterrey, pastor Monterrey, iglesia evangélica Monterrey' 
+          content: 'Adrian Aguirre, Pastor Adrian Aguirre, Avivamiento Monterrey, iglesia Monterrey, iglesia Apodaca, iglesia cristiana Monterrey' 
         },
         { name: 'author', content: 'Iglesia Avivamiento Monterrey' },
         { name: 'robots', content: 'index, follow' },
-        { name: 'googlebot', content: 'index, follow' },
-        { name: 'format-detection', content: 'telephone=no' },
         { property: 'og:site_name', content: 'Avivamiento Monterrey' },
         { property: 'og:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
-        { property: 'og:description', content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://avivamientomonterrey.com' },
         { property: 'og:locale', content: 'es_MX' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
-        { name: 'twitter:description', content: 'Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre' },
         { name: 'geo.region', content: 'MX-NLE' },
         { name: 'geo.placename', content: 'Apodaca, Monterrey' },
       ],
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
-        { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ],
-      noscript: [
-        { 
-          children: '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP63RVGW" height="0" width="0" style="display:none;visibility:hidden"></iframe>',
-          body: true
-        }
-      ]
     },
   },
 
@@ -98,13 +83,11 @@ export default defineNuxtConfig({
   },
 
   css: [
-    'vuetify/styles',
+    'vuetify/lib/styles/main.sass',
     '@mdi/font/css/materialdesignicons.css',
     '@/assets/styles/global.css',
-    '@/assets/styles/mdi-fallback.css',
   ],
 
-  // MERGED AND CORRECTED VITE CONFIGURATION
   vite: {
     server: {
       hmr: {
@@ -116,11 +99,7 @@ export default defineNuxtConfig({
         usePolling: true,
         interval: 500,
       },
-      fs: {
-        strict: false,
-      },
     },
-    clearScreen: false,
     
     vue: {
       template: {
@@ -133,16 +112,19 @@ export default defineNuxtConfig({
     },
     
     css: {
-      devSourcemap: false,
-      preprocessorOptions: {},
+      preprocessorOptions: {
+        sass: {
+          // Fixed SASS configuration for Vuetify
+          additionalData: '@use "sass:math";'
+        }
+      },
     },
     
     build: {
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
       target: 'es2020',
-      cssTarget: 'chrome61',
-      cssMinify: 'lightningcss', // Use lightningcss for CSS minification
       
+      // FIXED: Safer Terser options that won't break the build
       terserOptions: process.env.NODE_ENV === 'production' ? {
         compress: {
           drop_console: true,
@@ -151,93 +133,55 @@ export default defineNuxtConfig({
           pure_funcs: ['console.log', 'console.info', 'console.debug'],
           dead_code: true,
           conditionals: true,
-          evaluate: true,
           booleans: true,
-          loops: true,
           unused: true,
-          hoist_funs: true,
-          keep_fargs: false,
-          hoist_vars: false,
-          if_return: true,
-          join_vars: true,
-          side_effects: true,
-          sequences: true,
-          collapse_vars: true,
-          reduce_vars: true,
-          toplevel: true,
+          // Removed dangerous options: toplevel, collapse_vars, reduce_vars
         },
         mangle: {
           safari10: true,
-          keep_classnames: false,
-          keep_fnames: false,
-          toplevel: true,
+          // Removed dangerous options: keep_classnames: false, toplevel: true
         },
         format: {
           comments: false,
-          beautify: false,
           ecma: 2020,
-          ascii_only: false,
-          indent_level: 0,
-          max_line_len: false,
-          semicolons: true,
-          preserve_annotations: false,
-          quote_style: 1,
-          wrap_iife: false,
         },
       } : {},
       
+      // FIXED: Simplified rollup output configuration
       rollupOptions: {
         output: {
-          // Let Vite/Nuxt generate stable hashed filenames under `_nuxt`.
-          // Keep chunking simple so runtime path resolution works reliably.
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
+              if (id.includes('vuetify')) return 'vuetify'
               return 'vendor'
             }
           },
-          chunkFileNames: '_nuxt/[name]-[hash].js',
-          entryFileNames: '_nuxt/[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
-            const ext = assetInfo.name?.split('.').pop() || 'asset';
-            const name = assetInfo.name?.replace(/\.[^.]+$/, '') || 'asset';
-            return `_nuxt/${name}-[hash].${ext}`;
-          },
         }
       },
+      
       assetsInlineLimit: 4096,
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1000,
     },
     
+    // FIXED: Less aggressive esbuild options
     esbuild: {
-      drop: process.env.NODE_ENV === 'development' ? [] : ['console', 'debugger'],
-      keepNames: false,
-      minifyIdentifiers: false,
-      minifySyntax: false,
-      minifyWhitespace: false,
+      drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
     },
     
     optimizeDeps: {
-      // Let Vite pre-bundle both Vuetify and mdi so assets are resolved by Vite.
       include: ['vuetify', '@mdi/font'],
     },
   },
 
   experimental: {
     payloadExtraction: true,
-    inlineRouteRules: true,
     viewTransition: true,
-    componentIslands: false,
-    renderJsonPayloads: false,
-    localLayerAliases: false,
   },
   
   routeRules: {
     '/': { 
       prerender: true,
-      headers: {
-        'cache-control': 'public, max-age=3600, s-maxage=3600'
-      }
     },
     '/calendar': { 
       swr: 3600,
@@ -252,37 +196,17 @@ export default defineNuxtConfig({
     quality: 80,
   },
 
-  // POSTCSS CONFIGURATION - Aggressive CSS minification
+  // FIXED: Single CSS minification strategy
   postcss: {
     plugins: {
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? {
         cssnano: {
-          preset: ['advanced', {
+          preset: ['default', {
+            // Safe preset that works with Vuetify
             discardComments: { removeAll: true },
             normalizeWhitespace: true,
-            minifyFontValues: { removeQuotes: false },
-            minifySelectors: false, // Keep false for Vuetify
-            mergeLonghand: true,
-            mergeRules: false, // Keep false for Vuetify
-            colormin: true,
-            reduceIdents: false, // Keep false for Vuetify
-            zindex: false,
-            discardUnused: false, // Keep false for Vuetify
-            minifyGradients: true,
-            normalizeUrl: true,
-            svgo: true,
-            discardOverridden: false,
-            normalizeCharset: true,
-            discardEmpty: true,
-            minifyParams: true,
-            normalizePositions: true,
-            normalizeRepeatStyle: true,
-            normalizeString: true,
-            normalizeTimingFunctions: true,
-            normalizeUnicode: true,
-            orderedValues: true,
-            reduceTransforms: true,
+            // Removed all aggressive Vuetify-breaking options
           }]
         }
       } : {})
@@ -292,7 +216,6 @@ export default defineNuxtConfig({
   typescript: {
     strict: false,
     typeCheck: false,
-    shim: false,
   },
 
   sourcemap: {
