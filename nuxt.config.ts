@@ -143,6 +143,7 @@ export default defineNuxtConfig({
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
       target: 'es2020',
       cssTarget: 'chrome61',
+      cssMinify: 'lightningcss', // Use lightningcss for CSS minification
       
       terserOptions: process.env.NODE_ENV === 'production' ? {
         compress: {
@@ -259,27 +260,37 @@ export default defineNuxtConfig({
     quality: 80,
   },
 
-  // POSTCSS CONFIGURATION - Optimized for Vuetify
+  // POSTCSS CONFIGURATION - Aggressive CSS minification
   postcss: {
     plugins: {
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? {
         cssnano: {
-          preset: ['default', {
+          preset: ['advanced', {
             discardComments: { removeAll: true },
             normalizeWhitespace: true,
-            minifyFontValues: true,
-            minifySelectors: false, // CRITICAL: Don't minify selectors for Vuetify
+            minifyFontValues: { removeQuotes: false },
+            minifySelectors: false, // Keep false for Vuetify
             mergeLonghand: true,
-            mergeRules: false, // CRITICAL: Don't merge rules for Vuetify
+            mergeRules: false, // Keep false for Vuetify
             colormin: true,
-            reduceIdents: false,
+            reduceIdents: false, // Keep false for Vuetify
             zindex: false,
-            discardUnused: false,
+            discardUnused: false, // Keep false for Vuetify
             minifyGradients: true,
             normalizeUrl: true,
             svgo: true,
-            discardOverridden: false, // CRITICAL: Keep all Vuetify overrides
+            discardOverridden: false,
+            normalizeCharset: true,
+            discardEmpty: true,
+            minifyParams: true,
+            normalizePositions: true,
+            normalizeRepeatStyle: true,
+            normalizeString: true,
+            normalizeTimingFunctions: true,
+            normalizeUnicode: true,
+            orderedValues: true,
+            reduceTransforms: true,
           }]
         }
       } : {})
