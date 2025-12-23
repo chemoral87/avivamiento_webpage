@@ -13,8 +13,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       loginRoute: process.env.NUXT_PUBLIC_LOGIN_ROUTE || '/login',
-      // Expose API_URL to the client/runtime. Prefer NUXT_PUBLIC_API_URL, fallback to API_URL
-      API_URL:  process.env.API_URL || '',
+      API_URL: process.env.API_URL || '',
       ORG_ID: process.env.ORG_ID || '',
     },
   },
@@ -72,7 +71,6 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ],
       noscript: [
-        // Google Tag Manager (noscript fallback)
         { 
           children: '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP63RVGW" height="0" width="0" style="display:none;visibility:hidden"></iframe>',
           body: true
@@ -83,13 +81,12 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/image',
-    // Vuetify con estilos predeterminados
     async (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         config.plugins?.push(
           vuetify({
             autoImport: true,
-            styles: true, // Activar estilos automáticos
+            styles: true,
           })
         )
       })
@@ -100,46 +97,35 @@ export default defineNuxtConfig({
     transpile: ['vuetify'],
   },
 
+  css: [
+    'vuetify/styles',
+    '@mdi/font/css/materialdesignicons.css',
+    '@/assets/styles/global.css',
+  ],
+
+  // MERGED AND CORRECTED VITE CONFIGURATION
   vite: {
     server: {
-      hmr: false,
+      hmr: {
+        overlay: true,
+        protocol: 'ws',
+        host: 'localhost',
+      },
       watch: {
         usePolling: true,
-        interval: 1000,
-        ignored: ['**/node_modules/**', '**/.git/**', '**/.nuxt/**', '**/.output/**']
+        interval: 500,
+      },
+      fs: {
+        strict: false,
       },
     },
+    clearScreen: false,
+    
     vue: {
       template: {
         transformAssetUrls,
       },
     },
-    
-    // Plugin para minificar CSS con cssnano
-    plugins: process.env.NODE_ENV === 'production' ? [
-      {
-        name: 'css-minifier',
-        async generateBundle(options, bundle) {
-          const cssnano = (await import('cssnano')).default;
-          const postcss = (await import('postcss')).default;
-          
-          for (const [fileName, chunk] of Object.entries(bundle)) {
-            if (fileName.endsWith('.css') && 'source' in chunk) {
-              const result = await postcss([
-                cssnano({
-                  preset: ['default', {
-                    discardComments: { removeAll: true },
-                    normalizeWhitespace: true,
-                  }]
-                })
-              ]).process(chunk.source, { from: undefined });
-              
-              chunk.source = result.css;
-            }
-          }
-        }
-      }
-    ] : [],
     
     ssr: {
       noExternal: ['vuetify'],
@@ -152,10 +138,9 @@ export default defineNuxtConfig({
     
     build: {
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
-      // Forzar minificación CSS via plugin personalizado
       target: 'es2020',
+      cssTarget: 'chrome61',
       
-      // Configuración de Terser para producción
       terserOptions: process.env.NODE_ENV === 'production' ? {
         compress: {
           drop_console: true,
@@ -226,14 +211,9 @@ export default defineNuxtConfig({
       assetsInlineLimit: 4096,
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1000,
-      
-      // Configuración CSS - minificación via cssnano en postcss
-      cssTarget: 'chrome61',
-      // cssMinify: true, // Deshabilitado, se usa cssnano
     },
     
     esbuild: {
-      // Desactivar esbuild en producción, usar terser
       drop: process.env.NODE_ENV === 'development' ? [] : ['console', 'debugger'],
       keepNames: false,
       minifyIdentifiers: false,
@@ -251,9 +231,9 @@ export default defineNuxtConfig({
     payloadExtraction: true,
     inlineRouteRules: true,
     viewTransition: true,
-    componentIslands: false, // Desactivado para reducir memoria
-    renderJsonPayloads: false, // Desactivado para reducir memoria
-    localLayerAliases: false, // Desactivado para reducir memoria
+    componentIslands: false,
+    renderJsonPayloads: false,
+    localLayerAliases: false,
   },
   
   routeRules: {
@@ -263,7 +243,6 @@ export default defineNuxtConfig({
         'cache-control': 'public, max-age=3600, s-maxage=3600'
       }
     },
-
     '/calendar': { 
       swr: 3600,
     },
@@ -277,21 +256,7 @@ export default defineNuxtConfig({
     quality: 80,
   },
 
-  // Opción 1: Usar los estilos predeterminados de Vuetify
-  css: [
-    'vuetify/styles',
-    '@mdi/font/css/materialdesignicons.css',
-    '@/assets/styles/global.css',
-  ],
-
-  // Opción 2: Si necesitas configuraciones personalizadas, crea este archivo
-  // y luego descomenta la línea en css:
-  // css: [
-  //   '@/assets/scss/vuetify.scss',
-  //   '@mdi/font/css/materialdesignicons.css',
-  // ],
-
-  // PurgeCSS con postcss para eliminar CSS no usado + cssnano para minificar
+  // FIXED PURGECSS CONFIGURATION
   postcss: {
     plugins: {
       autoprefixer: {},
@@ -306,18 +271,30 @@ export default defineNuxtConfig({
             './nuxt.config.{js,ts}',
           ],
           safelist: {
-            // Keep a broad set of Vuetify-related classes to avoid PurgeCSS removing them
             standard: [
+              // Core Vuetify
               /^v-/,
+              /^theme--/,
+              /^application/,
+              
+              // v-select specific classes - CRITICAL
               /^v-select/,
+              /^v-field/,
               /^v-input/,
+              /^v-label/,
               /^v-menu/,
               /^v-list/,
-              /^v-dialog/,
-              /^v-card/,
-              /^theme--/,
-              /^application--/,
+              /^v-list-item/,
+              /^v-overlay/,
+              /^v-chip/,
+              /^v-text-field/,
+              /^v-combobox/,
+              /^v-autocomplete/,
+              
+              // Icons
               /^mdi-/,
+              
+              // Utilities
               /^bg-/,
               /^text-/,
               /^d-/,
@@ -328,12 +305,60 @@ export default defineNuxtConfig({
               /^justify-/,
               /^fill-/,
               /^elevation-/,
+              /^rounded/,
+              /^opacity/,
+              /^cursor/,
+              
+              // Common components
+              /^v-btn/,
+              /^v-icon/,
+              /^v-card/,
+              /^v-container/,
+              /^v-row/,
+              /^v-col/,
+              /^v-sheet/,
+              /^v-main/,
+              /^v-app/,
+              /^v-dialog/,
+              /^v-toolbar/,
+              /^v-app-bar/,
+              /^v-navigation-drawer/,
+              /^v-footer/,
+              /^v-divider/,
+              /^v-spacer/,
+              /^v-img/,
+              /^v-avatar/,
+              /^v-badge/,
+              /^v-tooltip/,
+              /^v-snackbar/,
+              /^v-alert/,
+              /^v-progress/,
+              /^v-form/,
+              /^v-table/,
+              /^v-data-table/,
+              /^v-pagination/,
+              /^v-tabs/,
+              /^v-window/,
+              /^v-expansion/,
+              /^v-checkbox/,
+              /^v-radio/,
+              /^v-switch/,
+              /^v-slider/,
+              /^v-textarea/,
             ],
-            // Deep and greedy keep any dynamically generated classes used by Vuetify
-            deep: [/^v-.*/, /^mdi-.*/, /^theme--.*/],
-            greedy: [/^v-.*/, /^mdi-.*/, /^theme--.*/],
+            deep: [
+              /^v-.*/,
+              /^mdi-.*/,
+              /^theme--.*/,
+            ],
+            greedy: [
+              /^v-.*/,
+              /^mdi-.*/,
+            ],
           },
           defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+          // IMPORTANT: Don't be too aggressive
+          rejected: false,
         },
         cssnano: {
           preset: ['default', {
@@ -344,8 +369,10 @@ export default defineNuxtConfig({
             mergeLonghand: true,
             mergeRules: true,
             colormin: true,
+            // IMPORTANT: Don't reduce these
             reduceIdents: false,
             zindex: false,
+            discardUnused: false, // Keep this false for Vuetify
             minifyGradients: true,
             normalizeUrl: true,
             svgo: true,
@@ -369,24 +396,6 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002,
     host: '0.0.0.0',
-  },
-
-  vite: {
-    server: {
-      watch: {
-        usePolling: true,
-        interval: 500,
-      },
-      fs: {
-        strict: false,
-      },
-      hmr: {
-        overlay: true,
-        protocol: 'ws',
-        host: 'localhost',
-      },
-    },
-    clearScreen: false,
   },
 
   devtools: {
