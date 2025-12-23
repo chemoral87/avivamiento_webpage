@@ -27,27 +27,55 @@ export default defineNuxtConfig({
     preset: 'node-server',
     port: 3002,
     moduleSideEffects: ['vue-bundle-renderer'],
-    hooks: {
-      'render:html': (html) => {
-        // Minify inline CSS in style tags
-        if (process.env.NODE_ENV === 'production') {
-          html.head = html.head.map(entry => {
-            if (typeof entry === 'string' && entry.includes('<style')) {
-              return entry.replace(/<style([^>]*)>([\s\S]*?)<\/style>/gi, (match, attrs, css) => {
-                // Remove comments
-                let minified = css.replace(/\/\*[\s\S]*?\*\//g, '');
-                // Remove unnecessary whitespace
-                minified = minified.replace(/\s+/g, ' ');
-                // Remove spaces around certain characters
-                minified = minified.replace(/\s*([{}:;,>+~])\s*/g, '$1');
-                // Remove trailing semicolons
-                minified = minified.replace(/;}/g, '}');
-                return `<style${attrs}>${minified}</style>`;
-              });
-            }
-            return entry;
-          });
-        }
+  },
+  
+  hooks: {
+    'render:html': (html, { event }) => {
+      if (process.env.NODE_ENV === 'production') {
+        // Minify inline CSS in the HTML head
+        html.head = html.head.map(entry => {
+          if (typeof entry === 'string' && entry.includes('<style')) {
+            return entry.replace(/<style([^>]*)>([\s\S]*?)<\/style>/gi, (match, attrs, css) => {
+              // Remove CSS comments
+              let minified = css.replace(/\/\*[\s\S]*?\*\//g, '');
+              // Remove all newlines and tabs
+              minified = minified.replace(/[\n\r\t]/g, '');
+              // Replace multiple spaces with single space
+              minified = minified.replace(/\s\s+/g, ' ');
+              // Remove spaces around CSS special characters
+              minified = minified.replace(/\s*([{}:;,>+~])\s*/g, '$1');
+              // Remove spaces after opening brackets and before closing
+              minified = minified.replace(/\{\s+/g, '{');
+              minified = minified.replace(/\s+\}/g, '}');
+              // Remove trailing semicolons before closing braces
+              minified = minified.replace(/;}/g, '}');
+              // Trim whitespace
+              minified = minified.trim();
+              
+              return `<style${attrs}>${minified}</style>`;
+            });
+          }
+          return entry;
+        });
+
+        // Also minify inline styles in body
+        html.bodyAppend = html.bodyAppend?.map(entry => {
+          if (typeof entry === 'string' && entry.includes('<style')) {
+            return entry.replace(/<style([^>]*)>([\s\S]*?)<\/style>/gi, (match, attrs, css) => {
+              let minified = css.replace(/\/\*[\s\S]*?\*\//g, '');
+              minified = minified.replace(/[\n\r\t]/g, '');
+              minified = minified.replace(/\s\s+/g, ' ');
+              minified = minified.replace(/\s*([{}:;,>+~])\s*/g, '$1');
+              minified = minified.replace(/\{\s+/g, '{');
+              minified = minified.replace(/\s+\}/g, '}');
+              minified = minified.replace(/;}/g, '}');
+              minified = minified.trim();
+              
+              return `<style${attrs}>${minified}</style>`;
+            });
+          }
+          return entry;
+        });
       }
     }
   },
