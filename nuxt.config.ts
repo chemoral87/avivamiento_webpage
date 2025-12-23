@@ -27,6 +27,29 @@ export default defineNuxtConfig({
     preset: 'node-server',
     port: 3002,
     moduleSideEffects: ['vue-bundle-renderer'],
+    hooks: {
+      'render:html': (html) => {
+        // Minify inline CSS in style tags
+        if (process.env.NODE_ENV === 'production') {
+          html.head = html.head.map(entry => {
+            if (typeof entry === 'string' && entry.includes('<style')) {
+              return entry.replace(/<style([^>]*)>([\s\S]*?)<\/style>/gi, (match, attrs, css) => {
+                // Remove comments
+                let minified = css.replace(/\/\*[\s\S]*?\*\//g, '');
+                // Remove unnecessary whitespace
+                minified = minified.replace(/\s+/g, ' ');
+                // Remove spaces around certain characters
+                minified = minified.replace(/\s*([{}:;,>+~])\s*/g, '$1');
+                // Remove trailing semicolons
+                minified = minified.replace(/;}/g, '}');
+                return `<style${attrs}>${minified}</style>`;
+              });
+            }
+            return entry;
+          });
+        }
+      }
+    }
   },
 
   app: {
@@ -134,9 +157,6 @@ export default defineNuxtConfig({
     css: {
       devSourcemap: false,
       preprocessorOptions: {},
-      postcss: {
-        plugins: []
-      }
     },
     
     build: {
