@@ -86,9 +86,7 @@ export default defineNuxtConfig({
         config.plugins?.push(
           vuetify({
             autoImport: true,
-            styles: {
-              configFile: 'assets/styles/vuetify-settings.scss',
-            },
+            styles: true,
           })
         )
       })
