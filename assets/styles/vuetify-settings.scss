@@ -1,3 +1,13 @@
 @use 'vuetify/settings' with (
-  $color-pack: true
+  $color-pack: true,
+  $utilities: false, // Disable utility classes to reduce size
+  $button: true,
+  $card: true,
+  $list: true,
+  $menu: true,
+  $overlay: true,
+  $field: true,
+  $input: true,
+  $select: true,
+  $text-field: true,
 );
