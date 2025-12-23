@@ -123,25 +123,24 @@ export default defineNuxtConfig({
     },
     
     build: {
-      minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
+      minify: false, // TEMPORARILY DISABLED to test if minification is causing the error
       target: 'es2020',
       
-      // FIXED: Safer Terser options that won't break the build
+      // FIXED: Much safer Terser options to prevent "before initialization" errors
       terserOptions: process.env.NODE_ENV === 'production' ? {
         compress: {
           drop_console: true,
           drop_debugger: true,
-          passes: 2,
-          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+          passes: 1, // Reduced from 2 to prevent over-optimization
+          // Only enable the safest optimizations
           dead_code: true,
           conditionals: true,
           booleans: true,
-          unused: true,
-          // Removed dangerous options: toplevel, collapse_vars, reduce_vars
+          // Removed: unused, hoist_funs, hoist_vars - these cause initialization errors
         },
         mangle: {
           safari10: true,
-          // Removed dangerous options: keep_classnames: false, toplevel: true
+          // Keep default safe mangling, no custom options
         },
         format: {
           comments: false,
