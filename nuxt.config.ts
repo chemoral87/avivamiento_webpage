@@ -66,16 +66,14 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/image',
-    // Simplified Vuetify module setup
+    // Fixed Vuetify module setup - removed invalid configFile option
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         config.plugins = config.plugins || []
         config.plugins.push(
           vuetify({
             autoImport: true,
-            styles: {
-              configFile: undefined, // Let Vuetify handle its own styles
-            },
+            styles: true, // Just use boolean, not object with configFile
           })
         )
       })
