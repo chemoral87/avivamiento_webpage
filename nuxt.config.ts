@@ -115,7 +115,9 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         sass: {
           // Fixed SASS configuration for Vuetify
-          additionalData: '@use "sass:math";'
+          additionalData: '@use "sass:math";',
+          // Silence Vuetify's Sass deprecation warnings
+          silenceDeprecations: ['if-function', 'mixed-decls', 'color-functions', 'global-builtin', 'import'],
         }
       },
     },
