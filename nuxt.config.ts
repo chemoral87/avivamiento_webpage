@@ -306,8 +306,17 @@ export default defineNuxtConfig({
             './nuxt.config.{js,ts}',
           ],
           safelist: {
+            // Keep a broad set of Vuetify-related classes to avoid PurgeCSS removing them
             standard: [
               /^v-/,
+              /^v-select/,
+              /^v-input/,
+              /^v-menu/,
+              /^v-list/,
+              /^v-dialog/,
+              /^v-card/,
+              /^theme--/,
+              /^application--/,
               /^mdi-/,
               /^bg-/,
               /^text-/,
@@ -320,8 +329,9 @@ export default defineNuxtConfig({
               /^fill-/,
               /^elevation-/,
             ],
-            deep: [/v-.*/, /mdi-.*/],
-            greedy: [/v-.*/, /mdi-.*/],
+            // Deep and greedy keep any dynamically generated classes used by Vuetify
+            deep: [/^v-.*/, /^mdi-.*/, /^theme--.*/],
+            greedy: [/^v-.*/, /^mdi-.*/, /^theme--.*/],
           },
           defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
         },
