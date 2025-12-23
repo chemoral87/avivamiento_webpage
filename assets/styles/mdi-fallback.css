@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Material Design Icons';
+  src: url('/fonts/materialdesignicons.woff2') format('woff2'),
+       url('/fonts/materialdesignicons.woff') format('woff'),
+       url('/fonts/materialdesignicons.ttf') format('truetype'),
+       url('/fonts/materialdesignicons.eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Ensure mdi classes use the fallback font when the original @mdi font isn't loaded */
+.mdi:before, [class^="mdi-"], [class*=" mdi-"] {
+  font-family: 'Material Design Icons' !important;
+}

@@ -101,6 +101,7 @@ export default defineNuxtConfig({
     'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',
     '@/assets/styles/global.css',
+    '@/assets/styles/mdi-fallback.css',
   ],
 
   // MERGED AND CORRECTED VITE CONFIGURATION
@@ -187,25 +188,19 @@ export default defineNuxtConfig({
       
       rollupOptions: {
         output: {
+          // Let Vite/Nuxt generate stable hashed filenames under `_nuxt`.
+          // Keep chunking simple so runtime path resolution works reliably.
           manualChunks: (id) => {
-            if (id.includes('node_modules') && !id.includes('vuetify')) {
-              if (id.includes('@mdi/font')) return 'mdi';
-              return 'vendor';
+            if (id.includes('node_modules')) {
+              return 'vendor'
             }
           },
-          chunkFileNames: (chunkInfo) => {
-            const timestamp = Date.now();
-            return `_nuxt/${chunkInfo.name}-${timestamp}-[hash].js`;
-          },
-          entryFileNames: (chunkInfo) => {
-            const timestamp = Date.now();
-            return `_nuxt/${chunkInfo.name}-${timestamp}-[hash].js`;
-          },
+          chunkFileNames: '_nuxt/[name]-[hash].js',
+          entryFileNames: '_nuxt/[name]-[hash].js',
           assetFileNames: (assetInfo) => {
-            const timestamp = Date.now();
             const ext = assetInfo.name?.split('.').pop() || 'asset';
             const name = assetInfo.name?.replace(/\.[^.]+$/, '') || 'asset';
-            return `_nuxt/${name}-${timestamp}-[hash].${ext}`;
+            return `_nuxt/${name}-[hash].${ext}`;
           },
         }
       },
@@ -223,8 +218,8 @@ export default defineNuxtConfig({
     },
     
     optimizeDeps: {
-      include: ['vuetify'],
-      exclude: ['@mdi/font'],
+      // Let Vite pre-bundle both Vuetify and mdi so assets are resolved by Vite.
+      include: ['vuetify', '@mdi/font'],
     },
   },
 
