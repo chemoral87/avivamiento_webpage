@@ -116,8 +116,8 @@ export default defineNuxtConfig({
         sass: {
           // Fixed SASS configuration for Vuetify
           additionalData: '@use "sass:math";',
-          // Silence Vuetify's Sass deprecation warnings
-          silenceDeprecations: ['if-function', 'mixed-decls', 'color-functions', 'global-builtin', 'import'],
+          // Silence Vuetify's Sass deprecation warnings (removed obsolete 'mixed-decls')
+          silenceDeprecations: ['if-function', 'color-functions', 'global-builtin', 'import'],
         }
       },
     },
