@@ -66,12 +66,16 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/image',
-    async (_options, nuxt) => {
+    // Simplified Vuetify module setup
+    (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
-        config.plugins?.push(
+        config.plugins = config.plugins || []
+        config.plugins.push(
           vuetify({
             autoImport: true,
-            styles: true,
+            styles: {
+              configFile: undefined, // Let Vuetify handle its own styles
+            },
           })
         )
       })
@@ -83,8 +87,8 @@ export default defineNuxtConfig({
   },
 
   css: [
-    'vuetify/lib/styles/main.sass',
     '@mdi/font/css/materialdesignicons.css',
+    'vuetify/lib/styles/main.sass',
     '@/assets/styles/global.css',
   ],
 
@@ -108,7 +112,7 @@ export default defineNuxtConfig({
     },
     
     ssr: {
-      noExternal: ['vuetify'],
+      noExternal: ['vuetify', 'vuetify/**'],
     },
     
     css: {

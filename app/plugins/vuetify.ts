@@ -1,49 +1,24 @@
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
-import { createVuetify, type ThemeDefinition } from 'vuetify'
+// plugins/vuetify.ts
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-const lightTheme: ThemeDefinition = {
-  dark: false,
-  colors: {
-    primary: '#041845',
-    secondary: '#424242',
-    accent: '#82B1FF',
-    error: '#FF5252',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FB8C00',
-  },
-}
-
-export default defineNuxtPlugin((app) => {
+export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
     ssr: true,
+    components,
+    directives,
     theme: {
       defaultTheme: 'light',
       themes: {
-        light: lightTheme,
-      },
-      variations: false,
-      cspNonce: undefined,
-    },
-    defaults: {
-      global: {
-        ripple: false,
-      },
-      VSheet: {
-        color: 'white',
-      },
-      VCard: {
-        color: 'white',
+        light: {
+          colors: {
+            primary: '#1976D2',
+          },
+        },
       },
     },
   })
-  app.vueApp.use(vuetify)
-  
-  // Force light theme
-  if (typeof window !== 'undefined') {
-    document.documentElement.setAttribute('data-theme', 'light')
-    document.documentElement.style.colorScheme = 'light'
-  }
-})
 
+  nuxtApp.vueApp.use(vuetify)
+})
