@@ -337,6 +337,13 @@ export default defineNuxtConfig({
               /^justify-/,
               /^fill-/,
               /^elevation-/,
+              // Explicit class names to ensure key Vuetify form elements are preserved
+              'v-field',
+              'v-select',
+              'v-input',
+              /^v-field/,
+              /^v-select/,
+              /^v-input/,
             ],
             // Deep and greedy keep any dynamically generated classes used by Vuetify
             deep: [/^v-.*/, /^mdi-.*/, /^theme--.*/],
