@@ -86,9 +86,7 @@ export default defineNuxtConfig({
         config.plugins?.push(
           vuetify({
             autoImport: false, // Deshabilitado para tree-shaking manual
-            styles: {
-              configFile: 'assets/styles/vuetify-settings.scss',
-            },
+            styles: true, // Usar estilos por defecto de Vuetify
           })
         )
       })
@@ -277,6 +275,7 @@ export default defineNuxtConfig({
   },
 
   css: [
+    'vuetify/styles',
     '@mdi/font/css/materialdesignicons.css',
     '@/assets/styles/global.css',
   ],
