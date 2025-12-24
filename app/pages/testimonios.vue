@@ -35,8 +35,7 @@
               multiple
               chips
               clearable
-              variant="filled"
-              density="comfortable"
+              variant="outlined"
               class="mb-4"
             />
 
