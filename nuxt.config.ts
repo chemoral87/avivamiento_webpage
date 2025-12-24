@@ -280,47 +280,12 @@ export default defineNuxtConfig({
     '@/assets/styles/global.css',
   ],
 
-  // PurgeCSS con safelist mejorada para v-select
+  // PostCSS - PurgeCSS DESHABILITADO para evitar problemas con Vuetify
+  // Solo usar cssnano para minificación
   postcss: {
     plugins: {
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? {
-        '@fullhuman/postcss-purgecss': {
-          content: [
-            './app/**/*.{vue,js,ts}',
-            './pages/**/*.{vue,js,ts}',
-            './components/**/*.{vue,js,ts}',
-            './layouts/**/*.{vue,js,ts}',
-            './plugins/**/*.{js,ts}',
-            './nuxt.config.{js,ts}',
-          ],
-          safelist: {
-            standard: [
-              /^v-/,
-              /^mdi-/,
-              /^theme--/,
-              /^bg-/,
-              /^text-/,
-              /^d-/,
-              /^flex-/,
-              /^ma-/, /^mx-/, /^my-/, /^mt-/, /^mb-/, /^ml-/, /^mr-/,
-              /^pa-/, /^px-/, /^py-/, /^pt-/, /^pb-/, /^pl-/, /^pr-/,
-              /^align-/,
-              /^justify-/,
-              /^elevation-/,
-            ],
-            deep: [
-              /^v-.*/,
-              /^mdi-.*/,
-              /^theme--.*/,
-            ],
-            greedy: [
-              /^v-.*/,
-              /^mdi-.*/,
-            ],
-          },
-          defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-        },
         cssnano: {
           preset: ['default', {
             discardComments: { removeAll: true },
