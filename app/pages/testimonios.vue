@@ -35,6 +35,9 @@
               multiple
               chips
               clearable
+              variant="filled"
+              density="comfortable"
+              class="mb-4"
             />
 
             <v-text-field

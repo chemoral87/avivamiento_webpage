@@ -102,11 +102,19 @@ export default defineNuxtConfig({
 
   vite: {
     server: {
-      hmr: false,
+      // Enable polling to avoid Windows EPERM watch errors
       watch: {
         usePolling: true,
         interval: 1000,
         ignored: ['**/node_modules/**', '**/.git/**', '**/.nuxt/**', '**/.output/**']
+      },
+      fs: {
+        strict: false,
+      },
+      hmr: {
+        overlay: true,
+        protocol: 'ws',
+        host: 'localhost',
       },
     },
     vue: {
@@ -245,6 +253,7 @@ export default defineNuxtConfig({
       include: ['vuetify'],
       exclude: ['@mdi/font'],
     },
+    clearScreen: false,
   },
 
   experimental: {
@@ -369,24 +378,6 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002,
     host: '0.0.0.0',
-  },
-
-  vite: {
-    server: {
-      watch: {
-        usePolling: true,
-        interval: 500,
-      },
-      fs: {
-        strict: false,
-      },
-      hmr: {
-        overlay: true,
-        protocol: 'ws',
-        host: 'localhost',
-      },
-    },
-    clearScreen: false,
   },
 
   devtools: {
