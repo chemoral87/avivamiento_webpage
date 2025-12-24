@@ -1,3 +1,6 @@
-@use 'vuetify/settings' with (
-  $color-pack: true
+// assets/styles/vuetify-settings.scss
+@use 'vuetify' with (
+  $utilities: false,
+  // Puedes personalizar variables aquí si lo necesitas
+  // $color-pack: false, // Desactiva colores no usados
 );
