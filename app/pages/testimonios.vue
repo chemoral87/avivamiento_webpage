@@ -126,7 +126,14 @@ const generateCaptcha = () => {
   captchaAnswer.value = ''
 }
 
-const categoriesOptions = ['Sanidad', 'Financiero', 'Restauración', 'Conversión', 'Protección','Milagro Creativo']
+const categoriesOptions = ['Sanidad Física',
+'Paz y Salud Mental',
+'Provisión y Finanzas',
+'Logro Profesional/Academico',
+'Restauración Familiar',
+'Protección',
+'Transformación de Vida',
+'Milagro Creativo']
 
 const menuItems = [
   { title: 'Inicio', to: '/' },
