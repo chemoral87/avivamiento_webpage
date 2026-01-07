@@ -126,6 +126,20 @@ const generateCaptcha = () => {
   captchaAnswer.value = ''
 }
 
+// Safely encode a string to Base64 (handles Unicode in browsers)
+const encodeBase64 = (str) => {
+  if (!str) return null
+  try {
+    return btoa(unescape(encodeURIComponent(str)))
+  } catch (e) {
+    try {
+      return Buffer.from(str, 'utf-8').toString('base64')
+    } catch (e2) {
+      return null
+    }
+  }
+}
+
 const categoriesOptions = ['Sanidad Física',
 'Paz y Salud Mental',
 'Provisión y Finanzas',
@@ -192,7 +206,7 @@ const submit = async () => {
       categories: form.categories && form.categories.length ? form.categories : null,
       link: form.link || null,
       description: form.description || null,
-      org_id: runtimeConfig.public.ORG_ID || null,
+      org_id: encodeBase64(runtimeConfig.public.ORG_ID),
       numA: numA.value,
       numB: numB.value,
       captchaAnswer: Number(captchaAnswer.value)
