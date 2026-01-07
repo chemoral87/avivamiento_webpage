@@ -9,32 +9,32 @@
     <v-row justify="center">
        <v-col cols="12" md="10" lg="8" class="text-center">
             <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">Mira lo que ha hecho Dios</p>
-            <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Testimonios</h1>
+            <h1 class="text-h3 font-weight-light mb-0 pb-0" style="color: #041845;">Testimonios</h1>
           </v-col>
       <v-col cols="12" md="8">
 
-        <v-card v-if="!sent" class="pa-6" elevation="1">
-          <p class="mb-4">¿Quieres compartir tu testimonio con nosotros? Haz clic abajo para enviarlo.</p>
+        <v-card v-if="!sent" class="pa-4 ma-0" elevation="1">
+          <p class="ma-2">¿Quieres compartir tu testimonio con nosotros? Haz clic abajo para enviarlo.</p>
           <div class="d-flex justify-center">
             <v-btn color="#041845" @click="goToPage('/testimonios/form')">Enviar Testimonio</v-btn>
           </div>
         </v-card>
 
-        <div v-if="testimonies.length" class="mt-6">
+        <div v-if="testimonies.length" class="mt-4">
           <v-row dense>
             <v-col cols="12" v-for="(t, i) in testimonies" :key="i">
               <v-card class="pa-4 mb-4">
                 <div class="d-flex justify-space-between align-center mb-2">
                   <div>
-                    <div class="text-subtitle-1 font-weight-medium">{{ getItemNumber(i) }}. {{ t.name }}</div>
+               <span class="text-subtitle-1 font-weight-medium"> {{ t.name }}</span>
                     <div class="text-caption" style="color:#666">{{ formatDate(t.created_at) }}</div>
                   </div>
                 </div>
 
                 <div v-if="t.categories && t.categories.length" class="mb-2">
-                  <v-chip v-for="(c, idx) in t.categories" :key="idx" small class="mr-2">{{ c }}</v-chip>
+                  <v-chip v-for="(c, idx) in t.categories" :key="idx" size="x-small" class="mr-2">{{ c }}</v-chip>
                 </div>
-
+   <div class="text-body-1" v-if=" t.description">Testimonio: {{ t.description }}</div>
                 <div v-if="t.link" class="my-4">
                   <iframe
                     :src="getEmbedUrl(t.link)"
@@ -43,7 +43,7 @@
                   ></iframe>
                 </div>
 
-                <div class="text-body-1">{{ t.description }}</div>
+             
               </v-card>
             </v-col>
           </v-row>
@@ -109,7 +109,7 @@ const form = reactive({
 
 const testimonies = ref([])
 const page = ref(1)
-const perPage = 1
+const perPage = 25
 const pagination = ref({})
 
 // Safely encode a string to Base64 (handles Unicode in browsers)
@@ -176,7 +176,14 @@ const getEmbedUrl = (link) => {
 const formatDate = (d) => {
   if (!d) return ''
   try {
-    return new Date(d).toLocaleString()
+    const dt = new Date(d)
+    const day = String(dt.getDate()).padStart(2, '0')
+    const monthNames = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+    const mon = monthNames[dt.getMonth()] || ''
+    const year = dt.getFullYear()
+    const hours = String(dt.getHours()).padStart(2, '0')
+    const mins = String(dt.getMinutes()).padStart(2, '0')
+    return `${day} ${mon} ${year} `
   } catch (e) {
     return d
   }
