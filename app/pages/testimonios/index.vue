@@ -48,14 +48,15 @@
             </v-col>
           </v-row>
 
-          <div class="d-flex justify-center mt-4">
-            <div class="d-flex align-center" style="gap:12px;">
-              <v-btn variant="text" :disabled="!pagination.first_page_url" @click="goToFirst">Primera</v-btn>
-              <v-btn variant="text" :disabled="!pagination.prev_page_url" @click="goToPrev">Anterior</v-btn>
+          <div class="d-flex justify-center mt-4 testimonies-pagination">
+            <div class="d-flex align-center pagination-inner" style="gap:12px;">
+              <!-- <v-btn class="pagination-btn" variant="text" :disabled="!pagination.first_page_url" @click="goToFirst">Primera</v-btn> -->
+              <v-btn class="pagination-btn" variant="text" :disabled="!pagination.prev_page_url" @click="goToPrev">Anterior</v-btn>
               <div style="display:flex;gap:6px;align-items:center;">
                 <v-btn
                   v-for="p in pagesList"
                   :key="p"
+                  class="pagination-btn page-number"
                   size="small"
                   :variant="page === p ? 'tonal' : 'text'"
                   :color="page === p ? '#041845' : undefined"
@@ -63,8 +64,8 @@
                   {{ p }}
                 </v-btn>
               </div>
-              <v-btn variant="text" :disabled="!pagination.next_page_url" @click="goToNext">Siguiente</v-btn>
-              <v-btn variant="text" :disabled="!pagination.last_page_url" @click="goToLast">Última</v-btn>
+              <v-btn class="pagination-btn" variant="text" :disabled="!pagination.next_page_url" @click="goToNext">Siguiente</v-btn>
+              <!-- <v-btn class="pagination-btn" variant="text" :disabled="!pagination.last_page_url" @click="goToLast">Última</v-btn> -->
             </div>
           </div>
           <div class="text-center text-caption mt-2">Mostrando {{ pagination.from || 0 }} - {{ pagination.to || 0 }} de {{ pagination.total || 0 }}</div>
@@ -335,4 +336,33 @@ onMounted(() => {
 <style scoped>
 .section-overline { color: #666; letter-spacing: 2px; margin-bottom: 8px; }
 .section-title { color: #041845; font-size: 2.25rem; font-weight: 300; margin-bottom: 16px; }
+
+/* Pagination responsive tweaks */
+.testimonies-pagination .pagination-btn {
+  font-size: 14px;
+  min-width: 40px;
+}
+.testimonies-pagination .page-number {
+  padding: 6px 8px;
+}
+
+@media (max-width: 600px) {
+  .testimonies-pagination {
+    padding: 0 12px;
+  }
+  .testimonies-pagination .pagination-inner {
+    gap: 8px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .testimonies-pagination .pagination-btn {
+    font-size: 12px;
+    min-width: 32px;
+    padding: 4px 6px;
+    letter-spacing: 0.2px;
+  }
+  .testimonies-pagination .page-number {
+    padding: 4px 6px;
+  }
+}
 </style>
