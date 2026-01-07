@@ -8,13 +8,16 @@
   <v-container class="py-4">
     <v-row justify="center">
        <v-col cols="12" md="10" lg="8" class="text-center">
-            <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">Cuentanos que ha hecho Dios</p>
+            <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">Mira lo que ha hecho Dios</p>
             <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Testimonios</h1>
           </v-col>
       <v-col cols="12" md="8">
 
         <v-card v-if="!sent" class="pa-6" elevation="1">
-    
+          <p class="mb-4">¿Quieres compartir tu testimonio con nosotros? Haz clic abajo para enviarlo.</p>
+          <div class="d-flex justify-center">
+            <v-btn color="#041845" @click="goToPage('/testimonios/form')">Enviar Testimonio</v-btn>
+          </div>
         </v-card>
 
 

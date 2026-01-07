@@ -9,7 +9,7 @@
     <v-row justify="center">
        <v-col cols="12" md="10" lg="8" class="text-center">
             <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">Cuentanos que ha hecho Dios</p>
-            <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Testimonios</h1>
+            <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Formulario Testimonio</h1>
           </v-col>
       <v-col cols="12" md="8">
 
@@ -66,7 +66,7 @@
             </v-row>
 
             <div class="d-flex justify-end gap-3 mt-4">
-              <!-- <v-btn variant="text" color="secondary" @click="resetForm">Limpiar</v-btn> -->
+              <v-btn outlined class="mr-3" variant="text" color="secondary" @click="goToPage('/testimonios')">Regresar</v-btn>
               <v-btn :loading="submitting" color="#041845" @click="submit" :disabled="submitting">Enviar Testimonio</v-btn>
             </div>
           </v-form>
