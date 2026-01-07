@@ -57,6 +57,49 @@ const form = reactive({
   description: ''
 })
 
+const testimonies = ref([])
+
+// Safely encode a string to Base64 (handles Unicode in browsers)
+const encodeBase64 = (str) => {
+  if (!str) return null
+  try {
+    return btoa(unescape(encodeURIComponent(str)))
+  } catch (e) {
+    try {
+      return Buffer.from(str, 'utf-8').toString('base64')
+    } catch (e2) {
+      return null
+    }
+  }
+}
+
+const fetchPublicTestimonies = async () => {
+  const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
+  if (!encoded) return
+
+  // Try the likely publicIndex route first
+  const base = runtimeConfig.public.API_URL.replace(/\/$/, '')
+  const tryUrls = [
+    // `${base}/testimony/publicIndex?org_id=${encodeURIComponent(encoded)}`,
+    // `${base}/testimony/public?org_id=${encodeURIComponent(encoded)}`,
+    `${base}/testimony/public?org_id=${encodeURIComponent(encoded)}&itemsPerPage=2`
+  ]
+
+  for (const url of tryUrls) {
+    try {
+      const res = await axios.get(url)
+      if (res?.status === 200 && res.data) {
+        // assuming API returns items in res.data.data or res.data
+        testimonies.value = res.data.data ?? res.data ?? []
+        return
+      }
+    } catch (err) {
+      // try next URL
+      // console.debug('fetchPublicTestimonies url failed', url, err)
+    }
+  }
+}
+
 // Simple sum captcha fields
 const numA = ref(0)
 const numB = ref(0)
@@ -160,6 +203,7 @@ const submit = async () => {
 
 onMounted(() => {
   generateCaptcha()
+  fetchPublicTestimonies()
 })
 </script>
 
