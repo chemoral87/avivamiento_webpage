@@ -311,7 +311,7 @@
         </v-footer>
       </div>
     </v-main>
-    <WhatsAppButton />
+    <WhatsAppButton :hide="drawer" />
   </v-app>
 </template>
 

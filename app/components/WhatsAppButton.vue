@@ -3,6 +3,7 @@
     icon
     color="green"
     class="whatsapp-fab"
+    :class="{ 'whatsapp-fab--hidden': hide }"
     :href="whatsappUrl"
     target="_blank"
     @click="handleClick"
@@ -22,6 +23,10 @@ const props = defineProps({
   message: {
     type: String,
     default: 'Hola! Quiero más información sobre Avivamiento Monterrey'
+  },
+  hide: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -64,6 +69,14 @@ const handleClick = () => {
   min-height: 72px;
   border-radius: 50%;
   animation: whatsapp-fab-in 0.5s;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.whatsapp-fab--hidden {
+  opacity: 0;
+  transform: scale(0.7);
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .whatsapp-fab :deep(.v-icon) {

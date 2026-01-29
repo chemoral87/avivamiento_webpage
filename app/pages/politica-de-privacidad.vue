@@ -139,7 +139,7 @@
         </v-row>
       </v-container>
 
-      <WhatsAppButton />
+
     </v-main>
   </v-app>
 </template>
