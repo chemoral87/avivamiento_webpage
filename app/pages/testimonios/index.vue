@@ -16,7 +16,7 @@
         <v-card v-if="!sent" class="pa-4 ma-0" elevation="1">
           <p class="ma-2">¿Quieres compartir tu testimonio con nosotros? Haz clic abajo para enviarlo.</p>
           <div class="d-flex justify-center">
-            <v-btn color="#041845" @click="goToPage('/testimonios/form')">Enviar Testimonio</v-btn>
+            <v-btn color="#041845" @click="goToPage('/testimonios/form')">Redactar Testimonio</v-btn>
           </div>
         </v-card>
 
