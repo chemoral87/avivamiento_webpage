@@ -44,4 +44,8 @@ ln -sfn "$RELEASE_PATH" "$CURRENT_LINK" || error_exit "Symlink update failed"
 pm2 startOrRestart "$CURRENT_LINK/ecosystem.config.cjs" --update-env || error_exit "pm2 restart failed"
 pm2 save
 
+# Reload nginx so it follows the rollback symlink for static files
+echo -e "${YELLOW}🔄 Reloading nginx...${NC}"
+nginx -t && systemctl reload nginx || error_exit "nginx reload failed"
+
 echo -e "${GREEN}✅ Rollback to $RELEASE_NAME completed successfully!${NC}"

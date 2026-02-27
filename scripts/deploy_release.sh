@@ -56,6 +56,10 @@ echo -e "${YELLOW}🔄 Restarting app...${NC}"
 pm2 startOrRestart "$CURRENT_LINK/ecosystem.config.cjs" --update-env || error_exit "pm2 restart failed"
 pm2 save
 
+# Reload nginx so it follows the new symlink for static files
+echo -e "${YELLOW}🔄 Reloading nginx...${NC}"
+nginx -t && systemctl reload nginx || error_exit "nginx reload failed"
+
 # Keep only last $KEEP_RELEASES
 echo -e "${YELLOW}🧹 Cleaning old releases (keeping last $KEEP_RELEASES)...${NC}"
 cd "$RELEASES_DIR"
