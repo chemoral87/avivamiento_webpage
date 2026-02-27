@@ -67,7 +67,7 @@
 
             <div class="d-flex justify-end gap-3 mt-4">
               <v-btn outlined class="mr-3" variant="text" color="secondary" @click="goToPage('/testimonios')">Regresar</v-btn>
-              <v-btn :loading="submitting" color="#041845" @click="submit" :disabled="submitting">Enviar Testimonio</v-btn>
+              <v-btn :loading="submitting" color="#041845" @click="submit" :disabled="submitting">Redactar Testimonio</v-btn>
             </div>
           </v-form>
         </v-card>
