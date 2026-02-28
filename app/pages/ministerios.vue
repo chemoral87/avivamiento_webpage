@@ -221,7 +221,7 @@ const goToSection = (path) => {
 }
 
 useHead({
-  title: 'Ministerios - Avivamiento Monterrey',
+  title: 'Ministerios | Iglesia Avivamiento Monterrey',
   meta: [
     {
       name: 'description',

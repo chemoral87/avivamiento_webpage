@@ -341,7 +341,7 @@ const menuItems = [
 
 // SEO Configuration
 useHead({
-  title: 'Pastor Adrian Aguirre | Avivamiento Monterrey | Iglesia Cristiana en Apodaca',
+  title: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   link: [
     { rel: 'canonical', href: 'https://avivamientomonterrey.com/' }
   ],
@@ -351,6 +351,11 @@ useHead({
       children: JSON.stringify({
         '@context': 'https://schema.org',
         '@graph': [
+          {
+            '@type': 'WebSite',
+            name: 'Iglesia Avivamiento Monterrey',
+            url: 'https://avivamientomonterrey.com/'
+          },
           {
             '@type': 'Church',
             name: 'Iglesia Avivamiento Monterrey',
@@ -407,14 +412,14 @@ useHead({
 useSeoMeta({
   description: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM. ¡Te esperamos!',
   keywords: 'Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León',
-  ogTitle: 'Pastor Adrian Aguirre | Avivamiento Monterrey',
+  ogTitle: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   ogDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',
   ogUrl: 'https://avivamientomonterrey.com/',
   ogImage: 'https://avivamientomonterrey.com/images/poster2.webp',
   ogType: 'website',
   ogLocale: 'es_MX',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Pastor Adrian Aguirre | Avivamiento Monterrey',
+  twitterTitle: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   twitterDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',
   twitterImage: 'https://avivamientomonterrey.com/images/poster2.webp'
 })

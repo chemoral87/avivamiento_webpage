@@ -31,7 +31,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Pastor Adrian Aguirre | Avivamiento Monterrey',
+      title: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
       htmlAttrs: {
         lang: 'es'
       },
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
         { name: 'googlebot', content: 'index, follow' },
         { name: 'format-detection', content: 'telephone=no' },
         { property: 'og:site_name', content: 'Avivamiento Monterrey' },
-        { property: 'og:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
+        { property: 'og:title', content: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre' },
         { property: 'og:description', content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://avivamientomonterrey.com' },
@@ -61,7 +61,7 @@ export default defineNuxtConfig({
         { property: 'og:image:height', content: '630' },
         { property: 'og:image:alt', content: 'Logo Avivamiento Monterrey' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Pastor Adrian Aguirre | Avivamiento Monterrey' },
+        { name: 'twitter:title', content: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre' },
         { name: 'twitter:description', content: 'Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre' },
         { name: 'twitter:image', content: 'https://avivamientomonterrey.com/images/logo_avivamiento_seo.png' },
         { name: 'twitter:image:alt', content: 'Logo Avivamiento Monterrey' },
@@ -85,19 +85,26 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    '@nuxt/image',
-    async (_options, nuxt) => {
-      nuxt.hooks.hook('vite:extendConfig', (config) => {
-        config.plugins?.push(
-          vuetify({
-            autoImport: false, // Deshabilitado para tree-shaking manual
-            styles: true, // Usar estilos por defecto de Vuetify
-          })
-        )
-      })
-    },
-  ],
+  modules: ['@nuxt/image', async (_options, nuxt) => {
+    nuxt.hooks.hook('vite:extendConfig', (config) => {
+      config.plugins?.push(
+        vuetify({
+          autoImport: false, // Deshabilitado para tree-shaking manual
+          styles: true, // Usar estilos por defecto de Vuetify
+        })
+      )
+    })
+  }, '@nuxtjs/sitemap'],
+
+  site: {
+    url: 'https://avivamientomonterrey.com',
+    name: 'Iglesia Avivamiento Monterrey',
+  },
+
+  sitemap: {
+    sitemaps: false,
+    xsl: false,
+  },
 
   build: {
     transpile: ['vuetify'],

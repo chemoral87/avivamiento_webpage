@@ -331,6 +331,16 @@ onMounted(() => {
   generateCaptcha()
   fetchPublicTestimonies()
 })
+
+useHead({
+  title: 'Testimonios | Iglesia Avivamiento Monterrey',
+  meta: [
+    {
+      name: 'description',
+      content: 'Lee y comparte testimonios de lo que Dios ha hecho en Avivamiento Monterrey.'
+    }
+  ]
+})
 </script>
 
 <style scoped>

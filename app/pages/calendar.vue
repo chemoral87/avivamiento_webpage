@@ -209,7 +209,7 @@ const shareGeneric = (eventName, description) => {
 }
 
 useHead({
-  title: 'Calendario de Eventos - Avivamiento Monterrey',
+  title: 'Eventos | Iglesia Avivamiento Monterrey',
   meta: [
     {
       name: 'description',
