@@ -73,7 +73,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/x-icon', href: '/images/fav/favicon.ico' },
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ],
       noscript: [
