@@ -30,6 +30,13 @@ git clone --depth 1 "$REPO_URL" "$RELEASE_PATH" || error_exit "Git clone failed"
 
 cd "$RELEASE_PATH" || error_exit "Cannot enter release directory"
 
+if [ -f "$APP_DIR/.env" ]; then
+  echo -e "${YELLOW}📄 Copying .env file...${NC}"
+  cp -f "$APP_DIR/.env" "$RELEASE_PATH/.env" || error_exit "Failed to copy .env"
+else
+  echo -e "${YELLOW}⚠️ No .env file found at $APP_DIR/.env${NC}"
+fi
+
 # Checkout specific commit if provided
 if [ -n "$1" ]; then
   git fetch --depth 1 origin "$1" || true
