@@ -415,13 +415,17 @@ useSeoMeta({
   ogTitle: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   ogDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',
   ogUrl: 'https://avivamientomonterrey.com/',
-  ogImage: 'https://avivamientomonterrey.com/images/poster2.webp',
+  ogImage: 'https://avivamientomonterrey.com/images/logo_avivamiento_seo.png',
+  ogImageWidth: '1200',
+  ogImageHeight: '630',
+  ogImageAlt: 'Logo Iglesia Avivamiento Monterrey',
   ogType: 'website',
   ogLocale: 'es_MX',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   twitterDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',
-  twitterImage: 'https://avivamientomonterrey.com/images/poster2.webp'
+  twitterImage: 'https://avivamientomonterrey.com/images/logo_avivamiento_seo.png',
+  twitterImageAlt: 'Logo Iglesia Avivamiento Monterrey'
 })
 
 // Computed Properties
