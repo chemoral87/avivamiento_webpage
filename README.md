@@ -12,9 +12,9 @@ Página web oficial de la Iglesia Avivamiento Monterrey, liderada por los Pastor
 
 ## 📋 Requisitos Importantes
 
-⚠️ **IMPORTANTE:** Este proyecto requiere Node.js 18.x o 20.x
+⚠️ **IMPORTANTE:** Este proyecto requiere Node.js 20.x o superior
 
-Si tienes Node.js 21.x, necesitas cambiar a la versión 20.x:
+Si tienes Node.js 18.x o 21.x, necesitas cambiar a la versión 20.x:
 
 ```bash
 # Con nvm (recomendado)
@@ -23,6 +23,11 @@ nvm use 20
 
 # Verificar versión
 node --version
+
+# Alternativa con archivo de configuración
+# Si usas nvm, también puedes leer la versión desde .nvmrc:
+cd avivamiento_webpage
+nvm use
 ```
 
 ## 🔧 Instalación

@@ -50,7 +50,7 @@
             <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
-                  <v-img src="/images/adrian.webp" alt="Pastor Adrian Aguirre" />
+                  <v-img src="/images/adrian.webp" alt="Pastor Adrian Aguirre" draggable="false" />
                 </v-avatar>
                 <h3 class="pastor-name">Adrian Aguirre</h3>
                 <p class="pastor-role">Pastor</p>
@@ -65,7 +65,7 @@
             <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
-                  <v-img src="/images/sara.webp" alt="Pastora Sara Aguirre" />
+                  <v-img src="/images/sara.webp" alt="Pastora Sara Aguirre" draggable="false" />
                 </v-avatar>
                 <h3 class="pastor-name">Sara Aguirre</h3>
                 <p class="pastor-role">Pastora</p>
@@ -627,6 +627,14 @@ onUnmounted(() => {
 }
 
 /* Pastor Cards */
+.pastor-card,
+.schedule-card {
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .pastor-card {
   border: 1px solid #e0e0e0;
   background-color: rgba(255, 255, 255, 0.5) !important;
@@ -639,8 +647,10 @@ onUnmounted(() => {
   transition: transform 0.3s ease-in-out;
 }
 
-.pastor-card:hover {
-  transform: translateY(-8px);
+@media (hover: hover) and (pointer: fine) {
+  .pastor-card:hover {
+    transform: translateY(-8px);
+  }
 }
 
 .pastor-card :deep(.v-avatar) {
@@ -685,8 +695,10 @@ onUnmounted(() => {
   transition: transform 0.3s ease-in-out;
 }
 
-.schedule-card:hover {
-  transform: translateY(-8px);
+@media (hover: hover) and (pointer: fine) {
+  .schedule-card:hover {
+    transform: translateY(-8px);
+  }
 }
 
 .schedule-day {

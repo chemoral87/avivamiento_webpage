@@ -1,8 +1,11 @@
 {
   "name": "avivamiento-webpage",
-  "version": "1.0.68",
+  "version": "1.0.69",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=4096 nuxt build",
     "dev": "nuxt dev",
