@@ -633,6 +633,8 @@ onUnmounted(() => {
   -webkit-tap-highlight-color: transparent;
   -webkit-user-drag: none;
   user-select: none;
+  /* iOS overscroll prevention */
+  overscroll-behavior: contain;
 }
 
 .pastor-card {
