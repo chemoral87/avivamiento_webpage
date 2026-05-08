@@ -92,17 +92,16 @@
               <v-col cols="12" sm="6" md="6">
                 <v-card class="schedule-card" elevation="0">
                   <h3 class="schedule-day">Domingo</h3>
-                  <p class="schedule-time">9:45 AM</p>
-                  <p class="schedule-time">12:00 PM</p>
-                  <p class="schedule-type">Reunión General</p>
+                  <p class="schedule-time">Primera reunión: 9:45 AM</p>
+                  <p class="schedule-time">Segunda reunión: 12:00 PM</p>
+                
                 </v-card>
               </v-col>
               
               <v-col cols="12" sm="6" md="6">
                 <v-card class="schedule-card" elevation="0">
                   <h3 class="schedule-day">Miércoles</h3>
-                  <p class="schedule-time">8:00 PM</p>
-                  <p class="schedule-type">Reunión General</p>
+                  <p class="schedule-time">Primera reunión: 8:00 PM</p>
                 </v-card>
               </v-col>
             </v-row>
@@ -633,11 +632,6 @@ onUnmounted(() => {
   -webkit-tap-highlight-color: transparent;
   -webkit-user-drag: none;
   user-select: none;
-  /* iOS-specific overscroll prevention */
-  @supports (-webkit-touch-callout: none) {
-    touch-action: pan-y;
-    overscroll-behavior: contain;
-  }
 }
 
 .pastor-card {
@@ -697,7 +691,10 @@ onUnmounted(() => {
   background-color: rgba(255, 255, 255, 0.6) !important;
   text-align: center;
   padding: 12px;
-  transition: transform 0.3s ease-in-out;
+  min-height: 160px;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(12, 35, 64, 0.08);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 @media (hover: hover) and (pointer: fine) {
