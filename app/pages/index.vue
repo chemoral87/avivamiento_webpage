@@ -630,12 +630,14 @@ onUnmounted(() => {
 /* Pastor Cards */
 .pastor-card,
 .schedule-card {
-  touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
   -webkit-user-drag: none;
   user-select: none;
-  /* iOS overscroll prevention */
-  overscroll-behavior: contain;
+  /* iOS-specific overscroll prevention */
+  @supports (-webkit-touch-callout: none) {
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+  }
 }
 
 .pastor-card {
