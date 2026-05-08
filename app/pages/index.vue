@@ -92,7 +92,8 @@
               <v-col cols="12" sm="6" md="6">
                 <v-card class="schedule-card" elevation="0">
                   <h3 class="schedule-day">Domingo</h3>
-                  <p class="schedule-time">11:00 AM</p>
+                  <p class="schedule-time">9:45 AM</p>
+                  <p class="schedule-time">12:00 PM</p>
                   <p class="schedule-type">Reunión General</p>
                 </v-card>
               </v-col>
@@ -378,7 +379,7 @@ useHead({
               'https://www.tiktok.com/@avivamientomonterrey',
               'https://open.spotify.com/show/3BlpJIaQRraIURcanH5rg1'
             ],
-            openingHours: ['Su 11:00-13:00', 'We 20:00-22:00'],
+            openingHours: ['Su 09:45-13:00', 'We 20:00-22:00'],
             geo: {
               '@type': 'GeoCoordinates',
               latitude: '25.7729',
@@ -410,7 +411,7 @@ useHead({
 })
 
 useSeoMeta({
-  description: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 11:00 AM. ¡Te esperamos!',
+  description: 'Iglesia Avivamiento Monterrey bajo el liderazgo del Pastor Adrian Aguirre y la Pastora Sara Aguirre. Ubicados en Apodaca, Monterrey. Cultos dominicales 9:45 AM y 12:00 PM. ¡Te esperamos!',
   keywords: 'Adrian Aguirre, Pastor Adrian Aguirre Monterrey, Sara Aguirre, Pastora Sara Aguirre, Avivamiento Monterrey, iglesia Apodaca, iglesia Mezquital Apodaca, cultos cristianos Monterrey, iglesia evangélica Nuevo León',
   ogTitle: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   ogDescription: 'Iglesia cristiana en Apodaca dirigida por Pastor Adrian Aguirre',

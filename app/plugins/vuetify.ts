@@ -29,7 +29,8 @@ import {
   VListItemTitle,
   VDivider,
   VImg,
-  VAvatar
+  VAvatar,
+  VFooter
 } from 'vuetify/components'
 
 // Importa directivas si las usas
@@ -65,7 +66,8 @@ export default defineNuxtPlugin((app) => {
       VListItemTitle,
       VDivider,
       VImg,
-      VAvatar
+      VAvatar,
+      VFooter
     },
     directives: {
       Ripple,

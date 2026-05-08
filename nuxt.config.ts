@@ -120,11 +120,7 @@ export default defineNuxtConfig({
       fs: {
         strict: false,
       },
-      hmr: {
-        overlay: true,
-        protocol: 'ws',
-        host: 'localhost',
-      },
+      hmr: false,
     },
     vue: {
       template: {
