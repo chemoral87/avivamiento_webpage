@@ -166,6 +166,19 @@
               >
                 Abrir en Google Maps
               </v-btn>
+
+              <v-btn
+                href="https://search.google.com/local/writereview?placeid=ChIJrSeKOm_rYoYREnKO4ylo2cw"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="#041845"
+                variant="outlined"
+                size="large"
+                block
+                class="mt-2"
+              >
+                Dejar una reseña
+              </v-btn>
             </div>
           </v-col>
           
