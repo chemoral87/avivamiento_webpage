@@ -106,20 +106,21 @@ const handleLoginClick = () => {
     box-shadow: 0 0 0px rgba(255, 180, 0, 0);
   }
   50% {
-    opacity: 0.6;
-    transform: scale(1.08);
-    box-shadow: 0 0 12px rgba(21, 101, 192, 0.9);
+    opacity: 1;
+    transform: scale(1.03);
+    box-shadow: 0 0 12px rgba(13, 71, 161, 0.9);
   }
 }
 
 .mobile-menu-btn {
-  background-color: #1565C0 !important;
+  background-color: #0D47A1 !important;
   color: #ffffff !important;
   font-weight: 700;
   font-size: 0.85rem;
   text-transform: none;
   letter-spacing: 0.3px;
-  animation: slow-blink 2s ease-in-out infinite;
+  animation: slow-blink 4s ease-in-out infinite;
+  border: 1px dotted #ffffff;
 }
 
 .mobile-menu-btn.menu-open {
