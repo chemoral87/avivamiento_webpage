@@ -3,6 +3,7 @@
     <AppNavBar 
       :menu-items="menuItems" 
       @toggle-drawer="drawer = !drawer"
+      :drawer-open="drawer"
       :color="scrolled ? '#041845' : 'transparent'"
       :elevation="scrolled ? 1 : 0"
       :flat="true"
