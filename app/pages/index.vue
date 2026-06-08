@@ -134,7 +134,7 @@
               <div class="mb-6">
                 <p class="location-label">DIRECCIÓN</p>
                 <p class="location-info">
-                  Av. Santo Domingo #215, Col. Mezquital, Apodaca, México
+                  Av. Santo Domingo #215, Col. Mezquital, Apodaca, México. C.P. 66630 
                 </p>
               </div>
 
