@@ -39,38 +39,34 @@
               <v-img
                 v-if="event.url_image_s3"
                 :src="event.url_image_s3"
-                height="250"
+                height="220"
                 cover
-                gradient="to bottom, rgba(4,24,69,.3), rgba(4,24,69,.7)"
-              >
-                <div class="d-flex flex-column fill-height pa-4">
-                  <v-chip color="#041845" size="small" class="mb-2" style="width: fit-content;">
-                    PRÓXIMAMENTE
-                  </v-chip>
-                </div>
-              </v-img>
-              <v-card-text class="pa-6">
-                <div class="d-flex align-center mb-3">
-                  <v-icon color="#041845" class="mr-2">mdi-calendar</v-icon>
-                  <span class="text-body-2" style="color: #666;">{{ formatEventDate(event.start_date) }}</span>
-                </div>
-                <h3 class="text-h5 font-weight-regular mb-3" style="color: #041845;">
+              />
+              <v-card-text class="pa-4">
+                <h3 class="text-h6 font-weight-regular mb-1" style="color: #041845;">
                   {{ event.name }}
                 </h3>
-                <p v-if="event.description" class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
+                <p v-if="event.description" class="text-body-2 mb-2" style="color: #555; line-height: 1.6;">
                   {{ event.description }}
                 </p>
-                <div v-if="event.time_start" class="d-flex align-center mb-4">
-                  <v-icon size="small" color="#666" class="mr-2">mdi-clock-outline</v-icon>
-                  <span class="text-body-2" style="color: #666;">{{ event.time_start }}</span>
+                <!-- Date · Time · Location on compact rows -->
+                <div class="d-flex align-center flex-wrap mb-1" style="gap: 16px;">
+                  <span class="d-flex align-center" style="color: #666;">
+                    <v-icon size="14" class="mr-1">mdi-calendar</v-icon>
+                    <span class="text-caption">{{ formatEventDate(event.start_date) }}</span>
+                  </span>
+                  <span v-if="event.time_start" class="d-flex align-center" style="color: #666;">
+                    <v-icon size="14" class="mr-1">mdi-clock-outline</v-icon>
+                    <span class="text-caption">{{ event.time_start }}</span>
+                  </span>
                 </div>
-                <div v-if="event.location" class="d-flex align-center mb-4">
-                  <v-icon size="small" color="#666" class="mr-2">mdi-map-marker-outline</v-icon>
-                  <span class="text-body-2" style="color: #666;">{{ event.location }}</span>
+                <div v-if="event.location" class="d-flex align-center mb-2" style="color: #666;">
+                  <v-icon size="14" class="mr-1">mdi-map-marker-outline</v-icon>
+                  <span class="text-caption">{{ event.location }}</span>
                 </div>
-                <v-divider class="mb-4"></v-divider>
+                <v-divider class="mb-2"></v-divider>
                 <div class="d-flex justify-space-between align-center">
-                  <span class="text-body-2 font-weight-medium" style="color: #041845;">Compartir:</span>
+     
                   <div>
                     <v-btn
                       icon size="small" variant="text"
