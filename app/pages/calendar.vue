@@ -13,77 +13,32 @@
             <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Eventos</h1>
           </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="6" lg="5">
-            <v-card elevation="0" class="event-card" style="border: 1px solid #e0e0e0; height: 100%;">
-              <v-img
-                src="/images/poster2.webp"
-                height="250"
-                cover
-                gradient="to bottom, rgba(4,24,69,.3), rgba(4,24,69,.7)"
-              >
-                <div class="d-flex flex-column fill-height pa-4">
-                  <v-chip color="#041845" size="small" class="mb-2" style="width: fit-content;">
-                    PRÓXIMAMENTE
-                  </v-chip>
-                </div>
-              </v-img>
-              <v-card-text class="pa-6">
-                <div class="d-flex align-center mb-3">
-                  <v-icon color="#041845" class="mr-2">mdi-calendar</v-icon>
-                  <span class="text-body-2" style="color: #666;">Diciembre 2025</span>
-                </div>
-                <h3 class="text-h5 font-weight-regular mb-3" style="color: #041845;">
-                  Fiesta Navideña
-                </h3>
-                <p class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
-                  Celebra con nosotros la Navidad en una noche llena de alegría, convivencia familiar y actividades especiales para toda la familia.
-                </p>
-                <div class="d-flex align-center mb-4">
-                  <v-icon size="small" color="#666" class="mr-2">mdi-clock-outline</v-icon>
-                  <span class="text-body-2" style="color: #666;">Por confirmar</span>
-                </div>
-                <v-divider class="mb-4"></v-divider>
-                <div class="d-flex justify-space-between align-center">
-                  <span class="text-body-2 font-weight-medium" style="color: #041845;">Compartir:</span>
-                  <div>
-                    <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="shareOnWhatsApp('Fiesta Navideña', 'Celebra con nosotros la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
-                      style="color: #25D366;"
-                    >
-                      <v-icon>mdi-whatsapp</v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="shareOnFacebook('Fiesta Navideña')"
-                      style="color: #1877F2;"
-                    >
-                      <v-icon>mdi-facebook</v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="shareGeneric('Fiesta Navideña', 'Celebra con nosotros la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
-                      style="color: #041845;"
-                    >
-                      <v-icon>mdi-share-variant</v-icon>
-                    </v-btn>
-                  </div>
-                </div>
-              </v-card-text>
-            </v-card>
+        <!-- Loading state -->
+        <v-row v-if="loadingEvents" justify="center">
+          <v-col cols="12" class="text-center py-8">
+            <v-progress-circular indeterminate color="#041845" size="48" />
           </v-col>
+        </v-row>
 
-          <v-col cols="12" md="6" lg="5">
+        <!-- No events state -->
+        <v-row v-else-if="!events.length" justify="center">
+          <v-col cols="12" md="8" class="text-center py-8">
+            <v-icon size="48" color="#ccc" class="mb-4">mdi-calendar-blank-outline</v-icon>
+            <p class="text-body-1" style="color: #666;">No hay eventos próximos por el momento.</p>
+          </v-col>
+        </v-row>
+
+        <!-- Events list -->
+        <v-row v-else justify="center">
+          <v-col
+            v-for="(event, i) in events"
+            :key="event.id ?? i"
+            cols="12" md="6" lg="5"
+          >
             <v-card elevation="0" class="event-card" style="border: 1px solid #e0e0e0; height: 100%;">
               <v-img
-                src="/images/poster2.jpg"
+                v-if="event.url_image_s3"
+                :src="event.url_image_s3"
                 height="250"
                 cover
                 gradient="to bottom, rgba(4,24,69,.3), rgba(4,24,69,.7)"
@@ -97,45 +52,43 @@
               <v-card-text class="pa-6">
                 <div class="d-flex align-center mb-3">
                   <v-icon color="#041845" class="mr-2">mdi-calendar</v-icon>
-                  <span class="text-body-2" style="color: #666;">Diciembre 2025</span>
+                  <span class="text-body-2" style="color: #666;">{{ formatEventDate(event.start_date) }}</span>
                 </div>
                 <h3 class="text-h5 font-weight-regular mb-3" style="color: #041845;">
-                  Obra Navideña
+                  {{ event.name }}
                 </h3>
-                <p class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
-                  Disfruta de una presentación especial donde celebramos el verdadero significado de la Navidad a través de una obra teatral. Para ti.
+                <p v-if="event.description" class="text-body-2 mb-4" style="color: #555; line-height: 1.8;">
+                  {{ event.description }}
                 </p>
-                <div class="d-flex align-center mb-4">
+                <div v-if="event.time_start" class="d-flex align-center mb-4">
                   <v-icon size="small" color="#666" class="mr-2">mdi-clock-outline</v-icon>
-                  <span class="text-body-2" style="color: #666;">Por confirmar</span>
+                  <span class="text-body-2" style="color: #666;">{{ event.time_start }}</span>
+                </div>
+                <div v-if="event.location" class="d-flex align-center mb-4">
+                  <v-icon size="small" color="#666" class="mr-2">mdi-map-marker-outline</v-icon>
+                  <span class="text-body-2" style="color: #666;">{{ event.location }}</span>
                 </div>
                 <v-divider class="mb-4"></v-divider>
                 <div class="d-flex justify-space-between align-center">
                   <span class="text-body-2 font-weight-medium" style="color: #041845;">Compartir:</span>
                   <div>
                     <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="shareOnWhatsApp('Obra Navideña', 'Disfruta de una obra teatral especial celebrando el verdadero significado de la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
+                      icon size="small" variant="text"
+                      @click="shareOnWhatsApp(event.name, event.description)"
                       style="color: #25D366;"
                     >
                       <v-icon>mdi-whatsapp</v-icon>
                     </v-btn>
                     <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="shareOnFacebook('Obra Navideña')"
+                      icon size="small" variant="text"
+                      @click="shareOnFacebook(event.name)"
                       style="color: #1877F2;"
                     >
                       <v-icon>mdi-facebook</v-icon>
                     </v-btn>
                     <v-btn
-                      icon
-                      size="small"
-                      variant="text"
-                      @click="shareGeneric('Obra Navideña', 'Disfruta de una obra teatral especial celebrando el verdadero significado de la Navidad en Avivamiento Monterrey. Diciembre 2025.')"
+                      icon size="small" variant="text"
+                      @click="shareGeneric(event.name, event.description)"
                       style="color: #041845;"
                     >
                       <v-icon>mdi-share-variant</v-icon>
@@ -152,12 +105,66 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
 const drawer = ref(false)
 const router = useRouter()
 const runtimeConfig = useRuntimeConfig()
 const loginRoute = runtimeConfig.public.loginRoute
+
+const events = ref([])
+const loadingEvents = ref(false)
+
+// Safely encode a string to Base64 (handles Unicode)
+const encodeBase64 = (str) => {
+  if (!str) return null
+  try {
+    return btoa(unescape(encodeURIComponent(str)))
+  } catch (e) {
+    try {
+      return Buffer.from(str, 'utf-8').toString('base64')
+    } catch (e2) {
+      return null
+    }
+  }
+}
+
+const fetchPublicEvents = async () => {
+  const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
+  if (!encoded) return
+
+  const base = runtimeConfig.public.API_URL.replace(/\/$/, '')
+  const start_date = new Date().toISOString().split('T')[0] // YYYY-MM-DD
+  const url = `${base}/church-event/public?org_id=${encodeURIComponent(encoded)}&start_date=${start_date}`
+
+  loadingEvents.value = true
+  try {
+    const res = await axios.get(url)
+    if (res?.status === 200 && res.data) {
+      events.value = Array.isArray(res.data) ? res.data : (res.data.data ?? [])
+    }
+  } catch (err) {
+    console.error('Error fetching events:', err)
+  } finally {
+    loadingEvents.value = false
+  }
+}
+
+onMounted(() => {
+  fetchPublicEvents()
+})
+
+const formatEventDate = (d) => {
+  if (!d) return 'Fecha por confirmar'
+  try {
+    const dt = new Date(d)
+    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    return `${dt.getDate()} de ${monthNames[dt.getMonth()]} ${dt.getFullYear()}`
+  } catch (e) {
+    return d
+  }
+}
 
 const menuItems = [
   { title: 'Inicio', to: '/' },

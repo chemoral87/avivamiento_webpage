@@ -3,7 +3,7 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-12-08',
-  
+
   future: {
     compatibilityVersion: 4,
   },
@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       loginRoute: process.env.NUXT_PUBLIC_LOGIN_ROUTE || '/login',
-      API_URL:  process.env.API_URL || '',
+      API_URL: process.env.API_URL || '',
       ORG_ID: process.env.ORG_ID || '',
     },
   },
@@ -38,13 +38,13 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { 
-          name: 'description', 
-          content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey, Nuevo León. Cultos dominicales y reuniones de oración.' 
+        {
+          name: 'description',
+          content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey, Nuevo León. Cultos dominicales y reuniones de oración.'
         },
-        { 
-          name: 'keywords', 
-          content: 'Adrian Aguirre, Pastor Adrian Aguirre, Avivamiento Monterrey, iglesia Monterrey, iglesia Apodaca, iglesia cristiana Monterrey, cultos cristianos Monterrey, pastor Monterrey, iglesia evangélica Monterrey' 
+        {
+          name: 'keywords',
+          content: 'Adrian Aguirre, Pastor Adrian Aguirre, Avivamiento Monterrey, iglesia Monterrey, iglesia Apodaca, iglesia cristiana Monterrey, cultos cristianos Monterrey, pastor Monterrey, iglesia evangélica Monterrey'
         },
         { name: 'author', content: 'Iglesia Avivamiento Monterrey' },
         { name: 'robots', content: 'index, follow' },
@@ -77,7 +77,7 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ],
       noscript: [
-        { 
+        {
           children: '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP63RVGW" height="0" width="0" style="display:none;visibility:hidden"></iframe>',
           body: true
         }
@@ -127,14 +127,14 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
-    
+
     plugins: process.env.NODE_ENV === 'production' ? [
       {
         name: 'css-minifier',
         async generateBundle(options, bundle) {
           const cssnano = (await import('cssnano')).default;
           const postcss = (await import('postcss')).default;
-          
+
           for (const [fileName, chunk] of Object.entries(bundle)) {
             if (fileName.endsWith('.css') && 'source' in chunk) {
               const result = await postcss([
@@ -145,27 +145,27 @@ export default defineNuxtConfig({
                   }]
                 })
               ]).process(chunk.source, { from: undefined });
-              
+
               chunk.source = result.css;
             }
           }
         }
       }
     ] : [],
-    
+
     ssr: {
       noExternal: ['vuetify'],
     },
-    
+
     css: {
       devSourcemap: false,
       preprocessorOptions: {},
     },
-    
+
     build: {
       minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
       target: 'es2020',
-      
+
       terserOptions: process.env.NODE_ENV === 'production' ? {
         compress: {
           drop_console: true,
@@ -208,7 +208,7 @@ export default defineNuxtConfig({
           wrap_iife: false,
         },
       } : {},
-      
+
       rollupOptions: {
         output: {
           manualChunks: (id) => {
@@ -238,7 +238,7 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 1000,
       cssTarget: 'chrome61',
     },
-    
+
     esbuild: {
       drop: process.env.NODE_ENV === 'development' ? [] : ['console', 'debugger'],
       keepNames: false,
@@ -246,7 +246,7 @@ export default defineNuxtConfig({
       minifySyntax: false,
       minifyWhitespace: false,
     },
-    
+
     optimizeDeps: {
       include: ['vuetify'],
       exclude: ['@mdi/font'],
@@ -262,18 +262,18 @@ export default defineNuxtConfig({
     renderJsonPayloads: false,
     localLayerAliases: false,
   },
-  
+
   routeRules: {
-    '/': { 
+    '/': {
       prerender: true,
       headers: {
         'cache-control': 'public, max-age=3600, s-maxage=3600'
       }
     },
-    '/calendar': { 
+    '/calendar': {
       swr: 3600,
     },
-    '/ministerios': { 
+    '/ministerios': {
       swr: 3600,
     },
   },
@@ -327,7 +327,7 @@ export default defineNuxtConfig({
   },
 
   devServer: {
-    port: 3002,
+    port: 3010,
     host: '0.0.0.0',
   },
 

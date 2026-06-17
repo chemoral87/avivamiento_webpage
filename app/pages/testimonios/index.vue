@@ -143,17 +143,7 @@ const fetchPublicTestimonies = async (p = page.value) => {
     }
   } catch (err) {
     // fallback: try the /testimony?org_id= route
-    try {
-      const alt = `${base}/testimony?org_id=${encodeURIComponent(encoded)}&itemsPerPage=${perPage}&page=${p}`
-      const res2 = await axios.get(alt)
-      if (res2?.status === 200 && res2.data) {
-        pagination.value = res2.data
-        testimonies.value = res2.data.data ?? []
-        page.value = res2.data.current_page ?? p
-      }
-    } catch (err2) {
-      // give up silently
-    }
+
   }
 }
 

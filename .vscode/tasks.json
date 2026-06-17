@@ -23,8 +23,17 @@
     {
       "label": "Run dev server",
       "dependsOn": ["Clean cache"],
-      "type": "npm",
-      "script": "dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "windows": {
+        "command": "npm run dev",
+        "options": {
+          "shell": {
+            "executable": "cmd.exe",
+            "args": ["/d", "/c"]
+          }
+        }
+      },
       "isBackground": true,
       "problemMatcher": {
         "owner": "custom",
@@ -48,8 +57,17 @@
     {
       "label": "Clean cache and rebuild",
       "dependsOn": ["Clean cache"],
-      "type": "npm",
-      "script": "build",
+      "type": "shell",
+      "command": "npm run build",
+      "windows": {
+        "command": "npm run build",
+        "options": {
+          "shell": {
+            "executable": "cmd.exe",
+            "args": ["/d", "/c"]
+          }
+        }
+      },
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
