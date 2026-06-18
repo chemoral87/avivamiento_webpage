@@ -187,9 +187,9 @@ const cells = computed(() => {
 <style scoped>
 .big-cal-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 0.6fr 0.6fr 1fr 1fr 1fr 0.6fr 0.6fr;
+  grid-auto-rows: minmax(28px, auto);
   border-top: 1px solid #f0f0f0;
-  align-items: start;
 }
 .big-cal-header {
   padding: 6px 4px;
