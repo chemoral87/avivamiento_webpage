@@ -14,7 +14,16 @@
       :key="event.id ?? i"
       cols="12" md="6" lg="5"
     >
-      <v-card elevation="0" class="event-card" style="border: 1px solid #e0e0e0; height: 100%;">
+      <v-card
+        elevation="0"
+        class="event-card"
+        style="border: 1px solid #e0e0e0; height: 100%;"
+        role="link"
+        tabindex="0"
+        @click="goToEvent(event)"
+        @keydown.enter="goToEvent(event)"
+        @keydown.space.prevent="goToEvent(event)"
+      >
         <v-img
           v-if="event.url_image_s3"
           :src="event.url_image_s3"
@@ -41,7 +50,7 @@
           <div class="d-flex align-center flex-wrap mb-1" style="gap: 16px;">
             <span class="d-flex align-center" style="color: #666;">
               <v-icon size="14" class="mr-1">mdi-calendar</v-icon>
-              <span class="text-caption">{{ formatEventDate(event.start_date) }}</span>
+              <span class="text-caption">{{ formatEventDate(event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date) }}</span>
             </span>
             <span v-if="event.time_start" class="d-flex align-center" style="color: #666;">
               <v-icon size="14" class="mr-1">mdi-clock-outline</v-icon>
@@ -55,17 +64,17 @@
           <v-divider class="mb-2" />
           <div class="d-flex align-center" style="gap:4px;">
             <v-btn icon size="small" variant="text"
-              @click="shareOnWhatsApp(event.name, event.description)"
+              @click.stop="shareOnWhatsApp(event.name, event.description)"
               style="color:#25D366;">
               <v-icon>mdi-whatsapp</v-icon>
             </v-btn>
             <v-btn icon size="small" variant="text"
-              @click="shareOnFacebook()"
+              @click.stop="shareOnFacebook()"
               style="color:#1877F2;">
               <v-icon>mdi-facebook</v-icon>
             </v-btn>
             <v-btn icon size="small" variant="text"
-              @click="shareGeneric(event.name, event.description)"
+              @click.stop="shareGeneric(event.name, event.description)"
               style="color:#041845;">
               <v-icon>mdi-share-variant</v-icon>
             </v-btn>
@@ -77,6 +86,8 @@
 </template>
 
 <script setup>
+const router = useRouter()
+
 const props = defineProps({
   events: { type: Array, default: () => [] },
 })
@@ -104,6 +115,11 @@ const formatEventDate = (d) => {
   } catch { return d }
 }
 
+const goToEvent = (event) => {
+  if (!event?.slug_name) return
+  router.push(`/calendar/${event.slug_name}`)
+}
+
 const shareOnWhatsApp = (name, desc) => {
   const url  = encodeURIComponent('https://avivamientomonterrey.com/calendar')
   const text = encodeURIComponent(`${name} - ${desc}\n\nMás información:`)
@@ -126,6 +142,7 @@ const shareGeneric = (name, desc) => {
 
 <style scoped>
 .event-card {
+  cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .event-card:hover {

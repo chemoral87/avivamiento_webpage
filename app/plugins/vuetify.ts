@@ -30,7 +30,8 @@ import {
   VDivider,
   VImg,
   VAvatar,
-  VFooter
+  VFooter,
+  VProgressCircular
 } from 'vuetify/components'
 
 // Importa directivas si las usas
@@ -67,7 +68,9 @@ export default defineNuxtPlugin((app) => {
       VDivider,
       VImg,
       VAvatar,
-      VFooter
+      VFooter,
+      VProgressCircular,
+  VProgressCircular
     },
     directives: {
       Ripple,

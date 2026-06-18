@@ -115,6 +115,14 @@ const buildDateRange = () => {
   return { start_date, end_date }
 }
 
+
+const normalizeEventDates = (event) => ({
+  ...event,
+  start_date: event.start_date ?? event.publish_date ?? null,
+  end_date: event.end_date ?? event.event_date ?? null,
+  publish_date: event.publish_date ?? event.start_date ?? null,
+  event_date: event.event_date ?? event.end_date ?? null,
+})
 const fetchPublicEvents = async () => {
   const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
   if (!encoded) return
@@ -126,8 +134,10 @@ const fetchPublicEvents = async () => {
   loadingEvents.value = true
   try {
     const res = await axios.get(url)
-    if (res?.status === 200 && res.data)
-      events.value = Array.isArray(res.data) ? res.data : (res.data.data ?? [])
+    if (res?.status === 200 && res.data) {
+      const data = Array.isArray(res.data) ? res.data : (res.data.data ?? [])
+      events.value = data.map(normalizeEventDates)
+    }
   } catch (err) {
     console.error('Error fetching events:', err)
   } finally {

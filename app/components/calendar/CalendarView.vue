@@ -37,6 +37,9 @@
                 class="event-pill text-caption"
                 :style="{ borderColor: classificationColor(ev.classification) }"
                 :title="ev.name"
+                role="link"
+                tabindex="0"
+                @click="goToEvent(ev)"
               >
                 <span class="event-pill-name">{{ ev.name }}</span>
                 <span v-if="ev.time_start" class="event-pill-time">{{ ev.time_start }}</span>
@@ -62,6 +65,9 @@
                 class="event-pill text-caption"
                 :style="{ borderColor: classificationColor(ev.classification) }"
                 :title="ev.name"
+                role="link"
+                tabindex="0"
+                @click="goToEvent(ev)"
               >
                 <span class="event-pill-name">{{ ev.name }}</span>
                 <span v-if="ev.time_start" class="event-pill-time">{{ ev.time_start }}</span>
@@ -90,6 +96,8 @@
 
 <script setup>
 import { computed } from 'vue'
+
+const router = useRouter()
 
 const props = defineProps({
   calYear:  { type: Number, required: true },
@@ -124,12 +132,19 @@ const classificationColor = (value) => {
   return map[value] || '#041845'
 }
 
+const goToEvent = (event) => {
+console.log(event.slug_name)
+  if (!event?.slug_name) return
+  router.push(`/calendar/${event.slug_name}`)
+}
+
 // ── Event map ──────────────────────────────────────────────────────────────
 const eventsByDate = computed(() => {
   const map = {}
   props.events.forEach(e => {
-    if (!e.start_date) return
-    const key = e.start_date.slice(0, 10)
+    const eventDate = e.event_date ?? e.end_date ?? e.start_date ?? e.publish_date
+    if (!eventDate) return
+    const key = eventDate.slice(0, 10)
     if (!map[key]) map[key] = []
     map[key].push(e)
   })
@@ -241,7 +256,7 @@ const cells = computed(() => {
   font-size: 10px;
   line-height: 1.3;
   overflow: hidden;
-  cursor: default;
+  cursor: pointer;
   border-width: 3px;
   border-style: solid;
 }
