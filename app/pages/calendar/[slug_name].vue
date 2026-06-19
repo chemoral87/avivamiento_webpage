@@ -14,10 +14,7 @@
         <v-row v-else-if="event" justify="center">
           <v-col cols="12" md="10" lg="8">
             <v-card elevation="0" style="border: 1px solid #e0e0e0; overflow: hidden;">
-              <div v-if="event.url_image_s3" class="event-image-wrapper">
-                <img :src="event.url_image_s3" class="event-image-blur-bg" aria-hidden="true" />
-                <img :src="event.url_image_s3" class="event-image-main" />
-              </div>
+              <CalendarBlurImage v-if="event.url_image_s3" :src="event.url_image_s3" :height="360" />
               <v-card-text class="pa-5">
                 <v-chip
                   v-if="event.classification"
@@ -180,32 +177,4 @@ useHead(() => ({
 </script>
 
 <style scoped>
-.event-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 360px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.event-image-blur-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(20px);
-  transform: scale(1.1);
-}
-
-.event-image-main {
-  position: relative;
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  z-index: 1;
-}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <!-- Empty state -->
-  <v-row v-if="!events.length" justify="center">
+  <v-row v-if="!filteredEvents.length" justify="center">
     <v-col cols="12" md="8" class="text-center py-8">
       <v-icon size="48" color="#ccc" class="mb-4">mdi-calendar-blank-outline</v-icon>
       <p class="text-body-1" style="color: #666;">No hay eventos próximos por el momento.</p>
@@ -10,7 +10,7 @@
   <!-- Event cards -->
   <v-row v-else justify="center">
     <v-col
-      v-for="(event, i) in events"
+      v-for="(event, i) in filteredEvents"
       :key="event.id ?? i"
       cols="12" md="6" lg="5"
     >
@@ -24,11 +24,10 @@
         @keydown.enter="goToEvent(event)"
         @keydown.space.prevent="goToEvent(event)"
       >
-        <v-img
+        <CalendarBlurImage
           v-if="event.url_image_s3"
           :src="event.url_image_s3"
-          height="220"
-          cover
+          :height="220"
         />
         <v-card-text class="pa-4">
           <div class="d-flex align-center justify-space-between mb-1">
@@ -76,8 +75,19 @@
 const router = useRouter()
 
 const props = defineProps({
-  events: { type: Array, default: () => [] },
+  events:   { type: Array,  default: () => [] },
+  calYear:  { type: Number, default: () => new Date().getFullYear() },
+  calMonth: { type: Number, default: () => new Date().getMonth() },
 })
+
+const filteredEvents = computed(() =>
+  props.events.filter(event => {
+    const raw = event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date
+    if (!raw) return false
+    const dt = new Date(raw)
+    return dt.getFullYear() === props.calYear && dt.getMonth() === props.calMonth
+  })
+)
 
 const classificationColor = (value) => {
   const map = {

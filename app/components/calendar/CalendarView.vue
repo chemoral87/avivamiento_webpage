@@ -116,20 +116,15 @@ const today = new Date()
 
 // ── Classification ─────────────────────────────────────────────────────────
 const classifications = [
-  { value: 'jv3s',        label: 'JV3S',         hex: '#f97316' }, // orange
-  { value: 'general',     label: 'General',       hex: '#9e9e9e' }, // grey
-  { value: 'jv3s-teen',   label: 'JV3S Teen',     hex: '#2196f3' }, // blue
-  { value: 'jv3s-legado', label: 'JV3S Legado',   hex: '#f44336' }, // red
+  { value: 'general',     label: 'General',      hex: '#9e9e9e' },
+  { value: 'jv3s',        label: 'JV3S',         hex: '#f97316' },
+  { value: 'jv3s-teen',   label: 'JV3S Teen',    hex: '#2196f3' },
+  { value: 'jv3s-legado', label: 'JV3S Legado',  hex: '#f44336' },
 ]
 
 const classificationColor = (value) => {
-  const map = {
-    'jv3s':        '#f97316',
-    'general':     '#9e9e9e',
-    'jv3s-teen':   '#2196f3',
-    'jv3s-legado': '#f44336',
-  }
-  return map[value] || '#041845'
+  const match = classifications.find(item => item.value === value);
+  return match ? match.hex : '#041845';
 }
 
 const goToEvent = (event) => {

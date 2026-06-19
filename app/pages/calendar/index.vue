@@ -47,6 +47,15 @@
 
         <template v-else>
 
+          <!-- Floating Month Selector for List View -->
+          <CalendarMonthSelector
+            v-if="viewMode === 'list'"
+            :cal-year="calYear"
+            :cal-month="calMonth"
+            @prev="prevMonth"
+            @next="nextMonth"
+          />
+
           <CalendarView
             v-if="viewMode === 'calendar'"
             :cal-year="calYear"
@@ -59,7 +68,28 @@
           <CalendarListView
             v-if="viewMode === 'list'"
             :events="events"
+            :cal-year="calYear"
+            :cal-month="calMonth"
           />
+
+          <!-- Floating Month Selector for List View -->
+          <v-row v-if="viewMode === 'list'" justify="center" class="mb-4">
+            <v-col cols="12" md="10" lg="8">
+              <v-card elevation="0" style="background: #041845; border-radius: 4px; border: none;">
+                <div class="d-flex align-center justify-space-between px-4 py-2">
+                  <v-btn icon variant="text" color="success" size="small" @click="prevMonth">
+                    <v-icon color="white">mdi-chevron-left</v-icon>
+                  </v-btn>
+                  <span class="text-body-1 font-weight-medium text-white text-capitalize">
+                    {{ monthNames[calMonth] }} {{ calYear }}
+                  </span>
+                  <v-btn icon variant="text" size="small" color="success" @click="nextMonth">
+                    <v-icon color="white">mdi-chevron-right</v-icon>
+                  </v-btn>
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
 
         </template>
       </v-container>
@@ -83,6 +113,11 @@ const loadingEvents = ref(false)
 const today    = new Date()
 const calYear  = ref(today.getFullYear())
 const calMonth = ref(today.getMonth()) // 0-indexed
+
+const monthNames = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+]
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 const encodeBase64 = (str) => {
