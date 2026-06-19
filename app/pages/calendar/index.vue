@@ -9,13 +9,13 @@
         <!-- Page title -->
         <v-row justify="center">
           <v-col cols="12" md="10" lg="8" class="text-center">
-            <p class="text-overline mb-2" style="color: #666; letter-spacing: 2px;">ACOMPAÑANOS</p>
-            <h1 class="text-h3 font-weight-light mb-4" style="color: #041845;">Eventos</h1>
+            <p class="text-overline my-0" style="color: #666; letter-spacing: 2px;">ACOMPAÑANOS</p>
+            <h1 class="text-h3 font-weight-light my-0" style="color: #041845;">Eventos</h1>
           </v-col>
         </v-row>
 
         <!-- View toggle -->
-        <v-row justify="center" class="mb-4">
+        <v-row justify="center" class="mb-2">
           <v-col cols="12" md="10" lg="8">
             <div class="view-toggle-bar">
               <button

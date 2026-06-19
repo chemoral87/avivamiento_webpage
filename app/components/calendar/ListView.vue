@@ -62,23 +62,10 @@
             <span class="text-caption">{{ event.location }}</span>
           </div>
           <v-divider class="mb-2" />
-          <div class="d-flex align-center" style="gap:4px;">
-            <v-btn icon size="small" variant="text"
-              @click.stop="shareOnWhatsApp(event.name, event.description)"
-              style="color:#25D366;">
-              <v-icon>mdi-whatsapp</v-icon>
-            </v-btn>
-            <v-btn icon size="small" variant="text"
-              @click.stop="shareOnFacebook()"
-              style="color:#1877F2;">
-              <v-icon>mdi-facebook</v-icon>
-            </v-btn>
-            <v-btn icon size="small" variant="text"
-              @click.stop="shareGeneric(event.name, event.description)"
-              style="color:#041845;">
-              <v-icon>mdi-share-variant</v-icon>
-            </v-btn>
-          </div>
+          <SocialShareButtons
+            :title="event.name"
+            :text="event.description"
+          />
         </v-card-text>
       </v-card>
     </v-col>
@@ -118,25 +105,6 @@ const formatEventDate = (d) => {
 const goToEvent = (event) => {
   if (!event?.slug_name) return
   router.push(`/calendar/${event.slug_name}`)
-}
-
-const shareOnWhatsApp = (name, desc) => {
-  const url  = encodeURIComponent('https://avivamientomonterrey.com/calendar')
-  const text = encodeURIComponent(`${name} - ${desc}\n\nMás información:`)
-  window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
-}
-const shareOnFacebook = () => {
-  const url = encodeURIComponent('https://avivamientomonterrey.com/calendar')
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
-}
-const shareGeneric = (name, desc) => {
-  if (navigator.share) {
-    navigator.share({ title: name, text: desc, url: 'https://avivamientomonterrey.com/calendar' })
-      .catch(() => {})
-  } else {
-    navigator.clipboard.writeText(`${name} - ${desc}\n\nhttps://avivamientomonterrey.com/calendar`)
-      .then(() => alert('¡Enlace copiado al portapapeles!'))
-  }
 }
 </script>
 

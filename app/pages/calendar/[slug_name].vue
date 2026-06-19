@@ -14,12 +14,10 @@
         <v-row v-else-if="event" justify="center">
           <v-col cols="12" md="10" lg="8">
             <v-card elevation="0" style="border: 1px solid #e0e0e0; overflow: hidden;">
-              <v-img
-                v-if="event.url_image_s3"
-                :src="event.url_image_s3"
-                height="360"
-                cover
-              />
+              <div v-if="event.url_image_s3" class="event-image-wrapper">
+                <img :src="event.url_image_s3" class="event-image-blur-bg" aria-hidden="true" />
+                <img :src="event.url_image_s3" class="event-image-main" />
+              </div>
               <v-card-text class="pa-5">
                 <v-chip
                   v-if="event.classification"
@@ -40,7 +38,7 @@
                   </span>
                   <span v-if="event.time_start" class="d-flex align-center">
                     <v-icon size="16" class="mr-1">mdi-clock-outline</v-icon>
-                    <span class="text-body-2">{{ event.time_start }}</span>
+                    <span class="text-body-2">{{ formatEventTime(event.time_start) }}</span>
                   </span>
                   <span v-if="event.location" class="d-flex align-center">
                     <v-icon size="16" class="mr-1">mdi-map-marker-outline</v-icon>
@@ -48,9 +46,25 @@
                   </span>
                 </div>
 
-                <p v-if="event.description" class="text-body-1 mb-0" style="color: #444; line-height: 1.7;">
+                <p v-if="event.description" class="text-body-1 mb-4" style="color: #444; line-height: 1.7;">
                   {{ event.description }}
                 </p>
+
+                <div class="d-flex justify-center align-center flex-wrap" style="gap: 16px;">
+                  <v-btn
+                    variant="outlined"
+                    color="#041845"
+                    prepend-icon="mdi-arrow-left"
+                    @click="router.push('/calendar')"
+                  >
+                    Ver todos los eventos
+                  </v-btn>
+                  <SocialShareButtons
+                    :title="event.name"
+                    :text="event.description"
+                    :url="`https://avivamientomonterrey.com/calendar/${event.slug_name}`"
+                  />
+                </div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -138,12 +152,24 @@ const formatEventDate = (d) => {
   } catch { return d }
 }
 
+const formatEventTime = (t) => {
+  if (!t) return ''
+  const match = String(t).match(/^(\d{1,2}):(\d{2})/)
+  if (!match) return t
+  let hours = parseInt(match[1], 10)
+  const minutes = match[2]
+  const period = hours >= 12 ? 'pm' : 'am'
+  hours = hours % 12
+  if (hours === 0) hours = 12
+  return `${hours}:${minutes} ${period}`
+}
+
 const menuItems = [
   { title: 'Inicio', to: '/' },
   { title: 'Testimonios', to: '/testimonios' },
   { title: 'Ministerios', to: '/ministerios' },
   { title: 'Horarios', onClick: () => goToSection('/#horarios') },
-  { title: 'Ubicaci�n', onClick: () => goToSection('/#ubicacion') },
+  { title: 'Ubicación', onClick: () => goToSection('/#ubicacion') },
 ]
 const goToSection = (path) => { drawer.value = false; router.push(path) }
 
@@ -152,3 +178,34 @@ useHead(() => ({
   meta: [{ name: 'description', content: event.value?.description || 'Detalles del evento de Iglesia Avivamiento Monterrey.' }]
 }))
 </script>
+
+<style scoped>
+.event-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-image-blur-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(20px);
+  transform: scale(1.1);
+}
+
+.event-image-main {
+  position: relative;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+</style>
