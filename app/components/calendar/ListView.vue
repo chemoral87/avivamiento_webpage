@@ -28,6 +28,7 @@
           v-if="event.url_image_s3"
           :src="event.url_image_s3"
           :height="220"
+          @click="goToEvent(event)"
         />
         <v-card-text class="pa-4">
           <div class="d-flex align-center justify-space-between mb-1">
@@ -72,7 +73,12 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { classificationColor } from '~/constants/classifications'
+import { monthNames } from '~/constants/dates'
+
 const router = useRouter()
+
 
 const props = defineProps({
   events:   { type: Array,  default: () => [] },
@@ -89,20 +95,6 @@ const filteredEvents = computed(() =>
   })
 )
 
-const classificationColor = (value) => {
-  const map = {
-    'jv3s':        '#f97316',
-    'general':     '#9e9e9e',
-    'jv3s-teen':   '#2196f3',
-    'jv3s-legado': '#f44336',
-  }
-  return map[value] || '#041845'
-}
-
-const monthNames = [
-  'Enero','Febrero','Marzo','Abril','Mayo','Junio',
-  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
-]
 
 const formatEventDate = (d) => {
   if (!d) return 'Fecha por confirmar'

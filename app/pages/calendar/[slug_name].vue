@@ -12,6 +12,14 @@
         </v-row>
 
         <v-row v-else-if="event" justify="center">
+          <v-col cols="12">  <v-btn
+                    variant="outlined"
+                    color="#041845"
+                    prepend-icon="mdi-arrow-left"
+                    @click="router.push('/calendar')"
+                  >
+                    Ver todos los eventos
+                  </v-btn></v-col>
           <v-col cols="12" md="10" lg="8">
             <v-card elevation="0" style="border: 1px solid #e0e0e0; overflow: hidden;">
               <CalendarBlurImage v-if="event.url_image_s3" :src="event.url_image_s3" :height="360" />
@@ -48,14 +56,7 @@
                 </p>
 
                 <div class="d-flex justify-center align-center flex-wrap" style="gap: 16px;">
-                  <v-btn
-                    variant="outlined"
-                    color="#041845"
-                    prepend-icon="mdi-arrow-left"
-                    @click="router.push('/calendar')"
-                  >
-                    Ver todos los eventos
-                  </v-btn>
+                
                   <SocialShareButtons
                     :title="event.name"
                     :text="event.description"
@@ -80,6 +81,8 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import { classificationColor } from '~/constants/classifications'
+import { monthNames } from '~/constants/dates'
 
 const route = useRoute()
 const router = useRouter()
@@ -125,21 +128,6 @@ const { data, pending } = await useAsyncData(
 )
 
 const event = computed(() => data.value)
-
-const classificationColor = (value) => {
-  const map = {
-    'jv3s': '#f97316',
-    'general': '#9e9e9e',
-    'jv3s-teen': '#2196f3',
-    'jv3s-legado': '#f44336',
-  }
-  return map[value] || '#041845'
-}
-
-const monthNames = [
-  'Enero','Febrero','Marzo','Abril','Mayo','Junio',
-  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
-]
 
 const formatEventDate = (d) => {
   if (!d) return 'Fecha por confirmar'

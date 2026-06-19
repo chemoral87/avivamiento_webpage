@@ -100,6 +100,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { monthNames } from '~/constants/dates'
 
 const drawer      = ref(false)
 const viewMode    = ref('calendar')
@@ -113,11 +114,6 @@ const loadingEvents = ref(false)
 const today    = new Date()
 const calYear  = ref(today.getFullYear())
 const calMonth = ref(today.getMonth()) // 0-indexed
-
-const monthNames = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-]
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 const encodeBase64 = (str) => {

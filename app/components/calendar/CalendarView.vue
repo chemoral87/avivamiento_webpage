@@ -5,21 +5,21 @@
 
         <!-- Month nav header -->
         <div class="d-flex align-center justify-space-between px-4 py-2" style="background:#041845;">
-          <v-btn icon variant="text" size="small" @click="emit('prev-month')">
-            <v-icon color="white">mdi-chevron-left</v-icon>
-          </v-btn>
+          <button class="month-nav-btn" aria-label="Mes anterior" @click="emit('prev-month')">
+            <v-icon size="22">mdi-chevron-left</v-icon>
+          </button>
           <span class="text-body-1 font-weight-medium text-white text-capitalize">
             {{ monthNames[calMonth] }} {{ calYear }}
           </span>
-          <v-btn icon variant="text" size="small" @click="emit('next-month')">
-            <v-icon color="white">mdi-chevron-right</v-icon>
-          </v-btn>
+          <button class="month-nav-btn" aria-label="Mes siguiente" @click="emit('next-month')">
+            <v-icon size="22">mdi-chevron-right</v-icon>
+          </button>
         </div>
 
         <!-- Day-of-week headers -->
         <div class="big-cal-grid px-2 pt-2">
           <div
-            v-for="d in ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']"
+            v-for="d in weekdayNames"
             :key="d"
             class="big-cal-header text-caption font-weight-bold"
             style="color:#444;"
@@ -96,6 +96,8 @@
 
 <script setup>
 import { computed } from 'vue'
+import { classifications, classificationColor } from '~/constants/classifications'
+import { monthNames, weekdayNames } from '~/constants/dates'
 
 const router = useRouter()
 
@@ -107,25 +109,9 @@ const props = defineProps({
 
 const emit = defineEmits(['prev-month', 'next-month'])
 
-const monthNames = [
-  'Enero','Febrero','Marzo','Abril','Mayo','Junio',
-  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
-]
-
 const today = new Date()
 
 // ── Classification ─────────────────────────────────────────────────────────
-const classifications = [
-  { value: 'general',     label: 'General',      hex: '#9e9e9e' },
-  { value: 'jv3s',        label: 'JV3S',         hex: '#f97316' },
-  { value: 'jv3s-teen',   label: 'JV3S Teen',    hex: '#2196f3' },
-  { value: 'jv3s-legado', label: 'JV3S Legado',  hex: '#f44336' },
-]
-
-const classificationColor = (value) => {
-  const match = classifications.find(item => item.value === value);
-  return match ? match.hex : '#041845';
-}
 
 const goToEvent = (event) => {
 console.log(event.slug_name)
@@ -282,5 +268,30 @@ const cells = computed(() => {
   .big-cal-cell    { padding: 2px; }
   .event-pill      { font-size: 9px; padding: 1px 2px; }
   .event-pill-time { display: none; }
+}
+
+.month-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+}
+
+.month-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #fff;
+  transform: scale(1.08);
+}
+
+.month-nav-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.35);
 }
 </style>
