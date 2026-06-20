@@ -90,8 +90,8 @@ const filteredEvents = computed(() =>
   props.events.filter(event => {
     const raw = event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date
     if (!raw) return false
-    const dt = new Date(raw)
-    return dt.getFullYear() === props.calYear && dt.getMonth() === props.calMonth
+    const [year, month] = String(raw).slice(0, 10).split('-').map(Number)
+    return year === props.calYear && (month - 1) === props.calMonth
   })
 )
 
@@ -99,8 +99,8 @@ const filteredEvents = computed(() =>
 const formatEventDate = (d) => {
   if (!d) return 'Fecha por confirmar'
   try {
-    const dt = new Date(d)
-    return `${dt.getDate()} de ${monthNames[dt.getMonth()]} ${dt.getFullYear()}`
+    const [year, month, day] = String(d).slice(0, 10).split('-').map(Number)
+    return `${day} de ${monthNames[month - 1]} ${year}`
   } catch { return d }
 }
 
