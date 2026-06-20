@@ -62,6 +62,8 @@
                   <SocialShareButtons
                     :title="event.name"
                     :text="event.description"
+                    :date="formatEventDate(event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date)"
+                    :time="event.time_start ? formatEventTime(event.time_start) : ''"
                     :url="`https://avivamientomonterrey.com/calendar/${event.slug_name}`"
                   />
                 </div>
@@ -150,7 +152,18 @@ const goToSection = (path) => { drawer.value = false; router.push(path) }
 
 useHead(() => ({
   title: event.value?.name ? `${event.value.name} | Iglesia Avivamiento Monterrey` : 'Evento | Iglesia Avivamiento Monterrey',
-  meta: [{ name: 'description', content: event.value?.description || 'Detalles del evento de Iglesia Avivamiento Monterrey.' }]
+  meta: [
+    { name: 'description', content: event.value?.description || 'Detalles del evento de Iglesia Avivamiento Monterrey.' },
+    { property: 'og:title', content: event.value?.name ? `${event.value.name} | Iglesia Avivamiento Monterrey` : 'Iglesia Avivamiento Monterrey' },
+    { property: 'og:description', content: event.value?.description || 'Detalles del evento de Iglesia Avivamiento Monterrey.' },
+    { property: 'og:image', content: event.value?.url_image_s3 || 'https://avivamientomonterrey.com/og-default.jpg' },
+    { property: 'og:url', content: `https://avivamientomonterrey.com/calendar/${slugName.value}` },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: event.value?.name || 'Iglesia Avivamiento Monterrey' },
+    { name: 'twitter:description', content: event.value?.description || 'Detalles del evento de Iglesia Avivamiento Monterrey.' },
+    { name: 'twitter:image', content: event.value?.url_image_s3 || 'https://avivamientomonterrey.com/og-default.jpg' },
+  ]
 }))
 </script>
 

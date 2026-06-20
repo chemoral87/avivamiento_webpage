@@ -22,12 +22,22 @@
 const props = defineProps({
   title: { type: String, default: '' },
   text: { type: String, default: '' },
+  date: { type: String, default: '' },
+  time: { type: String, default: '' },
   url: { type: String, default: 'https://avivamientomonterrey.com/calendar' },
 })
 
+const buildMessage = () => {
+  const parts = [props.title]
+  const when = [props.date, props.time].filter(Boolean).join(' — ')
+  if (when) parts.push(when)
+  if (props.text) parts.push(props.text)
+  return parts.filter(Boolean).join('\n\n')
+}
+
 const shareOnWhatsApp = () => {
   const url = encodeURIComponent(props.url)
-  const text = encodeURIComponent(`${props.title} - ${props.text}\n\nMás información:`)
+  const text = encodeURIComponent(`${buildMessage()}\n\nMás información:`)
   window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
 }
 
@@ -38,10 +48,10 @@ const shareOnFacebook = () => {
 
 const shareGeneric = () => {
   if (navigator.share) {
-    navigator.share({ title: props.title, text: props.text, url: props.url })
+    navigator.share({ title: props.title, text: buildMessage(), url: props.url })
       .catch(() => {})
   } else {
-    navigator.clipboard.writeText(`${props.title} - ${props.text}\n\n${props.url}`)
+    navigator.clipboard.writeText(`${buildMessage()}\n\n${props.url}`)
       .then(() => alert('¡Enlace copiado al portapapeles!'))
   }
 }
