@@ -4,19 +4,19 @@
     <MobileNavDrawer v-model="drawer" :menu-items="menuItems" />
 
     <v-main class="bg-grey-lighten-4">
-      <v-container class="py-4">
+      <v-container class="py-2">
 
         <!-- Page title -->
-        <v-row justify="center">
-          <v-col cols="12" md="10" lg="8" class="text-center">
+        <v-row justify="center" dense>
+          <v-col cols="12" md="10" lg="8" class="text-center py-1">
             <p class="text-overline my-0" style="color: #666; letter-spacing: 2px;">ACOMPAÑANOS</p>
             <h1 class="text-h3 font-weight-light my-0" style="color: #041845;">Eventos</h1>
           </v-col>
         </v-row>
 
         <!-- View toggle -->
-        <v-row justify="center" class="mb-2">
-          <v-col cols="12" md="10" lg="8">
+        <v-row justify="center" class="mb-0" dense>
+          <v-col cols="12" md="10" lg="8" class="py-0">
             <div class="view-toggle-bar">
               <button
                 class="view-toggle-btn"
@@ -39,8 +39,8 @@
         </v-row>
 
         <!-- Loading -->
-        <v-row v-if="loadingEvents" justify="center">
-          <v-col cols="12" class="text-center py-8">
+        <v-row v-if="loadingEvents" justify="center" dense>
+          <v-col cols="12" class="text-center py-0">
             <v-progress-circular indeterminate color="#041845" size="48" />
           </v-col>
         </v-row>
@@ -73,23 +73,13 @@
           />
 
           <!-- Floating Month Selector for List View -->
-          <v-row v-if="viewMode === 'list'" justify="center" class="mb-4">
-            <v-col cols="12" md="10" lg="8">
-              <v-card elevation="0" style="background: #041845; border-radius: 4px; border: none;">
-                <div class="d-flex align-center justify-space-between px-4 py-2">
-                  <v-btn icon variant="text" color="success" size="small" @click="prevMonth">
-                    <v-icon color="white">mdi-chevron-left</v-icon>
-                  </v-btn>
-                  <span class="text-body-1 font-weight-medium text-white text-capitalize">
-                    {{ monthNames[calMonth] }} {{ calYear }}
-                  </span>
-                  <v-btn icon variant="text" size="small" color="success" @click="nextMonth">
-                    <v-icon color="white">mdi-chevron-right</v-icon>
-                  </v-btn>
-                </div>
-              </v-card>
-            </v-col>
-          </v-row>
+         <CalendarMonthSelector
+            v-if="viewMode === 'list'"
+            :cal-year="calYear"
+            :cal-month="calMonth"
+            @prev="prevMonth"
+            @next="nextMonth"
+          />
 
         </template>
       </v-container>
@@ -216,13 +206,14 @@ useHead({
   display: flex;
   justify-content: center;
   border-bottom: 2px solid #e0e0e0;
+
 }
 .view-toggle-btn {
   display: inline-flex;
   align-items: center;
   min-width: 140px;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 0px 20px;
   font-size: 14px;
   font-family: inherit;
   color: #666;

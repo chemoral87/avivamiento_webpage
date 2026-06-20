@@ -1,10 +1,10 @@
 <template>
-  <v-row justify="center" class="mb-2">
+  <v-row justify="center" class="mb-2" dense>
     <v-col cols="12" md="10" lg="9">
       <v-card elevation="0" style="border: 1px solid #e0e0e0;">
 
         <!-- Month nav header -->
-        <div class="d-flex align-center justify-space-between px-4 py-2" style="background:#041845;">
+        <div class="d-flex align-center justify-space-between px-4 py-1" style="background:#041845;">
           <button class="month-nav-btn" aria-label="Mes anterior" @click="emit('prev-month')">
             <v-icon size="22">mdi-chevron-left</v-icon>
           </button>
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Day-of-week headers -->
-        <div class="big-cal-grid px-2 pt-2">
+        <div class="big-cal-grid px-2 pt-0">
           <div
             v-for="d in weekdayNames"
             :key="d"
@@ -30,6 +30,14 @@
             v-for="cell in leadingCells"
             :key="cell.iso"
             class="big-cal-cell big-cal-other-month"
+            :class="{
+              'big-cal-has-events': cell.events.length,
+              'big-cal-selected':   selectedDayIso === cell.iso
+            }"
+            role="button"
+            tabindex="0"
+            @click="selectDay(cell)"
+            @keydown.enter="selectDay(cell)"
           >
             <div class="big-cal-day-number text-caption">{{ cell.day }}</div>
             <template v-for="ev in cell.events" :key="ev.id">
@@ -133,7 +141,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onUnmounted } from 'vue'
 import { classifications, classificationColor } from '~/constants/classifications'
 import { monthNames, weekdayNames, formatEventTime } from '~/constants/dates'
 
@@ -150,7 +158,22 @@ const emit = defineEmits(['prev-month', 'next-month'])
 const today = new Date()
 const selectedDayIso = ref(null)
 
+const isMobile = ref(false)
+
+const updateIsMobile = () => {
+  if (typeof window !== 'undefined') {
+    isMobile.value = window.innerWidth < 600
+  }
+}
+
+if (typeof window !== 'undefined') {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+  onUnmounted(() => window.removeEventListener('resize', updateIsMobile))
+}
+
 const selectDay = (cell) => {
+  if (!isMobile.value) return
   if (!cell.events.length) {
     selectedDayIso.value = null
     return
@@ -321,10 +344,10 @@ const cells = computed(() => {
   .event-pill      { font-size: 9px; padding: 1px 2px; }
   .event-pill-time { display: none; }
   .big-cal-grid    { grid-template-columns: repeat(7, 1fr); }
-}
 
-.big-cal-has-events {
-  cursor: pointer;
+  .big-cal-has-events {
+    cursor: pointer;
+  }
 }
 
 .big-cal-selected {

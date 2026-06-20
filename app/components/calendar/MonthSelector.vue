@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" class="mb-4">
+  <v-row justify="center" class="mb-2 py-0" dense>
     <v-col cols="12" md="10" lg="8">
       <div class="month-selector-bar">
         <button class="month-nav-btn" aria-label="Mes anterior" @click="emit('prev')">
