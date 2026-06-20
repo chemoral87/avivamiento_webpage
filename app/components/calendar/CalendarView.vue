@@ -34,7 +34,7 @@
             <div class="big-cal-day-number text-caption">{{ cell.day }}</div>
             <template v-for="ev in cell.events" :key="ev.id">
               <div
-                class="event-pill text-caption"
+                class="event-pill text-caption d-none d-sm-flex"
                 :style="{ borderColor: classificationColor(ev.classification) }"
                 :title="ev.name"
                 role="link"
@@ -42,9 +42,17 @@
                 @click="goToEvent(ev)"
               >
                 <span class="event-pill-name">{{ ev.name }}</span>
-                <span v-if="ev.time_start" class="event-pill-time">{{ ev.time_start }}</span>
+                <span v-if="ev.time_start" class="event-pill-time">{{ formatEventTime(ev.time_start) }}</span>
               </div>
             </template>
+            <div v-if="cell.events.length" class="event-dots d-flex d-sm-none">
+              <span
+                v-for="ev in cell.events"
+                :key="ev.id"
+                class="event-dot"
+                :style="{ backgroundColor: classificationColor(ev.classification) }"
+              ></span>
+            </div>
           </div>
 
           <!-- Current + trailing day cells -->
@@ -54,25 +62,55 @@
             class="big-cal-cell"
             :class="{
               'big-cal-today':       cell.isToday,
-              'big-cal-other-month': cell.otherMonth
+              'big-cal-other-month': cell.otherMonth,
+              'big-cal-has-events':  cell.events.length && !cell.otherMonth,
+              'big-cal-selected':    selectedDayIso === cell.iso
             }"
+            role="button"
+            tabindex="0"
+            @click="selectDay(cell)"
+            @keydown.enter="selectDay(cell)"
           >
             <div class="big-cal-day-number font-weight-bold" :class="{ 'today-badge': cell.isToday }">
               {{ cell.day }}
             </div>
             <template v-for="ev in cell.events" :key="ev.id">
               <div
-                class="event-pill text-caption"
+                class="event-pill text-caption d-none d-sm-flex"
                 :style="{ borderColor: classificationColor(ev.classification) }"
                 :title="ev.name"
                 role="link"
                 tabindex="0"
-                @click="goToEvent(ev)"
+                @click.stop="goToEvent(ev)"
               >
                 <span class="event-pill-name">{{ ev.name }}</span>
-                <span v-if="ev.time_start" class="event-pill-time">{{ ev.time_start }}</span>
+                <span v-if="ev.time_start" class="event-pill-time">{{ formatEventTime(ev.time_start) }}</span>
               </div>
             </template>
+            <div v-if="cell.events.length" class="event-dots d-flex d-sm-none">
+              <span
+                v-for="ev in cell.events"
+                :key="ev.id"
+                class="event-dot"
+                :style="{ backgroundColor: classificationColor(ev.classification) }"
+              ></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile: selected day events panel -->
+        <div v-if="selectedDayEvents.length" class="d-flex d-sm-none flex-column px-3 pb-3 pt-2" style="gap:8px; border-top:1px solid #f0f0f0;">
+          <div
+            v-for="ev in selectedDayEvents"
+            :key="ev.id"
+            class="mobile-event-card"
+            :style="{ borderColor: classificationColor(ev.classification) }"
+            role="link"
+            tabindex="0"
+            @click="goToEvent(ev)"
+          >
+            <div class="font-weight-bold text-body-2" style="color:#041845;">{{ ev.name }}</div>
+            <div v-if="ev.time_start" class="text-caption" style="color:#777;">{{ formatEventTime(ev.time_start) }}</div>
           </div>
         </div>
 
@@ -95,9 +133,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { classifications, classificationColor } from '~/constants/classifications'
-import { monthNames, weekdayNames } from '~/constants/dates'
+import { monthNames, weekdayNames, formatEventTime } from '~/constants/dates'
 
 const router = useRouter()
 
@@ -110,6 +148,15 @@ const props = defineProps({
 const emit = defineEmits(['prev-month', 'next-month'])
 
 const today = new Date()
+const selectedDayIso = ref(null)
+
+const selectDay = (cell) => {
+  if (!cell.events.length) {
+    selectedDayIso.value = null
+    return
+  }
+  selectedDayIso.value = selectedDayIso.value === cell.iso ? null : cell.iso
+}
 
 // ── Classification ─────────────────────────────────────────────────────────
 
@@ -130,6 +177,11 @@ const eventsByDate = computed(() => {
     map[key].push(e)
   })
   return map
+})
+
+const selectedDayEvents = computed(() => {
+  if (!selectedDayIso.value) return []
+  return eventsByDate.value[selectedDayIso.value] ?? []
 })
 
 // ── Leading cells (prev-month) ─────────────────────────────────────────────
@@ -265,9 +317,47 @@ const cells = computed(() => {
 }
 
 @media (max-width: 600px) {
-  .big-cal-cell    { padding: 2px; }
+  .big-cal-cell    { padding: 2px; min-height: 44px; cursor: pointer; }
   .event-pill      { font-size: 9px; padding: 1px 2px; }
   .event-pill-time { display: none; }
+  .big-cal-grid    { grid-template-columns: repeat(7, 1fr); }
+}
+
+.big-cal-has-events {
+  cursor: pointer;
+}
+
+.big-cal-selected {
+  background: #eef1fa;
+  box-shadow: inset 0 0 0 2px #041845;
+}
+
+.event-dots {
+  gap: 3px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.event-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mobile-event-card {
+  border: 2px solid;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.mobile-event-card:hover,
+.mobile-event-card:active {
+  background: #f7f8fb;
 }
 
 .month-nav-btn {

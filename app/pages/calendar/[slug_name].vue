@@ -24,13 +24,7 @@
             <v-card elevation="0" style="border: 1px solid #e0e0e0; overflow: hidden;">
               <CalendarBlurImage v-if="event.url_image_s3" :src="event.url_image_s3" :height="360" />
               <v-card-text class="pa-5">
-                <v-chip
-                  v-if="event.classification"
-                  size="small"
-                  :color="classificationColor(event.classification)"
-                  variant="flat"
-                  class="text-white mb-3"
-                >{{ event.classification }}</v-chip>
+             
 
                 <h1 class="text-h4 font-weight-light mb-3" style="color: #041845;">
                   {{ event.name }}
@@ -54,6 +48,14 @@
                 <p v-if="event.description" class="text-body-1 mb-4" style="color: #444; line-height: 1.7;">
                   {{ event.description }}
                 </p>
+
+                   <v-chip
+                  v-if="event.classification"
+                  size="small"
+                  :color="classificationColor(event.classification)"
+                  variant="flat"
+                  class="text-white mb-3"
+                >{{ event.classification }}</v-chip>
 
                 <div class="d-flex justify-center align-center flex-wrap" style="gap: 16px;">
                 
@@ -82,7 +84,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { classificationColor } from '~/constants/classifications'
-import { monthNames } from '~/constants/dates'
+import { monthNames, formatEventTime } from '~/constants/dates'
 
 const route = useRoute()
 const router = useRouter()
@@ -135,18 +137,6 @@ const formatEventDate = (d) => {
     const dt = new Date(d)
     return `${dt.getDate()} de ${monthNames[dt.getMonth()]} ${dt.getFullYear()}`
   } catch { return d }
-}
-
-const formatEventTime = (t) => {
-  if (!t) return ''
-  const match = String(t).match(/^(\d{1,2}):(\d{2})/)
-  if (!match) return t
-  let hours = parseInt(match[1], 10)
-  const minutes = match[2]
-  const period = hours >= 12 ? 'pm' : 'am'
-  hours = hours % 12
-  if (hours === 0) hours = 12
-  return `${hours}:${minutes} ${period}`
 }
 
 const menuItems = [

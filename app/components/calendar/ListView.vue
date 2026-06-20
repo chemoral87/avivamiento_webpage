@@ -54,7 +54,7 @@
             </span>
             <span v-if="event.time_start" class="d-flex align-center" style="color: #666;">
               <v-icon size="14" class="mr-1">mdi-clock-outline</v-icon>
-              <span class="text-caption">{{ event.time_start }}</span>
+              <span class="text-caption">{{ formatEventTime(event.time_start) }}</span>
             </span>
           </div>
           <div v-if="event.location" class="d-flex align-center mb-2" style="color: #666;">
@@ -75,7 +75,7 @@
 <script setup>
 import { computed } from 'vue'
 import { classificationColor } from '~/constants/classifications'
-import { monthNames } from '~/constants/dates'
+import { monthNames, formatEventTime } from '~/constants/dates'
 
 const router = useRouter()
 
