@@ -41,12 +41,25 @@ const shareOnWhatsApp = () => {
   window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
 }
 
+const isIOS = () => {
+  if (typeof navigator === 'undefined') return false
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent)
+}
+
 const isMobile = () => {
   if (typeof navigator === 'undefined') return false
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 }
 
 const shareOnFacebook = () => {
+  // Facebook's sharer.php is known to hang/spin on iOS Safari when navigated
+  // to directly. Use the native share sheet on iOS instead, which lets the
+  // user pick Facebook (or anything else) without the broken redirect.
+  if (isIOS() && navigator.share) {
+    navigator.share({ title: props.title, text: buildMessage(), url: props.url }).catch(() => {})
+    return
+  }
+
   const url = encodeURIComponent(props.url)
   const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
 
