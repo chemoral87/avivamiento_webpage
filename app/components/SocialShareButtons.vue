@@ -32,12 +32,12 @@ const buildMessage = () => {
   const when = [props.date, props.time].filter(Boolean).join(' — ')
   if (when) parts.push(when)
   if (props.text) parts.push(props.text)
-  return parts.filter(Boolean).join('\n\n')
+  return parts.filter(Boolean).join('\n')
 }
 
 const shareOnWhatsApp = () => {
   const url = encodeURIComponent(props.url)
-  const text = encodeURIComponent(`${buildMessage()}\n\nMás información:`)
+  const text = encodeURIComponent(`${buildMessage()}\nMás información:`)
   window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
 }
 
