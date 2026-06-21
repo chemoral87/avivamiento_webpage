@@ -41,9 +41,22 @@ const shareOnWhatsApp = () => {
   window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
 }
 
+const isMobile = () => {
+  if (typeof navigator === 'undefined') return false
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+}
+
 const shareOnFacebook = () => {
   const url = encodeURIComponent(props.url)
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
+  const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
+
+  if (isMobile()) {
+    // window.open(_blank) is unreliable on mobile browsers/webviews and can
+    // appear to do nothing. Navigate in the same tab instead.
+    window.location.href = shareUrl
+  } else {
+    window.open(shareUrl, '_blank', 'noopener,noreferrer,width=600,height=600')
+  }
 }
 
 const shareGeneric = () => {
