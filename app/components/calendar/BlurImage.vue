@@ -34,7 +34,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-const runtimeConfig = useRuntimeConfig()
+
 
 const props = defineProps({
   src:      { type: String, required: true },
@@ -53,9 +53,7 @@ const wrapperStyle = computed(() => ({
 
 const imageSrc = computed(() => {
   if (!props.useProxy || !props.src) return props.src
-  const baseUrl = runtimeConfig.public.API_URL
-    ? runtimeConfig.public.API_URL.replace(/\/+$/, '').replace(/\/api$/, '')
-    : ''
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
   const proxyUrl = `${baseUrl}/api/image-proxy?url=${encodeURIComponent(props.src)}`
   return proxyUrl
 })
