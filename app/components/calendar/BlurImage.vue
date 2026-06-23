@@ -1,25 +1,32 @@
 <template>
   <div class="event-image-wrapper" :style="wrapperStyle" ref="imageWrapper">
     <img
-      v-show="imageLoaded"
-      :src="src"
+      v-if="shouldLoad"
+      v-show="loaded"
+      :src="imageSrc"
       class="event-image-blur-bg"
       aria-hidden="true"
-      loading="lazy"
       @load="onImageLoad"
       @error="onImageError"
     />
     <img
-      v-show="imageLoaded"
-      :src="src"
+      v-if="shouldLoad"
+      v-show="loaded"
+      :src="imageSrc"
       class="event-image-main"
-      loading="lazy"
       @load="onImageLoad"
       @error="onImageError"
     />
-    <!-- Placeholder/skeleton while loading -->
-    <div v-show="!imageLoaded" class="image-placeholder">
+    <div v-if="!loaded" class="image-placeholder">
       <div class="skeleton-shimmer"></div>
+      <div class="loading-spinner">
+        <v-progress-circular
+          indeterminate
+          color="#041845"
+          size="48"
+          width="4"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -27,46 +34,55 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
+const runtimeConfig = useRuntimeConfig()
+
 const props = defineProps({
-  src:    { type: String, required: true },
-  height: { type: [String, Number], default: 360 },
+  src:      { type: String, required: true },
+  height:   { type: [String, Number], default: 360 },
+  useProxy: { type: Boolean, default: false },
 })
 
 const imageWrapper = ref(null)
-const imageLoaded = ref(false)
+const shouldLoad = ref(false)
+const loaded = ref(false)
 let intersectionObserver = null
 
 const wrapperStyle = computed(() => ({
   height: typeof props.height === 'number' ? `${props.height}px` : props.height,
 }))
 
+const imageSrc = computed(() => {
+  if (!props.useProxy || !props.src) return props.src
+  const baseUrl = runtimeConfig.public.API_URL
+    ? runtimeConfig.public.API_URL.replace(/\/+$/, '').replace('/api', '')
+    : ''
+  const proxyUrl = `${baseUrl}/api/image-proxy?url=${encodeURIComponent(props.src)}`
+  return proxyUrl
+})
+
 const onImageLoad = () => {
-  imageLoaded.value = true
+  loaded.value = true
 }
 
 const onImageError = () => {
-  imageLoaded.value = true // Show error state after timeout
+  loaded.value = true
 }
 
-// Intersection Observer for more aggressive lazy loading
 onMounted(() => {
   if (!imageWrapper.value) return
-
   const options = {
     root: null,
-    rootMargin: '50px', // Start loading 50px before the image comes into view
+    rootMargin: '200px',
     threshold: 0.01,
   }
-
   intersectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        imageLoaded.value = true
+        shouldLoad.value = true
         intersectionObserver.unobserve(entry.target)
       }
     })
   }, options)
-
   intersectionObserver.observe(imageWrapper.value)
 })
 

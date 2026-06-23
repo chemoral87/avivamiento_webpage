@@ -22,7 +22,7 @@
                   </v-btn></v-col>
           <v-col cols="12" md="10" lg="8">
             <v-card elevation="0" style="border: 1px solid #e0e0e0; overflow: hidden;">
-              <CalendarBlurImage v-if="event.url_image_s3" :src="event.url_image_s3" :height="360" />
+              <CalendarBlurImage v-if="event.url_image_s3" :src="event.url_image_s3" :height="360" use-proxy />
               <v-card-text class="pa-5">
              
 

@@ -28,6 +28,7 @@
           v-if="event.url_image_s3"
           :src="event.url_image_s3"
           :height="220"
+          use-proxy
           @click="goToEvent(event)"
         />
         <v-card-text class="pa-4">
