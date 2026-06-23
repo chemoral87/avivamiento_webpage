@@ -120,7 +120,7 @@ const handleLoginClick = () => {
   text-transform: none;
   letter-spacing: 0.3px;
   animation: slow-blink 4s ease-in-out infinite;
-  border: 1px dotted #ffffff;
+ border: 1px solid #c4e5ff;
 }
 
 .mobile-menu-btn.menu-open {

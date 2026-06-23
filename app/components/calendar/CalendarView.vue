@@ -106,6 +106,14 @@
           </div>
         </div>
 
+        <!-- Mobile: no-date hint -->
+        <div v-if="!selectedDayIso" class="d-flex d-sm-none align-center justify-center px-4 py-3 mobile-hint" style="border-top:1px solid #f0f0f0;">
+          <v-icon size="16" class="mr-1" style="color:#041845; opacity:0.6;">mdi-calendar-cursor</v-icon>
+          <span class="text-caption" style="color:#555; text-align:center;">
+            Seleccione una fecha con punto para ver los eventos
+          </span>
+        </div>
+
         <!-- Mobile: selected day events panel -->
         <div v-if="selectedDayEvents.length" class="d-flex d-sm-none flex-column px-3 pb-3 pt-2" style="gap:8px; border-top:1px solid #f0f0f0;">
           <div
