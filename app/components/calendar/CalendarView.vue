@@ -131,9 +131,9 @@
         </div>
 
         <!-- Legend -->
-        <div class="d-flex align-center flex-wrap px-4 pb-3 pt-2" style="gap:12px;">
+        <div v-if="activeClassifications.length" class="d-flex align-center flex-wrap px-4 pb-3 pt-2" style="gap:12px;">
           <span
-            v-for="cls in classifications"
+            v-for="cls in activeClassifications"
             :key="cls.value"
             class="d-flex align-center"
             style="gap:5px;"
@@ -196,6 +196,12 @@ console.log(event.slug_name)
   if (!event?.slug_name) return
   router.push(`/calendar/${event.slug_name}`)
 }
+
+// ── Active classifications (only those present in current events) ──────────
+const activeClassifications = computed(() => {
+  const usedValues = new Set(props.events.map(e => e.classification).filter(Boolean))
+  return classifications.filter(cls => usedValues.has(cls.value))
+})
 
 // ── Event map ──────────────────────────────────────────────────────────────
 const eventsByDate = computed(() => {
