@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" class="mb-2" dense>
-    <v-col cols="12" md="10" lg="9">
+    <v-col cols="12" md="11" lg="10">
       <v-card elevation="0" style="border: 1px solid #e0e0e0;">
 
         <!-- Month nav header -->
@@ -266,8 +266,8 @@ const cells = computed(() => {
 <style scoped>
 .big-cal-grid {
   display: grid;
-  grid-template-columns: 0.6fr 0.6fr 1fr 1fr 1fr 0.6fr 0.6fr;
-  grid-auto-rows: minmax(28px, auto);
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 90px;
   border-top: 1px solid #f0f0f0;
 }
 .big-cal-header {
@@ -325,11 +325,9 @@ const cells = computed(() => {
   border-style: solid;
 }
 .event-pill-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 100%;
   font-weight: 600;
+  word-break: break-word;
 }
 .event-pill-time {
   font-size: 9px;
