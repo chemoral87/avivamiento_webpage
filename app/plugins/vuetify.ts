@@ -70,7 +70,6 @@ export default defineNuxtPlugin((app) => {
       VAvatar,
       VFooter,
       VProgressCircular,
-  VProgressCircular
     },
     directives: {
       Ripple,
