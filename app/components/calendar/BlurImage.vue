@@ -54,7 +54,7 @@ const wrapperStyle = computed(() => ({
 const imageSrc = computed(() => {
   if (!props.useProxy || !props.src) return props.src
   const baseUrl = runtimeConfig.public.API_URL
-    ? runtimeConfig.public.API_URL.replace(/\/+$/, '').replace('/api', '')
+    ? runtimeConfig.public.API_URL.replace(/\/+$/, '').replace(/\/api$/, '')
     : ''
   const proxyUrl = `${baseUrl}/api/image-proxy?url=${encodeURIComponent(props.src)}`
   return proxyUrl
