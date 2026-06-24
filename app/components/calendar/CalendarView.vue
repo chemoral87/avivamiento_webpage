@@ -17,7 +17,7 @@
         </div>
 
         <!-- Day-of-week headers -->
-        <div class="big-cal-grid px-2 pt-0">
+        <div class="big-cal-grid">
           <div
             v-for="d in weekdayNames"
             :key="d"
@@ -275,6 +275,7 @@ const cells = computed(() => {
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 28px;
   grid-auto-rows: minmax(80px, auto);
+  padding: 0;
   border-top: 1px solid #e0e0e0;
   border-left: 1px solid #e0e0e0;
 }
