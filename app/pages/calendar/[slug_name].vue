@@ -26,9 +26,19 @@
               <v-card-text class="pa-5">
              
 
-                <h1 class="text-h4 font-weight-light mb-3" style="color: #041845;">
-                  {{ event.name }}
-                </h1>
+                <div class="d-flex align-center justify-space-between mb-3" style="gap: 12px;">
+                  <h1 class="text-h4 font-weight-light" style="color: #041845;">
+                    {{ event.name }}
+                  </h1>
+                  <v-chip
+                    v-if="event.classification"
+                    size="small"
+                    :color="classificationColor(event.classification)"
+                    variant="flat"
+                    class="text-white"
+                    style="flex-shrink: 0;"
+                  >{{ event.classification }}</v-chip>
+                </div>
 
                 <div class="d-flex align-center flex-wrap mb-3" style="gap: 18px; color: #666;">
                   <span class="d-flex align-center">
@@ -48,14 +58,6 @@
                 <p v-if="event.description" class="text-body-1 mb-4" style="color: #444; line-height: 1.7;">
                   {{ event.description }}
                 </p>
-
-                   <v-chip
-                  v-if="event.classification"
-                  size="small"
-                  :color="classificationColor(event.classification)"
-                  variant="flat"
-                  class="text-white mb-3"
-                >{{ event.classification }}</v-chip>
 
                 <div class="d-flex justify-center align-center flex-wrap" style="gap: 16px;">
                 
