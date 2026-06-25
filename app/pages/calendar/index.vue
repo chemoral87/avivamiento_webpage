@@ -34,7 +34,33 @@
                 <v-icon size="18" class="mr-1">mdi-format-list-bulleted</v-icon>
                 Listado
               </button>
+              <button
+                class="view-toggle-btn"
+                :class="{ active: viewMode === 'search' }"
+                @click="switchToSearch"
+              >
+                <v-icon size="18" class="mr-1">mdi-magnify</v-icon>
+                Búsqueda
+              </button>
             </div>
+          </v-col>
+        </v-row>
+
+        <!-- Search bar -->
+        <v-row v-if="viewMode === 'search'" justify="center" class="mt-3" dense>
+          <v-col cols="12" md="10" lg="8">
+            <v-text-field
+              v-model="searchQuery"
+              placeholder="Buscar eventos..."
+              prepend-inner-icon="mdi-magnify"
+              variant="outlined"
+              density="comfortable"
+              clearable
+              hide-details
+              bg-color="white"
+              @input="onSearchInput"
+              @click:clear="onSearchClear"
+            />
           </v-col>
         </v-row>
 
@@ -72,6 +98,14 @@
             :cal-month="calMonth"
           />
 
+          <CalendarListView
+            v-if="viewMode === 'search'"
+            :events="searchResults"
+            :cal-year="calYear"
+            :cal-month="calMonth"
+            :is-search="true"
+          />
+
           <!-- Floating Month Selector for List View -->
          <CalendarMonthSelector
             v-if="viewMode === 'list'"
@@ -92,6 +126,15 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { monthNames } from '~/constants/dates'
 
+// Native debounce — avoids lodash-es dependency
+const debounce = (fn, delay) => {
+  let timer
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), delay)
+  }
+}
+
 const drawer      = ref(false)
 const viewMode    = ref('calendar')
 const router      = useRouter()
@@ -99,6 +142,8 @@ const runtimeConfig = useRuntimeConfig()
 
 const events        = ref([])
 const loadingEvents = ref(false)
+const searchQuery   = ref('')
+const searchResults = ref([])
 
 // ── Calendar nav state ────────────────────────────────────────────────────
 const today    = new Date()
@@ -136,7 +181,6 @@ const buildDateRange = () => {
   return { start_date, end_date }
 }
 
-
 const normalizeEventDates = (event) => ({
   ...event,
   start_date: event.start_date ?? event.publish_date ?? null,
@@ -144,6 +188,7 @@ const normalizeEventDates = (event) => ({
   publish_date: event.publish_date ?? event.start_date ?? null,
   event_date: event.event_date ?? event.end_date ?? null,
 })
+
 const fetchPublicEvents = async () => {
   const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
   if (!encoded) return
@@ -166,6 +211,46 @@ const fetchPublicEvents = async () => {
   }
 }
 
+const fetchSearchEvents = async (query) => {
+  if (!query || !query.trim()) {
+    searchResults.value = []
+    return
+  }
+
+  const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
+  if (!encoded) return
+
+  const base = runtimeConfig.public.API_URL.replace(/\/$/, '')
+  const url = `${base}/church-event/public?org_id=${encodeURIComponent(encoded)}&search=${encodeURIComponent(query.trim())}`
+
+  loadingEvents.value = true
+  try {
+    const res = await axios.get(url)
+    if (res?.status === 200 && res.data) {
+      const data = Array.isArray(res.data) ? res.data : (res.data.data ?? [])
+      searchResults.value = data.map(normalizeEventDates)
+    }
+  } catch (err) {
+    console.error('Error fetching search events:', err)
+    searchResults.value = []
+  } finally {
+    loadingEvents.value = false
+  }
+}
+
+const debouncedSearch = debounce((query) => {
+  fetchSearchEvents(query)
+}, 400)
+
+const onSearchInput = () => {
+  debouncedSearch(searchQuery.value)
+}
+
+const onSearchClear = () => {
+  searchQuery.value = ''
+  searchResults.value = []
+}
+
 // ── Navigation ────────────────────────────────────────────────────────────
 const prevMonth = () => {
   if (calMonth.value === 0) { calMonth.value = 11; calYear.value-- }
@@ -181,6 +266,12 @@ const nextMonth = () => {
 const switchToList = () => {
   viewMode.value = 'list'
   if (!events.value.length) fetchPublicEvents()
+}
+
+const switchToSearch = () => {
+  viewMode.value = 'search'
+  searchQuery.value = ''
+  searchResults.value = []
 }
 
 onMounted(() => fetchPublicEvents())

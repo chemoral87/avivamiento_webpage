@@ -2,8 +2,10 @@
   <!-- Empty state -->
   <v-row v-if="!filteredEvents.length" justify="center" dense>
     <v-col cols="12" md="8" class="text-center py-4">
-      <v-icon size="48" color="#ccc" class="mb-0">mdi-calendar-blank-outline</v-icon>
-      <p class="text-body-1" style="color: #666;">No hay eventos próximos por el momento.</p>
+      <v-icon size="48" color="#ccc" class="mb-0">mdi-magnify</v-icon>
+      <p class="text-body-1" style="color: #666;">
+        {{ isSearch ? 'Escribe algo para buscar eventos.' : 'No hay eventos próximos por el momento.' }}
+      </p>
     </v-col>
   </v-row>
 
@@ -85,16 +87,18 @@ const props = defineProps({
   events:   { type: Array,  default: () => [] },
   calYear:  { type: Number, default: () => new Date().getFullYear() },
   calMonth: { type: Number, default: () => new Date().getMonth() },
+  isSearch: { type: Boolean, default: false },
 })
 
-const filteredEvents = computed(() =>
-  props.events.filter(event => {
+const filteredEvents = computed(() => {
+  if (props.isSearch) return props.events
+  return props.events.filter(event => {
     const raw = event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date
     if (!raw) return false
     const [year, month] = String(raw).slice(0, 10).split('-').map(Number)
     return year === props.calYear && (month - 1) === props.calMonth
   })
-)
+})
 
 
 const formatEventDate = (d) => {
