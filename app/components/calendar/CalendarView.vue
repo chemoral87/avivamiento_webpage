@@ -340,8 +340,8 @@ const cells = computed(() => {
   word-break: break-word;
 }
 .event-pill-time {
-  font-size: 9px;
-  opacity: 0.65;
+  font-size: 11px;
+  opacity: 0.8; 
 }
 
 /* Legend */
