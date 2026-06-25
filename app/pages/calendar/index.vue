@@ -270,8 +270,6 @@ const switchToList = () => {
 
 const switchToSearch = () => {
   viewMode.value = 'search'
-  searchQuery.value = ''
-  searchResults.value = []
 }
 
 onMounted(() => fetchPublicEvents())
