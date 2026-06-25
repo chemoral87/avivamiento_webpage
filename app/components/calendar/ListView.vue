@@ -4,7 +4,7 @@
     <v-col cols="12" md="8" class="text-center py-4">
       <v-icon size="48" color="#ccc" class="mb-0">mdi-magnify</v-icon>
       <p class="text-body-1" style="color: #666;">
-        {{ isSearch ? 'Escribe algo para buscar eventos.' : 'No hay eventos próximos por el momento.' }}
+        {{ isSearch ? 'Escribe algo para buscar próximos eventos.' : 'No hay eventos próximos por el momento.' }}
       </p>
     </v-col>
   </v-row>

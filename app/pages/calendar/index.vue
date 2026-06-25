@@ -51,7 +51,7 @@
           <v-col cols="12" md="10" lg="8">
             <v-text-field
               v-model="searchQuery"
-              placeholder="Buscar eventos..."
+              placeholder="Buscar próximos eventos..."
               prepend-inner-icon="mdi-magnify"
               variant="outlined"
               density="comfortable"
