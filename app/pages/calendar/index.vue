@@ -20,19 +20,19 @@
             <div class="view-toggle-bar">
               <button
                 class="view-toggle-btn"
-                :class="{ active: viewMode === 'calendar' }"
-                @click="viewMode = 'calendar'"
-              >
-                <v-icon size="18" class="mr-1">mdi-calendar-month</v-icon>
-                Calendario
-              </button>
-              <button
-                class="view-toggle-btn"
                 :class="{ active: viewMode === 'list' }"
                 @click="switchToList"
               >
                 <v-icon size="18" class="mr-1">mdi-format-list-bulleted</v-icon>
                 Listado
+              </button>
+              <button
+                class="view-toggle-btn"
+                :class="{ active: viewMode === 'calendar' }"
+                @click="viewMode = 'calendar'"
+              >
+                <v-icon size="18" class="mr-1">mdi-calendar-month</v-icon>
+                Calendario
               </button>
               <button
                 class="view-toggle-btn"
@@ -136,7 +136,7 @@ const debounce = (fn, delay) => {
 }
 
 const drawer      = ref(false)
-const viewMode    = ref('calendar')
+const viewMode    = ref('list')
 const router      = useRouter()
 const runtimeConfig = useRuntimeConfig()
 
