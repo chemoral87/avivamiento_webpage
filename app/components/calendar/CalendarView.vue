@@ -19,7 +19,7 @@
         <!-- Day-of-week headers -->
         <div class="big-cal-grid">
           <div
-            v-for="d in weekdayNames"
+            v-for="d in currentWeekdayNames"
             :key="d"
             class="big-cal-header text-caption font-weight-bold"
             style="color:#444;"
@@ -151,17 +151,26 @@
 <script setup>
 import { computed, ref, onUnmounted } from 'vue'
 import { classifications, classificationColor } from '~/constants/classifications'
-import { monthNames, weekdayNames, formatEventTime } from '~/constants/dates'
+import { monthNames, weekdayNamesMondayFirst, weekdayNamesSundayFirst, formatEventTime } from '~/constants/dates'
 
 const router = useRouter()
 
 const props = defineProps({
-  calYear:  { type: Number, required: true },
-  calMonth: { type: Number, required: true },
-  events:   { type: Array,  default: () => [] },
+  calYear:            { type: Number,  required: true },
+  calMonth:           { type: Number,  required: true },
+  events:             { type: Array,   default: () => [] },
+  // ── Week-start flag ───────────────────────────────────────────────────────
+  // true  → week starts on Monday (Lun … Dom)
+  // false → week starts on Sunday (Dom … Sáb)
+  weekStartsOnMonday: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['prev-month', 'next-month'])
+
+// ── Weekday header labels ──────────────────────────────────────────────────
+const currentWeekdayNames = computed(() =>
+  props.weekStartsOnMonday ? weekdayNamesMondayFirst : weekdayNamesSundayFirst
+)
 
 const today = new Date()
 const selectedDayIso = ref(null)
@@ -189,7 +198,7 @@ const selectDay = (cell) => {
   selectedDayIso.value = selectedDayIso.value === cell.iso ? null : cell.iso
 }
 
-// ── Classification ─────────────────────────────────────────────────────────
+// ── Navigation ─────────────────────────────────────────────────────────────
 
 const goToEvent = (event) => {
 console.log(event.slug_name)
@@ -221,17 +230,24 @@ const selectedDayEvents = computed(() => {
   return eventsByDate.value[selectedDayIso.value] ?? []
 })
 
+// ── Week-offset helper ─────────────────────────────────────────────────────
+// Converts JS getDay() (0=Sun … 6=Sat) to a 0-based column index
+// depending on whether the week starts on Monday or Sunday.
+const toWeekColumn = (jsDay) => props.weekStartsOnMonday
+  ? (jsDay + 6) % 7   // Mon=0 … Sun=6
+  : jsDay              // Sun=0 … Sat=6
+
 // ── Leading cells (prev-month) ─────────────────────────────────────────────
 const leadingCells = computed(() => {
-  const firstDayOfWeek = new Date(props.calYear, props.calMonth, 1).getDay()
-  if (firstDayOfWeek === 0) return []
+  const firstCol = toWeekColumn(new Date(props.calYear, props.calMonth, 1).getDay())
+  if (firstCol === 0) return []
 
   const prevMonth       = props.calMonth === 0 ? 11 : props.calMonth - 1
   const prevYear        = props.calMonth === 0 ? props.calYear - 1 : props.calYear
   const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate()
 
-  return Array.from({ length: firstDayOfWeek }, (_, i) => {
-    const d   = daysInPrevMonth - (firstDayOfWeek - 1 - i)
+  return Array.from({ length: firstCol }, (_, i) => {
+    const d   = daysInPrevMonth - (firstCol - 1 - i)
     const iso = `${prevYear}-${String(prevMonth + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`
     return { day: d, iso, events: eventsByDate.value[iso] ?? [] }
   })
@@ -255,11 +271,11 @@ const cells = computed(() => {
     })
   }
 
-  const lastDayOfWeek = new Date(props.calYear, props.calMonth, daysInMonth).getDay()
-  if (lastDayOfWeek < 6) {
+  const lastCol = toWeekColumn(new Date(props.calYear, props.calMonth, daysInMonth).getDay())
+  if (lastCol < 6) {
     const nextMonth = props.calMonth === 11 ? 0 : props.calMonth + 1
     const nextYear  = props.calMonth === 11 ? props.calYear + 1 : props.calYear
-    for (let d = 1; d <= 6 - lastDayOfWeek; d++) {
+    for (let d = 1; d <= 6 - lastCol; d++) {
       const iso = `${nextYear}-${String(nextMonth + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`
       result.push({ day: d, iso, isToday: false, otherMonth: true, events: eventsByDate.value[iso] ?? [] })
     }

@@ -87,6 +87,7 @@
             :cal-year="calYear"
             :cal-month="calMonth"
             :events="events"
+            :week-starts-on-monday="WEEK_STARTS_ON_MONDAY"
             @prev-month="prevMonth"
             @next-month="nextMonth"
           />
@@ -124,7 +125,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import { monthNames } from '~/constants/dates'
+import { monthNames, WEEK_STARTS_ON_MONDAY } from '~/constants/dates'
 
 // Native debounce — avoids lodash-es dependency
 const debounce = (fn, delay) => {
@@ -160,23 +161,29 @@ const encodeBase64 = (str) => {
   }
 }
 
-const buildDateRange = () => {
-  // start_date: first visible cell (leading prev-month Sunday or the 1st)
-  const firstDayOfWeek  = new Date(calYear.value, calMonth.value, 1).getDay()
-  const prevMonth       = calMonth.value === 0 ? 11 : calMonth.value - 1
-  const prevYear        = calMonth.value === 0 ? calYear.value - 1 : calYear.value
-  const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate()
-  const firstVisibleDay   = firstDayOfWeek === 0 ? 1 : daysInPrevMonth - (firstDayOfWeek - 1)
-  const firstVisibleMonth = firstDayOfWeek === 0 ? calMonth.value : prevMonth
-  const firstVisibleYear  = firstDayOfWeek === 0 ? calYear.value  : prevYear
-  const start_date = `${firstVisibleYear}-${String(firstVisibleMonth + 1).padStart(2,'0')}-${String(firstVisibleDay).padStart(2,'0')}`
+// Converts JS getDay() (0=Sun … 6=Sat) to a 0-based grid column
+// depending on the WEEK_STARTS_ON_MONDAY flag.
+const toWeekColumn = (jsDay) => WEEK_STARTS_ON_MONDAY
+  ? (jsDay + 6) % 7   // Mon=0 … Sun=6
+  : jsDay              // Sun=0 … Sat=6
 
-  // end_date: last Saturday visible (trailing next-month days)
-  const daysInMonth   = new Date(calYear.value, calMonth.value + 1, 0).getDate()
-  const lastDayOfWeek = new Date(calYear.value, calMonth.value, daysInMonth).getDay()
-  const trailingDays  = lastDayOfWeek < 6 ? 6 - lastDayOfWeek : 0
-  const endObj        = new Date(calYear.value, calMonth.value, daysInMonth + trailingDays)
-  const end_date      = `${endObj.getFullYear()}-${String(endObj.getMonth() + 1).padStart(2,'0')}-${String(endObj.getDate()).padStart(2,'0')}`
+const buildDateRange = () => {
+  // start_date: first visible cell
+  const firstCol      = toWeekColumn(new Date(calYear.value, calMonth.value, 1).getDay())
+  const prevMonth     = calMonth.value === 0 ? 11 : calMonth.value - 1
+  const prevYear      = calMonth.value === 0 ? calYear.value - 1 : calYear.value
+  const daysInPrev    = new Date(prevYear, prevMonth + 1, 0).getDate()
+  const firstVisDay   = firstCol === 0 ? 1 : daysInPrev - (firstCol - 1)
+  const firstVisMon   = firstCol === 0 ? calMonth.value : prevMonth
+  const firstVisYear  = firstCol === 0 ? calYear.value  : prevYear
+  const start_date    = `${firstVisYear}-${String(firstVisMon + 1).padStart(2,'0')}-${String(firstVisDay).padStart(2,'0')}`
+
+  // end_date: last visible cell (trailing days fill the row to column 6)
+  const daysInMonth = new Date(calYear.value, calMonth.value + 1, 0).getDate()
+  const lastCol     = toWeekColumn(new Date(calYear.value, calMonth.value, daysInMonth).getDay())
+  const trailing    = lastCol < 6 ? 6 - lastCol : 0
+  const endObj      = new Date(calYear.value, calMonth.value, daysInMonth + trailing)
+  const end_date    = `${endObj.getFullYear()}-${String(endObj.getMonth() + 1).padStart(2,'0')}-${String(endObj.getDate()).padStart(2,'0')}`
 
   return { start_date, end_date }
 }

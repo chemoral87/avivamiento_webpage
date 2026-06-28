@@ -3,7 +3,18 @@ export const monthNames = [
   'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'
 ]
 
-export const weekdayNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']
+// ── Week start flag ────────────────────────────────────────────────────────
+// Set to true  → week starts on Monday (Lun, Mar, Mié, Jue, Vie, Sáb, Dom)
+// Set to false → week starts on Sunday (Dom, Lun, Mar, Mié, Jue, Vie, Sáb)
+export const WEEK_STARTS_ON_MONDAY = true
+
+export const weekdayNamesMondayFirst = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']
+export const weekdayNamesSundayFirst = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb']
+
+// Kept for backward-compatibility — resolves to whichever the flag selects
+export const weekdayNames = WEEK_STARTS_ON_MONDAY
+  ? weekdayNamesMondayFirst
+  : weekdayNamesSundayFirst
 
 export const formatEventTime = (t) => {
   if (!t) return ''
