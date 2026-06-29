@@ -103,9 +103,14 @@ const filteredEvents = computed(() => {
 
 
 
+const route = useRoute()
+
 const goToEvent = (event) => {
   if (!event?.slug_name) return
-  router.push(`/calendar/${event.slug_name}`)
+  router.push({
+    path: `/calendar/${event.slug_name}`,
+    query: route.query
+  })
 }
 </script>
 

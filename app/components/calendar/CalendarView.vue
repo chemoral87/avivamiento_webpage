@@ -56,18 +56,12 @@
 
         <!-- Mobile: selected day events panel -->
         <div v-if="selectedDayEvents.length" class="d-flex d-sm-none flex-column px-3 pb-3 pt-2" style="gap:8px; border-top:1px solid #f0f0f0;">
-          <div
+          <MobileEventCard
             v-for="ev in selectedDayEvents"
             :key="ev.id"
-            class="mobile-event-card"
-            :style="{ borderColor: classificationColor(ev.classification) }"
-            role="link"
-            tabindex="0"
+            :event="ev"
             @click="goToEvent(ev)"
-          >
-            <div class="font-weight-bold text-body-2" style="color:#041845;">{{ ev.name }}</div>
-            <div v-if="ev.time_start" class="text-caption" style="color:#777;">{{ formatEventTime(ev.time_start) }}</div>
-          </div>
+          />
         </div>
 
         <!-- Legend -->
@@ -91,6 +85,7 @@
 <script setup>
 import { computed, ref, onUnmounted } from 'vue'
 import CalendarDayCell from '../CalendarDayCell.vue'
+import MobileEventCard from './MobileEventCard.vue'
 import { classifications, classificationColor } from '~/constants/classifications'
 import { monthNames, weekdayNamesMondayFirst, weekdayNamesSundayFirst, formatEventTime, formatEventDate } from '~/constants/dates'
 
@@ -141,10 +136,15 @@ const selectDay = (cell) => {
 
 // ── Navigation ─────────────────────────────────────────────────────────────
 
+const route = useRoute()
+
 const goToEvent = (event) => {
 console.log(event.slug_name)
   if (!event?.slug_name) return
-  router.push(`/calendar/${event.slug_name}`)
+  router.push({
+    path: `/calendar/${event.slug_name}`,
+    query: route.query
+  })
 }
 
 // ── Active classifications (only those present in current events) ──────────
@@ -273,20 +273,6 @@ const cells = computed(() => {
   .big-cal-header  { padding: 0; line-height: 20px; height: 20px; font-size: 10px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   .big-cal-cell    { padding: 1px; min-height: 0; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   .big-cal-cell:nth-child(7n) { border-right: 1px solid #ddd; }
-}
-
-.mobile-event-card {
-  border: 2px solid;
-  border-radius: 6px;
-  padding: 8px 10px;
-  background: #fff;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.mobile-event-card:hover,
-.mobile-event-card:active {
-  background: #f7f8fb;
 }
 
 .month-nav-btn {

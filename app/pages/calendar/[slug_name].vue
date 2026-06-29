@@ -16,7 +16,7 @@
                     variant="outlined"
                     color="#041845"
                     prepend-icon="mdi-arrow-left"
-                    @click="router.push('/calendar')"
+                    @click="router.push({ path: '/calendar', query: route.query })"
                   >
                     Ver todos los eventos
                   </v-btn></v-col>

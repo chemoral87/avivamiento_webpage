@@ -123,7 +123,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { monthNames, WEEK_STARTS_ON_MONDAY } from '~/constants/dates'
 
@@ -136,9 +136,10 @@ const debounce = (fn, delay) => {
   }
 }
 
-const drawer      = ref(false)
-const viewMode    = ref('list')
+const route       = useRoute()
 const router      = useRouter()
+const drawer      = ref(false)
+const viewMode    = ref(route.query.view || 'list')
 const runtimeConfig = useRuntimeConfig()
 
 const events        = ref([])
@@ -148,8 +149,8 @@ const searchResults = ref([])
 
 // ── Calendar nav state ────────────────────────────────────────────────────
 const today    = new Date()
-const calYear  = ref(today.getFullYear())
-const calMonth = ref(today.getMonth()) // 0-indexed
+const calYear  = ref(Number(route.query.year || today.getFullYear()))
+const calMonth = ref(Number(route.query.month !== undefined ? route.query.month : today.getMonth()))
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 const encodeBase64 = (str) => {
@@ -262,12 +263,10 @@ const onSearchClear = () => {
 const prevMonth = () => {
   if (calMonth.value === 0) { calMonth.value = 11; calYear.value-- }
   else calMonth.value--
-  fetchPublicEvents()
 }
 const nextMonth = () => {
   if (calMonth.value === 11) { calMonth.value = 0; calYear.value++ }
   else calMonth.value++
-  fetchPublicEvents()
 }
 
 const switchToList = () => {
@@ -279,7 +278,53 @@ const switchToSearch = () => {
   viewMode.value = 'search'
 }
 
-onMounted(() => fetchPublicEvents())
+// Sync state to route query
+watch([viewMode, calYear, calMonth], ([newView, newYear, newMonth]) => {
+  const queryView = route.query.view || 'list'
+  const queryYear = Number(route.query.year || today.getFullYear())
+  const queryMonth = Number(route.query.month !== undefined ? route.query.month : today.getMonth())
+
+  if (newView !== queryView || newYear !== queryYear || newMonth !== queryMonth) {
+    router.replace({
+      query: {
+        ...route.query,
+        view: newView,
+        year: newYear.toString(),
+        month: newMonth.toString()
+      }
+    })
+  }
+})
+
+// Sync route query to state (e.g. browser navigation)
+watch(
+  () => route.query,
+  (newQuery) => {
+    const queryView = newQuery.view || 'list'
+    const queryYear = Number(newQuery.year || today.getFullYear())
+    const queryMonth = Number(newQuery.month !== undefined ? newQuery.month : today.getMonth())
+
+    if (viewMode.value !== queryView) {
+      viewMode.value = queryView
+    }
+    if (calYear.value !== queryYear) {
+      calYear.value = queryYear
+    }
+    if (calMonth.value !== queryMonth) {
+      calMonth.value = queryMonth
+    }
+  },
+  { deep: true }
+)
+
+// Fetch events when date parameters change
+watch([calYear, calMonth], () => {
+  fetchPublicEvents()
+})
+
+onMounted(() => {
+  fetchPublicEvents()
+})
 
 // ── Nav ───────────────────────────────────────────────────────────────────
 const menuItems = [
