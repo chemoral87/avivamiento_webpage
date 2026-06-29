@@ -88,7 +88,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { classificationColor } from '~/constants/classifications'
-import { monthNames, formatEventTime } from '~/constants/dates'
+import { formatEventTime, formatEventDate } from '~/constants/dates'
 
 const route = useRoute()
 const router = useRouter()
@@ -135,13 +135,7 @@ const { data, pending } = await useAsyncData(
 
 const event = computed(() => data.value)
 
-const formatEventDate = (d) => {
-  if (!d) return 'Fecha por confirmar'
-  try {
-    const dt = new Date(d)
-    return `${dt.getDate()} de ${monthNames[dt.getMonth()]} ${dt.getFullYear()}`
-  } catch { return d }
-}
+
 
 const menuItems = [
   { title: 'Inicio', to: '/' },

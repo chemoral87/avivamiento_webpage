@@ -27,3 +27,11 @@ export const formatEventTime = (t) => {
   if (hours === 0) hours = 12
   return `${hours}:${minutes} ${period}`
 }
+
+export const formatEventDate = (d) => {
+  if (!d) return 'Fecha por confirmar'
+  try {
+    const [year, month, day] = String(d).slice(0, 10).split('-').map(Number)
+    return `${day} de ${monthNames[month - 1]} ${year}`
+  } catch { return d }
+}

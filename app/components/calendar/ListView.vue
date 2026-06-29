@@ -78,7 +78,7 @@
 <script setup>
 import { computed } from 'vue'
 import { classificationColor } from '~/constants/classifications'
-import { monthNames, formatEventTime } from '~/constants/dates'
+import { monthNames, formatEventTime, formatEventDate } from '~/constants/dates'
 
 const router = useRouter()
 
@@ -101,13 +101,7 @@ const filteredEvents = computed(() => {
 })
 
 
-const formatEventDate = (d) => {
-  if (!d) return 'Fecha por confirmar'
-  try {
-    const [year, month, day] = String(d).slice(0, 10).split('-').map(Number)
-    return `${day} de ${monthNames[month - 1]} ${year}`
-  } catch { return d }
-}
+
 
 const goToEvent = (event) => {
   if (!event?.slug_name) return

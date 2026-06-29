@@ -151,7 +151,7 @@
 <script setup>
 import { computed, ref, onUnmounted } from 'vue'
 import { classifications, classificationColor } from '~/constants/classifications'
-import { monthNames, weekdayNamesMondayFirst, weekdayNamesSundayFirst, formatEventTime } from '~/constants/dates'
+import { monthNames, weekdayNamesMondayFirst, weekdayNamesSundayFirst, formatEventTime, formatEventDate } from '~/constants/dates'
 
 const router = useRouter()
 
