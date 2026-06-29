@@ -1,6 +1,6 @@
 <template>
-  <v-row justify="center" class="mb-2" dense>
-    <v-col cols="12" md="11" lg="10">
+  <v-row dense justify="center" class="mb-2" dense>
+    <v-col cols="12" md="12" lg="12">
       <v-card elevation="0" style="border: 1px solid #e0e0e0;">
 
         <!-- Month nav header -->
