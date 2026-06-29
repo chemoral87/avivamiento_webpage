@@ -86,6 +86,7 @@
 <script setup>
 import { ref, reactive, onMounted, watch, computed } from 'vue'
 import axios from 'axios'
+import { fetchPublicTestimonies } from '~/utils/testimonyApi'
 
 const formRef = ref(null)
 const valid = ref(false)
@@ -113,38 +114,18 @@ const page = ref(1)
 const perPage = 25
 const pagination = ref({})
 
-// Safely encode a string to Base64 (handles Unicode in browsers)
-const encodeBase64 = (str) => {
-  if (!str) return null
-  try {
-    return btoa(unescape(encodeURIComponent(str)))
-  } catch (e) {
-    try {
-      return Buffer.from(str, 'utf-8').toString('base64')
-    } catch (e2) {
-      return null
-    }
-  }
-}
 
-const fetchPublicTestimonies = async (p = page.value) => {
-  const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
-  if (!encoded) return
+const loadPublicTestimonies = async (p = page.value) => {
+  const result = await fetchPublicTestimonies({
+    page: p,
+    perPage,
+    orgId: runtimeConfig.public.ORG_ID,
+    apiUrl: runtimeConfig.public.API_URL,
+  })
 
-  const base = runtimeConfig.public.API_URL.replace(/\/$/, '')
-  const url = `${base}/testimony/public?org_id=${encodeURIComponent(encoded)}&itemsPerPage=${perPage}&page=${p}`
-
-  try {
-    const res = await axios.get(url)
-    if (res?.status === 200 && res.data) {
-      pagination.value = res.data
-      testimonies.value = res.data.data ?? []
-      page.value = res.data.current_page ?? p
-    }
-  } catch (err) {
-    // fallback: try the /testimony?org_id= route
-
-  }
+  pagination.value = result.pagination
+  testimonies.value = result.testimonies
+  page.value = result.page
 }
 
 const getEmbedUrl = (link) => {
@@ -182,7 +163,7 @@ const formatDate = (d) => {
 
 // Refetch when page changes (v-pagination updates `page` via v-model)
 watch(page, (p) => {
-  fetchPublicTestimonies(p)
+  loadPublicTestimonies(p)
 })
 
 const goToFirst = () => {
@@ -319,7 +300,7 @@ const submit = async () => {
 
 onMounted(() => {
   generateCaptcha()
-  fetchPublicTestimonies()
+  loadPublicTestimonies()
 })
 
 useHead({

@@ -78,7 +78,7 @@
 <script setup>
 import { computed } from 'vue'
 import { classificationColor } from '~/constants/classifications'
-import { monthNames, formatEventTime, formatEventDate } from '~/constants/dates'
+import {  formatEventTime, formatEventDate } from '~/constants/dates'
 
 const router = useRouter()
 

@@ -124,17 +124,6 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import axios from 'axios'
-import { monthNames, WEEK_STARTS_ON_MONDAY } from '~/constants/dates'
-
-// Native debounce — avoids lodash-es dependency
-const debounce = (fn, delay) => {
-  let timer
-  return (...args) => {
-    clearTimeout(timer)
-    timer = setTimeout(() => fn(...args), delay)
-  }
-}
 
 const route       = useRoute()
 const router      = useRouter()
@@ -152,66 +141,25 @@ const today    = new Date()
 const calYear  = ref(Number(route.query.year || today.getFullYear()))
 const calMonth = ref(Number(route.query.month !== undefined ? route.query.month : today.getMonth()))
 
-// ── Helpers ───────────────────────────────────────────────────────────────
-const encodeBase64 = (str) => {
-  if (!str) return null
-  try { return btoa(unescape(encodeURIComponent(str))) }
-  catch (e) {
-    try { return Buffer.from(str, 'utf-8').toString('base64') }
-    catch { return null }
+
+// ── Native debounce ──────────────────────────────────────────────────────
+const debounce = (fn, delay) => {
+  let timer
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), delay)
   }
 }
 
-// Converts JS getDay() (0=Sun … 6=Sat) to a 0-based grid column
-// depending on the WEEK_STARTS_ON_MONDAY flag.
-const toWeekColumn = (jsDay) => WEEK_STARTS_ON_MONDAY
-  ? (jsDay + 6) % 7   // Mon=0 … Sun=6
-  : jsDay              // Sun=0 … Sat=6
-
-const buildDateRange = () => {
-  // start_date: first visible cell
-  const firstCol      = toWeekColumn(new Date(calYear.value, calMonth.value, 1).getDay())
-  const prevMonth     = calMonth.value === 0 ? 11 : calMonth.value - 1
-  const prevYear      = calMonth.value === 0 ? calYear.value - 1 : calYear.value
-  const daysInPrev    = new Date(prevYear, prevMonth + 1, 0).getDate()
-  const firstVisDay   = firstCol === 0 ? 1 : daysInPrev - (firstCol - 1)
-  const firstVisMon   = firstCol === 0 ? calMonth.value : prevMonth
-  const firstVisYear  = firstCol === 0 ? calYear.value  : prevYear
-  const start_date    = `${firstVisYear}-${String(firstVisMon + 1).padStart(2,'0')}-${String(firstVisDay).padStart(2,'0')}`
-
-  // end_date: last visible cell (trailing days fill the row to column 6)
-  const daysInMonth = new Date(calYear.value, calMonth.value + 1, 0).getDate()
-  const lastCol     = toWeekColumn(new Date(calYear.value, calMonth.value, daysInMonth).getDay())
-  const trailing    = lastCol < 6 ? 6 - lastCol : 0
-  const endObj      = new Date(calYear.value, calMonth.value, daysInMonth + trailing)
-  const end_date    = `${endObj.getFullYear()}-${String(endObj.getMonth() + 1).padStart(2,'0')}-${String(endObj.getDate()).padStart(2,'0')}`
-
-  return { start_date, end_date }
-}
-
-const normalizeEventDates = (event) => ({
-  ...event,
-  start_date: event.start_date ?? event.publish_date ?? null,
-  end_date: event.end_date ?? event.event_date ?? null,
-  publish_date: event.publish_date ?? event.start_date ?? null,
-  event_date: event.event_date ?? event.end_date ?? null,
-})
-
-const fetchPublicEvents = async () => {
-  const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
-  if (!encoded) return
-
-  const base = runtimeConfig.public.API_URL.replace(/\/$/, '')
-  const { start_date, end_date } = buildDateRange()
-  const url = `${base}/church-event/public?org_id=${encodeURIComponent(encoded)}&start_date=${start_date}&end_date=${end_date}`
-
+const _fetchPublicEvents = async () => {
   loadingEvents.value = true
   try {
-    const res = await axios.get(url)
-    if (res?.status === 200 && res.data) {
-      const data = Array.isArray(res.data) ? res.data : (res.data.data ?? [])
-      events.value = data.map(normalizeEventDates)
-    }
+    events.value = await fetchPublicEvents({
+      calYear:  calYear.value,
+      calMonth: calMonth.value,
+      orgId:    runtimeConfig.public.ORG_ID,
+      apiUrl:   runtimeConfig.public.API_URL,
+    })
   } catch (err) {
     console.error('Error fetching events:', err)
   } finally {
@@ -219,25 +167,14 @@ const fetchPublicEvents = async () => {
   }
 }
 
-const fetchSearchEvents = async (query) => {
-  if (!query || !query.trim()) {
-    searchResults.value = []
-    return
-  }
-
-  const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
-  if (!encoded) return
-
-  const base = runtimeConfig.public.API_URL.replace(/\/$/, '')
-  const url = `${base}/church-event/public?org_id=${encodeURIComponent(encoded)}&search=${encodeURIComponent(query.trim())}`
-
+const _fetchSearchEvents = async (query) => {
   loadingEvents.value = true
   try {
-    const res = await axios.get(url)
-    if (res?.status === 200 && res.data) {
-      const data = Array.isArray(res.data) ? res.data : (res.data.data ?? [])
-      searchResults.value = data.map(normalizeEventDates)
-    }
+    searchResults.value = await fetchSearchEvents({
+      query,
+      orgId:  runtimeConfig.public.ORG_ID,
+      apiUrl: runtimeConfig.public.API_URL,
+    })
   } catch (err) {
     console.error('Error fetching search events:', err)
     searchResults.value = []
@@ -247,7 +184,7 @@ const fetchSearchEvents = async (query) => {
 }
 
 const debouncedSearch = debounce((query) => {
-  fetchSearchEvents(query)
+  _fetchSearchEvents(query)
 }, 400)
 
 const onSearchInput = () => {
@@ -271,7 +208,7 @@ const nextMonth = () => {
 
 const switchToList = () => {
   viewMode.value = 'list'
-  if (!events.value.length) fetchPublicEvents()
+  if (!events.value.length) _fetchPublicEvents()
 }
 
 const switchToSearch = () => {
@@ -319,11 +256,11 @@ watch(
 
 // Fetch events when date parameters change
 watch([calYear, calMonth], () => {
-  fetchPublicEvents()
+  _fetchPublicEvents()
 })
 
 onMounted(() => {
-  fetchPublicEvents()
+  _fetchPublicEvents()
 })
 
 // ── Nav ───────────────────────────────────────────────────────────────────

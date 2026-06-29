@@ -126,19 +126,6 @@ const generateCaptcha = () => {
   captchaAnswer.value = ''
 }
 
-// Safely encode a string to Base64 (handles Unicode in browsers)
-const encodeBase64 = (str) => {
-  if (!str) return null
-  try {
-    return btoa(unescape(encodeURIComponent(str)))
-  } catch (e) {
-    try {
-      return Buffer.from(str, 'utf-8').toString('base64')
-    } catch (e2) {
-      return null
-    }
-  }
-}
 
 const categoriesOptions = ['Sanidad Física',
 'Paz y Salud Mental',

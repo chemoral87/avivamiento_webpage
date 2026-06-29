@@ -89,47 +89,25 @@
 import { computed, ref } from 'vue'
 import { classificationColor } from '~/constants/classifications'
 import { formatEventTime, formatEventDate } from '~/constants/dates'
+import { fetchPublicEventBySlug } from '~/utils/calendarApi'
 
 const route = useRoute()
 const router = useRouter()
 const runtimeConfig = useRuntimeConfig()
 const drawer = ref(false)
 
-const encodeBase64 = (str) => {
-  if (!str) return null
-  try { return btoa(unescape(encodeURIComponent(str))) }
-  catch (e) {
-    try { return Buffer.from(str, 'utf-8').toString('base64') }
-    catch { return null }
-  }
-}
 
-const normalizeEventDates = (event) => event ? ({
-  ...event,
-  start_date: event.start_date ?? event.publish_date ?? null,
-  end_date: event.end_date ?? event.event_date ?? null,
-  publish_date: event.publish_date ?? event.start_date ?? null,
-  event_date: event.event_date ?? event.end_date ?? null,
-}) : null
+
 
 const slugName = computed(() => String(route.params.slug_name ?? ''))
 
 const { data, pending } = await useAsyncData(
   'calendar-event-detail',
-  async () => {
-    const encoded = encodeBase64(runtimeConfig.public.ORG_ID)
-    if (!encoded || !slugName.value) return null
-
-    const base = (runtimeConfig.public.API_URL || 'http://localhost:8001/api').replace(/\/$/, '')
-    const response = await $fetch(`${base}/church-event/public`, {
-      query: {
-        org_id: encoded,
-        slug_name: slugName.value,
-      },
-    })
-    const event = Array.isArray(response) ? response[0] : (response?.data ?? response)
-    return normalizeEventDates(Array.isArray(event) ? event[0] : event)
-  },
+  async () => fetchPublicEventBySlug({
+    slugName: slugName.value,
+    orgId: runtimeConfig.public.ORG_ID,
+    apiUrl: runtimeConfig.public.API_URL,
+  }),
   { watch: [slugName] }
 )
 
