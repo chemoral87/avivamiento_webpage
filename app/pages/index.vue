@@ -22,7 +22,7 @@
             alt="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
             class="hero-banner-image"
             width="1936"
-            height="544"
+            height="379"
             loading="eager"
             fetchpriority="high"
             decoding="async"
@@ -638,9 +638,9 @@ onUnmounted(() => {
 
 .hero-banner {
   width: 100%;
-  aspect-ratio: 1936 / 544;
+  aspect-ratio: 1936 / 379;
   min-height: 260px;
-  max-height: 720px;
+  max-height: 420px;
   overflow: hidden;
   background-color: #041845;
 }
@@ -654,7 +654,7 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .hero-banner {
-    min-height: 220px;
+    min-height: 200px;
   }
 }
 
