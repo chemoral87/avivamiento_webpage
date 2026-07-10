@@ -1,5 +1,5 @@
 <template>
-  <v-row dense justify="center" class="mb-2" >
+  <v-row id="calendar-view" dense justify="center" class="mb-2" >
     <v-col cols="12" md="12" lg="12">
       <v-card elevation="0" style="border: 1px solid #e0e0e0;">
 

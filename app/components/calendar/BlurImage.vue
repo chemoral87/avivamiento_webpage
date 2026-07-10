@@ -1,5 +1,5 @@
 <template>
-  <div class="event-image-wrapper" :style="wrapperStyle" ref="imageWrapper">
+  <div id="blur-image" class="event-image-wrapper" :style="wrapperStyle" ref="imageWrapper">
     <img
       v-if="shouldLoad"
       v-show="loaded"

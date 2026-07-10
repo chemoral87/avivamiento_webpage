@@ -1,6 +1,6 @@
 <template>
   <!-- Empty state -->
-  <v-row v-if="!filteredEvents.length" justify="center" dense>
+  <v-row id="list-view-empty" v-if="!filteredEvents.length" justify="center" dense>
     <v-col cols="12" md="8" class="text-center py-4">
       <v-icon size="48" color="#ccc" class="mb-0">mdi-magnify</v-icon>
       <p class="text-body-1" style="color: #666;">
@@ -10,7 +10,7 @@
   </v-row>
 
   <!-- Event cards -->
-  <v-row v-else justify="center" dense>
+  <v-row id="list-view" v-else justify="center" dense>
     <v-col
       v-for="(event, i) in filteredEvents"
       :key="event.id ?? i"
@@ -68,6 +68,9 @@
           <SocialShareButtons
             :title="event.name"
             :text="event.description"
+            :date="formatEventDate(event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date)"
+            :time="event.time_start ? formatEventTime(event.time_start) : ''"
+            :url="`https://avivamientomonterrey.com/calendar/${event.slug_name}`"
           />
         </v-card-text>
       </v-card>

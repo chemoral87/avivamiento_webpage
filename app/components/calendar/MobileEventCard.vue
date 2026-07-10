@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="`mobile-event-card-${event.id}`"
     class="mobile-event-card"
     :style="{ borderColor: classificationColor(event.classification) }"
     role="link"
