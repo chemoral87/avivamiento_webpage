@@ -18,15 +18,9 @@
       <v-container fluid class="hero-section pa-0">
         <div
           class="hero-banner"
-          :style="{ 
-            height: heroHeight,
-            backgroundSize: `100% ${heroBgHeight}`,
-            '--hero-bg-height': heroBgHeight
-          }"
           role="img"
           aria-label="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
-        >
-        </div>
+        ></div>
       </v-container>
 
       <!-- Parallax Background Section -->
@@ -443,22 +437,6 @@ useSeoMeta({
 })
 
 // Computed Properties
-const isMobile = computed(() => mobile.value)
-
-const heroHeight = computed(() => {
-   const height = Math.round((125 / 1159) * (width.value - 321) + 145) - 40
-    return `${height}px`
-})
-
-const heroBgHeight = computed(() => {
-  // Wait until component is ready and width is available
-  if (!isReady.value || !width.value) {
-    return '300px' // Default value during SSR/initial render
-  }
-  //const height = Math.round((125 / 959) * (width.value - 321) + 145)
-  const height = Math.round((125 / 1159) * (width.value - 321) + 145)
-  return `${height}px`
-})
 
 const contactoHeight = computed(() => {
 
@@ -617,10 +595,28 @@ onUnmounted(() => {
 }
 
 .hero-banner {
-  background-image: url('/images/banner_01.webp');
+  background-image: url('/images/banner_hero3.webp');
   background-repeat: no-repeat;
-  transition: background-size 0.2s ease-out;
-  will-change: background-size;
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+  aspect-ratio: 1936 / 379;
+  min-height: 260px;
+  max-height: 720px;
+  overflow: hidden;
+}
+
+@media (max-width: 770px) {
+  .hero-banner {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 392px) {
+  .hero-banner {
+    
+    min-height: 160px;
+  }
 }
 
 .parallax-bg {
