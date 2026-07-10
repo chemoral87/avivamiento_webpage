@@ -38,7 +38,16 @@ const buildMessage = () => {
 const shareOnWhatsApp = () => {
   const url = encodeURIComponent(props.url)
   const text = encodeURIComponent(`${buildMessage()}\nMás información:`)
-  window.open(`https://wa.me/?text=${text}%20${url}`, '_blank')
+  const shareUrl = `https://wa.me/?text=${text}%20${url}`
+
+  if (isMobile()) {
+    // window.open(_blank) is unreliable on mobile browsers/webviews and can
+    // leave behind a blank tab instead of completing the redirect into the
+    // WhatsApp app. Navigate in the same tab instead, same as Facebook below.
+    window.location.href = shareUrl
+  } else {
+    window.open(shareUrl, '_blank')
+  }
 }
 
 const isIOS = () => {
