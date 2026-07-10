@@ -612,9 +612,15 @@ onUnmounted(() => {
   }
 }
 
-@media (max-width: 392px) {
+@media (max-width: 430px) {
   .hero-banner {
-    
+    min-height: 165px;
+  }
+}
+
+
+@media (max-width: 394px) {
+  .hero-banner {
     min-height: 160px;
   }
 }
