@@ -38,6 +38,8 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'theme-color', content: '#041845' },
+        { name: 'color-scheme', content: 'light dark' },
         {
           name: 'description',
           content: 'Iglesia Avivamiento Monterrey dirigida por el Pastor Adrian Aguirre. Únete a nuestra comunidad cristiana en Apodaca, Monterrey, Nuevo León. Cultos dominicales y reuniones de oración.'
@@ -73,6 +75,8 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
+        { rel: 'dns-prefetch', href: 'https://www.google.com' },
+        { rel: 'preload', as: 'image', href: '/images/banner_hero3.webp', fetchpriority: 'high' },
         { rel: 'icon', type: 'image/x-icon', href: '/images/fav/favicon.ico' },
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ],

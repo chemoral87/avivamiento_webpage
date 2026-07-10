@@ -16,11 +16,18 @@
     <v-main class="pa-0" :class="{ 'content-ready': isReady }">
       <!-- Hero Section -->
       <v-container fluid class="hero-section pa-0">
-        <div
-          class="hero-banner"
-          role="img"
-          aria-label="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
-        ></div>
+        <div class="hero-banner">
+          <img
+            src="/images/banner_hero3.webp"
+            alt="Iglesia Avivamiento Monterrey - Pastor Adrian Aguirre"
+            class="hero-banner-image"
+            width="1936"
+            height="544"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
       </v-container>
 
       <!-- Parallax Background Section -->
@@ -45,7 +52,15 @@
             <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
-                  <v-img src="/images/adrian.webp" alt="Pastor Adrian Aguirre" draggable="false" />
+                  <v-img
+                    src="/images/adrian.webp"
+                    alt="Pastor Adrian Aguirre"
+                    draggable="false"
+                    loading="lazy"
+                    decoding="async"
+                    width="180"
+                    height="180"
+                  />
                 </v-avatar>
                 <h3 class="pastor-name">Adrian Aguirre</h3>
                 <p class="pastor-role">Pastor</p>
@@ -60,7 +75,15 @@
             <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
-                  <v-img src="/images/sara.webp" alt="Pastora Sara Aguirre" draggable="false" />
+                  <v-img
+                    src="/images/sara.webp"
+                    alt="Pastora Sara Aguirre"
+                    draggable="false"
+                    loading="lazy"
+                    decoding="async"
+                    width="180"
+                    height="180"
+                  />
                 </v-avatar>
                 <h3 class="pastor-name">Sara Aguirre</h3>
                 <p class="pastor-role">Pastora</p>
@@ -153,6 +176,8 @@
               <v-btn
                 href="https://maps.app.goo.gl/g7wBuXmhKL114A657"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir ubicación en Google Maps"
                 color="#041845"
                 variant="flat"
                 size="large"
@@ -166,6 +191,7 @@
                 href="https://search.google.com/local/writereview?placeid=ChIJrSeKOm_rYoYREnKO4ylo2cw"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Dejar una reseña en Google"
                 color="#041845"
                 variant="outlined"
                 size="large"
@@ -184,6 +210,7 @@
   width="100%"
   height="100%"
   class="map-iframe"
+  title="Ubicación de la Iglesia Avivamiento Monterrey"
   allowfullscreen
   loading="lazy"
   referrerpolicy="no-referrer-when-downgrade"
@@ -254,7 +281,10 @@
                     icon 
                     variant="text" 
                     :href="SOCIAL_MEDIA.facebook" 
-                    target="_blank" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visitar Facebook de Avivamiento Monterrey"
+                    title="Facebook"
                     class="social-icon"
                   >
                     <v-icon size="28">mdi-facebook</v-icon>
@@ -263,7 +293,10 @@
                     icon 
                     variant="text" 
                     :href="SOCIAL_MEDIA.instagram" 
-                    target="_blank" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visitar Instagram de Avivamiento Monterrey"
+                    title="Instagram"
                     class="social-icon"
                   >
                     <v-icon size="28">mdi-instagram</v-icon>
@@ -273,7 +306,10 @@
                     icon 
                     variant="text" 
                     :href="SOCIAL_MEDIA.tiktok" 
-                    target="_blank" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visitar TikTok de Avivamiento Monterrey"
+                    title="TikTok"
                     class="social-icon"
                   >
                     <v-icon size="28">mdi-music-note</v-icon>
@@ -282,7 +318,10 @@
                     icon 
                     variant="text" 
                     :href="SOCIAL_MEDIA.youtube" 
-                    target="_blank" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visitar YouTube de Avivamiento Monterrey"
+                    title="YouTube"
                     class="social-icon"
                   >
                     <v-icon size="28">mdi-youtube</v-icon>
@@ -291,7 +330,10 @@
                     icon 
                     variant="text" 
                     :href="SOCIAL_MEDIA.spotify" 
-                    target="_blank" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visitar Spotify de Avivamiento Monterrey"
+                    title="Spotify"
                     class="social-icon"
                   >
                     <v-icon size="28">mdi-spotify</v-icon>
@@ -595,33 +637,24 @@ onUnmounted(() => {
 }
 
 .hero-banner {
-  background-image: url('/images/banner_hero3.webp');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
   width: 100%;
-  aspect-ratio: 1936 / 379;
+  aspect-ratio: 1936 / 544;
   min-height: 260px;
   max-height: 720px;
   overflow: hidden;
+  background-color: #041845;
 }
 
-@media (max-width: 770px) {
+.hero-banner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
   .hero-banner {
     min-height: 220px;
-  }
-}
-
-@media (max-width: 430px) {
-  .hero-banner {
-    min-height: 165px;
-  }
-}
-
-
-@media (max-width: 394px) {
-  .hero-banner {
-    min-height: 160px;
   }
 }
 
