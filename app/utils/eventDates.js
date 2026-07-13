@@ -6,6 +6,14 @@ export const normalizeEventDates = (event) => event ? ({
   event_date: event.event_date ?? event.end_date ?? null,
 }) : null
 
+// Excludes events whose name contains a given keyword (case-insensitive).
+// Used by the carousel to hide events like "Servicio General".
+export const excludeEventsByNameKeyword = (events = [], keyword = '') => {
+  const needle = keyword.trim().toLowerCase()
+  if (!needle) return events
+  return events.filter(event => !event?.name?.toLowerCase().includes(needle))
+}
+
 // Groups events that share the same name into a single entry, collecting
 // every distinct event_date under `event_dates` (sorted ascending).
 // The first occurrence's other fields (image, description, location, etc.)

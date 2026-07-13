@@ -13,11 +13,11 @@
 
     <div class="meta-row">
       <span v-if="event.time_start" class="meta-item">
-        <v-icon size="13" color="rgba(255,255,255,0.7)">mdi-clock-outline</v-icon>
+        <v-icon size="17" color="rgba(255,255,255,0.7)">mdi-clock-outline</v-icon>
         {{ formatEventTime(event.time_start) }}
       </span>
       <span v-if="event.location" class="meta-item">
-        <v-icon size="13" color="rgba(255,255,255,0.7)">mdi-map-marker-outline</v-icon>
+        <v-icon size="17" color="rgba(255,255,255,0.7)">mdi-map-marker-outline</v-icon>
         {{ event.location }}
       </span>
       <v-chip
@@ -64,34 +64,34 @@ const displayDate = computed(() => {
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 14px 18px;
+  padding: 18px 22px;
 }
 
 .info-top-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .chip-label {
-  font-size: 0.65rem !important;
-  height: 18px !important;
+  font-size: 0.85rem !important;
+  height: 24px !important;
   flex-shrink: 0;
 }
 
 .date-text {
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.55);
   font-weight: 500;
   letter-spacing: 0.02em;
 }
 
 .event-name {
-  font-size: 1.15rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #ffffff;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
   line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -100,9 +100,9 @@ const displayDate = computed(() => {
 }
 
 .event-desc {
-  font-size: 0.78rem;
+  font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.65);
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -114,14 +114,14 @@ const displayDate = computed(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 0.75rem;
+  gap: 5px;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
 }
 </style>
