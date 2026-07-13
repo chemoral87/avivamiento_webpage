@@ -14,7 +14,7 @@
         <template v-if="!isWidescreen">
 
           <!-- Configuration Controls -->
-          <v-row justify="center" class="mt-4 mb-4" dense>
+          <v-row justify="center" class="my-0" dense>
             <v-col cols="12" sm="8" md="6" lg="5">
               <v-card class="pa-4" elevation="0" style="border: 1px solid #e0e0e0; border-radius: 12px;">
                 <v-btn
@@ -25,7 +25,7 @@
                   class="text-none font-weight-bold mt-2"
                   @click="enterWidescreen"
                 >
-                  Ver en Pantalla Completa (Cafetería)
+                  Ver en Pantalla Completa
                 </v-btn>
               </v-card>
             </v-col>
@@ -36,7 +36,7 @@
 
         <!-- Loading -->
         <v-row v-if="loadingEvents" justify="center" dense class="ma-auto">
-          <v-col cols="12" class="text-center py-12">
+          <v-col cols="12" class="text-center py-2">
             <v-progress-circular indeterminate color="#041845" size="48" />
           </v-col>
         </v-row>
@@ -62,96 +62,12 @@
         </v-row>
 
         <!-- Event Carousel -->
-        <div v-else class="carousel-container-wrapper">
-          <v-carousel
-            v-model="activeSlide"
-            cycle
-            :interval="6000"
-            hide-delimiter-background
-            hide-delimiters
-            :show-arrows="isWidescreen ? false : 'hover'"
-            :height="isWidescreen ? '100vh' : '550'"
-            class="overflow-hidden"
-            :class="isWidescreen ? 'widescreen-carousel' : 'normal-carousel rounded-xl elevation-3'"
-            style="background-color: #041845; width: 100%;"
-          >
-            <v-carousel-item
-              v-for="event in events"
-              :key="event.id"
-            >
-              <!-- Carousel item content -->
-              <div class="carousel-item-wrapper" @click="goToEvent(event.slug_name)">
-                <!-- Blur background if there is an image -->
-                <div 
-                  v-if="event.url_image_s3" 
-                  class="blur-bg" 
-                  :style="{ backgroundImage: `url(${event.url_image_s3})` }"
-                ></div>
-                
-                <div class="content-overlay">
-                  <div class="event-image-container">
-                    <img 
-                      v-if="event.url_image_s3" 
-                      :src="event.url_image_s3" 
-                      :alt="event.name"
-                      class="event-flyer"
-                    />
-                    <div v-else class="event-flyer-placeholder">
-                      <v-icon size="100" color="white">mdi-calendar</v-icon>
-                    </div>
-                  </div>
-
-                  <div class="event-details-panel">
-                    <div class="d-flex align-center flex-wrap mb-2 tag-date-row" style="gap: 12px;">
-                      <v-chip
-                        v-if="event.classification"
-                        :size="isWidescreen ? 'large' : 'small'"
-                        :color="classificationColor(event.classification)"
-                        variant="flat"
-                        class="text-white font-weight-bold"
-                      >
-                        {{ event.classification }}
-                      </v-chip>
-                      <span class="text-white-50 font-weight-bold date-span">
-                        {{ formatEventDate(event.event_date) }}
-                      </span>
-                    </div>
-
-                    <h2 class="font-weight-bold text-white mb-3 text-truncate-2 title-heading">
-                      {{ event.name }}
-                    </h2>
-
-                    <p v-if="event.description" class="text-white-70 mb-4 text-truncate-3 description-paragraph">
-                      {{ event.description }}
-                    </p>
-
-                    <div class="d-flex flex-column gap-2 text-white-80 mb-6 info-items-container">
-                      <div v-if="event.time_start" class="d-flex align-center info-item">
-                        <v-icon :size="isWidescreen ? 24 : 16" class="mr-2" color="white">mdi-clock-outline</v-icon>
-                        {{ formatEventTime(event.time_start) }}
-                      </div>
-                      <div v-if="event.location" class="d-flex align-center info-item">
-                        <v-icon :size="isWidescreen ? 24 : 16" class="mr-2" color="white">mdi-map-marker-outline</v-icon>
-                        {{ event.location }}
-                      </div>
-                    </div>
-
-                    <v-btn
-                      v-if="!isWidescreen"
-                      color="white"
-                      variant="elevated"
-                      class="text-none font-weight-bold"
-                      style="color: #041845 !important;"
-                      @click.stop="goToEvent(event.slug_name)"
-                    >
-                      Más Información
-                    </v-btn>
-                  </div>
-                </div>
-              </div>
-            </v-carousel-item>
-          </v-carousel>
-        </div>
+        <EventCarousel 
+          v-else 
+          :events="events" 
+          :is-widescreen="isWidescreen" 
+          @click-event="goToEvent" 
+        />
       </div>
     </v-main>
   </v-app>
@@ -160,8 +76,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { fetchCarouselEvents } from '~/utils/calendarApi'
-import { classificationColor } from '~/constants/classifications'
-import { formatEventTime, formatEventDate } from '~/constants/dates'
 
 const route = useRoute()
 const router = useRouter()
@@ -170,7 +84,6 @@ const runtimeConfig = useRuntimeConfig()
 const pageContainer = ref(null)
 const events = ref([])
 const loadingEvents = ref(false)
-const activeSlide = ref(0)
 const isWidescreen = ref(false)
 
 // Controls fade in/out when mouse moves in fullscreen
@@ -327,249 +240,4 @@ useHead({
   overflow: hidden;
 }
 
-.carousel-container-wrapper {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.normal-carousel {
-  max-width: 100%;
-}
-
-.widescreen-carousel {
-  border-radius: 0 !important;
-}
-
-/* Exit button floating top-right */
-.exit-fullscreen-btn {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 100000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-  background-color: rgba(0, 0, 0, 0.5) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.exit-fullscreen-btn:hover {
-  transform: scale(1.1);
-  background-color: rgba(239, 83, 80, 0.8) !important; /* light red tint */
-}
-
-/* Show the close button when mouse is moving */
-.exit-fullscreen-btn.show-controls {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Carousel item contents */
-.carousel-item-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.blur-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  filter: blur(30px) brightness(0.3);
-  transform: scale(1.15);
-  z-index: 1;
-}
-
-.content-overlay {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 40px;
-  gap: 40px;
-  background: rgba(4, 24, 69, 0.4);
-}
-
-.event-image-container {
-  flex: 1 1 45%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.event-flyer {
-  max-width: 100%;
-  max-height: 90%;
-  object-fit: contain;
-  border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease;
-}
-
-.event-flyer-placeholder {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1;
-  max-width: 320px;
-  max-height: 320px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-}
-
-.event-details-panel {
-  flex: 1 1 55%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  min-width: 0;
-  padding-right: 20px;
-}
-
-.text-white-50 {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-
-.text-white-70 {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-
-.text-white-80 {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.gap-2 {
-  gap: 8px;
-}
-
-.text-truncate-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.text-truncate-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Base values for fonts */
-.title-heading {
-  font-size: 2.5rem;
-  line-height: 1.2;
-}
-
-.description-paragraph {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-.date-span {
-  font-size: 0.95rem;
-}
-
-.info-item {
-  font-size: 1.05rem;
-}
-
-/* Widescreen adaptations */
-.widescreen-active .content-overlay {
-  padding: 60px 80px;
-  gap: 60px;
-  background: rgba(4, 24, 69, 0.2);
-}
-
-.widescreen-active .event-flyer {
-  max-height: 95%;
-  border-radius: 20px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
-}
-
-.widescreen-active .title-heading {
-  font-size: 4rem;
-  margin-bottom: 24px !important;
-}
-
-.widescreen-active .description-paragraph {
-  font-size: 1.6rem;
-  margin-bottom: 32px !important;
-  -webkit-line-clamp: 4;
-}
-
-.widescreen-active .date-span {
-  font-size: 1.4rem;
-}
-
-.widescreen-active .info-item {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-}
-
-.widescreen-active .info-items-container {
-  gap: 16px;
-}
-
-.widescreen-active .tag-date-row {
-  margin-bottom: 16px !important;
-}
-
-@media (max-width: 768px) {
-  .content-overlay {
-    flex-direction: column;
-    padding: 24px;
-    gap: 20px;
-  }
-  
-  .event-image-container {
-    flex: 1 1 40%;
-    width: 100%;
-  }
-  
-  .event-details-panel {
-    flex: 1 1 60%;
-    align-items: center;
-    text-align: center;
-    padding-right: 0;
-  }
-  
-  .event-details-panel .text-truncate-3 {
-    -webkit-line-clamp: 2;
-  }
-  
-  .event-details-panel .d-flex {
-    justify-content: center;
-  }
-  
-  .widescreen-active .title-heading {
-    font-size: 2.2rem;
-  }
-  
-  .widescreen-active .description-paragraph {
-    font-size: 1.1rem;
-  }
-}
 </style>
