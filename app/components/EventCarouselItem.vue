@@ -100,7 +100,7 @@ const emit = defineEmits(['click'])
   left: 0;
   right: 0;
   height: 55%;
-  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -109,7 +109,7 @@ const emit = defineEmits(['click'])
 .event-info-box {
   position: absolute;
   bottom: 24px;
-  left: 24px;
+  left: 15px;
   z-index: 3;
   background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(16px) saturate(1.4);
@@ -117,7 +117,7 @@ const emit = defineEmits(['click'])
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 14px 18px;
-  max-width: min(420px, calc(100% - 48px));
+  max-width: min(420px, calc(100% - 68px));
 }
 
 .info-top-row {
@@ -181,7 +181,7 @@ const emit = defineEmits(['click'])
 .info-box-anchor {
   position: absolute;
   bottom: 24px;
-  left: 24px;
+  left: 0px;
   z-index: 3;
   width: min(420px, calc(100% - 48px));
 }
