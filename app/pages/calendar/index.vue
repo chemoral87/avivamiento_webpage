@@ -107,15 +107,6 @@
             :is-search="true"
           />
 
-          <!-- Floating Month Selector for List View -->
-         <CalendarMonthSelector
-            v-if="viewMode === 'list'"
-            :cal-year="calYear"
-            :cal-month="calMonth"
-            @prev="prevMonth"
-            @next="nextMonth"
-          />
-
         </template>
       </v-container>
     </v-main>
@@ -124,12 +115,14 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
+import { fetchPublicEvents, fetchSearchEvents } from '~/utils/calendarApi'
 
 const route       = useRoute()
 const router      = useRouter()
 const drawer      = ref(false)
 const viewMode    = ref(route.query.view || 'list')
 const runtimeConfig = useRuntimeConfig()
+const WEEK_STARTS_ON_MONDAY = true
 
 const events        = ref([])
 const loadingEvents = ref(false)
