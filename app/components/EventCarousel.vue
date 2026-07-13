@@ -18,14 +18,14 @@
         v-for="event in events"
         :key="event.id"
       >
-        <EventCarouselItem :event="event" :is-widescreen="isWidescreen" @click="emit('click-event', $event)" />
+        <EventCarouselItem :event="event" :is-widescreen="isWidescreen" :info-box-position="infoBoxPosition" @click="emit('click-event', $event)" />
       </v-carousel-item>
     </v-carousel>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   events: {
@@ -41,6 +41,22 @@ const props = defineProps({
 const emit = defineEmits(['click-event'])
 
 const activeSlide = ref(0)
+
+// EventInfoBox cycles to the opposite corner every 3 image cycles so it
+// never stays stuck over the same part of the poster for too long. This is
+// driven by the carousel's own slide changes (not a disconnected timer),
+// so it lines up with what the viewer is actually seeing.
+const SLIDES_PER_POSITION = 3
+const infoBoxPosition = ref('left-bottom') // 'left-bottom' | 'right-top'
+let slideCycleCount = 0
+
+watch(activeSlide, () => {
+  slideCycleCount++
+  if (slideCycleCount >= SLIDES_PER_POSITION) {
+    slideCycleCount = 0
+    infoBoxPosition.value = infoBoxPosition.value === 'left-bottom' ? 'right-top' : 'left-bottom'
+  }
+})
 </script>
 
 <style scoped>

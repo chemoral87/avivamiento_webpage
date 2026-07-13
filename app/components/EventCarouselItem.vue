@@ -21,8 +21,9 @@
     <!-- Subtle dark gradient at the bottom -->
     <div class="bottom-gradient"></div>
 
-    <!-- Floating event info box — bottom-left corner -->
-    <div class="info-box-anchor">
+    <!-- Floating event info box — cycles between corners so it doesn't
+         permanently cover the same part of the image/poster -->
+    <div class="info-box-anchor" :class="infoBoxPosition">
       <EventInfoBox :event="event" />
     </div>
   </div>
@@ -41,6 +42,10 @@ const props = defineProps({
   isWidescreen: {
     type: Boolean,
     default: false
+  },
+  infoBoxPosition: {
+    type: String,
+    default: 'left-bottom' // 'left-bottom' | 'right-top'
   }
 })
 
@@ -177,12 +182,27 @@ const emit = defineEmits(['click'])
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* Anchor for the floating info box */
+/* Anchor for the floating info box — cycles between corners.
+   width uses min() to constrain to 420px but also responsive on smaller screens */
 .info-box-anchor {
   position: absolute;
-  bottom: 24px;
-  left: 0px;
   z-index: 3;
-  width: min(420px, calc(100% - 48px));
+  width: min(420px, calc(100% - 30px));
+  box-sizing: border-box;
+  transition: top 0.8s ease, left 0.8s ease, right 0.8s ease;
+}
+
+.info-box-anchor.left-bottom {
+  top: calc(100% - 24px);
+  left: 15px;
+  right: unset;
+  transform: translateY(-100%);
+}
+
+.info-box-anchor.right-top {
+  top: 220px;
+  right: 0px;
+  left: unset;
+  transform: translateY(0);
 }
 </style>

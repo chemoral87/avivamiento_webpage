@@ -87,6 +87,7 @@ const loadingEvents = ref(false)
 const isWidescreen = ref(false)
 
 // Controls fade in/out when mouse moves in fullscreen
+const CURSOR_HIDE_DELAY = 1000
 const showWidescreenControls = ref(true)
 let mouseMoveTimeout = null
 
@@ -194,10 +195,10 @@ const onMouseMove = () => {
   
   showWidescreenControls.value = true
   clearTimeout(mouseMoveTimeout)
-  // Hide cursor/controls after 6 seconds of no mouse movement
+  // Hide cursor/controls after CURSOR_HIDE_DELAY of no mouse movement
   mouseMoveTimeout = setTimeout(() => {
     showWidescreenControls.value = false
-  }, 6000)
+  }, CURSOR_HIDE_DELAY)
 }
 
 onMounted(() => {
