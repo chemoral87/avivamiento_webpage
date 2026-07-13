@@ -76,7 +76,6 @@ export default defineNuxtConfig({
         { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
         { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
         { rel: 'dns-prefetch', href: 'https://www.google.com' },
-        { rel: 'preload', as: 'image', href: '/images/banner_hero3.webp', fetchpriority: 'high' },
         { rel: 'icon', type: 'image/x-icon', href: '/images/fav/favicon.ico' },
         { rel: 'canonical', href: 'https://avivamientomonterrey.com' }
       ],

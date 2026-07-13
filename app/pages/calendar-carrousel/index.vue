@@ -9,48 +9,11 @@
       >
         <!-- Page Header & Controls (Hidden in Widescreen Mode) -->
         <template v-if="!isWidescreen">
-          <!-- Page title -->
-          <v-row justify="center" dense class="pt-6">
-            <v-col cols="12" md="10" lg="8" class="text-center py-1">
-              <p class="text-overline my-0" style="color: #666; letter-spacing: 2px;">PRÓXIMOS EVENTOS</p>
-              <h1 class="text-h3 font-weight-light my-0" style="color: #041845;">Carrusel de Eventos</h1>
-            </v-col>
-          </v-row>
 
           <!-- Configuration Controls -->
           <v-row justify="center" class="mt-4 mb-4" dense>
             <v-col cols="12" sm="8" md="6" lg="5">
               <v-card class="pa-4" elevation="0" style="border: 1px solid #e0e0e0; border-radius: 12px;">
-                <div class="d-flex align-center justify-space-between mb-2">
-                  <span class="text-body-1 font-weight-medium" style="color: #041845;">
-                    Rango de días: <strong>{{ days }} días</strong>
-                  </span>
-                  <v-btn-toggle
-                    v-model="days"
-                    mandatory
-                    color="#041845"
-                    variant="outlined"
-                    density="comfortable"
-                    @update:model-value="onDaysChange"
-                  >
-                    <v-btn :value="7">7d</v-btn>
-                    <v-btn :value="15">15d</v-btn>
-                    <v-btn :value="30">30d</v-btn>
-                    <v-btn :value="60">60d</v-btn>
-                  </v-btn-toggle>
-                </div>
-                <v-slider
-                  v-model="days"
-                  :min="1"
-                  :max="90"
-                  :step="1"
-                  thumb-label
-                  color="#041845"
-                  class="mb-3"
-                  hide-details
-                  @update:model-value="onDaysChange"
-                />
-                
                 <v-btn
                   block
                   color="#041845"
@@ -66,20 +29,7 @@
           </v-row>
         </template>
 
-        <!-- Exit Widescreen floating button (Only visible in widescreen when mouse is active/moving) -->
-        <v-btn
-          v-if="isWidescreen"
-          icon="mdi-close"
-          color="rgba(0, 0, 0, 0.6)"
-          class="exit-fullscreen-btn"
-          :class="{ 'show-controls': showWidescreenControls }"
-          size="large"
-          variant="flat"
-          theme="dark"
-          style="color: white !important;"
-          @click="exitWidescreen"
-          aria-label="Salir de pantalla completa"
-        />
+
 
         <!-- Loading -->
         <v-row v-if="loadingEvents" justify="center" dense class="ma-auto">
@@ -113,8 +63,9 @@
           <v-carousel
             v-model="activeSlide"
             cycle
-            :interval="5000"
+            :interval="6000"
             hide-delimiter-background
+            hide-delimiters
             show-arrows="hover"
             :height="isWidescreen ? '100vh' : '550'"
             class="overflow-hidden"
@@ -223,7 +174,6 @@ const isWidescreen = ref(false)
 const showWidescreenControls = ref(true)
 let mouseMoveTimeout = null
 
-// Get initial days from query parameter, default to 15
 const getInitialDays = () => {
   const queryDays = route.query.nextDays
   if (queryDays && !isNaN(queryDays)) {
@@ -249,26 +199,6 @@ const loadEvents = async () => {
     loadingEvents.value = false
   }
 }
-
-const onDaysChange = () => {
-  router.replace({
-    query: {
-      ...route.query,
-      nextDays: days.value.toString()
-    }
-  })
-}
-
-// Watch for route query changes to reload events
-watch(() => route.query.nextDays, (newVal) => {
-  const parsed = parseInt(newVal, 10)
-  if (!isNaN(parsed) && parsed > 0) {
-    days.value = parsed
-  } else {
-    days.value = 15
-  }
-  loadEvents()
-})
 
 const goToEvent = (slugName) => {
   if (isWidescreen.value) return // Disable navigations in cafeteria display mode

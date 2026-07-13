@@ -393,7 +393,8 @@ const menuItems = [
 useHead({
   title: 'Iglesia Avivamiento Monterrey | Pastor Adrian Aguirre',
   link: [
-    { rel: 'canonical', href: 'https://avivamientomonterrey.com/' }
+    { rel: 'canonical', href: 'https://avivamientomonterrey.com/' },
+    { rel: 'preload', as: 'image', href: '/images/banner_hero3.webp', fetchpriority: 'high' }
   ],
   script: [
     {

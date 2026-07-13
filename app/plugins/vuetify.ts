@@ -31,7 +31,11 @@ import {
   VImg,
   VAvatar,
   VFooter,
-  VProgressCircular
+  VProgressCircular,
+  VCarousel,
+  VCarouselItem,
+  VBtnToggle,
+  VSlider
 } from 'vuetify/components'
 
 // Importa directivas si las usas
@@ -70,6 +74,10 @@ export default defineNuxtPlugin((app) => {
       VAvatar,
       VFooter,
       VProgressCircular,
+      VCarousel,
+      VCarouselItem,
+      VBtnToggle,
+      VSlider,
     },
     directives: {
       Ripple,
