@@ -66,7 +66,7 @@
             :interval="6000"
             hide-delimiter-background
             hide-delimiters
-            show-arrows="hover"
+            :show-arrows="isWidescreen ? false : 'hover'"
             :height="isWidescreen ? '100vh' : '550'"
             class="overflow-hidden"
             :class="isWidescreen ? 'widescreen-carousel' : 'normal-carousel rounded-xl elevation-3'"
@@ -200,6 +200,18 @@ const loadEvents = async () => {
   }
 }
 
+watch(isWidescreen, (val) => {
+  if (typeof document !== 'undefined') {
+    if (val) {
+      document.documentElement.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+    }
+  }
+})
+
 const goToEvent = (slugName) => {
   if (isWidescreen.value) return // Disable navigations in cafeteria display mode
   router.push({ path: `/calendar/${slugName}` })
@@ -277,6 +289,10 @@ onUnmounted(() => {
   document.removeEventListener('mozfullscreenchange', onFullscreenChange)
   document.removeEventListener('MSFullscreenChange', onFullscreenChange)
   clearTimeout(mouseMoveTimeout)
+  if (typeof document !== 'undefined') {
+    document.documentElement.style.overflow = ''
+    document.body.style.overflow = ''
+  }
 })
 
 // SEO & Head
