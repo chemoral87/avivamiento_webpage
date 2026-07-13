@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { WEEK_STARTS_ON_MONDAY } from '~/constants/dates'
 import { encodeBase64 } from '~/utils/base64'
-import { normalizeEventDates } from '~/utils/eventDates'
+import { normalizeEventDates, groupEventsByName } from '~/utils/eventDates'
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -109,7 +109,7 @@ export const fetchCarouselEvents = async ({ nextDays, orgId, apiUrl }) => {
     const res = await createClient(apiUrl).get('/church-event/public/carousel', {
       params: { org_id: encoded, nextDays }
     })
-    return handleApiResponse(res)
+    return groupEventsByName(handleApiResponse(res))
   } catch {
     return []
   }

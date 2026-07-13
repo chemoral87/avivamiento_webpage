@@ -101,6 +101,8 @@ const getInitialDays = () => {
 
 const days = ref(getInitialDays())
 
+const isFullDisplayRequested = () => route.query.display === 'full'
+
 const loadEvents = async () => {
   loadingEvents.value = true
   try {
@@ -136,17 +138,24 @@ const goToEvent = (slugName) => {
 // Widescreen Fullscreen handlers
 const enterWidescreen = () => {
   isWidescreen.value = true
-  
-  // Try to go browser fullscreen for the best cafeteria experience
+
+  // Try to go browser fullscreen for the best cafeteria experience.
+  // Note: browsers reject this without a real user gesture (e.g. when
+  // triggered automatically via ?display=full), so failures are ignored
+  // and the widescreen layout still applies on its own.
   const docEl = document.documentElement
-  if (docEl.requestFullscreen) {
-    docEl.requestFullscreen()
-  } else if (docEl.mozRequestFullScreen) { /* Firefox */
-    docEl.mozRequestFullScreen()
-  } else if (docEl.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    docEl.webkitRequestFullscreen()
-  } else if (docEl.msRequestFullscreen) { /* IE/Edge */
-    docEl.msRequestFullscreen()
+  try {
+    if (docEl.requestFullscreen) {
+      docEl.requestFullscreen().catch(() => {})
+    } else if (docEl.mozRequestFullScreen) { /* Firefox */
+      docEl.mozRequestFullScreen()
+    } else if (docEl.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      docEl.webkitRequestFullscreen()
+    } else if (docEl.msRequestFullscreen) { /* IE/Edge */
+      docEl.msRequestFullscreen()
+    }
+  } catch {
+    // Ignore — the widescreen layout already applied above
   }
 }
 
@@ -193,6 +202,12 @@ const onMouseMove = () => {
 
 onMounted(() => {
   loadEvents()
+
+  // ?display=full → jump straight into widescreen/cafeteria mode
+  if (isFullDisplayRequested()) {
+    enterWidescreen()
+  }
+
   document.addEventListener('fullscreenchange', onFullscreenChange)
   document.addEventListener('webkitfullscreenchange', onFullscreenChange)
   document.addEventListener('mozfullscreenchange', onFullscreenChange)

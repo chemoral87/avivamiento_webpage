@@ -6,9 +6,11 @@
       :interval="6000"
       hide-delimiter-background
       hide-delimiters
+      transition="fade-transition"
+      reverse-transition="fade-transition"
       :show-arrows="isWidescreen ? false : 'hover'"
       :height="isWidescreen ? '100vh' : '77vh'"
-      class="overflow-hidden"
+      class="overflow-hidden slow-fade-carousel"
       :class="isWidescreen ? 'widescreen-carousel' : 'normal-carousel rounded-xl elevation-3'"
       style="background-color: #041845; width: 100%;"
     >
@@ -56,5 +58,15 @@ const activeSlide = ref(0)
 
 .widescreen-carousel {
   border-radius: 0 !important;
+}
+
+/* Slow, smooth crossfade between slides (default Vuetify fade is ~0.3s) */
+.slow-fade-carousel :deep(.fade-transition-enter-active),
+.slow-fade-carousel :deep(.fade-transition-leave-active) {
+  transition: opacity 1.6s ease !important;
+}
+
+.slow-fade-carousel :deep(.v-carousel-item) {
+  transition: opacity 1.6s ease !important;
 }
 </style>

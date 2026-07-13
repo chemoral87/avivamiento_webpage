@@ -3,15 +3,13 @@
   
 
     <h2 class="event-name">{{ event.name }}</h2>
-
-
+    <p v-if="event.description" class="event-desc">{{ event.description }}</p>
       <div class="info-top-row">
-      <span v-if="event.event_date" class="date-text">
-        {{ formatEventDate(event.event_date) }}
+      <span v-if="displayDate" class="date-text">
+        {{ displayDate }}
       </span>
     </div>
 
-    <p v-if="event.description" class="event-desc">{{ event.description }}</p>
 
     <div class="meta-row">
       <span v-if="event.time_start" class="meta-item">
@@ -29,21 +27,32 @@
         variant="flat"
         class="text-white font-weight-bold chip-label"
       >
-        {{ event.classification }}
+        {{ classificationLabel(event.classification) }}
       </v-chip>
     </div>
   </div>
 </template>
 
 <script setup>
-import { classificationColor } from '~/constants/classifications'
-import { formatEventTime, formatEventDate } from '~/constants/dates'
+import { computed } from 'vue'
+import { classificationColor, classifications } from '~/constants/classifications'
 
-defineProps({
+const classificationLabel = (value) => {
+  const match = classifications.find(item => item.value === value)
+  return match ? match.label : value
+}
+import { formatEventTime, formatEventDateRangeShort } from '~/constants/dates'
+
+const props = defineProps({
   event: {
     type: Object,
     required: true
   }
+})
+
+const displayDate = computed(() => {
+  const dates = props.event.event_dates?.length ? props.event.event_dates : [props.event.event_date]
+  return formatEventDateRangeShort(dates)
 })
 </script>
 

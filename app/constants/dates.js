@@ -35,3 +35,30 @@ export const formatEventDate = (d) => {
     return `${day} de ${monthNames[month - 1]} ${year}`
   } catch { return d }
 }
+
+// Full weekday names, Sunday-indexed (matches JS Date#getDay())
+const weekdayNamesFull = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+
+// Short display used in the carousel: "Lunes 22 Julio" — no year
+export const formatEventDateShort = (d) => {
+  if (!d) return 'Fecha por confirmar'
+  try {
+    const [year, month, day] = String(d).slice(0, 10).split('-').map(Number)
+    const weekday = weekdayNamesFull[new Date(year, month - 1, day).getDay()]
+    return `${weekday} ${day} ${monthNames[month - 1]}`
+  } catch { return d }
+}
+
+// Formats one or more event dates for the carousel. Multiple distinct dates
+// are shown as a range joined by an em dash, e.g. "Lunes 22 Julio — Martes 23 Julio"
+export const formatEventDateRangeShort = (dates) => {
+  const valid = (Array.isArray(dates) ? dates : [dates]).filter(Boolean)
+  if (valid.length === 0) return 'Fecha por confirmar'
+
+  const sorted = [...new Set(valid)].sort()
+  const first = sorted[0]
+  const last = sorted[sorted.length - 1]
+
+  if (first === last) return formatEventDateShort(first)
+  return `${formatEventDateShort(first)} — ${formatEventDateShort(last)}`
+}
