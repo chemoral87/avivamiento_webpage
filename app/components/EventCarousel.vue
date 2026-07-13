@@ -3,7 +3,7 @@
     <v-carousel
       v-model="activeSlide"
       cycle
-      :interval="6000"
+      :interval="interval"
       hide-delimiter-background
       hide-delimiters
       transition="fade-transition"
@@ -35,6 +35,10 @@ const props = defineProps({
   isWidescreen: {
     type: Boolean,
     default: false
+  },
+  interval: {
+    type: Number,
+    default: 6000
   }
 })
 

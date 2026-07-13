@@ -66,6 +66,7 @@
           v-else 
           :events="events" 
           :is-widescreen="isWidescreen" 
+          :interval="7000"
           @click-event="goToEvent" 
         />
       </div>
