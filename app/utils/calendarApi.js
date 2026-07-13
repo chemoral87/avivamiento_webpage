@@ -100,3 +100,17 @@ export const fetchPublicEventBySlug = async ({ slugName, orgId, apiUrl }) => {
     return null
   }
 }
+
+export const fetchCarouselEvents = async ({ nextDays, orgId, apiUrl }) => {
+  const encoded = encodeBase64(orgId)
+  if (!encoded) return []
+
+  try {
+    const res = await createClient(apiUrl).get('/church-event/public/carousel', {
+      params: { org_id: encoded, nextDays }
+    })
+    return handleApiResponse(res)
+  } catch {
+    return []
+  }
+}
