@@ -30,10 +30,6 @@
 </template>
 
 <script setup>
-import { classificationColor } from '~/constants/classifications'
-import { formatEventTime, formatEventDate } from '~/constants/dates'
-
-
 const props = defineProps({
   event: {
     type: Object,
