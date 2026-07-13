@@ -3,7 +3,10 @@
     <v-main class="bg-grey-lighten-4">
       <div 
         class="fill-height-container" 
-        :class="{ 'widescreen-active': isWidescreen }"
+        :class="{ 
+          'widescreen-active': isWidescreen,
+          'hide-cursor': isWidescreen && !showWidescreenControls
+        }"
         ref="pageContainer"
         @mousemove="onMouseMove"
       >
@@ -269,10 +272,10 @@ const onMouseMove = () => {
   
   showWidescreenControls.value = true
   clearTimeout(mouseMoveTimeout)
-  // Hide controls after 3 seconds of no mouse movement
+  // Hide cursor/controls after 6 seconds of no mouse movement
   mouseMoveTimeout = setTimeout(() => {
     showWidescreenControls.value = false
-  }, 3000)
+  }, 6000)
 }
 
 onMounted(() => {
@@ -302,6 +305,10 @@ useHead({
 </script>
 
 <style scoped>
+.hide-cursor, .hide-cursor * {
+  cursor: none !important;
+}
+
 .fill-height-container {
   min-height: 100vh;
   display: flex;
