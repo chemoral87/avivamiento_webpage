@@ -18,7 +18,7 @@
         v-for="event in events"
         :key="event.id"
       >
-        <EventCarouselItem :event="event" :is-widescreen="isWidescreen" :info-box-position="infoBoxPosition" @click="emit('click-event', $event)" />
+        <EventCarouselItem :event="event" :is-widescreen="isWidescreen" :info-box-position="infoBoxPosition" :info-size="infoSize" @click="emit('click-event', $event)" />
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -39,6 +39,11 @@ const props = defineProps({
   interval: {
     type: Number,
     default: 6000
+  },
+  infoSize: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['xs', 'sm', 'md', 'lg'].includes(value)
   }
 })
 

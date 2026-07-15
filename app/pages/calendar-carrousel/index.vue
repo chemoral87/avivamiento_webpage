@@ -66,7 +66,8 @@
           v-else 
           :events="events" 
           :is-widescreen="isWidescreen" 
-          :interval="7000"
+          :interval="carouselInterval"
+          :info-size="infoSize"
           @click-event="goToEvent" 
         />
       </div>
@@ -102,6 +103,30 @@ const getInitialDays = () => {
 }
 
 const days = ref(getInitialDays())
+
+// Read interval from query param (ms), default to 7000
+const getCarouselInterval = () => {
+  const queryInterval = route.query.interval
+  if (queryInterval && !isNaN(queryInterval)) {
+    const parsed = parseInt(queryInterval, 10)
+    if (parsed > 0) return parsed
+  }
+  return 7000
+}
+
+const carouselInterval = ref(getCarouselInterval())
+
+// Read info-size from query param (xs | sm | md | lg), default to md
+const getInfoSize = () => {
+  const validSizes = ['xs', 'sm', 'md', 'lg']
+  const querySize = route.query['info-size']
+  if (querySize && validSizes.includes(querySize)) {
+    return querySize
+  }
+  return 'md'
+}
+
+const infoSize = ref(getInfoSize())
 
 const isFullDisplayRequested = () => route.query.display === 'full'
 

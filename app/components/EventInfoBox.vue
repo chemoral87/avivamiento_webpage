@@ -1,28 +1,54 @@
 <template>
-  <div class="event-info-box">
-  
+  <div
+    class="event-info-box"
+    :style="{
+      padding: sizeStyles.padding,
+      borderRadius: sizeStyles.borderRadius,
+      gap: sizeStyles.gap,
+      width: sizeStyles.width
+    }"
+  >
+    <h2
+      class="event-name"
+      :style="{ fontSize: sizeStyles.nameSize }"
+    >
+      {{ event.name }}
+    </h2>
 
-    <h2 class="event-name">{{ event.name }}</h2>
-    <p v-if="event.description" class="event-desc">{{ event.description }}</p>
-      <div class="info-top-row">
+    <p
+      v-if="event.description"
+      class="event-desc"
+      :style="{ fontSize: sizeStyles.descSize }"
+    >
+      {{ event.description }}
+    </p>
+
+    <div class="info-top-row">
       <div v-if="formattedDateDisplay" class="dates-container">
-        <span class="date-text">{{ formattedDateDisplay }}</span>
+        <span
+          class="date-text"
+          :style="{ fontSize: sizeStyles.dateSize }"
+        >
+          {{ formattedDateDisplay }}
+        </span>
       </div>
     </div>
 
-
-    <div class="meta-row">
-      <span v-if="event.time_start" class="meta-item">
-        <v-icon size="17" color="rgba(255,255,255,0.7)">mdi-clock-outline</v-icon>
+    <div
+      class="meta-row"
+      :style="{ gap: sizeStyles.gap }"
+    >
+      <span v-if="event.time_start" class="meta-item" :style="{ fontSize: sizeStyles.metaSize }">
+        <v-icon :size="sizeStyles.iconSize" color="rgba(255,255,255,0.7)">mdi-clock-outline</v-icon>
         {{ formatEventTime(event.time_start) }}
       </span>
-      <span v-if="event.location" class="meta-item">
-        <v-icon size="17" color="rgba(255,255,255,0.7)">mdi-map-marker-outline</v-icon>
+      <span v-if="event.location" class="meta-item" :style="{ fontSize: sizeStyles.metaSize }">
+        <v-icon :size="sizeStyles.iconSize" color="rgba(255,255,255,0.7)">mdi-map-marker-outline</v-icon>
         {{ event.location }}
       </span>
       <v-chip
         v-if="event.classification"
-        size="x-small"
+        :size="sizeStyles.chipSize"
         :color="classificationColor(event.classification)"
         variant="flat"
         class="text-white font-weight-bold chip-label"
@@ -47,6 +73,11 @@ const props = defineProps({
   event: {
     type: Object,
     required: true
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['xs', 'sm', 'md', 'lg'].includes(value)
   }
 })
 
@@ -59,6 +90,60 @@ const eventDates = computed(() => {
     return [formatEventDate(props.event.event_date)]
   }
   return []
+})
+
+const sizeStyles = computed(() => {
+  const sizes = {
+    xs: {
+      padding: '10px 14px',
+      borderRadius: '10px',
+      nameSize: '1.05rem',
+      descSize: '0.8rem',
+      metaSize: '0.8rem',
+      dateSize: '0.78rem',
+      chipSize: 'x-small',
+      iconSize: 13,
+      gap: '6px',
+      width: '55%'
+    },
+    sm: {
+      padding: '14px 18px',
+      borderRadius: '13px',
+      nameSize: '1.3rem',
+      descSize: '0.9rem',
+      metaSize: '0.9rem',
+      dateSize: '0.88rem',
+      chipSize: 'x-small',
+      iconSize: 15,
+      gap: '8px',
+      width: '68%'
+    },
+    md: {
+      padding: '18px 22px',
+      borderRadius: '16px',
+      nameSize: '1.6rem',
+      descSize: '1.05rem',
+      metaSize: '1rem',
+      dateSize: '1rem',
+      chipSize: 'x-small',
+      iconSize: 17,
+      gap: '12px',
+      width: '82%'
+    },
+    lg: {
+      padding: '24px 28px',
+      borderRadius: '20px',
+      nameSize: '2rem',
+      descSize: '1.25rem',
+      metaSize: '1.15rem',
+      dateSize: '1.1rem',
+      chipSize: 'small',
+      iconSize: 20,
+      gap: '16px',
+      width: '100%'
+    }
+  }
+  return sizes[props.size] || sizes.md
 })
 
 const formattedDateDisplay = computed(() => {
@@ -124,8 +209,6 @@ const formattedDateDisplay = computed(() => {
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 18px 22px;
 }
 
 .info-top-row {
@@ -143,7 +226,6 @@ const formattedDateDisplay = computed(() => {
 }
 
 .date-text {
-  font-size: 1rem;
   color: rgba(255, 255, 255, 0.55);
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -158,7 +240,6 @@ const formattedDateDisplay = computed(() => {
 }
 
 .event-name {
-  font-size: 1.6rem;
   font-weight: 700;
   color: #ffffff;
   margin: 0 0 6px 0;
@@ -170,7 +251,6 @@ const formattedDateDisplay = computed(() => {
 }
 
 .event-desc {
-  font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0 10px 0;
   line-height: 1.4;
@@ -184,14 +264,12 @@ const formattedDateDisplay = computed(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
 }
 </style>

@@ -24,7 +24,7 @@
     <!-- Floating event info box — cycles between corners so it doesn't
          permanently cover the same part of the image/poster -->
     <div class="info-box-anchor" :class="infoBoxPosition">
-      <EventInfoBox :event="event" />
+      <EventInfoBox :event="event" :size="infoSize" />
     </div>
   </div>
 </template>
@@ -42,6 +42,11 @@ const props = defineProps({
   infoBoxPosition: {
     type: String,
     default: 'left-bottom' // 'left-bottom' | 'right-top'
+  },
+  infoSize: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['xs', 'sm', 'md', 'lg'].includes(value)
   }
 })
 
@@ -121,6 +126,8 @@ const emit = defineEmits(['click'])
   left: 15px;
   right: unset;
   transform: translateY(-100%);
+  display: flex;
+  justify-content: flex-start;
 }
 
 .info-box-anchor.right-top {
@@ -128,5 +135,7 @@ const emit = defineEmits(['click'])
   right: 15px;
   left: unset;
   transform: translateY(0);
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
