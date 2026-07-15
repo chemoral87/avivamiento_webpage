@@ -153,7 +153,9 @@ const formattedDateDisplay = computed(() => {
   
   // Parse and group dates by month/year
   const dateObjects = dates.map(dateStr => {
-    const d = new Date(dateStr)
+    const [year, month, day] = dateStr.split('-').map(Number)
+    // Use local timezone constructor to avoid UTC-to-local date shift
+    const d = new Date(year, month - 1, day)
     return {
       date: d,
       day: d.getDate(),

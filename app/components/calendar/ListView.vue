@@ -70,7 +70,7 @@
             :text="event.description"
             :date="formatEventDate(event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date)"
             :time="event.time_start ? formatEventTime(event.time_start) : ''"
-            :url="`https://avivamientomonterrey.com/calendar/${event.slug_name}`"
+            :url="`/calendar/${event.slug_name}`"
           />
         </v-card-text>
       </v-card>

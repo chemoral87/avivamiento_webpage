@@ -24,8 +24,14 @@ const props = defineProps({
   text: { type: String, default: '' },
   date: { type: String, default: '' },
   time: { type: String, default: '' },
-  url: { type: String, default: 'https://avivamientomonterrey.com/calendar' },
+  url: { type: String, default: '/calendar' },
 })
+
+const resolveUrl = () => {
+  // Only accessed inside click handlers (100% client-side), so window is safe
+  if (props.url.startsWith('http')) return props.url
+  return `${window.location.origin}${props.url}`
+}
 
 const buildMessage = () => {
   const parts = [props.title]
@@ -36,7 +42,7 @@ const buildMessage = () => {
 }
 
 const shareOnWhatsApp = () => {
-  const url = encodeURIComponent(props.url)
+  const url = encodeURIComponent(resolveUrl())
   const text = encodeURIComponent(`${buildMessage()}\nMás información:`)
   const shareUrl = `https://wa.me/?text=${text}%20${url}`
 
@@ -65,11 +71,11 @@ const shareOnFacebook = () => {
   // to directly. Use the native share sheet on iOS instead, which lets the
   // user pick Facebook (or anything else) without the broken redirect.
   if (isIOS() && navigator.share) {
-    navigator.share({ title: props.title, text: buildMessage(), url: props.url }).catch(() => {})
+    navigator.share({ title: props.title, text: buildMessage(), url: resolveUrl() }).catch(() => {})
     return
   }
 
-  const url = encodeURIComponent(props.url)
+  const url = encodeURIComponent(resolveUrl())
   const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
 
   if (isMobile()) {
@@ -83,10 +89,10 @@ const shareOnFacebook = () => {
 
 const shareGeneric = () => {
   if (navigator.share) {
-    navigator.share({ title: props.title, text: buildMessage(), url: props.url })
+    navigator.share({ title: props.title, text: buildMessage(), url: resolveUrl() })
       .catch(() => {})
   } else {
-    navigator.clipboard.writeText(`${buildMessage()}\n\n${props.url}`)
+    navigator.clipboard.writeText(`${buildMessage()}\n\n${resolveUrl()}`)
       .then(() => alert('¡Enlace copiado al portapapeles!'))
   }
 }
