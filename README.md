@@ -32,7 +32,7 @@ nvm use
 
 ## 🔧 Instalación
 
-```bash
+```bash s
 # Instalar dependencias
 npm install
 
