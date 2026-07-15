@@ -20,7 +20,7 @@ export const fetchPublicTestimonies = async ({ page = 1, perPage = 25, orgId, ap
       }
     }
   } catch (err) {
-    // fallback: try the /testimony?org_id= route
+
   }
 
   return { pagination: {}, testimonies: [], page: page || 1 }
