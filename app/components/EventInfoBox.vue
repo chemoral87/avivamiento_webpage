@@ -146,46 +146,45 @@ const sizeStyles = computed(() => {
   return sizes[props.size] || sizes.md
 })
 
+// Full weekday names (matches JS Date#getDay() indexing)
+const weekdayNamesFull = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+
+const monthNamesLong = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+]
+
 const formattedDateDisplay = computed(() => {
   const dates = props.event.event_dates?.length ? props.event.event_dates : (props.event.event_date ? [props.event.event_date] : [])
   
   if (!dates.length) return ''
   
-  // Parse and group dates by month/year
+  // Parse date strings into their numeric components (no Date object, no timezone)
   const dateObjects = dates.map(dateStr => {
     const [year, month, day] = dateStr.split('-').map(Number)
-    // Use local timezone constructor to avoid UTC-to-local date shift
-    const d = new Date(year, month - 1, day)
-    return {
-      date: d,
-      day: d.getDate(),
-      month: d.getMonth(),
-      year: d.getFullYear(),
-      monthYear: `${d.getMonth()}-${d.getFullYear()}`
-    }
-  }).sort((a, b) => a.date - b.date)
+    return { year, month, day }
+  }).sort((a, b) => a.year - b.year || a.month - b.month || a.day - b.day)
+  
+  // Build a month-year key for grouping
+  const toMonthYearKey = (d) => `${d.month}-${d.year}`
   
   // Group by month/year
   const dateGroups = {}
   dateObjects.forEach(d => {
-    if (!dateGroups[d.monthYear]) {
-      dateGroups[d.monthYear] = []
-    }
-    dateGroups[d.monthYear].push(d)
+    const key = toMonthYearKey(d)
+    if (!dateGroups[key]) dateGroups[key] = []
+    dateGroups[key].push(d)
   })
   
   // Format each group
-  const monthYearFormatter = new Intl.DateTimeFormat('es-MX', { month: 'long', year: 'numeric' })
-  const dayDayFormatter = new Intl.DateTimeFormat('es-MX', { weekday: 'long', day: 'numeric' })
-  
-  const groupStrings = Object.entries(dateGroups).map(([monthYear, datesInMonth]) => {
-    // Format each date with day of week
+  const groupStrings = Object.entries(dateGroups).map(([key, datesInMonth]) => {
+    // Get day-of-week from the date's numeric parts (no timezone involved)
     const formattedDates = datesInMonth.map(d => {
-      const dayOfWeek = dayDayFormatter.format(d.date)
-      return dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1) // Capitalize first letter
+      const weekday = weekdayNamesFull[new Date(d.year, d.month - 1, d.day).getDay()]
+      return `${weekday} ${d.day}`
     })
     
-    const monthYearStr = monthYearFormatter.format(datesInMonth[0].date)
+    const monthYearStr = `${monthNamesLong[datesInMonth[0].month - 1]} ${datesInMonth[0].year}`
     
     // Join dates with commas and 'y' before the last one
     let datesStr
