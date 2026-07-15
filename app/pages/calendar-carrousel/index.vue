@@ -99,7 +99,7 @@ const getInitialDays = () => {
     const parsed = parseInt(queryDays, 10)
     if (parsed > 0) return parsed
   }
-  return 15
+  return 31
 }
 
 const days = ref(getInitialDays())
