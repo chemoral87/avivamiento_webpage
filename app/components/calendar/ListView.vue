@@ -1,6 +1,6 @@
 <template>
   <!-- Empty state -->
-  <v-row id="list-view-empty" v-if="!filteredEvents.length" justify="center" dense>
+  <v-row id="list-view-empty" v-if="fetched && !filteredEvents.length" justify="center" dense>
     <v-col cols="12" md="8" class="text-center py-4">
       <v-icon size="48" color="#ccc" class="mb-0">mdi-magnify</v-icon>
       <p class="text-body-1" style="color: #666;">
@@ -91,15 +91,20 @@ const props = defineProps({
   calYear:  { type: Number, default: () => new Date().getFullYear() },
   calMonth: { type: Number, default: () => new Date().getMonth() },
   isSearch: { type: Boolean, default: false },
+  loading:  { type: Boolean, default: false },
+  fetched:  { type: Boolean, default: false },
 })
 
 const filteredEvents = computed(() => {
   if (props.isSearch) return props.events
+  const today = new Date()
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
   return props.events.filter(event => {
     const raw = event.event_date ?? event.end_date ?? event.start_date ?? event.publish_date
     if (!raw) return false
-    const [year, month] = String(raw).slice(0, 10).split('-').map(Number)
-    return year === props.calYear && (month - 1) === props.calMonth
+    const dateStr = String(raw).slice(0, 10)
+    const [year, month] = dateStr.split('-').map(Number)
+    return year === props.calYear && (month - 1) === props.calMonth && dateStr >= todayStr
   })
 })
 

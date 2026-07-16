@@ -97,6 +97,8 @@
             :events="events"
             :cal-year="calYear"
             :cal-month="calMonth"
+            :loading="loadingEvents"
+            :fetched="fetchedEvents"
           />
 
           <CalendarListView
@@ -105,6 +107,8 @@
             :cal-year="calYear"
             :cal-month="calMonth"
             :is-search="true"
+            :loading="loadingEvents"
+            :fetched="fetchedEvents"
           />
 
         </template>
@@ -114,7 +118,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { fetchPublicEvents, fetchSearchEvents } from '~/utils/calendarApi'
 
 const route       = useRoute()
@@ -124,16 +128,30 @@ const viewMode    = ref(route.query.view || 'list')
 const runtimeConfig = useRuntimeConfig()
 const WEEK_STARTS_ON_MONDAY = true
 
-const events        = ref([])
-const loadingEvents = ref(false)
-const searchQuery   = ref('')
-const searchResults = ref([])
-
 // ── Calendar nav state ────────────────────────────────────────────────────
 const today    = new Date()
 const calYear  = ref(Number(route.query.year || today.getFullYear()))
 const calMonth = ref(Number(route.query.month !== undefined ? route.query.month : today.getMonth()))
 
+// ── SSR-safe initial fetch via useAsyncData ───────────────────────────────
+// Runs on the server during SSR so events are in the initial HTML.
+const { data: asyncEvents, pending, refresh } = await useAsyncData(
+  'calendar-events',
+  () => fetchPublicEvents({
+    calYear:  calYear.value,
+    calMonth: calMonth.value,
+    orgId:    runtimeConfig.public.ORG_ID,
+    apiUrl:   runtimeConfig.public.API_URL,
+  }),
+  { lazy: false }
+)
+
+const events        = computed(() => asyncEvents.value ?? [])
+const loadingEvents = pending
+const fetchedEvents = computed(() => !pending.value)
+
+const searchQuery   = ref('')
+const searchResults = ref([])
 
 // ── Native debounce ──────────────────────────────────────────────────────
 const debounce = (fn, delay) => {
@@ -141,22 +159,6 @@ const debounce = (fn, delay) => {
   return (...args) => {
     clearTimeout(timer)
     timer = setTimeout(() => fn(...args), delay)
-  }
-}
-
-const _fetchPublicEvents = async () => {
-  loadingEvents.value = true
-  try {
-    events.value = await fetchPublicEvents({
-      calYear:  calYear.value,
-      calMonth: calMonth.value,
-      orgId:    runtimeConfig.public.ORG_ID,
-      apiUrl:   runtimeConfig.public.API_URL,
-    })
-  } catch (err) {
-    console.error('Error fetching events:', err)
-  } finally {
-    loadingEvents.value = false
   }
 }
 
@@ -201,12 +203,16 @@ const nextMonth = () => {
 
 const switchToList = () => {
   viewMode.value = 'list'
-  if (!events.value.length) _fetchPublicEvents()
 }
 
 const switchToSearch = () => {
   viewMode.value = 'search'
 }
+
+// Re-fetch when month/year changes
+watch([calYear, calMonth], () => {
+  refresh()
+})
 
 // Sync state to route query
 watch([viewMode, calYear, calMonth], ([newView, newYear, newMonth]) => {
@@ -246,15 +252,6 @@ watch(
   },
   { deep: true }
 )
-
-// Fetch events when date parameters change
-watch([calYear, calMonth], () => {
-  _fetchPublicEvents()
-})
-
-onMounted(() => {
-  _fetchPublicEvents()
-})
 
 // ── Nav ───────────────────────────────────────────────────────────────────
 const menuItems = [

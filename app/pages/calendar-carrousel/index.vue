@@ -68,7 +68,7 @@
           :is-widescreen="isWidescreen" 
           :interval="carouselInterval"
           :info-size="infoSize"
-          @click-event="goToEvent" 
+
         />
       </div>
     </v-main>
