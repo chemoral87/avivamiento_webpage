@@ -23,7 +23,7 @@
 
     <!-- Floating event info box — cycles between corners so it doesn't
          permanently cover the same part of the image/poster -->
-    <div class="info-box-anchor" :class="infoBoxPosition">
+    <div v-if="infoSize !== 'no'" class="info-box-anchor" :class="infoBoxPosition">
       <EventInfoBox :event="event" :size="infoSize" />
     </div>
   </div>
@@ -46,7 +46,7 @@ const props = defineProps({
   infoSize: {
     type: String,
     default: 'md',
-    validator: (value) => ['xs', 'sm', 'md', 'lg'].includes(value)
+    validator: (value) => ['xs', 'sm', 'md', 'lg', 'no'].includes(value)
   }
 })
 

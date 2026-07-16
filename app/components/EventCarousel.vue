@@ -43,7 +43,7 @@ const props = defineProps({
   infoSize: {
     type: String,
     default: 'md',
-    validator: (value) => ['xs', 'sm', 'md', 'lg'].includes(value)
+    validator: (value) => ['xs', 'sm', 'md', 'lg', 'no'].includes(value)
   }
 })
 

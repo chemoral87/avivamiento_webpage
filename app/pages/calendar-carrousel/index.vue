@@ -118,7 +118,7 @@ const carouselInterval = ref(getCarouselInterval())
 
 // Read info-size from query param (xs | sm | md | lg), default to md
 const getInfoSize = () => {
-  const validSizes = ['xs', 'sm', 'md', 'lg']
+  const validSizes = ['xs', 'sm', 'md', 'lg', 'no']
   const querySize = route.query['info-size']
   if (querySize && validSizes.includes(querySize)) {
     return querySize
