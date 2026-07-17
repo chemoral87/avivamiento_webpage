@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -36,13 +36,22 @@ if [ ! -f "$TARBALL" ]; then
 fi
 
 mkdir -p "$RELEASES_DIR"
-mkdir -p "$RELEASE_PATH"
+
+if [ -e "$RELEASE_PATH" ]; then
+  error_exit "Release path already exists: $RELEASE_PATH"
+fi
+
+mkdir "$RELEASE_PATH"
 
 # Extract release tarball into release folder
 echo -e "${YELLOW}📦 Extracting release tarball...${NC}"
 tar -xzf "$TARBALL" -C "$RELEASE_PATH" || error_exit "Tar extraction failed"
 
 cd "$RELEASE_PATH" || error_exit "Cannot enter release directory"
+
+if [ ! -f ecosystem.config.cjs ] || [ ! -f .output/server/index.mjs ]; then
+  error_exit "Release archive must contain ecosystem.config.cjs and .output/server/index.mjs"
+fi
 
 if [ -f "$APP_DIR/.env.production" ]; then
   echo -e "${YELLOW}📄 Copying .env.production file...${NC}"
@@ -55,9 +64,10 @@ fi
 echo -e "${YELLOW}🔗 Updating current symlink...${NC}"
 ln -sfn "$RELEASE_PATH" "$CURRENT_LINK" || error_exit "Symlink update failed"
 
-# Restart app with pm2 using ecosystem config (graceful, zero-downtime)
+# Recreate the PM2 process so it runs from the new release directory.
 echo -e "${YELLOW}🔄 Restarting app...${NC}"
-pm2 startOrRestart "$CURRENT_LINK/ecosystem.config.cjs" --update-env || error_exit "pm2 restart failed"
+pm2 delete avivamiento || true
+pm2 start "$CURRENT_LINK/ecosystem.config.cjs" --update-env || error_exit "pm2 start failed"
 pm2 save
 
 # Reload nginx so it follows the new symlink for static files

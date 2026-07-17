@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -26,7 +26,7 @@ error_exit() {
 }
 
 # List releases if no argument given
-if [ -z "$1" ]; then
+if [ -z "${1:-}" ]; then
   echo -e "${YELLOW}📋 Available releases:${NC}"
   ls -1t "$RELEASES_DIR"
   echo -e "${YELLOW}=== Current release ===${NC}"
@@ -46,18 +46,19 @@ fi
 
 echo -e "${YELLOW}⏪ Rolling back to: $RELEASE_NAME${NC}"
 
-if [ -f "$APP_DIR/.env" ]; then
-  echo -e "${YELLOW}📄 Copying .env file...${NC}"
-  cp -f "$APP_DIR/.env" "$RELEASE_PATH/.env" || error_exit "Failed to copy .env"
+if [ -f "$APP_DIR/.env.production" ]; then
+  echo -e "${YELLOW}📄 Copying .env.production file...${NC}"
+  cp -f "$APP_DIR/.env.production" "$RELEASE_PATH/.env.production" || error_exit "Failed to copy .env.production"
 else
-  echo -e "${YELLOW}⚠️ No .env file found at $APP_DIR/.env${NC}"
+  echo -e "${YELLOW}⚠️ No .env.production file found at $APP_DIR/.env.production${NC}"
 fi
 
 # Update symlink atomically (zero downtime)
 ln -sfn "$RELEASE_PATH" "$CURRENT_LINK" || error_exit "Symlink update failed"
 
 # Restart app using ecosystem config
-pm2 startOrRestart "$CURRENT_LINK/ecosystem.config.cjs" --update-env || error_exit "pm2 restart failed"
+pm2 delete avivamiento || true
+pm2 start "$CURRENT_LINK/ecosystem.config.cjs" --update-env || error_exit "pm2 start failed"
 pm2 save
 
 # Reload nginx so it follows the rollback symlink for static files

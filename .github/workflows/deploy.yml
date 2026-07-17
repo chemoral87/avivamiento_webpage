@@ -11,6 +11,12 @@ on:
         required: false
         default: ''
 
+# Queue deployments for a branch. A second run must not overwrite the tarball
+# while the previous run is extracting it on the VPS.
+concurrency:
+  group: deploy-avivamiento-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -34,10 +40,12 @@ jobs:
 
       - name: Package release tarball
         run: |
+          test -f .output/server/index.mjs
           tar -czf release.tar.gz \
             .output \
             ecosystem.config.cjs \
             package.json
+          tar -tzf release.tar.gz > /dev/null
 
       - name: Upload tarball to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -77,6 +85,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
+          command_timeout: 10m
           script: |
             if [ "${{ github.event.inputs.rollback_release }}" != "" ]; then
               bash /var/www/avivamiento_webpage/scripts/rollback_release.sh "${{ github.event.inputs.rollback_release }}"
