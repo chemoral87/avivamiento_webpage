@@ -38,7 +38,7 @@ jobs:
           PORT=${{ secrets.VPS_PORT }}
           PORT=${PORT:-22}
           ssh-keyscan -p $PORT -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-          scp -P $PORT -i ~/.ssh/id_rsa ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/avivamiento_webpage/.env.production .env.production
+          scp -P $PORT -i ~/.ssh/id_rsa ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/avivamiento_webpage/.env.production .env
 
       - name: Install dependencies
         run: npm ci
