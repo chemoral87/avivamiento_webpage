@@ -30,6 +30,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Fetch .env.production from VPS
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          PORT=${{ secrets.VPS_PORT }}
+          PORT=${PORT:-22}
+          ssh-keyscan -p $PORT -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          scp -P $PORT -i ~/.ssh/id_rsa ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/avivamiento_webpage/.env.production .env.production
+
       - name: Install dependencies
         run: npm ci
 
