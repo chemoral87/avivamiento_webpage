@@ -176,4 +176,4 @@ npm run dev -- --port 3001
 
 ---
 
-**Desarrollado con ❤️ para la Iglesia Avivamiento Monterrey**
+**Desarrollado con ❤️ para la Iglesia Avivamiento Monterrey **
