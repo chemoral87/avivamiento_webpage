@@ -40,16 +40,16 @@
         }"
       >
         <!-- Pastores Section -->
-        <v-container fluid class="py-0">
+        <v-container fluid class="py-0 reveal-group" v-intersect="(v) => v && (pastorsVisible = true)" :class="{ 'is-visible': pastorsVisible }">
           <v-row>
             <v-col cols="12" class="text-center mb-1">
-              <p class="section-overline">LIDERAZGO</p>
-              <h2 class="section-title">Nuestros Pastores</h2>
+              <p class="section-overline fade-up stagger-1">LIDERAZGO</p>
+              <h2 class="section-title fade-up stagger-2">Nuestros Pastores</h2>
             </v-col>
           </v-row>
           
           <v-row justify="center" id="pastors">
-            <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
+            <v-col cols="12" sm="5" md="5" class="d-flex align-stretch fade-up stagger-3">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
                   <v-img
@@ -72,7 +72,7 @@
               </v-card>
             </v-col>
             
-            <v-col cols="12" sm="5" md="5" class="d-flex align-stretch">
+            <v-col cols="12" sm="5" md="5" class="d-flex align-stretch fade-up stagger-4">
               <v-card elevation="0" class="pastor-card">
                 <v-avatar size="180" class="mb-2">
                   <v-img
@@ -98,16 +98,16 @@
 
         <!-- Horarios Section -->
         <v-container fluid id="horarios" class="py-4">
-          <v-container>
+          <v-container class="reveal-group" v-intersect="(v) => v && (schedulesVisible = true)" :class="{ 'is-visible': schedulesVisible }">
             <v-row>
               <v-col cols="12" class="text-center">
-                <p class="section-overline">REUNIONES</p>
-                <h2 class="section-title">Horarios de Servicio</h2>
+                <p class="section-overline fade-up stagger-1">REUNIONES</p>
+                <h2 class="section-title fade-up stagger-2">Horarios de Servicio</h2>
               </v-col>
             </v-row>
             
             <v-row justify="center">
-              <v-col cols="12" sm="6" md="6">
+              <v-col cols="12" sm="6" md="6" class="fade-up stagger-3">
                 <v-card class="schedule-card" elevation="0">
                   <h3 class="schedule-day">Domingo</h3>
                   <p class="schedule-time">Primera reunión: 9:45 AM</p>
@@ -116,7 +116,7 @@
                 </v-card>
               </v-col>
               
-              <v-col cols="12" sm="6" md="6">
+              <v-col cols="12" sm="6" md="6" class="fade-up stagger-4">
                 <v-card class="schedule-card" elevation="0">
                   <h3 class="schedule-day">Miércoles</h3>
                   <p class="schedule-time">Primera reunión: 8:00 PM</p>
@@ -130,7 +130,9 @@
       <!-- Ubicación Section -->
       <v-container 
         id="ubicacion" 
-        class="py-4 ubicacion-bg"
+        class="py-4 ubicacion-bg reveal-group"
+        :class="{ 'is-visible': locationVisible }"
+        v-intersect="(v) => v && (locationVisible = true)"
         :style="{
           backgroundColor: '#f0f7f5',
           backgroundSize: mobile ? '120% auto' : '100% auto',
@@ -138,13 +140,13 @@
       >
         <v-row>
           <v-col cols="12" class="text-center">
-            <p class="section-overline">ENCÚENTRANOS</p>
-            <h2 class="section-title">Ubicación</h2>
+            <p class="section-overline fade-up stagger-1">ENCÚENTRANOS</p>
+            <h2 class="section-title fade-up stagger-2">Ubicación</h2>
           </v-col>
         </v-row>
         
         <v-row>
-          <v-col cols="12" sm="5" md="5">
+          <v-col cols="12" sm="5" md="5" class="fade-up stagger-3">
             <div class="pa-4">
               <h3 class="location-title">Iglesia Avivamiento Monterrey</h3>
               
@@ -203,7 +205,7 @@
             </div>
           </v-col>
           
-          <v-col cols="11" sm="6" md="6">
+          <v-col cols="11" sm="6" md="6" class="fade-up stagger-4">
             <v-card elevation="0" height="65%" class="map-card">
               <iframe
   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d898.4396237!2d-100.26967182250972!3d25.746658632809236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662eb6f3a8a27ad%3A0xccd96829e38e7212!2sAVIVAMIENTO%20MONTERREY!5e0!3m2!1ses!2smx!4v1763651018410!5m2!1ses!2smx&z=14"
@@ -222,7 +224,9 @@
 
       <!-- Contacto Section -->
       <div 
-        class="contacto-bg"
+        class="contacto-bg reveal-group"
+        :class="{ 'is-visible': ctaVisible }"
+        v-intersect="(v) => v && (ctaVisible = true)"
         :style="{
           backgroundColor: 'rgba(0, 0, 0, 0.2)',
           backgroundSize: contactoBgSize,
@@ -232,12 +236,12 @@
           <v-container>
             <v-row justify="center">
               <v-col cols="12" md="8" class="text-center">
-                <p class="cta-overline">BIENVENIDOS</p>
-                <h2 class="cta-title">Únete a Nuestra Comunidad</h2>
-                <p class="cta-subtitle">
+                <p class="cta-overline fade-up stagger-1">BIENVENIDOS</p>
+                <h2 class="cta-title fade-up stagger-2">Únete a Nuestra Comunidad</h2>
+                <p class="cta-subtitle fade-up stagger-3">
                   Te invitamos a ser parte de nuestra familia en Cristo
                 </p>
-                <div class="d-flex flex-wrap justify-center gap-4">
+                <div class="d-flex flex-wrap justify-center gap-4 fade-up stagger-4">
                   <v-btn
                     @click="scrollToSection('horarios')"
                     variant="outlined"
@@ -371,6 +375,7 @@ import { useDisplay } from 'vuetify'
 import { SOCIAL_MEDIA } from '~/constants/social-media'
 import packageJson from '../../../package.json'
 
+
 const appVersion = packageJson.version
 const drawer = ref(false)
 const scrolled = ref(false)
@@ -388,6 +393,11 @@ const menuItems = [
   { title: 'Horarios', onClick: () => scrollToSection('horarios') },
   { title: 'Ubicación', onClick: () => scrollToSection('ubicacion') },
 ]
+
+const pastorsVisible = ref(false)
+const schedulesVisible = ref(false)
+const locationVisible = ref(false)
+const ctaVisible = ref(false)
 
 // SEO Configuration
 useHead({
@@ -1035,4 +1045,23 @@ onUnmounted(() => {
     font-size: 2rem;
   }
 }
+
+/* Scroll Reveal Animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-group.is-visible .fade-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
 </style>
