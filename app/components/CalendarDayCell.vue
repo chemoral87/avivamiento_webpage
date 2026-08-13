@@ -4,8 +4,9 @@
     :class="{
       'big-cal-today': cell.isToday,
       'big-cal-other-month': cell.otherMonth,
-      'big-cal-has-events': cell.events && cell.events.length && !cell.otherMonth,
-      'big-cal-selected': selectedDayIso === cell.iso
+      'big-cal-has-events':
+        cell.events && cell.events.length && !cell.otherMonth,
+      'big-cal-selected': selectedDayIso === cell.iso,
     }"
     role="button"
     tabindex="0"
@@ -13,12 +14,23 @@
     @keydown.enter="emit('click-cell', cell)"
   >
     <div
-      class="big-cal-day-number"
+      class="big-cal-day-number d-none d-sm-inline-flex"
       :class="{
         'today-badge': cell.isToday,
         'font-weight-bold': !cell.otherMonth,
-        'text-caption': cell.otherMonth
+        'text-caption': cell.otherMonth,
       }"
+    >
+      {{ cell.day }}
+    </div>
+    <div
+      class="big-cal-day-number-mobile d-flex d-sm-none"
+      :class="{
+        'today-badge': cell.isToday,
+        'font-weight-bold': !cell.otherMonth,
+        'text-caption': cell.otherMonth,
+      }"
+      v-if="!(cell.events && cell.events.length)"
     >
       {{ cell.day }}
     </div>
@@ -40,12 +52,36 @@
           />
           <div class="event-pill-text">
             <span class="event-pill-name">{{ ev.name }}</span>
-            <span v-if="ev.time_start" class="event-pill-time">{{ formatEventTime(ev.time_start) }}</span>
+            <span v-if="ev.time_start" class="event-pill-time">{{
+              formatEventTime(ev.time_start)
+            }}</span>
           </div>
         </div>
       </div>
     </template>
-    <div v-if="cell.events && cell.events.length" class="event-dots d-flex d-sm-none">
+    <div
+      v-if="cell.events && cell.events.length"
+      class="event-thumb-mobile d-flex d-sm-none"
+      :class="{ 'event-thumb-mobile-multi': cell.events.length > 1 }"
+    >
+      <span
+        class="event-thumb-daynum"
+        :class="{ 'today-badge': cell.isToday }"
+        >{{ cell.day }}</span
+      >
+      <template v-for="ev in cell.events.slice(0, 4)" :key="ev.id">
+        <img
+          v-if="ev.url_image_s3"
+          :src="ev.url_image_s3"
+          alt=""
+          class="event-thumb-mobile-img"
+        />
+      </template>
+    </div>
+    <div
+      v-if="cell.events && cell.events.length"
+      class="event-dots d-flex d-sm-none"
+    >
       <span
         v-for="ev in cell.events"
         :key="ev.id"
@@ -57,21 +93,21 @@
 </template>
 
 <script setup>
-import { classificationColor } from '~/constants/classifications'
-import { formatEventTime } from '~/constants/dates'
+import { classificationColor } from "~/constants/classifications";
+import { formatEventTime } from "~/constants/dates";
 
 const props = defineProps({
   cell: {
     type: Object,
-    required: true
+    required: true,
   },
   selectedDayIso: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 
-const emit = defineEmits(['click-cell', 'click-event'])
+const emit = defineEmits(["click-cell", "click-event"]);
 </script>
 
 <style scoped>
@@ -172,11 +208,69 @@ const emit = defineEmits(['click-cell', 'click-event'])
   box-shadow: inset 0 0 0 2px #041845;
 }
 
+.big-cal-day-number-mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin-bottom: 2px;
+  font-size: 11px;
+  color: #444;
+}
+
+.event-thumb-mobile {
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-top: 0;
+  padding-left: 5px;
+}
+
+.event-thumb-daynum {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #041845;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-thumb-daynum.today-badge {
+  background: #041845;
+  box-shadow: 0 0 0 2px orange;
+}
+
+.event-thumb-mobile-img {
+  width: 100%;
+  max-width: 40px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.event-thumb-mobile-multi .event-thumb-mobile-img {
+  max-width: 20px;
+}
+
 .event-dots {
   gap: 3px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 2px;
+  margin-top: auto;
+  padding-top: 2px;
 }
 
 .event-dot {
@@ -188,11 +282,19 @@ const emit = defineEmits(['click-cell', 'click-event'])
 
 @media (max-width: 600px) {
   .big-cal-cell {
-    padding: 1px;
+    padding: 1px 2px 1px 9px;
     min-height: 0;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+  }
+  .big-cal-day-number,
+  .big-cal-day-number-mobile {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 1px;
   }
   .event-pill {
     font-size: 9px;

@@ -4,13 +4,19 @@
     <MobileNavDrawer v-model="drawer" :menu-items="menuItems" />
 
     <v-main class="bg-grey-lighten-4">
-      <v-container class="py-2">
-
+      <v-container class="pa-0">
         <!-- Page title -->
         <v-row justify="center" dense>
           <v-col cols="12" md="10" lg="8" class="text-center py-1">
-            <p class="text-overline my-0" style="color: #666; letter-spacing: 2px;">ACOMPAÑANOS</p>
-            <h1 class="text-h3 font-weight-light my-0" style="color: #041845;">Eventos</h1>
+            <p
+              class="text-overline my-0"
+              style="color: #666; letter-spacing: 2px"
+            >
+              ACOMPAÑANOS
+            </p>
+            <h1 class="text-h3 font-weight-light my-0" style="color: #041845">
+              Eventos
+            </h1>
           </v-col>
         </v-row>
 
@@ -72,7 +78,6 @@
         </v-row>
 
         <template v-else>
-
           <!-- Floating Month Selector for List View -->
           <CalendarMonthSelector
             v-if="viewMode === 'list'"
@@ -110,7 +115,6 @@
             :loading="loadingEvents"
             :fetched="fetchedEvents"
           />
-
         </template>
       </v-container>
     </v-main>
@@ -118,155 +122,185 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
-import { fetchPublicEvents, fetchSearchEvents } from '~/utils/calendarApi'
+import { ref, computed, watch } from "vue";
+import { fetchPublicEvents, fetchSearchEvents } from "~/utils/calendarApi";
 
-const route       = useRoute()
-const router      = useRouter()
-const drawer      = ref(false)
-const viewMode    = ref(route.query.view || 'list')
-const runtimeConfig = useRuntimeConfig()
-const WEEK_STARTS_ON_MONDAY = true
+const route = useRoute();
+const router = useRouter();
+const drawer = ref(false);
+const viewMode = ref(route.query.view || "list");
+const runtimeConfig = useRuntimeConfig();
+const WEEK_STARTS_ON_MONDAY = true;
 
 // ── Calendar nav state ────────────────────────────────────────────────────
-const today    = new Date()
-const calYear  = ref(Number(route.query.year || today.getFullYear()))
-const calMonth = ref(Number(route.query.month !== undefined ? route.query.month : today.getMonth()))
+const today = new Date();
+const calYear = ref(Number(route.query.year || today.getFullYear()));
+const calMonth = ref(
+  Number(
+    route.query.month !== undefined ? route.query.month : today.getMonth(),
+  ),
+);
 
 // ── SSR-safe initial fetch via useAsyncData ───────────────────────────────
 // Runs on the server during SSR so events are in the initial HTML.
-const { data: asyncEvents, pending, refresh } = await useAsyncData(
-  'calendar-events',
-  () => fetchPublicEvents({
-    calYear:  calYear.value,
-    calMonth: calMonth.value,
-    orgId:    runtimeConfig.public.ORG_ID,
-    apiUrl:   runtimeConfig.public.API_URL,
-  }),
-  { lazy: false }
-)
+const {
+  data: asyncEvents,
+  pending,
+  refresh,
+} = await useAsyncData(
+  "calendar-events",
+  () =>
+    fetchPublicEvents({
+      calYear: calYear.value,
+      calMonth: calMonth.value,
+      orgId: runtimeConfig.public.ORG_ID,
+      apiUrl: runtimeConfig.public.API_URL,
+    }),
+  { lazy: false },
+);
 
-const events        = computed(() => asyncEvents.value ?? [])
-const loadingEvents = pending
-const fetchedEvents = computed(() => !pending.value)
+const events = computed(() => asyncEvents.value ?? []);
+const loadingEvents = pending;
+const fetchedEvents = computed(() => !pending.value);
 
-const searchQuery   = ref('')
-const searchResults = ref([])
+const searchQuery = ref("");
+const searchResults = ref([]);
 
 // ── Native debounce ──────────────────────────────────────────────────────
 const debounce = (fn, delay) => {
-  let timer
+  let timer;
   return (...args) => {
-    clearTimeout(timer)
-    timer = setTimeout(() => fn(...args), delay)
-  }
-}
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+};
 
 const _fetchSearchEvents = async (query) => {
-  loadingEvents.value = true
+  loadingEvents.value = true;
   try {
     searchResults.value = await fetchSearchEvents({
       query,
-      orgId:  runtimeConfig.public.ORG_ID,
+      orgId: runtimeConfig.public.ORG_ID,
       apiUrl: runtimeConfig.public.API_URL,
-    })
+    });
   } catch (err) {
-    console.error('Error fetching search events:', err)
-    searchResults.value = []
+    console.error("Error fetching search events:", err);
+    searchResults.value = [];
   } finally {
-    loadingEvents.value = false
+    loadingEvents.value = false;
   }
-}
+};
 
 const debouncedSearch = debounce((query) => {
-  _fetchSearchEvents(query)
-}, 400)
+  _fetchSearchEvents(query);
+}, 400);
 
 const onSearchInput = () => {
-  debouncedSearch(searchQuery.value)
-}
+  debouncedSearch(searchQuery.value);
+};
 
 const onSearchClear = () => {
-  searchQuery.value = ''
-  searchResults.value = []
-}
+  searchQuery.value = "";
+  searchResults.value = [];
+};
 
 // ── Navigation ────────────────────────────────────────────────────────────
 const prevMonth = () => {
-  if (calMonth.value === 0) { calMonth.value = 11; calYear.value-- }
-  else calMonth.value--
-}
+  if (calMonth.value === 0) {
+    calMonth.value = 11;
+    calYear.value--;
+  } else calMonth.value--;
+};
 const nextMonth = () => {
-  if (calMonth.value === 11) { calMonth.value = 0; calYear.value++ }
-  else calMonth.value++
-}
+  if (calMonth.value === 11) {
+    calMonth.value = 0;
+    calYear.value++;
+  } else calMonth.value++;
+};
 
 const switchToList = () => {
-  viewMode.value = 'list'
-}
+  viewMode.value = "list";
+};
 
 const switchToSearch = () => {
-  viewMode.value = 'search'
-}
+  viewMode.value = "search";
+};
 
 // Re-fetch when month/year changes
 watch([calYear, calMonth], () => {
-  refresh()
-})
+  refresh();
+});
 
 // Sync state to route query
 watch([viewMode, calYear, calMonth], ([newView, newYear, newMonth]) => {
-  const queryView = route.query.view || 'list'
-  const queryYear = Number(route.query.year || today.getFullYear())
-  const queryMonth = Number(route.query.month !== undefined ? route.query.month : today.getMonth())
+  const queryView = route.query.view || "list";
+  const queryYear = Number(route.query.year || today.getFullYear());
+  const queryMonth = Number(
+    route.query.month !== undefined ? route.query.month : today.getMonth(),
+  );
 
-  if (newView !== queryView || newYear !== queryYear || newMonth !== queryMonth) {
+  if (
+    newView !== queryView ||
+    newYear !== queryYear ||
+    newMonth !== queryMonth
+  ) {
     router.replace({
       query: {
         ...route.query,
         view: newView,
         year: newYear.toString(),
-        month: newMonth.toString()
-      }
-    })
+        month: newMonth.toString(),
+      },
+    });
   }
-})
+});
 
 // Sync route query to state (e.g. browser navigation)
 watch(
   () => route.query,
   (newQuery) => {
-    const queryView = newQuery.view || 'list'
-    const queryYear = Number(newQuery.year || today.getFullYear())
-    const queryMonth = Number(newQuery.month !== undefined ? newQuery.month : today.getMonth())
+    const queryView = newQuery.view || "list";
+    const queryYear = Number(newQuery.year || today.getFullYear());
+    const queryMonth = Number(
+      newQuery.month !== undefined ? newQuery.month : today.getMonth(),
+    );
 
     if (viewMode.value !== queryView) {
-      viewMode.value = queryView
+      viewMode.value = queryView;
     }
     if (calYear.value !== queryYear) {
-      calYear.value = queryYear
+      calYear.value = queryYear;
     }
     if (calMonth.value !== queryMonth) {
-      calMonth.value = queryMonth
+      calMonth.value = queryMonth;
     }
   },
-  { deep: true }
-)
+  { deep: true },
+);
 
 // ── Nav ───────────────────────────────────────────────────────────────────
 const menuItems = [
-  { title: 'Inicio',      to: '/' },
-  { title: 'Testimonios', to: '/testimonios' },
-  { title: 'Ministerios', to: '/ministerios' },
-  { title: 'Horarios',    onClick: () => goToSection('/#horarios') },
-  { title: 'Ubicación',   onClick: () => goToSection('/#ubicacion') },
-]
-const goToSection = (path) => { drawer.value = false; router.push(path) }
+  { title: "Inicio", to: "/" },
+  { title: "Testimonios", to: "/testimonios" },
+  { title: "Ministerios", to: "/ministerios" },
+  { title: "Horarios", onClick: () => goToSection("/#horarios") },
+  { title: "Ubicación", onClick: () => goToSection("/#ubicacion") },
+];
+const goToSection = (path) => {
+  drawer.value = false;
+  router.push(path);
+};
 
 useHead({
-  title: 'Eventos | Iglesia Avivamiento Monterrey',
-  meta: [{ name: 'description', content: 'Descubre los próximos eventos y actividades especiales de la Iglesia Avivamiento Monterrey.' }]
-})
+  title: "Eventos | Iglesia Avivamiento Monterrey",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Descubre los próximos eventos y actividades especiales de la Iglesia Avivamiento Monterrey.",
+    },
+  ],
+});
 </script>
 
 <style scoped>
@@ -274,7 +308,6 @@ useHead({
   display: flex;
   justify-content: center;
   border-bottom: 2px solid #e0e0e0;
-
 }
 .view-toggle-btn {
   display: inline-flex;
@@ -290,9 +323,17 @@ useHead({
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
   letter-spacing: 0.3px;
 }
-.view-toggle-btn:hover  { color: #041845; }
-.view-toggle-btn.active { color: #041845; border-bottom: 2px solid #041845; font-weight: 600; }
+.view-toggle-btn:hover {
+  color: #041845;
+}
+.view-toggle-btn.active {
+  color: #041845;
+  border-bottom: 2px solid #041845;
+  font-weight: 600;
+}
 </style>

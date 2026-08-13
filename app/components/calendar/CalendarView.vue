@@ -269,7 +269,7 @@ const cells = computed(() => {
 }
 
 @media (max-width: 600px) {
-  .big-cal-grid    { grid-template-columns: repeat(7, 1fr); grid-template-rows: 20px; grid-auto-rows: 40px; border-left: 1px solid #ddd; border-top: 1px solid #ddd; }
+  .big-cal-grid    { grid-template-columns: repeat(7, 1fr); grid-template-rows: 20px; grid-auto-rows: minmax(40px, auto); border-left: 1px solid #ddd; border-top: 1px solid #ddd; }
   .big-cal-header  { padding: 0; line-height: 20px; height: 20px; font-size: 10px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   .big-cal-cell    { padding: 1px; min-height: 0; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   .big-cal-cell:nth-child(7n) { border-right: 1px solid #ddd; }
